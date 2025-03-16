@@ -2,7 +2,7 @@ import MainLayout from "@/layout/MainLayout";
 
 const App = () => {
   return (
-    <div style={{background: "linear-gradient(135deg, #0f0c29, #302b63, #24243e)",height:"1200px"}}>
+    <div className="h-dvh bg-[#212020]">
       <MainLayout />
     </div>
   );
