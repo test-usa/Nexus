@@ -1,7 +1,17 @@
+import EdgenuityBot from "@/components/home/EdgenuityBot";
+import FreeKeyCard from "@/components/home/FreeKeyCard";
+import { FrequentlyAsk } from "@/components/home/FrequentlyAsk";
+import Header from "@/components/home/Header";
+import Video from "@/components/home/Video";
+
 const Home = () => {
   return (
     <div className="min-h-screen">
-      <h1 className="text-white font-manrope font-semibold">Homes</h1>
+      <Header />
+      <Video />
+      <EdgenuityBot />
+      <FrequentlyAsk />
+      <FreeKeyCard />
     </div>
   );
 };
