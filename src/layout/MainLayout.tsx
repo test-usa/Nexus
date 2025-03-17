@@ -3,14 +3,15 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import CommonWrapper from "@/wrapper/CommonWrapper";
 
-
 const MainLayout = () => {
   return (
     <div>
       <CommonWrapper>
         <Navbar />
         <Outlet />
-        <Footer />
+        <div className="min-h-screen">
+          <Footer />
+        </div>
       </CommonWrapper>
     </div>
   );
