@@ -11,6 +11,10 @@
     "tailwind:build": "tailwindcss -c tailwind.config.ts -o src/output.css"
   },
   "dependencies": {
+    "@heroui/button": "^2.2.16",
+    "@heroui/react": "^2.7.5",
+    "@heroui/system": "^2.4.12",
+    "@heroui/theme": "^2.4.12",
     "@radix-ui/react-avatar": "^1.1.3",
     "@radix-ui/react-slot": "^1.1.2",
     "@tailwindcss/vite": "^4.0.14",
