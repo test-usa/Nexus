@@ -1,5 +1,6 @@
 import App from "@/pages/app";
 import Home from "@/pages/Home";
+import Purchase from "@/pages/Purchase";
 import SignIn from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
 import { createBrowserRouter } from "react-router-dom";
@@ -13,6 +14,10 @@ const routes = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "/purchase",
+        element: <Purchase />,
       },
     ],
   },
