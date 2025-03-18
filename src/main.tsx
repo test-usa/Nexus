@@ -5,14 +5,13 @@ import { RouterProvider } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import * as React from "react";
 import routes from "./routes/Routes";
-import { HeroUIProvider } from "@heroui/system";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 const queryClient = new QueryClient();
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <HeroUIProvider>
           <RouterProvider router={routes} />
-      </HeroUIProvider>
     </QueryClientProvider>
     <Toaster position="bottom-center" richColors />
   </React.StrictMode>

@@ -19,7 +19,7 @@ const Pricing = () => {
 
   console.log(pricingData, "pricing data 12");
   return (
-    <div className="font-montserrat">
+    <div className="font-montserrat my-16">
       <CommonWrapper>
         {/**** PRICING HEADING SECTION START ****/}
         <section className="space-y-5">
@@ -34,7 +34,7 @@ const Pricing = () => {
            
         </section>
         {/**** PRICING CARD SECTION START ****/}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-20">
           {/*** CARDS ***/}
           {pricingData?.map((price: PricingData) => {
             return (
