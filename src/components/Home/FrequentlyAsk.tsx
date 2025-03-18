@@ -9,7 +9,7 @@ export function FrequentlyAsk() {
   };
 
   return (
-    <div>
+    <div className="mt-10">
       <Title
         title="Frequently Asked Questions"
         subtitle="Get quick answers to the most common questions about Nexus."

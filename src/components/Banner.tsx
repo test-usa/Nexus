@@ -69,7 +69,7 @@ const Banner = () => {
             </div>
             {/**** BANNER CARD SECTION ****/}
             <div className="bg-slate-600/20 backdrop-blur-lg w-[35%] rounded-lg p-4 border border-transparent hover:border-gray-400 transform translate-all duration-200  hover:-rotate-z-2 -rotate-3 skew-y-3">
-            {/* hover:-rotate-z-2 -rotate-3 skew-y-3 */}
+              {/* hover:-rotate-z-2 -rotate-3 skew-y-3 */}
               <div className="flex items-center gap-x-2">
                 <img
                   src="https://framerusercontent.com/images/VpiZF9i56wEWOzd8opBM90AzSfA.png"
@@ -85,9 +85,7 @@ const Banner = () => {
                   </p>
                 </div>
               </div>
-              <div className="bg-gray-900">
-                
-              </div>
+              <div className="bg-gray-900"></div>
             </div>
           </div>
         </div>

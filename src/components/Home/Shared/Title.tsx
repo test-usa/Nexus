@@ -4,12 +4,12 @@ type TitleProps = {
 };
 const Title: React.FC<TitleProps> = ({ title, subtitle }) => {
   return (
-    <div className=" w-full text-white text-center py-8">
-      <h1 className="font-bold text-[24px] sm:text-[16px] md:text-[26px] lg:text-[32px] leading-tight tracking-[-1%]">
+    <div className=" w-full text-white text-center">
+      <h1 className="text-white text-[30px] sm:text-4xl text-center ">
         {title}
       </h1>
 
-      <p className=" text-gray-400 mt-2 text-sm sm:text-base md:text-lg">
+      <p className=" mt-5 w-5/6 sm:w-2/3 px-10 text-center text-sm sm:text-[16px] mx-auto text-gray-500">
         {subtitle}
       </p>
     </div>
