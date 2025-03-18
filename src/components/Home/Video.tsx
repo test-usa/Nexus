@@ -1,5 +1,5 @@
 import { useState } from "react";
-import video from "../../assets/video.png";
+import photo from "../../assets/photo1.jpg";
 
 const Video = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,14 +17,13 @@ const Video = () => {
       <div className="relative h-auto flex justify-center mb-10">
         <div className="relative">
           <img
-            src={video}
+            src={photo}
             alt="Course Thumbnail"
-            className="lg:max-w-[1320px] lg:max-h-[559px] object-cover border-4 border-solid border-gray-300 rounded-2xl"
+            className=" rounded-2xl border-4 border-gray-300 lg:max-w-[1620px] lg:max-h-[559px] object-cover  border-solid  "
           />
-
           <button
             onClick={handleOpenModal}
-            className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50 cursor-pointer"
+            className="absolute inset-0 flex justify-center items-center  bg-opacity-50 cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +41,7 @@ const Video = () => {
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50">
-          <div className="relative w-full max-w-4xl aspect-video bg-black rounded-2xl border-4 border-solid border-gray-300 overflow-hidden">
+          <div className="relative w-full max-w-4xl aspect-video bg-black  overflow-hidden">
             <iframe
               width="100%"
               height="100%"
@@ -51,12 +50,12 @@ const Video = () => {
               frameBorder="0"
               allow="autoplay; encrypted-media"
               allowFullScreen
-              className="rounded-2xl"
+              className="rounded-2xl border-4"
             ></iframe>
 
             <button
               onClick={handleCloseModal}
-              className="absolute top-2 right-2 bg-white text-black font-bold rounded-full px-2 py-2 hover:bg-gray-300"
+              className="absolute top-2 right-2 bg-white text-black font-bold rounded-full px-2 py-1 hover:bg-gray-300"
             >
               ✕
             </button>
