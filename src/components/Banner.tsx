@@ -3,7 +3,9 @@ import { CiSettings } from "react-icons/ci";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
-
+type BannerType = {
+  name: string;
+};
 const Banner = () => {
   const [service, setService] = useState([]);
   useEffect(() => {
@@ -133,7 +135,7 @@ const Banner = () => {
                   </button>
                 </div>
                 <div className="bg-gray-900 space-y-3 w-full p-2">
-                  {service?.map((item, index) => {
+                  {service?.map((item:BannerType, index) => {
                     return (
                       <div
                         key={index}
@@ -153,11 +155,15 @@ const Banner = () => {
           {/**** FOR MOBILE AND TABLE DEVICE ONLY ****/}
           <div className="slider-container cursor-pointer lg:hidden block mt-12">
             <Slider {...settings}>
-            {images.map((src, index) => (
-            <div key={index} className="p-2">
-              <img src={src} alt={`Nexus Slide ${index + 1}`} className="rounded-xl min-w-[290px] mx-auto h-[250px] shadow-lg" />
-            </div>
-          ))}
+              {images.map((src, index) => (
+                <div key={index} className="p-2">
+                  <img
+                    src={src}
+                    alt={`Nexus Slide ${index + 1}`}
+                    className="rounded-xl min-w-[290px] mx-auto h-[250px] shadow-lg"
+                  />
+                </div>
+              ))}
             </Slider>
           </div>
         </div>
