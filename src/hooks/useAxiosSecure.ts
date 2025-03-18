@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import UseAxiosInstance from "../useAxiosInstance";
-import Cookies from "js-cookie";
+import * as Cookies from "js-cookie";
+import useAxiosInstance from "./useAxiosInstance";
 const useAxiosSecure = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const token = Cookies.get("token");
     // REQUEST INTERCEPTORS
-    const requestInterceptor = UseAxiosInstance.interceptors.request.use(
+    const requestInterceptor = useAxiosInstance.interceptors.request.use(
       (config) => {
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
@@ -18,7 +18,7 @@ const useAxiosSecure = () => {
     );
 
     //RESPONSE INTERCEPTORS
-    const responseInterceptor = UseAxiosInstance.interceptors.response.use(
+    const responseInterceptor = useAxiosInstance.interceptors.response.use(
       (response) => response,
       async (error) => {
         console.log("response error ---> axisosSecure", error);
@@ -31,11 +31,11 @@ const useAxiosSecure = () => {
     );
 
     return () => {
-      UseAxiosInstance.interceptors.request.eject(requestInterceptor);
-      UseAxiosInstance.interceptors.response.eject(responseInterceptor);
+      useAxiosInstance.interceptors.request.eject(requestInterceptor);
+      useAxiosInstance.interceptors.response.eject(responseInterceptor);
     };
   }, []);
-  return UseAxiosInstance;
+  return useAxiosInstance;
 };
 
 export default useAxiosSecure;
