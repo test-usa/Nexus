@@ -3,7 +3,7 @@ import { CiSettings } from "react-icons/ci";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
-type BannerType = {
+type Banner = {
   name: string;
 };
 const Banner = () => {
@@ -104,8 +104,6 @@ const Banner = () => {
             </div>
             {/**** BANNER CARD SECTION ****/}
             <div className="absolute -top-8 right-6 bg-slate-800/10 backdrop-blur-lg w-[33%] rounded-lg p-4 border border-transparent group-hover:border-gray-400 transform translate-all duration-200  group-hover:-rotate-z-2  -skew-y-2">
-
-            <div className="bg-slate-600/20 backdrop-blur-lg w-[35%] rounded-lg p-4 border border-transparent hover:border-gray-400 transform translate-all duration-200  hover:-rotate-z-2 -rotate-3 skew-y-3">
               {/* hover:-rotate-z-2 -rotate-3 skew-y-3 */}
               <div className="flex items-center gap-x-2">
                 <img
@@ -135,7 +133,7 @@ const Banner = () => {
                   </button>
                 </div>
                 <div className="bg-gray-900 space-y-3 w-full p-2">
-                  {service?.map((item:BannerType, index) => {
+                  {service?.map((item: Banner, index) => {
                     return (
                       <div
                         key={index}
@@ -173,3 +171,4 @@ const Banner = () => {
 };
 
 export default Banner;
+
