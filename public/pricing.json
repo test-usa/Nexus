@@ -1,0 +1,51 @@
+[
+    {
+      "name": "Day Key",
+      "description": "Perfect for quick access and trying us out with minimal cost.",
+      "price": 2.50,
+      "currency": "USD",
+      "badge": "Most Affordable",
+      "buttonText": "Purchase Now"
+    },
+    {
+      "name": "Week Key",
+      "description": "Extend your access and save compared to Day Keys.",
+      "price": 10.00,
+      "currency": "USD",
+      "badge": "Trial Pack",
+      "buttonText": "Purchase Now"
+    },
+    {
+      "name": "Month Key",
+      "description": "Best for regular users who want to enjoy uninterrupted access.",
+      "price": 25.00,
+      "currency": "USD",
+      "badge": "Most Popular",
+      "buttonText": "Purchase Now"
+    },
+    {
+      "name": "3 Month Key",
+      "description": "Great for long-term projects or consistent use over months.",
+      "price": 50.00,
+      "currency": "USD",
+      "badge": "Semester Pack",
+      "buttonText": "Purchase Now"
+    },
+    {
+      "name": "Year Key",
+      "description": "Enjoy uninterrupted access and save more with an annual plan.",
+      "price": 100.00,
+      "currency": "USD",
+      "badge": "Best Value",
+      "buttonText": "Purchase Now"
+    },
+    {
+      "name": "Service Key",
+      "description": "Perfect for business needs or sharing access across users.",
+      "price": 120.00,
+      "currency": "USD",
+      "badge": "Bulk Savings",
+      "buttonText": "Learn More"
+    }
+  ]
+  
