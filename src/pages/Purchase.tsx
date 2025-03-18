@@ -1,8 +1,10 @@
+import Banner from "@/components/Banner";
 import Pricing from "@/components/Pricing";
 
 const Purchase = () => {
   return (
-    <div className="h-screen pt-10">
+    <div className="mt-10">
+      <Banner />
       <Pricing />
     </div>
   );

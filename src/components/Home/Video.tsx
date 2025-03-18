@@ -13,8 +13,8 @@ const Video = () => {
   };
 
   return (
-    <div>
-      <div className="relative h-auto flex justify-center mb-10">
+    <div className="mt-10">
+      <div className="relative h-auto flex justify-center ">
         <div className="relative">
           <img
             src={photo}

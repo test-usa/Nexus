@@ -11,9 +11,7 @@ createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <HeroUIProvider>
-        <main className="h-full bg-[#212020]">
           <RouterProvider router={routes} />
-        </main>
       </HeroUIProvider>
     </QueryClientProvider>
     <Toaster position="bottom-center" richColors />

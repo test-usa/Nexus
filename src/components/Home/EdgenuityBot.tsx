@@ -115,23 +115,23 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
   return (
     <div
       ref={cardRef}
-      className="bg-[#212020] text-white p-6 flex flex-col items-start space-y-3 hover:bg-gray-800 transition"
+      className="bg-[#212020] text-white p-6 flex flex-col items-start space-y-3 hover:bg-gray-500 transition"
     >
       <Icon className="w-8 h-8 text-blue-400" />
       <h3 className="text-xl font-semibold">{title}</h3>
-      <p className="text-gray-400 text-sm">{description}</p>
+      <p className="text-gray-300 text-sm">{description}</p>
     </div>
   );
 };
 
 const EdgenuityBot = () => {
   return (
-    <div>
+    <div className="mt-10 ">
       <Title
         title="Edgenuity Bot - Features"
         subtitle="We know that you're probably interested in all the features that Nexus has to offer to help "
       />
-      <div className="min-h-screen bg-[#212020] flex justify-center items-center">
+      <div className=" mt-5 min-h-screen bg-[#212020] flex justify-center items-center">
         <div className="max-w-6xl w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {features.slice(0, 8).map((feature, index) => (
             <FeatureCard key={index} {...feature} />

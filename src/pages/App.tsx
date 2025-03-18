@@ -2,7 +2,7 @@ import MainLayout from "@/layout/MainLayout";
 
 const App = () => {
   return (
-    <div>
+    <div className=" bg-[#212020]">
       <MainLayout />
     </div>
   );
