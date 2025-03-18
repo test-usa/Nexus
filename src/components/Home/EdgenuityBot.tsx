@@ -129,14 +129,14 @@ const EdgenuityBot = () => {
     <div>
       <Title
         title="Edgenuity Bot - Features"
-        subtitle="We know that you're probably interested in all the features that Nexus has to offer to help you complete your Edgenuity classes, so we listed them out for you."
+        subtitle="We know that you're probably interested in all the features that Nexus has to offer to help "
       />
       <div className="min-h-screen bg-[#212020] flex justify-center items-center">
-        <div className="max-w-6xl w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 ">
+        <div className="max-w-6xl w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {features.slice(0, 8).map((feature, index) => (
             <FeatureCard key={index} {...feature} />
           ))}
-          <div className="col-span-4 grid grid-cols-3 ">
+          <div className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {features.slice(8).map((feature, index) => (
               <FeatureCard key={index} {...feature} />
             ))}
