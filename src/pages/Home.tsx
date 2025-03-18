@@ -10,7 +10,6 @@ const Home = () => {
   return (
     <div>
       <CommonWrapper>
-        <Header />
         <Video />
         <EdgenuityBot />
         <CustomerReviews />
