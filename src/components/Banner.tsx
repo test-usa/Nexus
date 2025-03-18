@@ -102,6 +102,8 @@ const Banner = () => {
             </div>
             {/**** BANNER CARD SECTION ****/}
             <div className="absolute -top-8 right-6 bg-slate-800/10 backdrop-blur-lg w-[33%] rounded-lg p-4 border border-transparent group-hover:border-gray-400 transform translate-all duration-200  group-hover:-rotate-z-2  -skew-y-2">
+
+            <div className="bg-slate-600/20 backdrop-blur-lg w-[35%] rounded-lg p-4 border border-transparent hover:border-gray-400 transform translate-all duration-200  hover:-rotate-z-2 -rotate-3 skew-y-3">
               {/* hover:-rotate-z-2 -rotate-3 skew-y-3 */}
               <div className="flex items-center gap-x-2">
                 <img
