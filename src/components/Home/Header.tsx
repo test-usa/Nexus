@@ -12,8 +12,8 @@ const Header = () => {
           experience effortlessly.
         </p>
         <div className="mt-8">
-          <button className="px-8 py-4 text-lg font-semibold text-white border-2 border-gray-500 rounded-lg transition duration-300 hover:text-white translate transform  bg-slate-800 hover:bg-slate-500 ">
-            Purchase Now
+          <button className="px-6 py-3 text-lg font-semibold text-white border-2 border-gray-500 rounded-lg transition duration-300 hover:text-white translate transform  bg-slate-800 hover:bg-slate-500 ">
+            Buy Now
           </button>
         </div>
       </div>
