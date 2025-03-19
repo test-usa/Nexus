@@ -1,4 +1,4 @@
-import App from "@/pages/app";
+import App from "@/pages/App";
 import Home from "@/pages/Home";
 import Purchase from "@/pages/Purchase";
 import SignIn from "@/pages/SignIn";
