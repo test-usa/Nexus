@@ -20,8 +20,10 @@ const FreeKeyCard = () => {
         >
           Discord Server
         </Button>
-        <h1 className="text-3xl font-bold mb-3">Want a Free Key?</h1>
-        <p className="text-sm text-gray-300 mb-4">
+        <h1 className="text-white text-[30px] sm:text-4xl text-center ">
+          Want a Free Key?
+        </h1>
+        <p className="text-[16px] text-gray-300 mb-4">
           Join our Discord to participate in occasional giveaways and drops!
         </p>
       </div>

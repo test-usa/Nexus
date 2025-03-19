@@ -1,4 +1,5 @@
 import Banner from "@/components/Banner";
+import Blog from "@/components/home/Blog";
 import CustomerReviews from "@/components/home/CustomerReviews";
 import EdgenuityBot from "@/components/home/EdgenuityBot";
 import FreeKeyCard from "@/components/home/FreeKeyCard";
@@ -18,6 +19,7 @@ const Home = () => {
         <Pricing />
         <FrequentlyAsk />
         <FreeKeyCard />
+        <Blog />
       </CommonWrapper>
     </div>
   );
