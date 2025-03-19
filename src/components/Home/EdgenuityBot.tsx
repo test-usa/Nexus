@@ -9,8 +9,6 @@ import {
   ClipboardList,
   FileText,
   Grid,
-  Unlock,
-  Copy,
   Gamepad2,
 } from "lucide-react";
 import Title from "./Shared/Title";
@@ -70,22 +68,6 @@ const features: FeatureCardProps[] = [
     title: "EdgeEx Support",
     description: "The first (and possibly only) bot to support EdgeEx classes.",
   },
-  {
-    icon: Unlock,
-    title: "Frame Unlocker",
-    description: "Allows you to access any frame in an instructional activity.",
-  },
-  {
-    icon: Copy,
-    title: "Duplicate Tabs",
-    description:
-      "Exploit that allows you to do multiple classes on different tabs at once.",
-  },
-  {
-    icon: Gamepad2,
-    title: "Discord Logging",
-    description: "Stay updated with activity logs on Discord.",
-  },
 ];
 
 const FeatureCard: React.FC<FeatureCardProps> = ({
@@ -115,10 +97,11 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
   return (
     <div
       ref={cardRef}
-      className="bg-[#212020] text-white p-6 flex flex-col items-start space-y-3 hover:bg-gray-500 transition"
+      className="bg-[#212020] text-white p-6 flex flex-col items-start space-y-3 hover:bg-gray-700 transition"
     >
-      <Icon className="w-8 h-8 text-blue-400" />
+      <Icon className="w-6 h-6 text-orange-400" />
       <h3 className="text-xl font-semibold">{title}</h3>
+
       <p className="text-gray-300 text-sm">{description}</p>
     </div>
   );
@@ -131,7 +114,7 @@ const EdgenuityBot = () => {
         title="Edgenuity Bot - Features"
         subtitle="We know that you're probably interested in all the features that Nexus has to offer to help "
       />
-      <div className=" mt-5 min-h-screen bg-[#212020] flex justify-center items-center">
+      <div className=" mt-5 bg-[#212020] flex justify-center items-center">
         <div className="max-w-6xl w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {features.slice(0, 8).map((feature, index) => (
             <FeatureCard key={index} {...feature} />
