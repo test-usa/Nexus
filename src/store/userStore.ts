@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { ISginUpTypes, ISignInTypes, IUserStore } from "./Store.types";
-import useAxiosPublic from "@/hooks/shared/UseAxiosPublic";
+import { IAuth, ISginUpTypes, ISignInTypes, IUserStore } from "./Store.types";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
 
 const userStore = create<IUserStore>()(
   persist(
@@ -9,6 +9,7 @@ const userStore = create<IUserStore>()(
       user: null,
       photo: null,
       token: null,
+
       signup_user: async (signupdata: ISginUpTypes) => {
         const axiosPublic = useAxiosPublic();
         try {
@@ -36,6 +37,27 @@ const userStore = create<IUserStore>()(
           }
         } catch (error) {
           console.log("signIn error", error);
+        }
+      },
+
+      auth: async (userData: IAuth) => {
+        const { userName, email, token, photo } = userData;
+
+        console.log(userName, email, token, "46 no linneeeeee");
+        const axiosPublic = useAxiosPublic();
+        try {
+          if (userData) {
+            const { data } = await axiosPublic.post("/auth/signin", {
+              username,
+              email,
+            });
+            if (data.success) {
+              // success toast show
+              set({ user: data.user, token: data?.token });
+            }
+          }
+        } catch (error) {
+          console.log(error, "auth signin error");
         }
       },
       logout_user: () => {
