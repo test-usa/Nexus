@@ -58,27 +58,32 @@ export function UserData() {
         User Info
       </h1>
 
-      <div className="rounded-lg border">
-        <Table>
-          <TableHeader className="w-[894px] h-[74px] bg-gray-200 text-white rounded-lg px-[24px] pr-[34px] pb-[24px] gap-[24px]">
-            <TableRow className=" ">
-              <TableHead>No</TableHead>
-              <TableHead>ID</TableHead>
-              <TableHead>User Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>User Key</TableHead>
-              <TableHead>Action</TableHead>
+      <div className="rounded-lg border shadow-md overflow-hidden">
+        <Table className="w-full">
+          <TableHeader className="bg-gray-200 text-gray-700">
+            <TableRow className="text-sm font-semibold uppercase tracking-wide">
+              <TableHead className="px-6 py-4 text-left">No</TableHead>
+              <TableHead className="px-6 py-4 text-left">ID</TableHead>
+              <TableHead className="px-6 py-4 text-left">User Name</TableHead>
+              <TableHead className="px-6 py-4 text-left">Email</TableHead>
+              <TableHead className="px-6 py-4 text-left">User Key</TableHead>
+              <TableHead className="px-6 py-4 text-left">Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {appointments.map((appointment) => (
-              <TableRow key={appointment.id}>
-                <TableCell>{appointment.id}</TableCell>
-                <TableCell>{appointment.service}</TableCell>
-                <TableCell>{appointment.consumer}</TableCell>
-                <TableCell>{appointment.email}</TableCell>
-                <TableCell>{appointment.key}</TableCell>
-                <TableCell>
+            {appointments.map((appointment, index) => (
+              <TableRow
+                key={appointment.id}
+                className="border-b transition hover:bg-gray-50"
+              >
+                <TableCell className="px-6 py-4">{index + 1}</TableCell>
+                <TableCell className="px-6 py-4">{appointment.id}</TableCell>
+                <TableCell className="px-6 py-4">
+                  {appointment.consumer}
+                </TableCell>
+                <TableCell className="px-6 py-4">{appointment.email}</TableCell>
+                <TableCell className="px-6 py-4">{appointment.key}</TableCell>
+                <TableCell className="px-6 py-4">
                   <span
                     className={cn(
                       "inline-block rounded-full px-3 py-1 text-xs font-medium",

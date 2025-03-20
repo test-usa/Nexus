@@ -82,76 +82,90 @@ const KeyManagement = () => {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto p-4">
-      <Card className="mt-6 shadow-xl rounded-lg border border-gray-200">
-        <CardHeader>
-          <CardTitle className="text-2xl font-semibold text-gray-800">
+    <div className="max-w-7xl mx-auto p-6">
+      <Card className="mt-8 shadow-lg rounded-xl border border-gray-300 bg-white">
+        <CardHeader className="border-b border-gray-200 p-5">
+          <CardTitle className="text-2xl font-semibold text-gray-900">
             User Keys
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="mb-6 flex justify-between items-center">
             <Input
               placeholder="Search keys..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full max-w-md bg-gray-50 border-gray-300 text-gray-700 focus:ring-2 focus:ring-blue-500 rounded-lg p-3"
+              className="w-full max-w-md bg-white border border-gray-300 text-gray-900 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
           </div>
           {loading ? (
-            <div className="flex justify-center items-center">
-              <Loader2 className="animate-spin text-gray-600" size={24} />
-              <span className="ml-2 text-gray-600">Loading keys...</span>
+            <div className="flex flex-col justify-center items-center py-10">
+              <Loader2 className="animate-spin text-gray-500" size={28} />
+              <span className="mt-2 text-gray-600 text-sm">
+                Fetching keys...
+              </span>
             </div>
           ) : (
-            <Table className="min-w-full table-auto">
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="px-4 py-2 text-left text-gray-600">
-                    ID
-                  </TableHead>
-                  <TableHead className="px-4 py-2 text-left text-gray-600">
-                    Key
-                  </TableHead>
-                  <TableHead className="px-4 py-2 text-left text-gray-600">
-                    Type
-                  </TableHead>
-                  <TableHead className="px-4 py-2 text-left text-gray-600">
-                    Expiry
-                  </TableHead>
-                  <TableHead className="px-4 py-2 text-left text-gray-600">
-                    Status
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {keys
-                  .filter((key) =>
-                    key.key.toLowerCase().includes(search.toLowerCase())
-                  )
-                  .map((key) => (
-                    <TableRow
-                      key={key.id}
-                      className="hover:bg-gray-100 transition-all ease-in-out duration-200"
-                    >
-                      <TableCell className="px-4 py-2">{key.id}</TableCell>
-                      <TableCell className="px-4 py-2">{key.key}</TableCell>
-                      <TableCell className="px-4 py-2">{key.type}</TableCell>
-                      <TableCell className="px-4 py-2">{key.expiry}</TableCell>
-                      <TableCell className="px-4 py-2">
-                        <Badge
-                          variant={
-                            key.status === "Active" ? "default" : "destructive"
-                          }
-                          className="capitalize"
-                        >
-                          {key.status}
-                        </Badge>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
+            <div className="overflow-x-auto">
+              <Table className="min-w-full border border-gray-200 rounded-lg">
+                <TableHeader className="bg-gray-100">
+                  <TableRow>
+                    <TableHead className="px-6 py-3 text-left text-gray-700 font-medium uppercase">
+                      ID
+                    </TableHead>
+                    <TableHead className="px-6 py-3 text-left text-gray-700 font-medium uppercase">
+                      Key
+                    </TableHead>
+                    <TableHead className="px-6 py-3 text-left text-gray-700 font-medium uppercase">
+                      Type
+                    </TableHead>
+                    <TableHead className="px-6 py-3 text-left text-gray-700 font-medium uppercase">
+                      Expiry
+                    </TableHead>
+                    <TableHead className="px-6 py-3 text-left text-gray-700 font-medium uppercase">
+                      Status
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody className="divide-y divide-gray-200">
+                  {keys
+                    .filter((key) =>
+                      key.key.toLowerCase().includes(search.toLowerCase())
+                    )
+                    .map((key) => (
+                      <TableRow
+                        key={key.id}
+                        className="hover:bg-gray-50 transition-all ease-in-out duration-200"
+                      >
+                        <TableCell className="px-6 py-3 text-gray-900">
+                          {key.id}
+                        </TableCell>
+                        <TableCell className="px-6 py-3 text-gray-800">
+                          {key.key}
+                        </TableCell>
+                        <TableCell className="px-6 py-3 text-gray-700">
+                          {key.type}
+                        </TableCell>
+                        <TableCell className="px-6 py-3 text-gray-700">
+                          {key.expiry}
+                        </TableCell>
+                        <TableCell className="px-6 py-3">
+                          <Badge
+                            variant={
+                              key.status === "Active"
+                                ? "default"
+                                : "destructive"
+                            }
+                            className="capitalize px-3 py-1 text-sm font-medium"
+                          >
+                            {key.status}
+                          </Badge>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </div>
           )}
         </CardContent>
       </Card>
