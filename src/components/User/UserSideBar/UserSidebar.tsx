@@ -20,28 +20,28 @@ const navItems: NavItem[] = [
     icon: Home,
   },
   {
-    title: "User Info",
-    href: "user-info",
+    title: "My Profile",
+    href: "profile",
     icon: User,
   },
   {
-    title: "Key Table",
-    href: "key-table",
+    title: "My Orders",
+    href: "my-order",
     icon: Table,
   },
   {
-    title: "Key Generate",
+    title: "Generate Key",
     href: "key-generate",
     icon: Key,
   },
   {
     title: "Payment History",
-    href: "payment-history",
+    href: "user-payment",
     icon: History,
   },
 ];
 
-export function DashboardSidebar() {
+export function UserSidebar() {
   const [toggle, setToggle] = useState<boolean>(false);
 
   return (
@@ -73,7 +73,7 @@ export function DashboardSidebar() {
           x: toggle ? 0 : "-100%",
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="md:hidden w-64 h-full fixed bg-gradient-to-r from-gray-800 to-gray-900 text-white border-r p-6 shadow-lg z-50"
+        className="md:hidden w-64 h-screen fixed bg-gradient-to-r from-gray-800 to-gray-900 text-white border-r p-6 shadow-lg z-50"
       >
         <div className="flex flex-col items-center border-b pb-6 mb-6">
           <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-gray-500">
@@ -83,7 +83,7 @@ export function DashboardSidebar() {
               className="object-cover"
             />
           </div>
-          <p className="font-semibold mt-3">Admin_Arfin Mia</p>
+          <p className="font-semibold mt-3">User_Arfin Mia</p>
           <p className="text-xs text-gray-400">arfin.cse.edu.bd@gmail.com</p>
         </div>
 
@@ -119,7 +119,7 @@ export function DashboardSidebar() {
       </motion.aside>
 
       {/* Large Screens Sidebar */}
-      <aside className="md:flex w-72 flex-col text-black border-r p-6 shadow-lg hidden">
+      <aside className="md:flex w-72 h-screen flex-col text-black border-r p-6 shadow-lg hidden">
         <div className="flex flex-col items-center border-b pb-6 mb-6">
           <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-gray-500">
             <img
@@ -128,7 +128,7 @@ export function DashboardSidebar() {
               className="object-cover"
             />
           </div>
-          <p className="font-semibold mt-3">Admin_Arfin Mia</p>
+          <p className="font-semibold mt-3">User_Arfin Mia</p>
           <p className="text-xs text-gray-800">arfin.cse.edu.bd@gmail.com</p>
         </div>
 
@@ -166,7 +166,7 @@ export function DashboardSidebar() {
   );
 }
 
-export default DashboardSidebar;
+export default UserSidebar;
 
 /* 
 import { History, Home, Key, LogOut, Table, User } from "lucide-react";

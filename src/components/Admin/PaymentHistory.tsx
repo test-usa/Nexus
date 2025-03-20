@@ -39,65 +39,63 @@ const payments: Payment[] = [
 
 const PaymentHistory: React.FC = () => {
   return (
-    <div className="overflow-x-auto p-8 bg-gray-50 ">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+    <div className="overflow-x-auto p-6 ">
+      <h2 className="text-3xl font-semibold text-gray-900 mb-6">
         Payment History
       </h2>
-      <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
-        <thead>
-          <tr className="bg-gray-100 border-b">
-            <th className="py-3 px-6 text-left text-gray-700 font-medium uppercase tracking-wider">
-              Transaction ID
-            </th>
-            <th className="py-3 px-6 text-left text-gray-700 font-medium uppercase tracking-wider">
-              User Email
-            </th>
-            <th className="py-3 px-6 text-left text-gray-700 font-medium uppercase tracking-wider">
-              Amount
-            </th>
-            <th className="py-3 px-6 text-left text-gray-700 font-medium uppercase tracking-wider">
-              Status
-            </th>
-            <th className="py-3 px-6 text-left text-gray-700 font-medium uppercase tracking-wider">
-              Date
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {payments.map((payment) => (
-            <tr
-              key={payment.id}
-              className="border-b hover:bg-gray-50 transition duration-200 ease-in-out"
-            >
-              <td className="py-4 px-6 text-sm text-gray-800 font-medium">
-                {payment.id}
-              </td>
-              <td className="py-4 px-6 text-sm text-gray-800 font-medium">
-                {payment.userEmail}
-              </td>
-              <td className="py-4 px-6 text-sm text-gray-800 font-medium">
-                ${(payment.amount / 100).toFixed(2)}
-              </td>
-              <td className="py-4 px-6 text-sm font-semibold capitalize">
-                <span
-                  className={`inline-block px-3 py-1 rounded-full text-white ${
-                    payment.status === "succeeded"
-                      ? "bg-green-500"
-                      : payment.status === "failed"
-                      ? "bg-red-500"
-                      : "bg-yellow-500"
-                  }`}
-                >
-                  {payment.status}
-                </span>
-              </td>
-              <td className="py-4 px-6 text-sm text-gray-600">
-                {new Date(payment.createdAt).toLocaleString()}
-              </td>
+      <div className="overflow-x-auto shadow-lg border border-gray-300 bg-white rounded-lg">
+        <table className="min-w-full table-auto">
+          <thead className="bg-gray-200 text-gray-700">
+            <tr>
+              <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
+                ID
+              </th>
+              <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
+                User Email
+              </th>
+              <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
+                Amount
+              </th>
+              <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
+                Status
+              </th>
+              <th className="py-4 px-6 text-left font-medium tracking-wide uppercase hidden sm:table-cell">
+                Date
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="text-gray-800">
+            {payments.map((payment) => (
+              <tr
+                key={payment.id}
+                className="border-t hover:bg-gray-50 transition duration-200 ease-in-out"
+              >
+                <td className="py-3 px-6 text-sm">{payment.id}</td>
+                <td className="py-3 px-6 text-sm">{payment.userEmail}</td>
+                <td className="py-3 px-6 text-sm">
+                  ${(payment.amount / 100).toFixed(2)}
+                </td>
+                <td className="py-3 px-6 text-sm hidden sm:table-cell">
+                  {new Date(payment.createdAt).toLocaleString()}
+                </td>
+                <td className="py-3 px-6 text-sm font-semibold capitalize">
+                  <span
+                    className={`inline-block px-3 py-1 rounded-full text-white ${
+                      payment.status === "succeeded"
+                        ? "bg-green-600"
+                        : payment.status === "failed"
+                        ? "bg-red-600"
+                        : "bg-yellow-600"
+                    }`}
+                  >
+                    {payment.status}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

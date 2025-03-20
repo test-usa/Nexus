@@ -9,46 +9,21 @@ import {
 } from "@/components/ui/table";
 
 const users = [
-  {
-    id: "101",
-    name: "Alice Johnson",
-    role: "Admin",
-    status: "Active",
-  },
-  {
-    id: "102",
-    name: "Bob Smith",
-    role: "User",
-    status: "Pending",
-  },
-  {
-    id: "103",
-    name: "Charlie Brown",
-    role: "Moderator",
-    status: "Suspended",
-  },
-  {
-    id: "104",
-    name: "David White",
-    role: "User",
-    status: "Active",
-  },
-  {
-    id: "105",
-    name: "Eva Green",
-    role: "Admin",
-    status: "Pending",
-  },
+  { id: "101", name: "Alice Johnson", role: "Admin", status: "Active" },
+  { id: "102", name: "Bob Smith", role: "User", status: "Pending" },
+  { id: "103", name: "Charlie Brown", role: "Moderator", status: "Suspended" },
+  { id: "104", name: "David White", role: "User", status: "Active" },
+  { id: "105", name: "Eva Green", role: "Admin", status: "Pending" },
 ];
 
 export function DashboardContent() {
   return (
-    <div className="p-8 bg-gray-50 min-h-screen">
+    <div className="p-6 lg:p-8  min-h-screen">
       <h1 className="mb-8 text-2xl font-semibold text-gray-800">
         Dashboard Overview
       </h1>
 
-      <div className="mb-8 grid grid-cols-3 gap-6">
+      <div className="mb-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className="rounded-lg bg-gray-500 p-6 text-white">
           <div className="text-5xl font-bold">04</div>
           <p className="mt-2 text-sm">User List</p>
