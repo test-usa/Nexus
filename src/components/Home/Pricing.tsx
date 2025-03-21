@@ -11,6 +11,7 @@ type PricingData = {
   badge: string;
   buttonText: string;
 };
+
 const Pricing = () => {
   const [pricingData, setPricingData] = useState<[]>([]);
   useEffect(() => {
