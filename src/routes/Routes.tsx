@@ -2,6 +2,7 @@ import DashboardContent from "@/components/Admin/AdminSideBar/DashboardContent";
 import KeyManagementTable from "@/components/Admin/KeyManagementTable";
 import KeyGeneratorForm from "@/components/Admin/KeyGeneratorForm";
 import AdminLayout from "@/layout/AdminLayout";
+import App from "@/pages/App";
 import Home from "@/pages/Home";
 import Purchase from "@/pages/Purchase";
 import SignIn from "@/pages/SignIn";
@@ -12,9 +13,9 @@ import PaymentHistory from "@/components/Admin/PaymentHistory";
 import UserLayout from "@/layout/UserLayout";
 import UserDashboard from "@/components/User/UserSideBar/UserDashboard";
 import UserProfile from "@/components/User/UserProfile";
-import App from "@/pages/App";
 import MyOrder from "@/components/User/MyOrder";
 import UserPayment from "@/components/User/UserPayment";
+import BuyingPage from "@/pages/BuyingPage";
 
 const routes = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const routes = createBrowserRouter([
     ],
   },
 
+  {
+    path: "/buy/:id",
+    element: <BuyingPage />,
+  },
   /* Admin Layout */
   {
     path: "admin",

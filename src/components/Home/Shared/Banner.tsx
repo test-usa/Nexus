@@ -37,7 +37,7 @@ const Banner = () => {
   return (
     <div className="font-montserrat">
       <CommonWrapper>
-        <div className="">
+        <div className="mt-28">
           {/**** TEXT SECTION ****/}
           <div className="space-y-5 text-center">
             <h1
@@ -83,7 +83,7 @@ const Banner = () => {
             </motion.div>
           </div>
           {/**** BANNER WITH CARD DESGIN SECTION (ONLY FOR LG++ DEVICE) ****/}
-          <div className="relative group mt-12 lg:block hidden">
+          <div className="relative group mt-20 lg:block hidden">
             <div className="relative p-1 my-10 rounded-sm bg-gradient-to-r from-gray-500 to-slate-800 via-green-700">
               <div className="bg-[#212020] rounded-sm p-32 border-2 border-transparent bg-clip-padding ">
                 {/**** BANNER TEXT SECTION ****/}

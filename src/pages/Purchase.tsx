@@ -1,10 +1,8 @@
-import Banner from "@/components/Banner";
-import Pricing from "@/components/Pricing";
+import Pricing from "@/components/home/Pricing";
 
 const Purchase = () => {
   return (
-    <div className="mt-10">
-      <Banner />
+    <div className=" mb-10">
       <Pricing />
     </div>
   );

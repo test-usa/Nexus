@@ -12,7 +12,7 @@ const Navbar = () => {
   // Add scroll effect for sticky navbar
   useEffect(() => {
     window.addEventListener("scroll", () => {
-      if (window.scrollY > 50) {
+      if (window.scrollY > 40) {
         setScrollY(true);
       } else {
         setScrollY(false);
@@ -54,14 +54,14 @@ const Navbar = () => {
       }`}
     >
       <CommonWrapper>
-        <div className="w-full flex items-center gap-x-4 justify-between font-montserrat">
+        <div className="w-full flex items-center gap-x-4 justify-between font-montserrat transform transition-all duration-200">
           {/***** IMAGE START *****/}
-          <div className="max-w-16">
+          <NavLink to="/" className="max-w-16">
             <img
               src="https://framerusercontent.com/images/VpiZF9i56wEWOzd8opBM90AzSfA.png"
               alt="logo"
             />
-          </div>
+          </NavLink>
           {/***** NAVIGATIONBAR START *****/}
           <div className="md:flex items-center lg:gap-x-8 gap-x-6 text-gray-400 hidden">
             {links?.map((link) => {
