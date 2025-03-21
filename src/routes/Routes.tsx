@@ -8,7 +8,6 @@ import Purchase from "@/pages/Purchase";
 import SignIn from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
 import { createBrowserRouter } from "react-router-dom";
-import UserData from "@/components/Admin/UserData";
 import PaymentHistory from "@/components/Admin/PaymentHistory";
 import UserLayout from "@/layout/UserLayout";
 import UserDashboard from "@/components/User/UserSideBar/UserDashboard";
@@ -16,6 +15,8 @@ import UserProfile from "@/components/User/UserProfile";
 import MyOrder from "@/components/User/MyOrder";
 import UserPayment from "@/components/User/UserPayment";
 import BuyingPage from "@/pages/BuyingPage";
+import AllKeys from "@/components/Admin/AllKeys";
+import AllUserInfo from "@/components/Admin/AllUserInfo";
 
 const routes = createBrowserRouter([
   {
@@ -79,8 +80,12 @@ const routes = createBrowserRouter([
         element: <DashboardContent></DashboardContent>,
       },
       {
-        path: "user-info",
-        element: <UserData></UserData>,
+        path: "all-user-info",
+        element: <AllUserInfo></AllUserInfo>,
+      },
+      {
+        path: "all-keys",
+        element: <AllKeys></AllKeys>,
       },
       {
         path: "key-generate",
