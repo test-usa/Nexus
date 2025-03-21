@@ -1,8 +1,9 @@
-import { useState } from "react";
+import {  useState } from "react";
 import photo from "../../assets/photo1.jpg";
-
+import { X } from "lucide-react";
 const Video = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -12,14 +13,16 @@ const Video = () => {
     setIsModalOpen(false);
   };
 
+  
+
   return (
-    <div className="mt-10">
+    <div className="mt-20">
       <div className="relative h-auto flex justify-center ">
         <div className="relative">
           <img
             src={photo}
             alt="Course Thumbnail"
-            className=" rounded-2xl border-4 border-gray-300 lg:max-w-[1620px] lg:max-h-[559px] object-cover  border-solid  "
+            className=" rounded-2xl border border-gray-500 lg:max-w-[1620px] lg:max-h-[559px] object-cover  border-solid  "
           />
           <button
             onClick={handleOpenModal}
@@ -40,8 +43,8 @@ const Video = () => {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50">
-          <div className="relative w-full max-w-4xl aspect-video bg-black  overflow-hidden">
+        <div className="fixed inset-0 bg-black/30  bg-opacity-80 flex justify-center items-center z-50">
+          <div className="relative w-full  max-w-4xl aspect-video bg-black  overflow-hidden">
             <iframe
               width="100%"
               height="100%"
@@ -50,14 +53,14 @@ const Video = () => {
               frameBorder="0"
               allow="autoplay; encrypted-media"
               allowFullScreen
-              className="rounded-2xl border-4"
+              className="rounded-2xl border border-gray-500"
             ></iframe>
 
             <button
               onClick={handleCloseModal}
-              className="absolute top-2 right-2 bg-white text-black font-bold rounded-full px-2 py-1 hover:bg-gray-300"
+              className="absolute top-2 right-2 bg-white text-black font-bold rounded-full p-2 hover:bg-gray-300"
             >
-              ✕
+              <X />
             </button>
           </div>
         </div>

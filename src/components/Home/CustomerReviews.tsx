@@ -1,11 +1,11 @@
-import profile1 from "../../assets/profile1.png";
+import profile1 from "../../assets/photo1.jpg";
 import profile2 from "../../assets/profile2.png";
 import profile3 from "../../assets/profile3.png";
 import Title from "./Shared/Title";
 
 const CustomerReviews = () => {
   return (
-    <div className="w-full mt-10 mb-10 text-white ">
+    <div className="w-full mt-16 text-white ">
       <div>
         <Title
           title="People love Nexus
@@ -15,7 +15,7 @@ const CustomerReviews = () => {
           school mess "
         />
       </div>
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         <div className="max-w-[350px] sm:max-w-full lg:max-w-[500px] xl:max-w-[600px] mx-auto rounded-lg relative border border-gray-700 shadow-lg hover:shadow-lg space-y-3 p-5 transform transition-all duration-200 hover:shadow-gray-500 translate ">
           <div>
             <p className="text-gray-400 text-[16px]">
@@ -29,7 +29,7 @@ const CustomerReviews = () => {
               <img
                 src={profile1}
                 alt="Profile 1"
-                className="h-14 w-14 rounded-full border-1 border-orange-400"
+                className="h-14 w-14 rounded-full border-1 border-cyan-700"
               />
             </div>
 
@@ -52,7 +52,7 @@ const CustomerReviews = () => {
               <img
                 src={profile2}
                 alt="Profile 2"
-                className="h-14 w-14 rounded-full border-1 border-orange-400"
+                className="h-14 w-14 rounded-full border-1 border-cyan-700"
               />
             </div>
             <div className="ml-4">
@@ -74,7 +74,7 @@ const CustomerReviews = () => {
               <img
                 src={profile3}
                 alt="Profile 3"
-                className="h-14 w-14 rounded-full border-1 border-orange-400"
+                className="h-14 w-14 rounded-full border-1 border-cyan-700"
               />
             </div>
             <div className="ml-4">

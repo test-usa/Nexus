@@ -94,12 +94,16 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
     );
   }, []);
 
+ 
+
   return (
     <div
+    
       ref={cardRef}
-      className="bg-[#212020] text-white p-6 flex flex-col items-start space-y-3 hover:bg-gray-700 transition"
+      className="feature-card bg-[#212020] text-white p-6 flex flex-col items-start space-y-3 hover:bg-gray-800 transition last:border-gray-700 last:border-l-2"
+
     >
-      <Icon className="w-6 h-6 text-orange-400" />
+      <Icon className="w-6 h-6 text-gray-500" />
       <h3 className="text-xl font-semibold">{title}</h3>
 
       <p className="text-gray-300 text-sm">{description}</p>
@@ -109,12 +113,12 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
 
 const EdgenuityBot = () => {
   return (
-    <div className="mt-10 ">
+    <div className="mt-20 font-montserrat">
       <Title
         title="Edgenuity Bot - Features"
         subtitle="We know that you're probably interested in all the features that Nexus has to offer to help "
       />
-      <div className=" mt-5 bg-[#212020] flex justify-center items-center">
+      <div className=" mt-16 bg-[#212020] flex justify-center items-center">
         <div className="max-w-6xl w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {features.slice(0, 8).map((feature, index) => (
             <FeatureCard key={index} {...feature} />
