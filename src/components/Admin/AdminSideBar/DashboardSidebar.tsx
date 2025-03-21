@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { GoX } from "react-icons/go";
 import { FcMenu } from "react-icons/fc";
+import { FaAllergies } from "react-icons/fa";
 
 interface NavItem {
   title: string;
@@ -20,9 +21,14 @@ const navItems: NavItem[] = [
     icon: Home,
   },
   {
-    title: "User Info",
-    href: "user-info",
+    title: "All User Info",
+    href: "all-user-info",
     icon: User,
+  },
+  {
+    title: "All Keys",
+    href: "all-keys",
+    icon: FaAllergies,
   },
   {
     title: "Key Table",
@@ -140,7 +146,9 @@ export function DashboardSidebar() {
               className={cn(
                 "flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition-all duration-300",
                 "hover:bg-gray-700 hover:text-white",
-                item.title === "Dashboard" && "bg-green-500 text-white"
+                location.pathname === item.href
+                  ? "bg-gray-500 text-white" // Add active state based on current location
+                  : "" // If not active, remove the background color
               )}
             >
               <item.icon className="h-5 w-5" />

@@ -40,9 +40,10 @@ const payments: Payment[] = [
 const PaymentHistory: React.FC = () => {
   return (
     <div className="overflow-x-auto p-6 ">
-      <h2 className="text-3xl font-semibold text-gray-900 mb-6">
+      <h2 className="text-2xl font-medium tracking-wide  text-gray-700 mb-6">
         Payment History
       </h2>
+
       <div className="overflow-x-auto shadow-lg border border-gray-300 bg-white rounded-lg">
         <table className="min-w-full table-auto">
           <thead className="bg-gray-200 text-gray-700">
@@ -80,12 +81,12 @@ const PaymentHistory: React.FC = () => {
                 </td>
                 <td className="py-3 px-6 text-sm font-semibold capitalize">
                   <span
-                    className={`inline-block px-3 py-1 rounded-full text-white ${
+                    className={`inline-block px-3 py-1 rounded-full text-black ${
                       payment.status === "succeeded"
-                        ? "bg-green-600"
+                        ? "bg-green-100"
                         : payment.status === "failed"
-                        ? "bg-red-600"
-                        : "bg-yellow-600"
+                        ? "bg-red-200"
+                        : "bg-yellow-200"
                     }`}
                   >
                     {payment.status}
