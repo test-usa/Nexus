@@ -12,6 +12,7 @@ import {
   Gamepad2,
 } from "lucide-react";
 import Title from "./Shared/Title";
+import { Element } from "react-scroll";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -94,14 +95,12 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
     );
   }, []);
 
- 
-
   return (
     <div
-    
       ref={cardRef}
-      className="feature-card bg-[#212020] text-white p-6 flex flex-col items-start space-y-3 hover:bg-gray-800 transition last:border-gray-700 last:border-l-2"
-
+      className="feature-card bg-[#212020] text-white p-6 flex flex-col items-start space-y-3 transition           
+                 [&:nth-child(5)]:border-transparent
+                  border-l-[1px] first:border-transparent border-green-900/30"
     >
       <Icon className="w-6 h-6 text-gray-500" />
       <h3 className="text-xl font-semibold">{title}</h3>
@@ -113,7 +112,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
 
 const EdgenuityBot = () => {
   return (
-    <div className="mt-20 font-montserrat">
+    <Element name="Feature" className="mt-28 font-montserrat">
       <Title
         title="Edgenuity Bot - Features"
         subtitle="We know that you're probably interested in all the features that Nexus has to offer to help "
@@ -130,7 +129,7 @@ const EdgenuityBot = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Element>
   );
 };
 

@@ -1,24 +1,26 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ISignUp } from "./Form.types";
-import { Lock, Mail, UserRound } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Loader, Lock, Mail, UserRound } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { useGoogleAuth } from "@/hooks/auth/googleAuth";
 import userStore from "@/store/userStore";
+import { useEffect } from "react";
 const SignUp = () => {
-  const { user: authuser, handleGoogleLogin, loading } = useGoogleAuth();
-  const { user, signup_user, signIn_user, auth } = userStore();
-
-  console.log(user, loading, "12222222");
+  const navigate = useNavigate();
+  const { user: authuser, handleGoogleLogin } = useGoogleAuth();
+  const { signup_user, loading, auth } = userStore();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<ISignUp>();
   const onSubmit: SubmitHandler<ISignUp> = (data) => {
-    auth(data);
-    console.log(data,"20")
+    signup_user(data, navigate);
   };
+
+  useEffect(() => {
+    auth(authuser);
+  }, [authuser]);
   return (
     <div className=" bg-[#212020] min-h-screen flex flex-col items-center justify-center font-montserrat ">
       <div className="bg-white mx-auto w-full md:max-w-lg lg:max-w-2xl">
@@ -29,7 +31,7 @@ const SignUp = () => {
           {/**** O AUTH START ****/}
           <div>
             <div className="flex items-center justify-center gap-2 py-4">
-              <button className="border p-0.5 sm:p-1 bg-slate-800 cursor-pointer">
+              {/* <button className="border p-0.5 sm:p-1 bg-slate-800 cursor-pointer">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   x="0px"
@@ -43,7 +45,7 @@ const SignUp = () => {
                     d="M40,12c0,0-4.585-3.588-10-4l-0.488,0.976C34.408,10.174,36.654,11.891,39,14c-4.045-2.065-8.039-4-15-4s-10.955,1.935-15,4c2.346-2.109,5.018-4.015,9.488-5.024L18,8c-5.681,0.537-10,4-10,4s-5.121,7.425-6,22c5.162,5.953,13,6,13,6l1.639-2.185C13.857,36.848,10.715,35.121,8,32c3.238,2.45,8.125,5,16,5s12.762-2.55,16-5c-2.715,3.121-5.857,4.848-8.639,5.815L33,40c0,0,7.838-0.047,13-6C45.121,19.425,40,12,40,12z M17.5,30c-1.933,0-3.5-1.791-3.5-4c0-2.209,1.567-4,3.5-4s3.5,1.791,3.5,4C21,28.209,19.433,30,17.5,30z M30.5,30c-1.933,0-3.5-1.791-3.5-4c0-2.209,1.567-4,3.5-4s3.5,1.791,3.5,4C34,28.209,32.433,30,30.5,30z"
                   ></path>
                 </svg>
-              </button>
+              </button> */}
 
               <button
                 onClick={() => handleGoogleLogin()}
@@ -89,14 +91,14 @@ const SignUp = () => {
                 type="text"
                 placeholder="UserName"
                 defaultValue="developer-mehedi"
-                {...register("userName", {
+                {...register("name", {
                   required: true,
                 })}
                 className="focus:outline-none focus:ring-0 bg-none w-[80%] text-gray-400 focus:bg-transparent"
               />
             </div>
-            {errors.userName && (
-              <p className="text-red-500 text-sm">{errors.userName.message}</p>
+            {errors.name && (
+              <p className="text-red-500 text-sm">{errors.name.message}</p>
             )}
             <div className="flex items-center gap-x-3 border px-2 sm:px-4 py-3">
               <Mail className="text-gray-400" />
@@ -140,11 +142,24 @@ const SignUp = () => {
                 {errors.password.message}
               </span>
             )}
-            <input
+            <button
               type="submit"
-              className="bg-green-500 py-3 text-white cursor-pointer w-full"
-            />
-          </form>{" "}
+              disabled={loading}
+              className={`py-3 w-full cursor-pointer text-white flex justify-center items-center gap-2 rounded transition
+          ${
+            loading
+              ? "bg-gray-500 cursor-not-allowed"
+              : "bg-green-500 hover:bg-green-600"
+          }
+        `}
+            >
+              {loading ? (
+                <Loader className="w-5 h-5 animate-spin" />
+              ) : (
+                "Sign up"
+              )}
+            </button>
+          </form>
         </div>
       </div>
       <p className="text-white text-center text-xs sm:text-[16px] my-7">

@@ -2,9 +2,16 @@ import CommonWrapper from "@/wrapper/CommonWrapper";
 import { useEffect, useState } from "react";
 import Title from "./Shared/Title";
 import { Link } from "react-router-dom";
+import { Element } from "react-scroll";
+import useFetch from "@/hooks/shared/useFetch";
 
 type PricingData = {
-  name: string;
+  keyName: string;
+  _id: string;
+  prices: {
+    regularKey: number;
+    serviceKey: number;
+  };
   description: string;
   currency: string;
   price: string;
@@ -13,6 +20,7 @@ type PricingData = {
 };
 
 const Pricing = () => {
+  const { data, isSuccess, isLoading, refetch } = useFetch("/key/all-key");
   const [pricingData, setPricingData] = useState<[]>([]);
   useEffect(() => {
     fetch("/pricing.json")
@@ -20,9 +28,10 @@ const Pricing = () => {
       .then((data) => setPricingData(data));
   }, []);
 
-  console.log(pricingData, "pricing data 12");
+  console.log(data?.data, "allll keyyysss");
+
   return (
-    <div className="font-montserrat mt-20">
+    <Element name="Pricing" className="font-montserrat mt-20">
       <CommonWrapper>
         {/**** PRICING HEADING SECTION START ****/}
         <Title
@@ -35,10 +44,10 @@ const Pricing = () => {
         {/**** PRICING CARD SECTION START ****/}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
           {/*** CARDS ***/}
-          {pricingData?.map((price: PricingData) => {
+          {data?.data?.map((price: PricingData) => {
             return (
               <div
-                key={price?.price}
+                key={price?._id}
                 className="rounded-lg min-w-[280px] relative sm:max-w-full border border-gray-700 shadow-lg hover:shadow-gray-500 space-y-3 p-5 transform translate duration-200"
               >
                 <p
@@ -47,19 +56,20 @@ const Pricing = () => {
                     `bg-gradient-to-bl from-green-700 to-gray-600`
                   }`}
                 >
-                  {price.badge}
+                  {price.badge} Most Popular
                 </p>
                 <h1 className="text-2xl sm:text-3xl font-semibold text-white">
-                  {price?.name}
+                  {price?.keyName}
                 </h1>
                 <p className="text-sm sm:text-[16px] text-gray-500">
-                  {price.description}
+                  {price.description} "Perfect for quick access and trying us
+                  out with minimal cost."
                 </p>
                 <p className="text-xl sm:text-3xl font-semibold text-orange-400">
-                  ${price.price} {price.currency}
+                  ${price.prices.regularKey} {price.currency} USD
                 </p>
                 <Link
-                  to={`/buy/${212}`}
+                  to={`/buy/${price._id}`}
                   className="w-full cursor-pointer hover:-rotate-z-1 bg-gradient-to-tr from-gray-800 to-gray-500 text-white py-2 inline-block text-center rounded-lg text-sm sm:text-[16px]"
                 >
                   Purchase Now
@@ -69,7 +79,7 @@ const Pricing = () => {
           })}
         </div>
       </CommonWrapper>
-    </div>
+    </Element>
   );
 };
 

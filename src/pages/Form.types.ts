@@ -1,5 +1,5 @@
 export interface ISignUp {
-  userName: string;
+  name: string;
   email: string;
   password: string;
   message?: string

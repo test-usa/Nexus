@@ -3,9 +3,8 @@ import { CiSettings } from "react-icons/ci";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
-type Banner = {
-  name: string;
-};
+import { Element } from "react-scroll";
+
 const Banner = () => {
   const [service, setService] = useState([]);
   useEffect(() => {
@@ -35,9 +34,9 @@ const Banner = () => {
     "https://tse1.mm.bing.net/th?id=OIP.P5ncWi8Xay4tKTScsH3lygHaEK&pid=Api",
   ];
   return (
-    <div className="font-montserrat">
+    <Element name="banner" className="font-montserrat">
       <CommonWrapper>
-        <div className="mt-28">
+        <div  className="mt-28">
           {/**** TEXT SECTION ****/}
           <div className="space-y-5 text-center">
             <h1
@@ -166,7 +165,7 @@ const Banner = () => {
           </div>
         </div>
       </CommonWrapper>
-    </div>
+    </Element>
   );
 };
 
