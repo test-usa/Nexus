@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { History, Home, Key, LogOut, Table, User } from "lucide-react";
+import { History, Home, LogOut, Table, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -29,11 +29,7 @@ const navItems: NavItem[] = [
     href: "my-order",
     icon: Table,
   },
-  {
-    title: "Generate Key",
-    href: "key-generate",
-    icon: Key,
-  },
+
   {
     title: "Payment History",
     href: "user-payment",
@@ -140,7 +136,7 @@ export function UserSidebar() {
               className={cn(
                 "flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition-all duration-300",
                 "hover:bg-gray-700 hover:text-white",
-                item.title === "Dashboard" && "bg-green-500 text-white"
+                item.title === "Dashboard" && "bg-gray-500 text-white"
               )}
             >
               <item.icon className="h-5 w-5" />

@@ -49,7 +49,7 @@ const PaymentHistory: React.FC = () => {
           <thead className="bg-gray-200 text-gray-700">
             <tr>
               <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
-                ID
+                User_ID
               </th>
               <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
                 User Email
@@ -57,11 +57,12 @@ const PaymentHistory: React.FC = () => {
               <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
                 Amount
               </th>
-              <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
-                Status
-              </th>
+
               <th className="py-4 px-6 text-left font-medium tracking-wide uppercase hidden sm:table-cell">
                 Date
+              </th>
+              <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
+                Status
               </th>
             </tr>
           </thead>

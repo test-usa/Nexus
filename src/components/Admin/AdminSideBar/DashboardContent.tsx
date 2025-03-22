@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate"; // Importing react-paginate
+import ReactPaginate from "react-paginate";
 
 interface User {
   _id: string;
@@ -23,9 +23,8 @@ export function DashboardContent() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Pagination States
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const usersPerPage = 8; // Number of users per page
+  const usersPerPage = 8;
 
   const fetchUsers = async () => {
     try {
@@ -42,7 +41,7 @@ export function DashboardContent() {
         throw new Error("Unexpected API response: Data is not an array");
       }
 
-      setUsers(data.data); // Accessing the correct array
+      setUsers(data.data);
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -58,12 +57,10 @@ export function DashboardContent() {
   if (error)
     return <p className="text-center mt-4 text-red-500">Error: {error}</p>;
 
-  // Handle page change
   const handlePageChange = (selectedPage: { selected: number }) => {
     setCurrentPage(selectedPage.selected);
   };
 
-  // Slice users array to show users for the current page
   const offset = currentPage * usersPerPage;
   const currentUsers = users.slice(offset, offset + usersPerPage);
 
@@ -75,8 +72,11 @@ export function DashboardContent() {
 
       <div className="mb-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <div className="rounded-lg bg-gray-500 p-6 text-white">
-          <div className="text-5xl font-bold">04</div>
-          <p className="mt-2 text-sm">User List</p>
+          <div className="rounded-lg bg-gray-500 p-6 text-white">
+            <div className="text-5xl font-bold">{users.length}</div>{" "}
+            {/* Dynamically display the number of users */}
+            <p className="mt-2 text-sm">All User </p>
+          </div>
         </div>
         <div className="rounded-lg bg-gray-200 p-6 text-black">
           <div className="text-5xl font-bold">02</div>

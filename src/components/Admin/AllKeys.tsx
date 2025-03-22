@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaRegEdit } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
 
 type LicenseKey = {
   _id: string;
@@ -55,9 +56,8 @@ const AllKeys: React.FC = () => {
               <th className="py-4 px-6">Service Users</th>
               <th className="py-4 px-6">Regular Price ($)</th>
               <th className="py-4 px-6">Service Price ($)</th>
-              <th className="py-4 px-6">Regular Price ($)</th>
-              <th className="py-4 px-6">Service Price ($)</th>
               <th className="py-4 px-6">Update</th>
+              <th className="py-4 px-6">Delete</th>
             </tr>
           </thead>
           <tbody className="bg-white text-gray-700 text-lg">
@@ -72,13 +72,21 @@ const AllKeys: React.FC = () => {
                 <td className="py-4 px-6">{key.users.serviceKey}</td>
                 <td className="py-4 px-6">${key.prices.regularKey}</td>
                 <td className="py-4 px-6">${key.prices.serviceKey}</td>
-                <td className="py-4 px-6">{key.stripePriceId.regularKey}</td>
-                <td className="py-4 px-6">{key.stripePriceId.serviceKey}</td>
-                <button>
-                  <td className="py-4 px-6 text-sky-400">
-                    <FaRegEdit />
-                  </td>
-                </button>
+                <td>
+                  <button className="hover:bg-sky-600 hover:text-white rounded-sm p-2 text-sm bg-sky-500 transition-all duration-300">
+                    <td className="py-2 px-2 text-sky-400">
+                      <FaRegEdit />
+                    </td>
+                  </button>
+                </td>
+
+                <td>
+                  <button className="hover:bg-red-600 hover:text-white rounded-sm p-2 text-sm bg-red-500 transition-all duration-300">
+                    <td className="py-2 px-2 text-black">
+                      <MdDeleteOutline className="p-" />
+                    </td>
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
