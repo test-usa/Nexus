@@ -1,9 +1,8 @@
-import {  useState } from "react";
+import { useState } from "react";
 import photo from "../../assets/photo1.jpg";
 import { X } from "lucide-react";
 const Video = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -13,20 +12,18 @@ const Video = () => {
     setIsModalOpen(false);
   };
 
-  
-
   return (
     <div className="mt-20">
-      <div className="relative h-auto flex justify-center ">
-        <div className="relative">
+      <div className="relative flex justify-center">
+        <div className="relative w-[65%] max-w-[1280px] mx-auto">
           <img
             src={photo}
             alt="Course Thumbnail"
-            className=" rounded-2xl border border-gray-500 lg:max-w-[1620px] lg:max-h-[559px] object-cover  border-solid  "
+            className="rounded-2xl border border-gray-500 w-full object-cover border-solid"
           />
           <button
             onClick={handleOpenModal}
-            className="absolute inset-0 flex justify-center items-center  bg-opacity-50 cursor-pointer"
+            className="absolute inset-0 flex justify-center items-center bg-opacity-50 cursor-pointer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +40,7 @@ const Video = () => {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black/30  bg-opacity-80 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-black/30 w-full  bg-opacity-80 flex justify-center items-center z-50">
           <div className="relative w-full  max-w-4xl aspect-video bg-black  overflow-hidden">
             <iframe
               width="100%"
@@ -54,11 +51,11 @@ const Video = () => {
               allow="autoplay; encrypted-media"
               allowFullScreen
               className="rounded-2xl border border-gray-500"
-            ></iframe>
+            />
 
             <button
               onClick={handleCloseModal}
-              className="absolute top-2 right-2 bg-white text-black font-bold rounded-full p-2 hover:bg-gray-300"
+              className="absolute top-2 cursor-pointer right-2 bg-white text-black font-bold rounded-full p-2 hover:bg-gray-300"
             >
               <X />
             </button>

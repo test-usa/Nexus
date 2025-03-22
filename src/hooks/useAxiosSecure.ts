@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import * as Cookies from "js-cookie";
 import useAxiosInstance from "./useAxiosInstance";
 const useAxiosSecure = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    const token = Cookies.get("token");
+    const token = sessionStorage.getItem("token");
     // REQUEST INTERCEPTORS
     const requestInterceptor = useAxiosInstance.interceptors.request.use(
       (config) => {

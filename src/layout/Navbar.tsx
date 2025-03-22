@@ -4,20 +4,23 @@ import { useEffect, useState } from "react";
 import { FaOpencart } from "react-icons/fa";
 import { motion } from "framer-motion";
 import CommonWrapper from "@/wrapper/CommonWrapper";
-import { Link } from "react-scroll";
+import { Link as ScrollLink } from "react-scroll";
 import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import userStore from "@/store/userStore";
 const Navbar = () => {
+  const { user, logout_user } = userStore();
   const [toggle, setToggle] = useState<boolean>(false);
-  const [scrollY, setScrollY] = useState<boolean>(false);
-  // Add scroll effect for sticky navbar
+  const [scrollY, setScrollY] = useState<number>(0);
+  const token = sessionStorage.getItem("token");
+
   useEffect(() => {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 40) {
-        setScrollY(true);
-      } else {
-        setScrollY(false);
-      }
-    });
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const links = [
@@ -34,10 +37,6 @@ const Navbar = () => {
       link: "Pricing",
     },
     {
-      id: 4,
-      link: "Blog",
-    },
-    {
       id: 5,
       link: "FAQ",
     },
@@ -50,49 +49,79 @@ const Navbar = () => {
   return (
     <div
       className={`${
-        scrollY ? "bg-black/20 backdrop-blur-lg fixed z-30 w-full transform translate-all duration-200" : "bg-transparent"
+        scrollY > 10
+          ? "bg-black/20 backdrop-blur-lg fixed z-30  scroll-auto w-full transform transition-all duration-300"
+          : "bg-transparent"
       }`}
     >
       <CommonWrapper>
-        <div className="w-full flex items-center gap-x-4 justify-between font-montserrat transform transition-all duration-200">
+        <div className="w-full flex items-center gap-x-4  justify-between font-montserrat transform transition-all duration-200">
           {/***** IMAGE START *****/}
-          <NavLink to="/" className="max-w-16">
+          <ScrollLink
+            to="banner"
+            smooth
+            duration={1200}
+            className="max-w-16 cursor-pointer"
+          >
             <img
               src="https://framerusercontent.com/images/VpiZF9i56wEWOzd8opBM90AzSfA.png"
               alt="logo"
             />
-          </NavLink>
+          </ScrollLink>
           {/***** NAVIGATIONBAR START *****/}
           <div className="md:flex items-center lg:gap-x-8 gap-x-6 text-gray-400 hidden">
-            {links?.map((link) => {
-              return (
-                <Link
-                  smooth
-                  duration={1200}
+            {links?.map((link, index) =>
+              index === links.length - 1 ? (
+                // Last link should be a NavLink
+                <NavLink
+                  key={link.id}
                   to={link?.link}
                   className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                 >
                   {link?.link}
-                </Link>
-              );
-            })}
+                </NavLink>
+              ) : (
+                // All other links are ScrollLink
+                <ScrollLink
+                  key={link.id}
+                  smooth
+                  duration={1200}
+                  to={link?.link}
+                  className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                  activeClass="text-green-400 font-bold"
+                >
+                  {link?.link}
+                </ScrollLink>
+              )
+            )}
           </div>
 
           {/**** AUTH OR PURCHASING ****/}
           <div className="md:flex items-center gap-x-4 text-gray-400 hidden">
-            <NavLink
-              to="/purchase"
+            <ScrollLink
+              to="Pricing"
+              smooth
+              duration={1200}
               className="flex items-center gap-x-2 hover:text-white translate transform duration-300 bg-slate-800 hover:bg-slate-500 cursor-pointer py-2 px-2 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded-md"
             >
               <FaOpencart />
               Purchase
-            </NavLink>
-            <NavLink
-              to="/signup"
-              className="bg-slate-800 hover:bg-slate-500 hover:text-white translate transform duration-300 cursor-pointer py-2 px-3 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded-md"
-            >
-              Signup
-            </NavLink>
+            </ScrollLink>
+            {user && token ? (
+              <button
+                onClick={() => logout_user()}
+                className="bg-slate-800 hover:bg-slate-500 hover:text-white translate transform duration-300 cursor-pointer py-2 px-3 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded-md"
+              >
+                Sign out
+              </button>
+            ) : (
+              <NavLink
+                to="/signup"
+                className="bg-slate-800 hover:bg-slate-500 hover:text-white translate transform duration-300 cursor-pointer py-2 px-3 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded-md"
+              >
+                Signup
+              </NavLink>
+            )}
           </div>
           {/**** TOGGLE BAR, ONLY FOR SM-MD DEVICE ****/}
           <div className="relative md:hidden block">
@@ -126,6 +155,7 @@ const Navbar = () => {
                   {links?.map((link) => {
                     return (
                       <Link
+                        key={link.id}
                         to={link?.link}
                         className="hover:text-white transition-transform duration-300 text-[16px]"
                       >

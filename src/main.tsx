@@ -17,6 +17,6 @@ createRoot(document.getElementById("root")!).render(
         <RouterProvider router={routes} />
       </GoogleOAuthProvider>
     </QueryClientProvider>
-    <Toaster position="bottom-center" richColors />
+    <Toaster position="top-right" />
   </React.StrictMode>
 );

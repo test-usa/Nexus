@@ -6,6 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
+import { Element } from "react-scroll";
 
 export function FrequentlyAsk() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -15,7 +16,7 @@ export function FrequentlyAsk() {
   };
 
   return (
-    <div className="mt-10">
+    <Element name="FAQ" className="mt-10">
       <Title
         title="Frequently Asked Questions"
         subtitle="Get quick answers to the most common questions about Nexus."
@@ -79,6 +80,6 @@ export function FrequentlyAsk() {
           </AccordionItem>
         </Accordion>
       </div>
-    </div>
+    </Element>
   );
 }

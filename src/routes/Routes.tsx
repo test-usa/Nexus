@@ -28,10 +28,6 @@ const routes = createBrowserRouter([
         index: true,
         element: <Home />,
       },
-      {
-        path: "/purchase",
-        element: <Purchase />,
-      },
     ],
   },
   /* UserLayout */
