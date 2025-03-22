@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { GoX } from "react-icons/go";
 import { FcMenu } from "react-icons/fc";
 import { FaAllergies } from "react-icons/fa";
+import userStore from "@/store/userStore";
 
 interface UserData {
   name: string;
@@ -42,7 +43,7 @@ const navItems: NavItem[] = [
     icon: Table,
   },
   {
-    title: "Key Generate",
+    title: "Subscribe Plan",
     href: "key-generate",
     icon: Key,
   },
@@ -57,7 +58,7 @@ export function DashboardSidebar() {
   const [toggle, setToggle] = useState<boolean>(false);
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-
+  const { logout_user } = userStore();
   // _id can be fetched from wherever it's stored, e.g., from localStorage, context, or passed down via props
   const _id = "67dba028db1c02bb0270ffd7"; // Example _id value (replace with dynamic one as needed)
 
@@ -194,6 +195,7 @@ export function DashboardSidebar() {
 
         <div className="mt-auto">
           <Button
+            onClick={() => logout_user()}
             variant="destructive"
             className="w-full justify-start gap-3 hover:bg-gray-700 hover:text-white"
             asChild
