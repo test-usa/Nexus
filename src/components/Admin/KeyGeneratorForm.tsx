@@ -2,6 +2,7 @@ import { useState } from "react";
 
 const KeyGeneratorForm: React.FC = () => {
   const [keyType, setKeyType] = useState<string>("year"); // Default to "year"
+  const [keyDuration, setDuration] = useState<string>("year"); // Default to "year"
   const [keyCount, setKeyCount] = useState<number>(1);
   const [generatedKeys, setGeneratedKeys] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -22,7 +23,7 @@ const KeyGeneratorForm: React.FC = () => {
   };
 
   // List of available key types from your data
-  const keyTypes = [
+  const keyDurations = [
     { value: "day", label: "1 Day" },
     { value: "week", label: "1 Week" },
     { value: "month", label: "1 Month" },
@@ -30,9 +31,18 @@ const KeyGeneratorForm: React.FC = () => {
     { value: "year", label: "1 Year" },
     { value: "lifetime", label: "Lifetime" },
   ];
+  // List of available key types from your data
+  const keyTypes = [
+    { value: "day", label: "Select Key" },
+    { value: "week", label: "Regular Key" },
+    { value: "week", label: "Service Key" },
+  ];
 
   const handleKeyTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setKeyType(e.target.value);
+  };
+  const handleKeyDurationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setDuration(e.target.value);
   };
 
   const handleKeyCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,6 +86,27 @@ const KeyGeneratorForm: React.FC = () => {
             htmlFor="keyType"
             className="block text-gray-600 mb-2 font-medium"
           >
+            Key Duration
+          </label>
+          <select
+            id="keyType"
+            value={keyDuration}
+            onChange={handleKeyDurationChange}
+            className="w-full bg-gray-100 text-gray-700 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
+          >
+            {keyDurations.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="mb-6">
+          <label
+            htmlFor="keyType"
+            className="block text-gray-600 mb-2 font-medium"
+          >
             Key Type
           </label>
           <select
@@ -92,7 +123,7 @@ const KeyGeneratorForm: React.FC = () => {
           </select>
         </div>
 
-        <div className="mb-6">
+        {/* <div className="mb-6">
           <label
             htmlFor="keyCount"
             className="block text-gray-600 mb-2 font-medium"
@@ -107,7 +138,7 @@ const KeyGeneratorForm: React.FC = () => {
             min={1}
             className="w-full bg-gray-100 text-gray-700 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
           />
-        </div>
+        </div> */}
 
         <button
           onClick={generateKeys}

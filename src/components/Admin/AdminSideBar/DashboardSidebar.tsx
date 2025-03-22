@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { History, Home, Key, LogOut, Table, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,12 @@ import { motion } from "framer-motion";
 import { GoX } from "react-icons/go";
 import { FcMenu } from "react-icons/fc";
 import { FaAllergies } from "react-icons/fa";
+
+interface UserData {
+  name: string;
+  email: string;
+  role: string;
+}
 
 interface NavItem {
   title: string;
@@ -49,6 +55,30 @@ const navItems: NavItem[] = [
 
 export function DashboardSidebar() {
   const [toggle, setToggle] = useState<boolean>(false);
+  const [user, setUser] = useState<UserData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  // _id can be fetched from wherever it's stored, e.g., from localStorage, context, or passed down via props
+  const _id = "67dba028db1c02bb0270ffd7"; // Example _id value (replace with dynamic one as needed)
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(
+          `https://guidemc.vercel.app/api/v1/user/single-user/${_id}`
+        );
+        const data = await response.json();
+        if (data.success) {
+          setUser(data.data[0]); // Assuming the user data is an array and the first item contains the user data
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, [_id]); // Depend on _id if it's dynamic
 
   return (
     <>
@@ -89,8 +119,12 @@ export function DashboardSidebar() {
               className="object-cover"
             />
           </div>
-          <p className="font-semibold mt-3">Admin_Arfin Mia</p>
-          <p className="text-xs text-gray-400">arfin.cse.edu.bd@gmail.com</p>
+          <p className="font-semibold mt-3">
+            Name: {loading ? "Loading..." : user?.name}
+          </p>
+          <p className="text-xs text-gray-400">
+            Email: {loading ? "Loading..." : user?.email}
+          </p>
         </div>
 
         <nav className="flex-1 space-y-2">
@@ -134,8 +168,12 @@ export function DashboardSidebar() {
               className="object-cover"
             />
           </div>
-          <p className="font-semibold mt-3">Admin_Arfin Mia</p>
-          <p className="text-xs text-gray-800">arfin.cse.edu.bd@gmail.com</p>
+          <p className="font-semibold mt-3">
+            {loading ? "Loading..." : user?.name}
+          </p>
+          <p className="text-xs text-gray-800">
+            {loading ? "Loading..." : user?.email}
+          </p>
         </div>
 
         <nav className="flex-1 space-y-2">
@@ -145,10 +183,7 @@ export function DashboardSidebar() {
               to={item.href}
               className={cn(
                 "flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition-all duration-300",
-                "hover:bg-gray-700 hover:text-white",
-                location.pathname === item.href
-                  ? "bg-gray-500 text-white" // Add active state based on current location
-                  : "" // If not active, remove the background color
+                "hover:bg-gray-700 hover:text-white"
               )}
             >
               <item.icon className="h-5 w-5" />
