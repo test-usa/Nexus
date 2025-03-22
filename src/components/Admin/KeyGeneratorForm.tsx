@@ -1,76 +1,82 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+const keyData = {
+  keyName: "Lifetime Key",
+  duration: 10000,
+  users: {
+    serviceKey: 30,
+    regularKey: 1,
+  },
+  prices: {
+    regularKey: 3000,
+    serviceKey: 8900,
+  },
+};
+
+type KeyType = keyof typeof keyData.prices; // This infers 'regularKey' | 'serviceKey'
 
 const KeyGeneratorForm: React.FC = () => {
-  const [keyType, setKeyType] = useState<string>("month"); // Default to "month"
-  const [keyDuration, setDuration] = useState<string>("month"); // Default to "month"
+  const [keyType, setKeyType] = useState<KeyType>("regularKey"); // Set initial state to 'regularKey'
   const [keyCount, setKeyCount] = useState<number>(1);
   const [generatedKeys, setGeneratedKeys] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const [authToken, setAuthToken] = useState<string | null>(null);
 
-  // List of available key durations
-  const keyDurations = [
-    { value: "day", label: "1 Day" },
-    { value: "week", label: "1 Week" },
-    { value: "month", label: "1 Month" },
-    { value: "three_month", label: "3 Months" },
-    { value: "year", label: "1 Year" },
-    { value: "lifetime", label: "Lifetime" },
-  ];
-
-  // List of available key types
-  const keyTypes = [
-    { value: "regularKey", label: "Regular Key" },
-    { value: "serviceKey", label: "Service Key" },
-  ];
+  useEffect(() => {
+    const token = localStorage.getItem("google_access_token");
+    if (token) {
+      setAuthToken(token);
+    }
+  }, []);
 
   const handleKeyTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setKeyType(e.target.value);
-  };
-
-  const handleKeyDurationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setDuration(e.target.value);
+    setKeyType(e.target.value as KeyType); // Ensure keyType is of the correct type
   };
 
   const handleKeyCountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyCount(parseInt(e.target.value, 10) || 1);
+    setKeyCount(Math.max(1, parseInt(e.target.value, 10)) || 1);
   };
 
   const generateKeys = async () => {
     setIsLoading(true);
-    setError(""); // Reset error state
+    setError("");
 
-    // Prepare the data to be sent in the API request
-    const requestData = {
-      keyType,
-      keyDuration,
-      keyCount,
-    };
+    if (!authToken) {
+      setError("User is not authenticated.");
+      setIsLoading(false);
+      return;
+    }
 
     try {
+      const requestData = {
+        keyType,
+        keyDuration: keyData.duration,
+        keyCount,
+      };
+
       const response = await fetch(
         "https://guidemc.vercel.app/api/v1/key/create-key",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer YOUR_API_KEY", // Replace with your actual API key
+            Authorization: `Bearer ${authToken}`,
           },
           body: JSON.stringify(requestData),
         }
       );
 
       if (!response.ok) {
-        throw new Error("Failed to generate keys. Please try again.");
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to generate keys.");
       }
 
       const data = await response.json();
-
-      // Handle the response to get the keys
       if (data.success) {
-        setGeneratedKeys([data.data._id]); // Assuming `_id` is the key identifier or a key
+        setGeneratedKeys([...generatedKeys, data.data._id]);
       } else {
-        throw new Error(data.message || "An error occurred.");
+        throw new Error(data.message || "Unexpected error occurred.");
       }
     } catch (error: any) {
       setError(error.message || "An unexpected error occurred.");
@@ -83,61 +89,32 @@ const KeyGeneratorForm: React.FC = () => {
     <div className="flex justify-center p-6">
       <div className="w-full max-w-lg bg-white p-6 rounded-xl shadow-lg border border-gray-300">
         <h2 className="text-2xl font-medium tracking-wide text-gray-700 mb-6">
-          Generate New Key
+          Subscribe Plan Create
         </h2>
 
         <div className="mb-6">
-          <label
-            htmlFor="keyType"
-            className="block text-gray-600 mb-2 font-medium"
-          >
-            Key Duration
-          </label>
-          <select
-            id="keyDuration"
-            value={keyDuration}
-            onChange={handleKeyDurationChange}
-            className="w-full bg-gray-100 text-gray-700 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
-          >
-            {keyDurations.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="mb-6">
-          <label
-            htmlFor="keyType"
-            className="block text-gray-600 mb-2 font-medium"
-          >
+          <label className="block text-gray-600 mb-2 font-medium">
             Key Type
           </label>
           <select
-            id="keyType"
             value={keyType}
             onChange={handleKeyTypeChange}
             className="w-full bg-gray-100 text-gray-700 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-500"
           >
-            {keyTypes.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
+            {Object.keys(keyData.users).map((key) => (
+              <option key={key} value={key}>
+                {key.replace("Key", " Key")}
               </option>
             ))}
           </select>
         </div>
 
         <div className="mb-6">
-          <label
-            htmlFor="keyCount"
-            className="block text-gray-600 mb-2 font-medium"
-          >
+          <label className="block text-gray-600 mb-2 font-medium">
             Number of Keys
           </label>
           <input
             type="number"
-            id="keyCount"
             value={keyCount}
             onChange={handleKeyCountChange}
             min={1}
@@ -148,7 +125,7 @@ const KeyGeneratorForm: React.FC = () => {
         <button
           onClick={generateKeys}
           disabled={isLoading}
-          className="w-full bg-gray-600 hover:bg-gray-800 py-3 rounded-lg font-semibold text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full bg-gray-600 hover:bg-gray-800 py-3 rounded-lg font-semibold text-white focus:outline-none focus:ring-2 focus:ring-gray-500"
         >
           {isLoading ? "Generating..." : "Generate Keys"}
         </button>
@@ -174,15 +151,10 @@ const KeyGeneratorForm: React.FC = () => {
           </div>
         )}
 
-        {/* Displaying the pricing info based on selected key type */}
         <div className="mt-6 text-gray-600">
           <h3 className="text-lg font-medium">Pricing Information</h3>
           <p>
-            {keyType === "regularKey"
-              ? `For ${keyDuration} duration, the price is ${1000} for a regular key.`
-              : keyType === "serviceKey"
-              ? `For ${keyDuration} duration, the price is ${1500} for a service key.`
-              : `Price information for the selected key type is not available.`}
+            For {keyData.keyName}, the price is ${keyData.prices[keyType]}.
           </p>
         </div>
       </div>

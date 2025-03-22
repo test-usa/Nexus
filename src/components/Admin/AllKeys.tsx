@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaRegEdit } from "react-icons/fa";
-import { MdDeleteOutline } from "react-icons/md";
+import { MdOutlineDeleteOutline } from "react-icons/md";
 
-type LicenseKey = {
+const API_BASE_URL = "https://guidemc.vercel.app/api/v1/key";
+
+// Define the LicenseKey type
+interface LicenseKey {
   _id: string;
   keyName: string;
   duration: number;
@@ -15,34 +18,67 @@ type LicenseKey = {
     regularKey: number;
     serviceKey: number;
   };
-  stripePriceId: {
-    regularKey: number;
-    serviceKey: number;
-  };
-  paymentLink: string;
-};
+}
 
 const AllKeys: React.FC = () => {
   const [licenseKeys, setLicenseKeys] = useState<LicenseKey[]>([]);
+  const [selectedKey, setSelectedKey] = useState<LicenseKey | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   // Fetch data from the API
   useEffect(() => {
-    axios
-      .get("https://guidemc.vercel.app/api/v1/key/all-key")
-      .then((response) => {
-        if (response.data.success) {
-          setLicenseKeys(response.data.data);
-        } else {
-          console.error("Failed to fetch license keys");
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
+    fetchKeys();
   }, []);
 
+  const fetchKeys = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/all-key`);
+      if (response.data.success) {
+        setLicenseKeys(response.data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const handleEditClick = (key: LicenseKey) => {
+    setSelectedKey(key);
+    setShowModal(true);
+  };
+
+  const handleUpdate = async () => {
+    if (!selectedKey) return;
+    try {
+      const response = await axios.put(
+        `${API_BASE_URL}/update-key/${selectedKey._id}`,
+        selectedKey
+      );
+      if (response.data.success) {
+        fetchKeys();
+        setShowModal(false);
+      }
+    } catch (error) {
+      console.error("Error updating key:", error);
+    }
+  };
+
+  const handleDelete = async (keyId: string) => {
+    if (!window.confirm("Are you sure you want to delete this key?")) return;
+
+    try {
+      const response = await axios.delete(
+        `${API_BASE_URL}/delete-key/${keyId}`
+      );
+      if (response.data.success) {
+        setLicenseKeys(licenseKeys.filter((key) => key._id !== keyId));
+      }
+    } catch (error) {
+      console.error("Error deleting key:", error);
+    }
+  };
+
   return (
-    <div className="p-8  min-h-screen">
+    <div className="p-8 min-h-screen">
       <h2 className="text-2xl font-medium tracking-wide text-gray-700 mb-6">
         All Keys
       </h2>
@@ -73,18 +109,20 @@ const AllKeys: React.FC = () => {
                 <td className="py-4 px-6">${key.prices.regularKey}</td>
                 <td className="py-4 px-6">${key.prices.serviceKey}</td>
                 <td>
-                  <button className="hover:bg-sky-600 hover:text-white rounded-sm p-2 text-sm bg-sky-500 transition-all duration-300">
-                    <td className="py-2 px-2 text-sky-400">
-                      <FaRegEdit />
-                    </td>
+                  <button
+                    onClick={() => handleEditClick(key)}
+                    className="hover:bg-sky-600 hover:text-white rounded-sm p-2 text-sm bg-sky-500 transition-all"
+                  >
+                    <FaRegEdit />
                   </button>
                 </td>
 
                 <td>
-                  <button className="hover:bg-red-600 hover:text-white rounded-sm p-2 text-sm bg-red-500 transition-all duration-300">
-                    <td className="py-2 px-2 text-black">
-                      <MdDeleteOutline className="p-" />
-                    </td>
+                  <button
+                    onClick={() => handleDelete(key._id)}
+                    className="hover:bg-red-600 hover:text-white rounded-sm p-2 text-lg font-bold bg-red-500 transition-all"
+                  >
+                    <MdOutlineDeleteOutline />
                   </button>
                 </td>
               </tr>
@@ -92,6 +130,91 @@ const AllKeys: React.FC = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Update Modal */}
+      {showModal && selectedKey && (
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg w-96 shadow-lg">
+            <h3 className="text-xl font-semibold mb-4">Update Key</h3>
+
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Key Name
+            </label>
+            <input
+              type="text"
+              className="border p-2 w-full mb-3"
+              value={selectedKey.keyName}
+              onChange={(e) =>
+                setSelectedKey({ ...selectedKey, keyName: e.target.value })
+              }
+            />
+
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Duration (Days)
+            </label>
+            <input
+              type="number"
+              className="border p-2 w-full mb-3"
+              value={selectedKey.duration}
+              onChange={(e) =>
+                setSelectedKey({
+                  ...selectedKey,
+                  duration: Number(e.target.value),
+                })
+              }
+            />
+
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Regular Key Price ($)
+            </label>
+            <input
+              type="number"
+              className="border p-2 w-full mb-3"
+              value={selectedKey.prices.regularKey}
+              onChange={(e) =>
+                setSelectedKey({
+                  ...selectedKey,
+                  prices: {
+                    ...selectedKey.prices,
+                    regularKey: Number(e.target.value),
+                  },
+                })
+              }
+            />
+
+            <label className="block mb-2 text-sm font-medium text-gray-700">
+              Service Key Price ($)
+            </label>
+            <input
+              type="number"
+              className="border p-2 w-full mb-3"
+              value={selectedKey.prices.serviceKey}
+              onChange={(e) =>
+                setSelectedKey({
+                  ...selectedKey,
+                  prices: {
+                    ...selectedKey.prices,
+                    serviceKey: Number(e.target.value),
+                  },
+                })
+              }
+            />
+
+            <button
+              onClick={handleUpdate}
+              className="bg-blue-500 text-white p-2 rounded mr-2"
+            >
+              Save
+            </button>
+            <button
+              onClick={() => setShowModal(false)}
+              className="bg-gray-400 text-white p-2 rounded"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
