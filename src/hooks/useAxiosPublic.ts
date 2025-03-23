@@ -1,4 +1,4 @@
-import useAxiosInstance from "../useAxiosInstance";
+import useAxiosInstance from "./useAxiosInstance";
 
 const useAxiosPublic = () => {
   return useAxiosInstance;
