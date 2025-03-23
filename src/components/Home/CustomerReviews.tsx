@@ -1,9 +1,9 @@
 import Slider from "react-slick";
 import profile1 from "../../assets/photo1.jpg";
 import profile2 from "../../assets/profile2.png";
-import profile3 from "../../assets/profile3.png";
-import Title from "./Shared/Title";
+import profile3 from "../../assets/profile3.png";;
 import { Element } from "react-scroll";
+import Title from "./Shared/Title";
 
 const CustomerReviews = () => {
   const settings = {

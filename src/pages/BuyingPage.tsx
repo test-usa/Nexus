@@ -22,7 +22,7 @@ const BuyingPage = () => {
     `/key/single-key/${id?.id}`
   );
 
-  console.log(data.data, "params single data");
+  console.log(data?.data, "params single data");
 
   const [count, setCount] = useState<number>(1);
   const handleDescres = (): void => setCount((prev) => Math.max(1, prev - 1));

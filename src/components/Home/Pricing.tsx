@@ -1,9 +1,9 @@
 import CommonWrapper from "@/wrapper/CommonWrapper";
 import { useEffect, useState } from "react";
-import Title from "./Shared/Title";
 import { Link } from "react-router-dom";
 import { Element } from "react-scroll";
 import useFetch from "@/hooks/shared/useFetch";
+import Title from "./Shared/Title";
 
 type PricingData = {
   keyName: string;
