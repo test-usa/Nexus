@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import useFetch from "@/hooks/shared/useFetch";
-import { useState } from "react";
+import usePost from "@/hooks/shared/usePost";
+import { Loader } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 type TSinglePriceData = {
@@ -13,20 +16,66 @@ type TSinglePriceData = {
     regularKey: number;
     serviceKey: number;
   };
+  _id: string;
   keyName: string;
 };
 
 const BuyingPage = () => {
   const id = useParams();
-  const { data, isSuccess, isLoading, refetch } = useFetch(
-    `/key/single-key/${id?.id}`
-  );
-
-  console.log(data?.data, "params single data");
-
   const [count, setCount] = useState<number>(1);
-  const handleDescres = (): void => setCount((prev) => Math.max(1, prev - 1));
+  const [price, setPrice] = useState<number>();
+  const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [selectedKey, setSelectedKey] = useState<string>("");
+  const handleDescres = (): void => {
+    setCount((prev) => Math.max(1, prev - 1));
+  };
   const handleIncres = (): void => setCount((prev) => prev + 1);
+
+  const {
+    data: checkoutData,
+    mutate,
+    isPending,
+  } = usePost(`/payment/subscribe`);
+
+  //**** ALL KEYS DATA ****/
+  const { data = [] } = useFetch(`/key/all-key`);
+  //**** FILTERED SINGLE KEY ****/
+  const singleKey =
+    data?.data?.filter(
+      (item: any) => String(item?._id) === String(id?.id)
+    )[0] || [];
+
+  useEffect(() => {
+    if (isChecked) {
+      setPrice(singleKey?.prices?.serviceKey * count);
+    } else {
+      setPrice(singleKey?.prices?.regularKey * count);
+    }
+  }, [data, count, isChecked]);
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedKey(e.target.value);
+    console.log("Selected Key:", e.target.value);
+  };
+
+  const checkoutHanlder = () => {
+    const payload: {
+      key: string | undefined;
+      amount: number;
+      keyType: string;
+    } = {
+      key: id?.id,
+      amount: count,
+      keyType: isChecked ? "Service" : "Regular",
+    };
+    mutate(payload);
+  };
+
+  useEffect(() => {
+    if (checkoutData?.data?.url) {
+      window.open(checkoutData.data.url, "_blank");
+    }
+  }, [checkoutData]);
 
   return (
     <div className="min-h-screen bg-[#212020] flex items-center justify-center p-6">
@@ -46,7 +95,7 @@ const BuyingPage = () => {
             New Key
           </h2>
           <h2 className="text-sm sm:text-[16px] font-semibold mb-4 text-gray-200">
-            $2.50 - $300.00
+            ${singleKey?.prices?.regularKey} - ${singleKey?.prices?.serviceKey}
           </h2>
 
           <div className="space-y-3">
@@ -59,33 +108,53 @@ const BuyingPage = () => {
               </label>
               <select
                 id="keyType"
+                value={selectedKey}
+                onChange={handleSelectChange}
                 className="w-full cursor-pointer bg-cyan-800/50 text-white py-2.5 px-2 rounded-md focus:outline-none"
               >
-                <option value="day">1 Day</option>
-                <option value="week">1 Week</option>
-                <option value="month">1 Month</option>
-                <option value="three_month">3 Months</option>
-                <option value="year">1 Year</option>
-                <option value="lifetime">Lifetime</option>
+                {data?.data?.map((keys: TSinglePriceData) => {
+                  return (
+                    <option key={keys._id} value={keys.keyName}>
+                      {" "}
+                      {keys.keyName}
+                    </option>
+                  );
+                })}
               </select>
             </div>
 
             <Separator className="bg-cyan-800" />
 
-            <div className="flex items-center gap-x-5">
-              <Button
-                onClick={handleDescres}
-                className="bg-gray-200 cursor-pointer hover:bg-gray-300 sm:w-8 w-6  h-8 text-black text-sm"
-              >
-                -
-              </Button>
-              <p className="text-gray-200 text-sm sm:text-lg">{count}</p>
-              <Button
-                onClick={handleIncres}
-                className="bg-gray-200 cursor-pointer hover:bg-gray-300 sm:w-8 w-6  h-8 text-black text-sm"
-              >
-                +
-              </Button>
+            <div className="flex items-center justify-between ">
+              <div className="flex items-center gap-x-5">
+                <Button
+                  onClick={handleDescres}
+                  className="bg-gray-200 cursor-pointer hover:bg-gray-300 sm:w-8 w-6  h-8 text-black text-sm"
+                >
+                  -
+                </Button>
+                <p className="text-gray-200 text-sm sm:text-lg">{count}</p>
+                <Button
+                  onClick={handleIncres}
+                  className="bg-gray-200 cursor-pointer hover:bg-gray-300 sm:w-8 w-6  h-8 text-black text-sm"
+                >
+                  +
+                </Button>
+              </div>
+              <div className="flex items-center  space-x-2">
+                <Checkbox
+                  checked={isChecked}
+                  onCheckedChange={(checked) => setIsChecked(!!checked)}
+                  id="terms2"
+                  className="cursor-pointer"
+                />
+                <label
+                  htmlFor="terms2"
+                  className={`text-xs cursor-pointer leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-white `}
+                >
+                  Service Key
+                </label>
+              </div>
             </div>
 
             <div className="space-y-3 flex items-center justify-between">
@@ -97,14 +166,17 @@ const BuyingPage = () => {
                   Total will be calculated at checkout
                 </p>
               </div>
-              <p className="text-xs text-gray-300">20</p>
+              <p className="text-xs text-gray-300">${price}</p>
+
+              {/* <p className="text-xs text-gray-300">{price}</p>; */}
             </div>
 
             <Button
               size="lg"
               className="w-full cursor-pointer text-[16px] sm:text-lg bg-cyan-800/50 hover:bg-cyan-900 rounded-md py-2  text-white focus:outline-none"
+              onClick={checkoutHanlder}
             >
-              Checkout
+              {isPending ? <Loader className="animate-spin" /> : "Checkout"}
             </Button>
           </div>
         </div>

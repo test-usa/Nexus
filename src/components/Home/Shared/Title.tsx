@@ -8,7 +8,7 @@ const Title: React.FC<TitleProps> = ({ title, subtitle }) => {
   return (
     <CommonWrapper>
       <div className=" text-white space-y-5 w-[80%] mx-auto text-center font-montserrat">
-        <h1 className="text-white text-[16px] sm:text-4xl text-center ">
+        <h1 className="text-white text-3xl sm:text-4xl text-center ">
           {title}
         </h1>
 
