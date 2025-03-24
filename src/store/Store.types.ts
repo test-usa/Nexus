@@ -4,8 +4,14 @@ export interface IUserStore {
   token: string | null;
   user: string | object | null;
   loading: boolean;
-  signup_user: (signupdata: ISginUpTypes, navigate: (path: string) => void) => Promise<void>;
-  signIn_user: (signdata: ISignInTypes) => Promise<void>;
+  signup_user: (
+    signupdata: ISginUpTypes,
+    navigate: (path: string) => void
+  ) => Promise<void>;
+  signIn_user: (
+    signdata: ISignInTypes,
+    navigate: (path: string) => void
+  ) => Promise<void>;
   auth: (data: IAuth) => Promise<void>;
   logout_user: () => void;
 }
@@ -17,7 +23,6 @@ export interface ISginUpTypes {
   number?: number;
   email: string;
   password?: string;
-  
 }
 
 // ---------- SIGNIN STORE TYPES -----------//

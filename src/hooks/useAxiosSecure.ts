@@ -10,6 +10,7 @@ const useAxiosSecure = () => {
       (config) => {
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
+          config.headers.token = `${token}`;
         }
         return config;
       },
