@@ -9,7 +9,7 @@ const useAxiosSecure = () => {
     const requestInterceptor = useAxiosInstance.interceptors.request.use(
       (config) => {
         if (token) {
-          config.headers.Authorization = `Bearer ${token}`;
+          config.headers.token = `${token}`;
         }
         return config;
       },
@@ -23,7 +23,7 @@ const useAxiosSecure = () => {
         console.log("response error ---> axisosSecure", error);
         if (error.response?.status === 401 || error.response?.status === 403) {
           //   await logout_user(); // Clear user data on unauthorized
-          setTimeout(() => navigate("/login"), 500);
+          setTimeout(() => navigate("/signin"), 500);
         }
         return Promise.reject(error);
       }

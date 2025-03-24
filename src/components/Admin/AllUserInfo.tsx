@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-
 import {
   Table,
   TableBody,
@@ -9,6 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import ReactPaginate from "react-paginate";
+import useFetch from "@/hooks/shared/useFetch";
 
 interface User {
   _id: string;
@@ -20,41 +20,24 @@ interface User {
 
 export function AllUserInfo() {
   const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   // Pagination States
   const [currentPage, setCurrentPage] = useState<number>(0);
   const usersPerPage = 10; // Number of users per page
 
+  const { data: usersData, isSuccess, isLoading } = useFetch("user/all-users");
+
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch(
-          "https://guidemc.vercel.app/api/v1/user/all-user"
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch user data");
-        }
-        const data = await response.json();
-        console.log("Fetched Data:", data);
+    if (isSuccess && Array.isArray(usersData?.data)) {
+      setUsers(usersData.data);
+      setError(null); // Clear any previous error
+    } else if (!isLoading && !isSuccess) {
+      setError("Failed to fetch user data");
+    }
+  }, [isSuccess, usersData, isLoading]);
 
-        if (!Array.isArray(data.data)) {
-          throw new Error("Unexpected API response: Data is not an array");
-        }
-
-        setUsers(data.data); // Accessing the correct array
-      } catch (err) {
-        setError((err as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUsers();
-  }, []);
-
-  if (loading) return <p className="text-center mt-4">Loading users...</p>;
+  if (isLoading) return <p className="text-center mt-4">Loading users...</p>;
   if (error)
     return <p className="text-center mt-4 text-red-500">Error: {error}</p>;
 
@@ -100,6 +83,7 @@ export function AllUserInfo() {
           </TableBody>
         </Table>
       </div>
+
       {/* Pagination */}
       <div className="mt-6 flex justify-center">
         <ReactPaginate
