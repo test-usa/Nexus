@@ -35,7 +35,10 @@ const BuyingPage = () => {
     data: checkoutData,
     mutate,
     isPending,
-  } = usePost(`/payment/subscribe`);
+  } = usePost<
+    { url: string },
+    { key: string | undefined; amount: number; keyType: string }
+  >("/payment/subscribe");
 
   //**** ALL KEYS DATA ****/
   const { data = [] } = useFetch(`/key/all-key`);

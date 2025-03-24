@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Title from "./Shared/Title";
 import {
   Accordion,
@@ -9,11 +8,11 @@ import {
 import { Element } from "react-scroll";
 
 export function FrequentlyAsk() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  // const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  // const toggleFAQ = (index: number) => {
+  //   setOpenIndex(openIndex === index ? null : index);
+  // };
 
   return (
     <Element name="FAQ" className="mt-10">

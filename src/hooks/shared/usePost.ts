@@ -1,16 +1,21 @@
 import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../useAxiosSecure";
 import { toast } from "sonner";
-type dataType = {
+type ApiResponse<T> = {
   message: string;
   success: boolean;
-  data: [];
+  data: T;
 };
-const usePost = (route: string) => {
+
+const usePost = <T, V>(route: string) => {
   const axisosSecure = useAxiosSecure();
-  const { data, mutate, isPending, isSuccess } = useMutation({
+  const { data, mutate, isPending, isSuccess } = useMutation<
+    ApiResponse<T>,
+    Error,
+    V
+  >({
     mutationFn: async (obj) => {
-      const response = await axisosSecure.post(route, obj);
+      const response = await axisosSecure.post<ApiResponse<T>>(route, obj);
       return response.data;
     },
     onSuccess: (data) => {
@@ -23,6 +28,7 @@ const usePost = (route: string) => {
     onError: (error) => {
       console.log(error, "use post hook onError");
       // toast here
+      toast.error(data?.message);
     },
   });
   return { data, mutate, isPending, isSuccess };
