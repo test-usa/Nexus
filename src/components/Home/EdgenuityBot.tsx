@@ -11,8 +11,9 @@ import {
   Grid,
   Gamepad2,
 } from "lucide-react";
-import Title from "./Shared/Title";
+
 import { Element } from "react-scroll";
+import Title from "./Shared/Title";
 
 gsap.registerPlugin(ScrollTrigger);
 
