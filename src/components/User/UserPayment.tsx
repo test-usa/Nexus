@@ -16,7 +16,7 @@ interface Payment {
 const UserPayment: React.FC = () => {
   const [payments, setPayments] = useState<Payment[]>([]);
   const { data, isSuccess, isLoading } = useFetch(
-    "/payment//get-all-user-payment"
+    "/payment/get-all-user-payment"
   );
 
   // Handle data fetching
