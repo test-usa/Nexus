@@ -34,7 +34,10 @@ const userStore = create<IUserStore>()(
           set((state) => ({ ...state, loading: false }));
         }
       },
-      signIn_user: async (signdata: ISignInTypes) => {
+      signIn_user: async (
+        signdata: ISignInTypes,
+        navigate: (path: string) => void
+      ) => {
         const axiosPublic = useAxiosPublic();
         try {
           set({ loading: true });
@@ -46,6 +49,7 @@ const userStore = create<IUserStore>()(
             sessionStorage.setItem("token", data?.data?.accessToken);
             console.log(data, "login use from zustand");
             toast.success(data?.message);
+            navigate("/");
           }
         } catch (error) {
           toast.error("Signin failed, please try again");

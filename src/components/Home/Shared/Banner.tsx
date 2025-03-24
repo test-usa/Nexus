@@ -36,7 +36,7 @@ const Banner = () => {
   return (
     <Element name="banner" className="font-montserrat">
       <CommonWrapper>
-        <div  className="mt-28">
+        <div className="mt-28">
           {/**** TEXT SECTION ****/}
           <div className="space-y-5 text-center">
             <h1
@@ -132,7 +132,7 @@ const Banner = () => {
                   </button>
                 </div>
                 <div className="bg-gray-900 space-y-3 w-full p-2">
-                  {service?.map((item: Banner, index) => {
+                  {service?.map((item: any, index) => {
                     return (
                       <div
                         key={index}
@@ -150,7 +150,7 @@ const Banner = () => {
             </div>
           </div>
           {/**** FOR MOBILE AND TABLE DEVICE ONLY ****/}
-          <div className="slider-container cursor-pointer lg:hidden block mt-12">
+          <div className="slider-container cursor-pointer  lg:hidden block mt-12">
             <Slider {...settings}>
               {images.map((src, index) => (
                 <div key={index} className="p-2">
@@ -170,4 +170,3 @@ const Banner = () => {
 };
 
 export default Banner;
-

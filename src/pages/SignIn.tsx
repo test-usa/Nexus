@@ -1,12 +1,13 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ISingIn } from "./Form.types";
 import { Loader, Lock, Mail } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import userStore from "@/store/userStore";
 import { useGoogleAuth } from "@/hooks/auth/googleAuth";
 
 const SignIn = () => {
   const { signIn_user, loading, auth } = userStore();
+  const navigate = useNavigate();
   const { user: authuser, handleGoogleLogin } = useGoogleAuth();
   const {
     register,
@@ -14,7 +15,7 @@ const SignIn = () => {
     formState: { errors },
   } = useForm<ISingIn>();
   const onSubmit: SubmitHandler<ISingIn> = (data) => {
-    signIn_user(data);
+    signIn_user(data, navigate);
   };
   return (
     <div className=" bg-[#212020] min-h-screen flex flex-col items-center justify-center font-montserrat ">
