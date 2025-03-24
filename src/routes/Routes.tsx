@@ -4,7 +4,6 @@ import KeyGeneratorForm from "@/components/Admin/KeyGeneratorForm";
 import AdminLayout from "@/layout/AdminLayout";
 import App from "@/pages/App";
 import Home from "@/pages/Home";
-import Purchase from "@/pages/Purchase";
 import SignIn from "@/pages/SignIn";
 import SignUp from "@/pages/SignUp";
 import { createBrowserRouter } from "react-router-dom";

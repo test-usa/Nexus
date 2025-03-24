@@ -28,8 +28,7 @@ const Banner = () => {
   };
 
   const images = [
-    "https://tse3.mm.bing.net/th?id=OIP.ZB6sumZwwAtmZHx-xS0SCwAAAA&pid=Api",
-    "https://tse2.mm.bing.net/th?id=OIP.SYHwXVZzL2474mDA_3frgAHaFt&pid=Api",
+
     "https://tse2.mm.bing.net/th?id=OIP.7pbaYFsnAEXn266BHappVwHaEK&pid=Api",
     "https://tse1.mm.bing.net/th?id=OIP.P5ncWi8Xay4tKTScsH3lygHaEK&pid=Api",
   ];
@@ -150,14 +149,14 @@ const Banner = () => {
             </div>
           </div>
           {/**** FOR MOBILE AND TABLE DEVICE ONLY ****/}
-          <div className="slider-container cursor-pointer  lg:hidden block mt-12">
+          <div className="slider-container cursor-pointer lg:hidden block mt-12">
             <Slider {...settings}>
               {images.map((src, index) => (
                 <div key={index} className="p-2">
                   <img
                     src={src}
                     alt={`Nexus Slide ${index + 1}`}
-                    className="rounded-xl min-w-[290px] mx-auto h-[250px] shadow-lg"
+                    className="rounded-xl min-w-[310px] mx-auto h-[250px] shadow-lg"
                   />
                 </div>
               ))}

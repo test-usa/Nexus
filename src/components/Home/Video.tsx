@@ -13,7 +13,7 @@ const Video = () => {
           <img
             src={photo}
             alt="Course Thumbnail"
-            className="rounded-2xl border border-gray-500 w-full object-cover border-solid"
+            className="rounded-2xl border border-gray-500  border-solid"
           />
           {/* Play Button */}
           <button
