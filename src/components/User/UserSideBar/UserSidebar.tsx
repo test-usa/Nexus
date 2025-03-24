@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { History, Home, LogOut, Table, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -6,11 +6,20 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { GoX } from "react-icons/go";
 import { FcMenu } from "react-icons/fc";
+import userStore from "@/store/userStore";
+import useFetch from "@/hooks/shared/useFetch";
 
 interface NavItem {
   title: string;
   href: string;
   icon: React.ComponentType<{ className?: string }>;
+}
+
+interface UserData {
+  id: string;
+  name: string;
+  email: string;
+  // Add other fields as necessary
 }
 
 const navItems: NavItem[] = [
@@ -39,6 +48,25 @@ const navItems: NavItem[] = [
 
 export function UserSidebar() {
   const [toggle, setToggle] = useState<boolean>(false);
+  const [user, setUser] = useState<UserData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const { data, isSuccess, isLoading, refetch } = useFetch("user/get-self");
+  const { logout_user } = userStore();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        if (data?.success) {
+          setUser(data.data);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, [data]);
 
   return (
     <>
@@ -79,8 +107,12 @@ export function UserSidebar() {
               className="object-cover"
             />
           </div>
-          <p className="font-semibold mt-3">User_Arfin Mia</p>
-          <p className="text-xs text-gray-400">arfin.cse.edu.bd@gmail.com</p>
+          <p className="font-semibold mt-3">
+            {loading ? "Loading..." : user?.name}
+          </p>
+          <p className="text-xs text-gray-400">
+            {loading ? "Loading..." : user?.email}
+          </p>
         </div>
 
         <nav className="flex-1 space-y-2">
@@ -124,8 +156,12 @@ export function UserSidebar() {
               className="object-cover"
             />
           </div>
-          <p className="font-semibold mt-3">User_Arfin Mia</p>
-          <p className="text-xs text-gray-800">arfin.cse.edu.bd@gmail.com</p>
+          <p className="font-semibold mt-3">
+            {loading ? "Loading..." : user?.name}
+          </p>
+          <p className="text-xs text-gray-400">
+            {loading ? "Loading..." : user?.email}
+          </p>
         </div>
 
         <nav className="flex-1 space-y-2">
@@ -147,6 +183,7 @@ export function UserSidebar() {
 
         <div className="mt-auto">
           <Button
+            onClick={logout_user}
             variant="destructive"
             className="w-full justify-start gap-3 hover:bg-gray-700 hover:text-white"
             asChild

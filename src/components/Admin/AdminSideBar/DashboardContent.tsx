@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/table";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import useFetch from "@/hooks/shared/useFetch";
 
 interface User {
   _id: string;
@@ -20,40 +21,21 @@ interface User {
 
 export function DashboardContent() {
   const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
+  const { data: usersData, isSuccess, isLoading } = useFetch("user/all-users");
   const [currentPage, setCurrentPage] = useState<number>(0);
   const usersPerPage = 8;
 
-  const fetchUsers = async () => {
-    try {
-      const response = await fetch(
-        "https://guidemc.vercel.app/api/v1/user/all-user"
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch user data");
-      }
-      const data = await response.json();
-      console.log("Fetched Data:", data);
-
-      if (!Array.isArray(data.data)) {
-        throw new Error("Unexpected API response: Data is not an array");
-      }
-
-      setUsers(data.data);
-    } catch (err) {
-      setError((err as Error).message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchUsers();
-  }, []);
+    if (isSuccess && Array.isArray(usersData?.data)) {
+      setUsers(usersData.data);
+      setError(null); // Clear any previous error
+    } else if (!isLoading && !isSuccess) {
+      setError("Failed to fetch user data");
+    }
+  }, [isSuccess, usersData]);
 
-  if (loading) return <p className="text-center mt-4">Loading users...</p>;
+  if (isLoading) return <p className="text-center mt-4">Loading users...</p>;
   if (error)
     return <p className="text-center mt-4 text-red-500">Error: {error}</p>;
 
