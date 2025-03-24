@@ -1,4 +1,6 @@
-import { useState } from "react";
+import useFetch from "@/hooks/shared/useFetch";
+
+import { useEffect, useState } from "react";
 import { FaRegEdit } from "react-icons/fa";
 
 interface User {
@@ -6,6 +8,12 @@ interface User {
   email: string;
   phone: string;
   photo: string; // Add a photo URL field
+}
+interface UserData {
+  id: string;
+  name: string;
+  email: string;
+  // Add other fields as necessary
 }
 
 const UserProfile = () => {
@@ -54,9 +62,28 @@ const UserProfile = () => {
     }
   };
 
+  const [user, setUser] = useState<UserData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const { data } = useFetch("user/get-self");
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        if (data?.success) {
+          setUser(data.data);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setLoading(false);
+      }
+    };
+    fetchUser();
+  }, [data]);
+
   return (
     <div className="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-lg border border-gray-200">
-      <h2 className="text-3xl font-semibold text-center text-gray-800 mb-8">
+      <h2 className="text-2xl font-semibold text-center  tracking-wide text-gray-700 mb-6">
         User Profile
       </h2>
 
@@ -160,19 +187,17 @@ const UserProfile = () => {
         <div className="space-y-4">
           <div className="flex flex-col sm:flex-row justify-between items-center">
             <div className="text-lg font-medium text-gray-700">Full Name</div>
-            <div className="text-lg text-gray-500">{userData.name}</div>
+            <div className="text-lg text-gray-500">
+              {loading ? "Loading..." : user?.name}
+            </div>
           </div>
           <div className="flex flex-col sm:flex-row justify-between items-center">
             <div className="text-lg font-medium text-gray-700">
               Email Address
             </div>
-            <div className="text-lg text-gray-500">{userData.email}</div>
-          </div>
-          <div className="flex flex-col sm:flex-row justify-between items-center">
-            <div className="text-lg font-medium text-gray-700">
-              Phone Number
+            <div className="text-lg text-gray-500">
+              {loading ? "Loading..." : user?.email}
             </div>
-            <div className="text-lg text-gray-500">{userData.phone}</div>
           </div>
 
           <div className="flex justify-center mt-6">

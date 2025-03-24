@@ -48,14 +48,35 @@ const AllKeys: React.FC = () => {
 
   const handleUpdate = async () => {
     if (!selectedKey) return;
+
     try {
+      // Show confirmation dialog before updating
+      if (!window.confirm("Are you sure you want to update this key?")) return;
+
+      // Dynamically get the token from sessionStorage
+      const authToken = sessionStorage.getItem("token");
+      if (!authToken) {
+        console.error("Authorization token is missing.");
+        return;
+      }
+
+      // Send the PUT request with correct headers and body
       const response = await axios.put(
         `${API_BASE_URL}/update-key/${selectedKey._id}`,
-        selectedKey
+        selectedKey, // Send the updated key data as the request body
+        {
+          headers: {
+            "Content-Type": "application/json",
+            token: `${authToken}`, // Authorization header with Bearer token
+          },
+        }
       );
+
       if (response.data.success) {
-        fetchKeys();
-        setShowModal(false);
+        fetchKeys(); // Refresh the keys list
+        setShowModal(false); // Close the modal after update
+      } else {
+        console.error("Failed to update the key:", response.data.message);
       }
     } catch (error) {
       console.error("Error updating key:", error);
@@ -65,13 +86,30 @@ const AllKeys: React.FC = () => {
   const handleDelete = async (keyId: string) => {
     if (!window.confirm("Are you sure you want to delete this key?")) return;
 
+    // Dynamically get the token from localStorage (or replace with your preferred method)
+    const authToken = sessionStorage.getItem("token"); // Ensure that the authToken is stored correctly
+    if (!authToken) {
+      console.error("Authorization token is missing.");
+      return;
+    }
+
     try {
-      const response = await axios.delete(
-        `${API_BASE_URL}/delete-key/${keyId}`
-      );
-      if (response.data.success) {
-        setLicenseKeys(licenseKeys.filter((key) => key._id !== keyId));
+      const response = await fetch(`${API_BASE_URL}/delete-key/${keyId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          token: `${authToken}`, // Send the token as Bearer authorization
+        },
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to delete key");
       }
+
+      // Update the license keys state after successful deletion
+      setLicenseKeys(licenseKeys.filter((key) => key._id !== keyId));
     } catch (error) {
       console.error("Error deleting key:", error);
     }
@@ -220,98 +258,3 @@ const AllKeys: React.FC = () => {
 };
 
 export default AllKeys;
-
-/* type LicenseKey = {
-  _id: string;
-  keyName: string;
-  duration: number;
-  users: {
-    regularKey: number;
-    serviceKey: number;
-  };
-  prices: {
-    regularKey: number;
-    serviceKey: number;
-  };
-  paymentLink: string;
-};
-
-const licenseKeys: LicenseKey[] = [
-  {
-    _id: "67dbd5672370f73d7e810da8",
-    keyName: "Day Key",
-    duration: 1,
-    users: { regularKey: 1, serviceKey: 5 },
-    prices: { regularKey: 10, serviceKey: 20 },
-    paymentLink: "https://buy.stripe.com/test_dR6eWb7Ra1M29naaF9",
-  },
-  {
-    _id: "67dcdbf889d233aefa046360",
-    keyName: "Month Key",
-    duration: 30,
-    users: { regularKey: 1, serviceKey: 5 },
-    prices: { regularKey: 300, serviceKey: 500 },
-    paymentLink: "https://buy.stripe.com/test_6oE7tJ3AUgGWfLy5lb",
-  },
-  {
-    _id: "67dcdcc889d233aefa046363",
-    keyName: "Year Key",
-    duration: 365,
-    users: { regularKey: 1, serviceKey: 5 },
-    prices: { regularKey: 0, serviceKey: 400 },
-    paymentLink: "https://buy.stripe.com/test_3csaFV9Zi0HYbvi290",
-  },
-];
-
-const AdminLicenseKeys: React.FC = () => {
-  return (
-    <div className="p-8 bg-gray-100 min-h-screen">
-      <h2 className="text-4xl font-semibold mb-6 text-gray-800">
-        License Keys Management
-      </h2>
-      <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-200">
-        <table className="w-full text-left border-collapse">
-          <thead className="bg-gray-900 text-white text-lg">
-            <tr>
-              <th className="py-4 px-6">Key Name</th>
-              <th className="py-4 px-6">Duration (Days)</th>
-              <th className="py-4 px-6">Regular Users</th>
-              <th className="py-4 px-6">Service Users</th>
-              <th className="py-4 px-6">Regular Price ($)</th>
-              <th className="py-4 px-6">Service Price ($)</th>
-              <th className="py-4 px-6">Payment</th>
-            </tr>
-          </thead>
-          <tbody className="bg-white text-gray-700 text-lg">
-            {licenseKeys.map((key) => (
-              <tr
-                key={key._id}
-                className="border-b border-gray-300 hover:bg-gray-100 transition-all"
-              >
-                <td className="py-4 px-6">{key.keyName}</td>
-                <td className="py-4 px-6">{key.duration}</td>
-                <td className="py-4 px-6">{key.users.regularKey}</td>
-                <td className="py-4 px-6">{key.users.serviceKey}</td>
-                <td className="py-4 px-6">${key.prices.regularKey}</td>
-                <td className="py-4 px-6">${key.prices.serviceKey}</td>
-                <td className="py-4 px-6">
-                  <a
-                    href={key.paymentLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-800 transition-all"
-                  >
-                    Buy Now
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
-};
-
-export default AdminLicenseKeys;
- */

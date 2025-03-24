@@ -47,7 +47,7 @@ const routes = createBrowserRouter([
         element: <UserProfile></UserProfile>,
       },
       {
-        path: "my-order",
+        path: "my-key",
         element: <MyOrder></MyOrder>,
       },
       {

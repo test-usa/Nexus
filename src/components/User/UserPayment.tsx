@@ -16,7 +16,7 @@ interface Payment {
 const UserPayment: React.FC = () => {
   const [payments, setPayments] = useState<Payment[]>([]);
   const { data, isSuccess, isLoading } = useFetch(
-    "/payment//get-all-user-payment"
+    "payment/get-all-user-payment"
   );
 
   // Handle data fetching
@@ -46,7 +46,7 @@ const UserPayment: React.FC = () => {
   return (
     <div className="overflow-x-auto p-6">
       <h2 className="text-2xl font-medium tracking-wide text-gray-700 mb-6">
-        Payment History
+        User Payment
       </h2>
 
       <div className="overflow-x-auto shadow-lg border border-gray-300 bg-white rounded-lg">
