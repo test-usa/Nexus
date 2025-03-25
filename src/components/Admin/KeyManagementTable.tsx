@@ -13,7 +13,6 @@ import { Badge } from "@/components/ui/badge";
 import { Loader } from "lucide-react";
 import useFetch from "@/hooks/shared/useFetch";
 
-// Declare the type for the license key data
 interface LicenseKey {
   key: string;
   expiresAt: string;
@@ -23,7 +22,8 @@ interface LicenseKey {
 const KeyManagement = () => {
   const [keys, setKeys] = useState<LicenseKey[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const keysPerPage = 10;
+  const [revealedKeys, setRevealedKeys] = useState<Record<number, boolean>>({});
+  const keysPerPage = 8;
   const { data, isSuccess, isLoading } = useFetch("/user-key/all-key");
 
   useEffect(() => {
@@ -46,6 +46,10 @@ const KeyManagement = () => {
     setCurrentPage(selected);
   };
 
+  const toggleReveal = (index: number) => {
+    setRevealedKeys((prev) => ({ ...prev, [index]: !prev[index] }));
+  };
+
   const offset = currentPage * keysPerPage;
   const currentKeys = keys.slice(offset, offset + keysPerPage);
 
@@ -63,8 +67,8 @@ const KeyManagement = () => {
   }
 
   return (
-    <div className="p-6 lg:p-8 min-h-screen">
-      <Card className="mt-8 shadow-lg rounded-xl border border-gray-300 bg-white">
+    <div className=" p-6 lg:p-8 ">
+      <Card className="shadow-lg rounded-xl border border-gray-300 bg-white">
         <CardHeader className="border-b border-gray-200 p-5">
           <CardTitle className="text-2xl font-medium tracking-wide text-gray-700 mb-6">
             User Keys
@@ -101,8 +105,13 @@ const KeyManagement = () => {
                     <TableCell className="px-6 py-3 text-gray-900">
                       {offset + index + 1}
                     </TableCell>
-                    <TableCell className="px-6 py-3 text-gray-800">
-                      {keyItem.key}
+                    <TableCell
+                      className="px-6 py-3 text-gray-800 cursor-pointer"
+                      onClick={() => toggleReveal(index)}
+                    >
+                      {revealedKeys[index]
+                        ? keyItem.key
+                        : `${keyItem.key.slice(0, 18)}...`}
                     </TableCell>
                     <TableCell className="px-6 py-3 text-gray-700">
                       {new Date(keyItem.expiresAt).toLocaleString()}

@@ -1,6 +1,7 @@
 import { Loader } from "lucide-react";
 import useFetch from "@/hooks/shared/useFetch";
 import { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 
 // Declare the type for the payment data
 interface Payment {
@@ -17,12 +18,23 @@ const PaymentHistory: React.FC = () => {
   const [payments, setPayments] = useState<Payment[]>([]);
   const { data, isSuccess, isLoading } = useFetch("payment/get-all-payment");
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(0);
+  const paymentsPerPage = 10;
+  const offset = currentPage * paymentsPerPage;
+  const currentPayments = payments.slice(offset, offset + paymentsPerPage);
+
   // Handle data fetching
   useEffect(() => {
     if (isSuccess && data?.data) {
       setPayments(data.data);
     }
   }, [isSuccess, data]);
+
+  // Handle page change
+  const handlePageChange = ({ selected }: { selected: number }) => {
+    setCurrentPage(selected);
+  };
 
   // Show loading state
   if (isLoading) {
@@ -72,8 +84,8 @@ const PaymentHistory: React.FC = () => {
             </tr>
           </thead>
           <tbody className="text-gray-800">
-            {payments.length ? (
-              payments.map((payment) => (
+            {currentPayments.length ? (
+              currentPayments.map((payment) => (
                 <tr
                   key={payment._id}
                   className="border-t hover:bg-gray-50 transition duration-200 ease-in-out"
@@ -111,6 +123,22 @@ const PaymentHistory: React.FC = () => {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Pagination */}
+      <div className="mt-6 flex justify-center">
+        <ReactPaginate
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
+          pageCount={Math.ceil(payments.length / paymentsPerPage)}
+          onPageChange={handlePageChange}
+          containerClassName="flex items-center space-x-2"
+          pageClassName="px-4 py-2 border rounded-md text-sm text-gray-600"
+          previousClassName="px-4 py-2 border rounded-md text-sm text-gray-600"
+          nextClassName="px-4 py-2 border rounded-md text-sm text-gray-600"
+          activeClassName="bg-gray-500 text-white"
+          disabledClassName="text-gray-400 cursor-not-allowed"
+        />
       </div>
     </div>
   );
