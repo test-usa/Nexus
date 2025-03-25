@@ -37,14 +37,6 @@ const routes = createBrowserRouter([
     element: <UserLayout></UserLayout>,
     children: [
       {
-        index: true,
-        element: <UserDashboard></UserDashboard>,
-      },
-      {
-        path: "dashboard",
-        element: <UserDashboard></UserDashboard>,
-      },
-      {
         path: "profile",
         element: <UserProfile></UserProfile>,
       },

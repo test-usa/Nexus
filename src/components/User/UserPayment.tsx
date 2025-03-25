@@ -9,9 +9,17 @@ interface Payment {
   userId: string;
   customerId: string;
   subscriptionId: string;
+  transactionId: string;
+  keyDetails:{
+    amount:number,
+    price:number
+  }
   currentPeriodEnd: string;
   status: string;
   createdAt: string;
+  key: {
+    keyName:string
+  }
 }
 
 const UserPayment: React.FC = () => {
@@ -69,16 +77,19 @@ const UserPayment: React.FC = () => {
                 Key Subscription Name
               </th>
               <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
-                Subscription ID
+                Subscription/Transaction ID
+              </th>
+              <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
+                Key Amount
+              </th>
+              <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
+                Total Price
               </th>
               <th className="py-4 px-6 text-left font-medium tracking-wide uppercase hidden sm:table-cell">
                 Period End
               </th>
               <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
-                Created At
-              </th>
-              <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
-                Status
+                Purchased At
               </th>
             </tr>
           </thead>
@@ -91,24 +102,19 @@ const UserPayment: React.FC = () => {
                 >
                   <td className="py-3 px-6 text-sm">{payment.key.keyName}</td>
                   <td className="py-3 px-6 text-sm">
-                    {payment.subscriptionId}
+                    {payment.subscriptionId? payment.subscriptionId : payment.transactionId}
+                  </td>
+                  <td className="py-3 px-6 text-sm text-center">
+                    {payment.keyDetails.amount}
+                  </td>
+                  <td className="py-3 px-6 text-sm text-center">
+                    ${payment.keyDetails.price}
                   </td>
                   <td className="py-3 px-6 text-sm hidden sm:table-cell">
                     {new Date(payment.currentPeriodEnd).toLocaleString()}
                   </td>
                   <td className="py-3 px-6 text-sm">
                     {new Date(payment.createdAt).toLocaleString()}
-                  </td>
-                  <td className="py-3 px-6 text-sm font-semibold capitalize">
-                    <span
-                      className={`inline-block px-3 py-1 rounded-full text-black ${
-                        payment.status === "active"
-                          ? "bg-green-100"
-                          : "bg-yellow-200"
-                      }`}
-                    >
-                      {payment.status}
-                    </span>
                   </td>
                 </tr>
               ))

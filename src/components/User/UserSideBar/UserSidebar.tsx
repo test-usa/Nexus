@@ -24,11 +24,6 @@ interface UserData {
 
 const navItems: NavItem[] = [
   {
-    title: "Dashboard",
-    href: "dashboard",
-    icon: Home,
-  },
-  {
     title: "My Profile",
     href: "profile",
     icon: User,

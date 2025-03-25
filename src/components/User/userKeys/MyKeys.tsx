@@ -190,7 +190,7 @@ export const MyKeys = () => {
   };
 
   return (
-    <div className="min-h-screen p-6">
+    <div className=" p-6">
       <div className="max-w-8xl bg-white p-8">
         <h2 className="text-2xl font-medium tracking-wide text-gray-700 mb-6">
           My Keys
