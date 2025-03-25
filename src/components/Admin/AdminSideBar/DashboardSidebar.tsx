@@ -25,9 +25,9 @@ interface NavItem {
 const navItems: NavItem[] = [
   { title: "Dashboard", href: "dashboard", icon: Home },
   { title: "All User Info", href: "all-user-info", icon: User },
-  { title: "All Keys", href: "all-keys", icon: FaAllergies },
-  { title: "Key Table", href: "key-table", icon: Table },
-  { title: "Subscribe Plan", href: "key-generate", icon: Key },
+  { title: "All Key Subscribtion", href: "all-keys", icon: FaAllergies },
+  { title: "All User Keys", href: "key-table", icon: Table },
+  { title: "Add Subscribe ", href: "key-generate", icon: Key },
   { title: "Payment History", href: "payment-history", icon: History },
 ];
 
