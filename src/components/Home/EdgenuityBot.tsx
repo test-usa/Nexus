@@ -100,9 +100,9 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
     <div
       ref={cardRef}
       className="feature-card bg-[#212020] text-white p-6 flex flex-col items-start space-y-3 transition           
-                sm:[&:nth-child(5)]:border-transparent
-                sm:border-l-[1px] sm:first:border-transparent border-green-900/30
-                border-b-2 sm:border-b-0 rounded-b-2xl sm:rounded-b-none
+              md:[&:nth-child(5)]:border-transparent
+                md:border-l-[1px] md:first:border-transparent border-green-900/30
+                border-b-2 md:border-b-0 rounded-b-2xl md:rounded-b-none
                 "
     >
       <Icon className="w-6 h-6 text-gray-500" />

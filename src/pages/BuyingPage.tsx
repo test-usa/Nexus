@@ -24,6 +24,10 @@ const BuyingPage = () => {
   const id = useParams();
   const [count, setCount] = useState<number>(1);
   const [price, setPrice] = useState<number>();
+  const [reqularKey, setReqularKey] = useState<number>(0);
+  const [serviceKey, setServiceKey] = useState<number>(0);
+  const [keyId, setKeyId] = useState<string>("");
+  const [filteredKeys, setFilteredKeys] = useState<[]>([]);
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [selectedKey, setSelectedKey] = useState<string>("");
   const handleDescres = (): void => {
@@ -56,9 +60,34 @@ const BuyingPage = () => {
     }
   }, [data, count, isChecked]);
 
+  useEffect(() => {
+    if (filteredKeys.length > 0) {
+      const [firstKey = {} as TSinglePriceData] = filteredKeys;
+
+      if (firstKey) {
+        const { prices, _id } = firstKey;
+        // Update regular and service key values
+        setReqularKey(prices.regularKey);
+        setServiceKey(prices.serviceKey);
+        setKeyId(_id);
+
+        // Set the correct price based on isChecked
+        setPrice(
+          isChecked ? prices.serviceKey * count : prices.regularKey * count
+        );
+      }
+    }
+  }, [filteredKeys, count, isChecked, price]);
+
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedKey(e.target.value);
-    console.log("Selected Key:", e.target.value);
+    if (e.target.value) {
+      const key = e.target.value;
+      const filterKey = data?.data.filter(
+        (filterKeys: TSinglePriceData) => filterKeys.keyName === key
+      );
+      setFilteredKeys(filterKey);
+    }
   };
 
   const checkoutHanlder = () => {
@@ -67,10 +96,11 @@ const BuyingPage = () => {
       amount: number;
       keyType: string;
     } = {
-      key: id?.id,
+      key: keyId ? keyId : id?.id,
       amount: count,
       keyType: isChecked ? "Service" : "Regular",
     };
+    // console.log("payload data", payload, keyId, price);
     mutate(payload);
   };
 
@@ -98,7 +128,8 @@ const BuyingPage = () => {
             New Key
           </h2>
           <h2 className="text-sm sm:text-[16px] font-semibold mb-4 text-gray-200">
-            ${singleKey?.prices?.regularKey} - ${singleKey?.prices?.serviceKey}
+            ${reqularKey ? reqularKey : singleKey?.prices?.regularKey} - $
+            {serviceKey ? serviceKey : singleKey?.prices?.serviceKey}
           </h2>
 
           <div className="space-y-3">
@@ -115,6 +146,7 @@ const BuyingPage = () => {
                 onChange={handleSelectChange}
                 className="w-full cursor-pointer bg-cyan-800/50 text-white py-2.5 px-2 rounded-md focus:outline-none"
               >
+                <option value="select">Select Key</option>
                 {data?.data?.map((keys: TSinglePriceData) => {
                   return (
                     <option key={keys._id} value={keys.keyName}>
