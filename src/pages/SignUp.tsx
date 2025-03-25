@@ -102,7 +102,7 @@ const SignUp = () => {
               />
             </div>
             {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name.message}</p>
+              <p className="text-cyan-500 text-sm">{errors.name.message}</p>
             )}
             <div className="flex items-center gap-x-3 border px-2 sm:px-4 py-3">
               <Mail className="text-gray-400" />
@@ -120,7 +120,7 @@ const SignUp = () => {
               />
             </div>
             {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email.message}</p>
+              <p className="text-cyan-500 text-sm">{errors.email.message}</p>
             )}
             <div className="flex items-center gap-x-3 border px-2 sm:px-4 py-3">
               <Lock className="text-gray-400" />
@@ -140,7 +140,7 @@ const SignUp = () => {
               />
             </div>
             {errors.password && (
-              <span className="text-red-500 text-sm">
+              <span className="text-cyan-500 text-sm">
                 {errors.password.message}
               </span>
             )}
@@ -151,7 +151,7 @@ const SignUp = () => {
           ${
             loading
               ? "bg-gray-500 cursor-not-allowed"
-              : "bg-green-500 hover:bg-green-600"
+              : "bg-cyan-500 hover:bg-cyan-600"
           }
         `}
             >
