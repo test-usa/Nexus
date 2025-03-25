@@ -16,6 +16,8 @@ import UserPayment from "@/components/User/UserPayment";
 import BuyingPage from "@/pages/BuyingPage";
 import AllKeys from "@/components/Admin/AllKeys";
 import AllUserInfo from "@/components/Admin/AllUserInfo";
+import PaymentSuccess from "@/pages/paymentSucces";
+import { MyKeys } from '../components/User/userKeys/MyKeys';
 
 const routes = createBrowserRouter([
   {
@@ -48,7 +50,7 @@ const routes = createBrowserRouter([
       },
       {
         path: "my-key",
-        element: <MyOrder></MyOrder>,
+        element: <MyKeys/>,
       },
       {
         path: "user-payment",
@@ -60,6 +62,10 @@ const routes = createBrowserRouter([
   {
     path: "/buy/:id",
     element: <BuyingPage />,
+  },
+  {
+    path: "/payment-success",
+    element: <PaymentSuccess />,
   },
   /* Admin Layout */
   {
