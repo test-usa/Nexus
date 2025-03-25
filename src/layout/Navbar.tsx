@@ -74,7 +74,7 @@ const Navbar = () => {
               <ScrollLink
                 smooth
                 duration={1200}
-                to="FAQ"
+                to="Feature"
                 className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                 activeClass="text-green-400 font-bold"
               >
@@ -106,7 +106,7 @@ const Navbar = () => {
                 className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                 activeClass="text-green-400 font-bold"
               >
-                Feature
+                FAQ
               </ScrollLink>
               {user && (user as { role: string }).role === "ADMIN" && (
                 <NavLink
@@ -134,15 +134,13 @@ const Navbar = () => {
 
             {/**** AUTH OR PURCHASING ****/}
             <div className="md:flex items-center gap-x-4 text-gray-400 hidden">
-              <ScrollLink
-                to="Pricing"
-                smooth
-                duration={1200}
+              <NavLink
+                to="/buy/:id"
                 className="flex items-center gap-x-2 hover:text-white translate transform duration-300 bg-slate-800 hover:bg-slate-500 cursor-pointer py-2 px-2 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded-md"
               >
                 <FaOpencart />
                 Purchase
-              </ScrollLink>
+              </NavLink>
               {user && token ? (
                 <button
                   onClick={() => logout_user()}

@@ -101,7 +101,7 @@ const SignIn = () => {
               />
             </div>
             {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email.message}</p>
+              <p className="text-cyan-500 text-sm">{errors.email.message}</p>
             )}
             <div className="flex items-center gap-x-3 border px-2 sm:px-4 py-3">
               <Lock className="text-gray-400" />
@@ -125,7 +125,7 @@ const SignIn = () => {
           ${
             loading
               ? "bg-gray-500 cursor-not-allowed"
-              : "bg-green-500 hover:bg-green-600"
+              : "bg-cyan-500 hover:bg-cyan-600"
           }
         `}
             >
