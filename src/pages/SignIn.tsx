@@ -23,7 +23,7 @@ const SignIn = () => {
   // },[authuser])
   return (
     <div className=" bg-[#212020] min-h-screen flex flex-col items-center justify-center font-montserrat ">
-      <div className="bg-white mx-auto w-full md:max-w-lg lg:max-w-2xl">
+      <div className="bg-white mx-auto w-full rounded-lg md:rounded-none md:max-w-lg lg:max-w-2xl">
         <div className="p-8 w-full">
           <h1 className="text-center text-xl sm:text-2xl text-slate-800">
             Sign in
@@ -94,7 +94,6 @@ const SignIn = () => {
               <input
                 type="email"
                 placeholder="Email Address"
-                defaultValue="example@gmail.com"
                 {...register("email", {
                   required: true,
                 })}
@@ -109,7 +108,6 @@ const SignIn = () => {
               <input
                 type="password"
                 placeholder="Password"
-                defaultValue="********"
                 {...register("password", {
                   required: true,
                 })}

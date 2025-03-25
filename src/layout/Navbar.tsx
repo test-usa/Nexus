@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import CommonWrapper from "@/wrapper/CommonWrapper";
 import { Link as ScrollLink } from "react-scroll";
 import { NavLink } from "react-router-dom";
-import { Link } from "react-router-dom";
 import userStore from "@/store/userStore";
 const Navbar = () => {
   const { user, logout_user } = userStore();
@@ -46,6 +45,10 @@ const Navbar = () => {
       id: 6,
       link: "Support",
     },
+    {
+      id: 7,
+      link: "Support",
+    },
   ];
 
   return (
@@ -67,30 +70,66 @@ const Navbar = () => {
             </ScrollLink>
             {/***** NAVIGATIONBAR START *****/}
             <div className="md:flex items-center lg:gap-x-8 gap-x-6 text-gray-400 hidden">
-              {links?.map((link, index) =>
-                index === links.length - 1 ? (
-                  // Last link should be a NavLink
-                  <NavLink
-                    key={link.id}
-                    to={link?.link}
-                    className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-                  >
-                    {link?.link}
-                  </NavLink>
-                ) : (
-                  // All other links are ScrollLink
-                  <ScrollLink
-                    key={link.id}
-                    smooth
-                    duration={1200}
-                    to={link?.link}
-                    className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-                    activeClass="text-green-400 font-bold"
-                  >
-                    {link?.link}
-                  </ScrollLink>
-                )
+              {/* // All other links are ScrollLink */}
+              <ScrollLink
+                smooth
+                duration={1200}
+                to="FAQ"
+                className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                activeClass="text-green-400 font-bold"
+              >
+                Feature
+              </ScrollLink>
+              <ScrollLink
+                smooth
+                duration={1200}
+                to="Review"
+                className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                activeClass="text-green-400 font-bold"
+              >
+                Review
+              </ScrollLink>
+              <ScrollLink
+                smooth
+                duration={1200}
+                to="Pricing"
+                className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                activeClass="text-green-400 font-bold"
+              >
+                Pricing
+              </ScrollLink>
+
+              <ScrollLink
+                smooth
+                duration={1200}
+                to="FAQ"
+                className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                activeClass="text-green-400 font-bold"
+              >
+                Feature
+              </ScrollLink>
+              {user && (user as { role: string }).role === "ADMIN" && (
+                <NavLink
+                  to="/admin"
+                  className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                >
+                  Dashboard
+                </NavLink>
               )}
+              {user && (user as { role: string }).role === "USER" && (
+                <NavLink
+                  to="/user"
+                  className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                >
+                  Dashboard
+                </NavLink>
+              )}
+              <NavLink
+                to="Support"
+                className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+              >
+                Support
+              </NavLink>
             </div>
 
             {/**** AUTH OR PURCHASING ****/}
@@ -160,15 +199,34 @@ const Navbar = () => {
             <div className="flex flex-col items-start gap-3">
               {links?.map((link) => {
                 return (
-                  <Link
-                    key={link.id}
+                  <ScrollLink
                     to={link?.link}
+                    key={link.id}
+                    onClick={() => setToggle(false)}
+                    smooth
+                    duration={1200}
                     className="hover:text-white transition-transform duration-300 text-[16px]"
                   >
                     {link?.link}
-                  </Link>
+                  </ScrollLink>
                 );
               })}
+              {user && (user as { role: string }).role === "ADMIN" && (
+                <NavLink
+                  to="/admin"
+                  className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                >
+                  Dashboard
+                </NavLink>
+              )}
+              {user && (user as { role: string }).role === "USER" && (
+                <NavLink
+                  to="/user"
+                  className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                >
+                  Dashboard
+                </NavLink>
+              )}
             </div>
           </div>
         </motion.div>
