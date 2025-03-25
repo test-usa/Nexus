@@ -50,7 +50,7 @@ export function UserSidebar() {
   const [toggle, setToggle] = useState<boolean>(false);
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const { data, isSuccess, isLoading, refetch } = useFetch("user/get-self");
+  const { data } = useFetch("user/get-self");
   const { logout_user } = userStore();
 
   useEffect(() => {
