@@ -10,7 +10,7 @@ import { KeyDetailsModal } from './ketDetailsModal';
 
 export const MyKeys = () => {
   const queryClient = useQueryClient();
-  const { data: userKeys, isLoading, isSuccess } = useFetch<{ data: Order[] }>('/user-key/all-keys-user');
+  const { data: userKeys, isLoading, isSuccess } = useFetch('/user-key/all-keys-user');
   const { mutate: redeemUser, isPending: isRedeeming } = useUpdate<any, RedeemUserPayload>(
     '/user-key/redeem-user-key',
   );

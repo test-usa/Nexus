@@ -48,7 +48,7 @@ export const KeyTableRow = ({
         {formatDateTime(keyData.createdAt)}
       </td>
       <td className="px-6 py-4 text-gray-800 border-b">
-        {formatDateTime(keyData.expiresAt)}
+        {formatDateTime(keyData.expiresAt as string)}
       </td>
       <td className="px-6 py-4 border-b">
         <StatusBadge status={status} />

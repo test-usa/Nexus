@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { History, Home, LogOut, Table, User } from "lucide-react";
+import { History, LogOut, Table, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";

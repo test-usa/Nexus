@@ -83,7 +83,7 @@ export const KeyDetailsModal = ({
               </div>
               <div>
                 <h4 className="text-sm font-medium text-gray-500">Expiry Date</h4>
-                <p className="mt-1 text-gray-900">{formatDateTime(selectedKey.expiresAt)}</p>
+                <p className="mt-1 text-gray-900">{formatDateTime(selectedKey.expiresAt as string)}</p>
               </div>
             </div>
 

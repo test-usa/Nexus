@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Camera, Mail, User, Phone, Loader2, PenSquare } from "lucide-react";
+import { Mail, User, Loader2, } from "lucide-react";
 import useFetch from "@/hooks/shared/useFetch";
 import toast from "react-hot-toast";
 

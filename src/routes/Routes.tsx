@@ -9,9 +9,8 @@ import SignUp from "@/pages/SignUp";
 import { createBrowserRouter } from "react-router-dom";
 import PaymentHistory from "@/components/Admin/PaymentHistory";
 import UserLayout from "@/layout/UserLayout";
-import UserDashboard from "@/components/User/UserSideBar/UserDashboard";
+
 import UserProfile from "@/components/User/UserProfile";
-import MyOrder from "@/components/User/MyOrder";
 import UserPayment from "@/components/User/UserPayment";
 import BuyingPage from "@/pages/BuyingPage";
 import AllKeys from "@/components/Admin/AllKeys";
