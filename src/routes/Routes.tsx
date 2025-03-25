@@ -18,6 +18,8 @@ import AllKeys from "@/components/Admin/AllKeys";
 import AllUserInfo from "@/components/Admin/AllUserInfo";
 import PaymentSuccess from "@/pages/paymentSucces";
 import { MyKeys } from '../components/User/userKeys/MyKeys';
+import PrivateRoute from './PrivateRoute';
+import AdminPrivateRoute from './AdminPrivateRoute';
 
 const routes = createBrowserRouter([
   {
@@ -34,19 +36,19 @@ const routes = createBrowserRouter([
   /* UserLayout */
   {
     path: "user",
-    element: <UserLayout></UserLayout>,
+    element: <PrivateRoute><UserLayout></UserLayout></PrivateRoute>,
     children: [
       {
         path: "profile",
-        element: <UserProfile></UserProfile>,
+        element: <PrivateRoute><UserProfile></UserProfile></PrivateRoute>,
       },
       {
         path: "my-key",
-        element: <MyKeys/>,
+        element: <PrivateRoute><MyKeys/></PrivateRoute>,
       },
       {
         path: "user-payment",
-        element: <UserPayment />,
+        element: <PrivateRoute><UserPayment /></PrivateRoute>,
       },
     ],
   },
@@ -62,35 +64,35 @@ const routes = createBrowserRouter([
   /* Admin Layout */
   {
     path: "admin",
-    element: <AdminLayout></AdminLayout>,
+    element: <AdminPrivateRoute><AdminLayout></AdminLayout></AdminPrivateRoute>,
     children: [
       {
         index: true,
-        element: <DashboardContent></DashboardContent>,
+        element: <AdminPrivateRoute><DashboardContent></DashboardContent></AdminPrivateRoute>,
       },
       {
         path: "dashboard",
-        element: <DashboardContent></DashboardContent>,
+        element: <AdminPrivateRoute><DashboardContent></DashboardContent></AdminPrivateRoute>,
       },
       {
         path: "all-user-info",
-        element: <AllUserInfo></AllUserInfo>,
+        element: <AdminPrivateRoute><AllUserInfo></AllUserInfo></AdminPrivateRoute>,
       },
       {
         path: "all-keys",
-        element: <AllKeys></AllKeys>,
+        element: <AdminPrivateRoute><AllKeys></AllKeys></AdminPrivateRoute>,
       },
       {
         path: "key-generate",
-        element: <KeyGeneratorForm></KeyGeneratorForm>,
+        element: <AdminPrivateRoute><KeyGeneratorForm></KeyGeneratorForm></AdminPrivateRoute>,
       },
       {
         path: "key-table",
-        element: <KeyManagementTable></KeyManagementTable>,
+        element: <AdminPrivateRoute><KeyManagementTable></KeyManagementTable></AdminPrivateRoute>,
       },
       {
         path: "payment-history",
-        element: <PaymentHistory />,
+        element: <AdminPrivateRoute><PaymentHistory /></AdminPrivateRoute>,
       },
     ],
   },
