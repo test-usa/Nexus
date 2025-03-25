@@ -116,13 +116,13 @@ const AllKeys: React.FC = () => {
   };
 
   return (
-    <div className="p-8 min-h-screen">
+    <div className="p-8 min-h-screen -mt-24">
       <h2 className="text-2xl font-medium tracking-wide text-gray-700 mb-6">
         All Keys
       </h2>
       <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-200">
         <table className="w-full text-left border-collapse">
-          <thead className="bg-gray-200 text-gray-700">
+          <thead className="ext-sm font-semibold uppercase tracking-wide bg-gray-200">
             <tr>
               <th className="py-4 px-6">Key Name</th>
               <th className="py-4 px-6">Duration (Days)</th>

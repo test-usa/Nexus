@@ -67,10 +67,10 @@ const KeyManagement = () => {
   }
 
   return (
-    <div className=" p-6 lg:p-8 ">
+    <div className=" p-6 lg:p-8 -mt-10 ">
       <Card className="shadow-lg rounded-xl border border-gray-300 bg-white">
         <CardHeader className="border-b border-gray-200 p-5">
-          <CardTitle className="text-2xl font-medium tracking-wide text-gray-700 mb-6">
+          <CardTitle className="text-2xl font-medium tracking-wide text-gray-700 ">
             User Keys
           </CardTitle>
         </CardHeader>

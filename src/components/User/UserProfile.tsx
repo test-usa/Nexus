@@ -203,7 +203,7 @@ const UserProfile = () => {
           <div className="flex justify-center mt-6">
             <button
               onClick={handleEditClick}
-              className="px-6 py-3 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              className="px-6 py-3 bg-gray-600 text-white font-semibold rounded-md hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
             >
               Edit Profile
             </button>

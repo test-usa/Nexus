@@ -24,7 +24,7 @@ export function AllUserInfo() {
 
   // Pagination States
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const usersPerPage = 10; // Number of users per page
+  const usersPerPage = 12; // Number of users per page
 
   const { data: usersData, isSuccess, isLoading } = useFetch("user/all-users");
 
@@ -51,7 +51,7 @@ export function AllUserInfo() {
   const currentUsers = users.slice(offset, offset + usersPerPage);
 
   return (
-    <div className="p-6">
+    <div className="p-6 -mt-20">
       <h1 className="text-2xl font-semibold tracking-wide text-gray-800 mb-6">
         User Information
       </h1>
