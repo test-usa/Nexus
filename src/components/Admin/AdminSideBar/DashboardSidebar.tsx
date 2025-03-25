@@ -162,7 +162,7 @@ export function DashboardSidebar() {
           ))}
         </nav>
 
-        <div className="mt-auto">
+        <div className="mt-auto mb-14">
           <Button
             onClick={() => logout_user()}
             variant="destructive"
