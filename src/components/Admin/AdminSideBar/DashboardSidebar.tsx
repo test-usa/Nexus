@@ -25,9 +25,9 @@ interface NavItem {
 const navItems: NavItem[] = [
   { title: "Dashboard", href: "dashboard", icon: Home },
   { title: "All User Info", href: "all-user-info", icon: User },
-  { title: "All Keys", href: "all-keys", icon: FaAllergies },
-  { title: "Key Table", href: "key-table", icon: Table },
-  { title: "Subscribe Plan", href: "key-generate", icon: Key },
+  { title: "All Key Subscribtion", href: "all-keys", icon: FaAllergies },
+  { title: "All User Keys", href: "key-table", icon: Table },
+  { title: "Add Subscribe ", href: "key-generate", icon: Key },
   { title: "Payment History", href: "payment-history", icon: History },
 ];
 
@@ -66,7 +66,6 @@ export function DashboardSidebar() {
         )}
       </button>
 
-      {/* Overlay */}
       {toggle && (
         <div
           className="fixed inset-0 bg-black/50 z-40"
@@ -74,7 +73,6 @@ export function DashboardSidebar() {
         ></div>
       )}
 
-      {/* Mobile Sidebar */}
       <motion.aside
         initial={{ opacity: 0, x: "-100%" }}
         animate={{
@@ -109,7 +107,7 @@ export function DashboardSidebar() {
                 "flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition-all duration-300",
                 "hover:bg-gray-700 hover:text-white"
               )}
-              onClick={() => setToggle(false)} // Close sidebar on click
+              onClick={() => setToggle(false)}
             >
               <item.icon className="h-5 w-5" />
               {item.title}
@@ -131,7 +129,6 @@ export function DashboardSidebar() {
         </div>
       </motion.aside>
 
-      {/* Large Screens Sidebar */}
       <aside className="md:flex w-72 flex-col text-black border-r p-6 shadow-lg hidden">
         <div className="flex flex-col items-center border-b pb-6 mb-6">
           <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-gray-500">
