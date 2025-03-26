@@ -1,215 +1,102 @@
-import useFetch from "@/hooks/shared/useFetch";
-
 import { useEffect, useState } from "react";
-import { FaRegEdit } from "react-icons/fa";
+import { Mail, User, Loader2, } from "lucide-react";
+import useFetch from "@/hooks/shared/useFetch";
+import toast from "react-hot-toast";
 
-interface User {
-  name: string;
-  email: string;
-  phone: string;
-  photo: string; // Add a photo URL field
-}
 interface UserData {
   id: string;
   name: string;
   email: string;
-  // Add other fields as necessary
+  phone?: string;
+  photo?: string;
 }
 
 const UserProfile = () => {
-  const [userData, setUserData] = useState<User>({
-    name: "John Doe",
-    email: "johndoe@example.com",
-    phone: "123-456-7890",
-    photo: "https://via.placeholder.com/150", // Default photo
-  });
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [editData, setEditData] = useState<User>(userData);
-
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
-
-  const handleCancel = () => {
-    setIsEditing(false);
-    setEditData(userData);
-  };
-
-  const handleSave = () => {
-    setUserData(editData);
-    setIsEditing(false);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setEditData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setEditData((prev) => ({
-          ...prev,
-          photo: reader.result as string, // Update photo
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const { data } = useFetch("user/get-self");
+  const { data, isLoading } = useFetch("user/get-self");
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        if (data?.success) {
-          setUser(data.data);
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setLoading(false);
-      }
-    };
-    fetchUser();
+    if (data?.success) {
+      setUser(data.data);
+      setLoading(false);
+    }
   }, [data]);
+  console.log(user)
+  const defaultAvatar = "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
 
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-lg border border-gray-200">
-      <h2 className="text-2xl font-semibold text-center  tracking-wide text-gray-700 mb-6">
-        User Profile
-      </h2>
+    <div className="min-h-screen py-8">
+      <div className="max-w-4xl mx-auto px-4">
+        <div className="bg-white shadow-lg rounded-2xl overflow-hidden">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-indigo-500 to-purple-600 px-8 py-12">
+            <h2 className="text-3xl font-bold text-white text-center">
+              User Profile
+            </h2>
+          </div>
 
-      <div className="flex justify-center mb-8">
-        <div className="relative">
-          <img
-            src={isEditing ? editData.photo : userData.photo}
-            alt="User Avatar"
-            className="w-32 h-32 rounded-full object-cover border-4 border-gray-200"
-          />
-          {isEditing && (
-            <label
-              htmlFor="photo-upload"
-              className="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full cursor-pointer hover:bg-blue-600"
-            >
-              <FaRegEdit />
-            </label>
+          {loading || isLoading ? (
+            <div className="flex justify-center items-center h-64">
+              <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />
+            </div>
+          ) : (
+            <div className="p-8">
+              {/* Profile Photo Section */}
+              <div className="flex justify-center -mt-20 mb-8">
+                <div className="relative">
+                  <img
+                    src={user?.photo || defaultAvatar}
+                    alt={user?.name || "User Avatar"}
+                    className="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg"
+                  />
+                  <button 
+                    className="absolute bottom-0 right-0 bg-indigo-600 p-2 rounded-full text-white hover:bg-indigo-700 transition-colors"
+                    onClick={() => toast.success("Photo upload functionality coming soon!")}
+                  >
+                  </button>
+                </div>
+              </div>
+
+              {/* User Information */}
+              <div className="space-y-6">
+                {/* Name */}
+                <div className="bg-gray-50 rounded-lg p-4 flex items-start justify-between">
+                  <div className="flex items-center gap-3">
+                    <User className="w-5 h-5 text-indigo-600" />
+                    <div>
+                      <p className="text-sm font-medium text-gray-500">Full Name</p>
+                      <p className="text-lg font-medium text-gray-900">{user?.name}</p>
+                    </div>
+                  </div>
+                  <button 
+                    className="text-indigo-600 hover:text-indigo-800 transition-colors"
+                    onClick={() => toast.success("Edit functionality coming soon!")}
+                  >
+                  </button>
+                </div>
+
+                {/* Email */}
+                <div className="bg-gray-50 rounded-lg p-4 flex items-start justify-between">
+                  <div className="flex items-center gap-3">
+                    <Mail className="w-5 h-5 text-indigo-600" />
+                    <div>
+                      <p className="text-sm font-medium text-gray-500">Email Address</p>
+                      <p className="text-lg font-medium text-gray-900">{user?.email}</p>
+                    </div>
+                  </div>
+                  <button 
+                    className="text-indigo-600 hover:text-indigo-800 transition-colors"
+                    onClick={() => toast.success("Edit functionality coming soon!")}
+                  >
+                  </button>
+                </div>
+
+              </div>
+            </div>
           )}
-          <input
-            type="file"
-            id="photo-upload"
-            accept="image/*"
-            onChange={handlePhotoChange}
-            className="hidden"
-          />
         </div>
       </div>
-
-      {isEditing ? (
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Full Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={editData.name}
-                onChange={handleChange}
-                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter your full name"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Email Address
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={editData.email}
-                onChange={handleChange}
-                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter your email"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="phone"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Phone Number
-              </label>
-              <input
-                type="text"
-                id="phone"
-                name="phone"
-                value={editData.phone}
-                onChange={handleChange}
-                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Enter your phone number"
-              />
-            </div>
-          </div>
-
-          <div className="flex justify-end gap-4 mt-6">
-            <button
-              onClick={handleSave}
-              className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            >
-              Save Changes
-            </button>
-            <button
-              onClick={handleCancel}
-              className="px-6 py-3 bg-gray-600 text-white font-semibold rounded-md hover:bg-gray-700 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      ) : (
-        <div className="space-y-4">
-          <div className="flex flex-col sm:flex-row justify-between items-center">
-            <div className="text-lg font-medium text-gray-700">Full Name</div>
-            <div className="text-lg text-gray-500">
-              {loading ? "Loading..." : user?.name}
-            </div>
-          </div>
-          <div className="flex flex-col sm:flex-row justify-between items-center">
-            <div className="text-lg font-medium text-gray-700">
-              Email Address
-            </div>
-            <div className="text-lg text-gray-500">
-              {loading ? "Loading..." : user?.email}
-            </div>
-          </div>
-
-          <div className="flex justify-center mt-6">
-            <button
-              onClick={handleEditClick}
-              className="px-6 py-3 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
-            >
-              Edit Profile
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
