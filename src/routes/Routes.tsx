@@ -16,6 +16,7 @@ import UserPayment from "@/components/User/UserPayment";
 import BuyingPage from "@/pages/BuyingPage";
 import AllKeys from "@/components/Admin/AllKeys";
 import AllUserInfo from "@/components/Admin/AllUserInfo";
+import Purchase from "@/pages/Purchase";
 
 const routes = createBrowserRouter([
   {
@@ -60,6 +61,11 @@ const routes = createBrowserRouter([
   {
     path: "/buy/:id",
     element: <BuyingPage />,
+  },
+
+  {
+    path: "/buy",
+    element: <Purchase />,
   },
   /* Admin Layout */
   {

@@ -1,10 +1,8 @@
 import CommonWrapper from "@/wrapper/CommonWrapper";
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Element } from "react-scroll";
 import useFetch from "@/hooks/shared/useFetch";
 import Title from "./Shared/Title";
-
 type PricingData = {
   keyName: string;
   _id: string;
@@ -21,15 +19,6 @@ type PricingData = {
 
 const Pricing = () => {
   const { data } = useFetch("/key/all-key");
-  const [pricingData, setPricingData] = useState<[]>([]);
-  useEffect(() => {
-    fetch("/pricing.json")
-      .then((res) => res.json())
-      .then((data) => setPricingData(data));
-  }, []);
-
-  console.log(data?.data, pricingData, "allll keyyysss");
-
   return (
     <Element name="Pricing" className="font-montserrat mt-20">
       <CommonWrapper>
@@ -48,7 +37,7 @@ const Pricing = () => {
             return (
               <div
                 key={price?._id}
-                className="rounded-lg min-w-[280px] relative sm:max-w-full border border-gray-700 shadow-lg hover:shadow-gray-500 space-y-3 p-5 transform translate duration-200"
+                className="rounded-[var(--radius-card)] hover:border-[1px] hover:border-cyan-600 min-w-[280px] relative sm:max-w-full border border-[#45444d] shadow-lg hover:shadow-gray-500 space-y-3 p-5 transform transition duration-500"
               >
                 <p
                   className={`text-white absolute right-1.5 -top-3.5 rounded-lg bg-gradient-to-bl from-gray-800 to-black/50 py-2 px-3 text-xs sm:text-sm ${
@@ -65,7 +54,7 @@ const Pricing = () => {
                   {price.description} "Perfect for quick access and trying us
                   out with minimal cost."
                 </p>
-                <p className="text-xl sm:text-3xl font-semibold text-orange-400">
+                <p className="text-xl sm:text-3xl font-semibold bg-gradient-to-r from-gray-400 to-slate-600 via-green-500 text-transparent bg-clip-text">
                   ${price.prices.regularKey} {price.currency} USD
                 </p>
                 <Link
