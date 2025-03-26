@@ -15,6 +15,7 @@ import UserPayment from "@/components/User/UserPayment";
 import BuyingPage from "@/pages/BuyingPage";
 import AllKeys from "@/components/Admin/AllKeys";
 import AllUserInfo from "@/components/Admin/AllUserInfo";
+import Purchase from "@/pages/Purchase";
 import PaymentSuccess from "@/pages/paymentSucces";
 import { MyKeys } from '../components/User/userKeys/MyKeys';
 import PrivateRoute from './PrivateRoute';
@@ -56,9 +57,17 @@ const routes = createBrowserRouter([
     path: "/buy/:id",
     element: <BuyingPage />,
   },
+
+
+  {
+    path: "/buy",
+    element: <Purchase />
+  },
+
   {
     path: "/payment-success",
     element: <PaymentSuccess />,
+
   },
   /* Admin Layout */
   {
