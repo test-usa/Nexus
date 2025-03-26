@@ -5,7 +5,13 @@
 @theme {
   --font-montserrat: "Montserrat", sans-serif;
   --font-manrope: "Manrope", sans-serif;
+  --color-primary: #6b7280;
+  --radius-card: 8px;
+  --radius-button: 8px;
+  --spacing-card: 10px;
+  --spacing-primary: 10px;
 }
+
 
 
 @custom-variant dark (&:is(.dark *));
