@@ -24,12 +24,16 @@ const userStore = create<IUserStore>()(
           );
           if (data?.success) {
             // success toast show
-            console.log(data, "siginup successfully");
             navigate("/signin");
             toast.success(data?.message);
           }
-        } catch (error) {
-          toast.error("Sign up failed, please try again");
+        } catch (error: any) {
+          console.log(error);
+          if (error?.response?.data?.message === "Duplicate Entry") {
+            toast.error("User already exist");
+          } else {
+            toast.error("Somthing went wrong");
+          }
         } finally {
           set((state) => ({ ...state, loading: false }));
         }
@@ -72,7 +76,7 @@ const userStore = create<IUserStore>()(
             if (data.success) {
               // success toast show
               // set({ user: data.user });
-              console.log(data,"success auth data")
+              console.log(data, "success auth data");
               toast.success("Signin successfull");
               sessionStorage.setItem("token", token);
             }

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Element } from "react-scroll";
 import useFetch from "@/hooks/shared/useFetch";
 import Title from "./Shared/Title";
+import { cn } from "@/lib/utils";
 type PricingData = {
   keyName: string;
   _id: string;
@@ -19,6 +20,11 @@ type PricingData = {
 
 const Pricing = () => {
   const { data } = useFetch("/key/all-key");
+  const { data: Popular } = useFetch("/user-key/most-popular");
+  const PopularData = Popular?.data?.keyDetails;
+  // const {mostPopularKeyName} = Popular?.data?.map(item=> item)
+
+  console.log(PopularData, "data");
   return (
     <Element name="Pricing" className="font-montserrat mt-20">
       <CommonWrapper>
@@ -39,13 +45,15 @@ const Pricing = () => {
                 key={price?._id}
                 className="rounded-[var(--radius-card)] hover:border-[1px] hover:border-cyan-600 min-w-[280px] relative sm:max-w-full border border-[#45444d] shadow-lg hover:shadow-gray-500 space-y-3 p-5 transform transition duration-500"
               >
+                {/* <BadgeData badge={price?.keyName} /> */}
                 <p
-                  className={`text-white absolute right-1.5 -top-3.5 rounded-lg bg-gradient-to-bl from-gray-800 to-black/50 py-2 px-3 text-xs sm:text-sm ${
-                    price.badge === "Most Popular" &&
-                    `bg-gradient-to-bl from-green-700 to-gray-600`
-                  }`}
+                  className={cn(
+                    "text-white absolute right-1.5 -top-3.5 rounded-lg bg-gradient-to-bl from-gray-800 to-black/50 py-2 px-3 text-xs sm:text-sm",
+                    price.keyName === "Month Key" &&
+                      "bg-gradient-to-r from-cyan-700 to-cyan-900"
+                  )}
                 >
-                  {price.badge} Most Popular
+                  Most
                 </p>
                 <h1 className="text-2xl sm:text-3xl font-semibold text-white">
                   {price?.keyName}

@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import { Element, Link } from "react-scroll";
 import Video from "../Video";
 import { gsap } from "gsap";
+import MainLogo from "../../../../public/mainLogo.png";
 const Banner = () => {
   const [service, setService] = useState([]);
   const [toggle, setToggle] = useState<boolean>(false);
@@ -89,16 +90,16 @@ const Banner = () => {
             </div>
 
             {/**** BANNER CARD SECTION ****/}
-            <div className="feature-card backdrop-blur-2xl lg:block hidden border border-white/20 rounded-lg p-4  group-hover:border-cyan-500 transform translate-all duration-200  group-hover:-rotate-z-3 -skew-y-2">
+            <div className="feature-card backdrop-blur-2xl lg:block hidden border border-white/20 rounded-lg p-4  group-hover:border-cyan-500 transform translate-all duration-200  group-hover:-rotate-z-3 -skew-y-2 group-hover:shadow-lg group-hover:drop-shadow-lg group-hover:shadow-cyan-500 ">
               {/* hover:-rotate-z-2 -rotate-3 skew-y-3 */}
               <div className="flex items-center gap-x-2">
                 <img
-                  src="https://framerusercontent.com/images/VpiZF9i56wEWOzd8opBM90AzSfA.png"
+                  src={MainLogo}
                   alt="logo"
-                  className="max-w-14"
+                  className="max-w-14 rounded-xl"
                 />
                 <div className="space-y-3">
-                  <h1 className="text-sm  text-white font-semibold">Nexus</h1>
+                  <h1 className="text-sm  text-white font-semibold">Exobot</h1>
                   <p className="text-sm text-white">
                     Service key expires{" "}
                     <span className="font-semibold">1/3/2025</span> at{" "}

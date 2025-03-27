@@ -1,7 +1,7 @@
 import Slider from "react-slick";
 import profile1 from "../../assets/photo1.jpg";
 import profile2 from "../../assets/profile2.png";
-import profile3 from "../../assets/profile3.png";;
+import profile3 from "../../assets/profile3.png";
 import { Element } from "react-scroll";
 import Title from "./Shared/Title";
 
@@ -83,7 +83,7 @@ const CustomerReviews = () => {
         <Slider {...settings}>
           {review?.map((item) => {
             return (
-              <div className="p-3">
+              <div key={item.user} className="p-3">
                 <div className="max-w-[350px] shadow-lg hover:shadow-gray-500  transform transition duration-500 sm:max-w-full lg:max-w-[500px] xl:max-w-[580px] mx-auto  rounded-[var(--radius-card)] relative border border-[#45444d] hover:shadow-lg space-y-3 p-5   translate cursor-pointer ">
                   <div>
                     <p className="text-gray-400 text-[16px]">
