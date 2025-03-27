@@ -37,9 +37,7 @@ const KeyManagement = () => {
     }
   }, [isSuccess, data]);
 
-  const getStatus = (expiresAt: string) => {
-    return new Date(expiresAt) > new Date() ? "Active" : "Expired";
-  };
+  console.log(keys);
 
   const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected);
@@ -92,7 +90,7 @@ const KeyManagement = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {currentKeys.map((keyItem, index) => (
+            {currentKeys.map((keyItem: any, index) => (
               <TableRow
                 key={index}
                 className={`hover:bg-gray-200 hover:text-gray-700 ${
@@ -113,7 +111,11 @@ const KeyManagement = () => {
                     : `${keyItem.key.slice(0, 18)}...`}
                 </TableCell>
                 <TableCell className="px-6 py-5">
-                  {new Date(keyItem.expiresAt).toLocaleString()}
+                  {keyItem.expiresAt === null
+                    ? "N/A"
+                    : keyItem.expiresAt === "Livetime"
+                    ? "Life time"
+                    : keyItem.expiresAt}
                 </TableCell>
                 <TableCell className="px-6 py-5 ">
                   {" "}
@@ -121,18 +123,18 @@ const KeyManagement = () => {
                 </TableCell>
                 <TableCell className="px-6 py-5 ">
                   <Badge
-                    variant={
-                      getStatus(keyItem.expiresAt) === "Active"
-                        ? "default"
-                        : "destructive"
-                    }
+                    // variant={
+
+                    //     ? "default"
+                    //     : "destructive"
+                    // }
                     className={`capitalize px-3 py-1 text-sm font-medium text-black ${
-                      getStatus(keyItem.expiresAt) === "Active"
-                        ? "bg-sky-400"
-                        : "bg-[var(--color-successtwo)]"
+                      keyItem.expiresAt === null
+                        ? "bg-gray-400"
+                        : "bg-green-400"
                     }`}
                   >
-                    {getStatus(keyItem.expiresAt)}
+                    {keyItem.expiresAt === null ? "Not Redeemed" : "Active"}
                   </Badge>
                 </TableCell>
               </TableRow>

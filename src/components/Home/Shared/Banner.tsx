@@ -1,16 +1,33 @@
 import CommonWrapper from "@/wrapper/CommonWrapper";
 import { CiSettings } from "react-icons/ci";
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
-import { Element } from "react-scroll";
-
+import { Element, Link } from "react-scroll";
+import Video from "../Video";
+import { gsap } from "gsap";
+import MainLogo from "../../../../public/mainLogo.png";
 const Banner = () => {
   const [service, setService] = useState([]);
+  const [toggle, setToggle] = useState<boolean>(false);
   useEffect(() => {
     fetch("/service.json")
       .then((res) => res.json())
       .then((data) => setService(data));
+  }, []);
+
+  useEffect(() => {
+    const cards = document.querySelectorAll(".feature-card");
+
+    gsap.fromTo(
+      cards,
+      { x: "-100%", opacity: 1 }, // Start from left side
+      {
+        x: "0%", // Move to normal position
+        opacity: 1,
+        duration: 3,
+        ease: "power3.out",
+      }
+    );
   }, []);
 
   const settings = {
@@ -28,89 +45,61 @@ const Banner = () => {
   };
 
   const images = [
-
     "https://tse2.mm.bing.net/th?id=OIP.7pbaYFsnAEXn266BHappVwHaEK&pid=Api",
     "https://tse1.mm.bing.net/th?id=OIP.P5ncWi8Xay4tKTScsH3lygHaEK&pid=Api",
   ];
+
   return (
     <Element name="banner" className="font-montserrat">
       <CommonWrapper>
-        <div className="mt-28">
-          {/**** TEXT SECTION ****/}
-          <div className="space-y-5 text-center">
-            <h1
-              className="text-4xl sm:text-5xl text-center
+        <div className="mt-44">
+          <div className="flex group items-center   justify-between">
+            {/**** TEXT SECTION ****/}
+            <div className="space-y-5 lg:text-start text-center">
+              <h1
+                className="text-4xl sm:text-5xl
+                 inline-block
                text-white"
-            >
-              The fastest Edgenuity bot.
-            </h1>
-
-            <p className="w-5/6 sm:w-2/3 px-10 text-center text-sm sm:text-[16px] mx-auto text-gray-500">
-              Get your classes done fast with Nexus. Nexus is a fully
-              customizable Edgenuity bot, designed to advance through your
-              classes with ease.
-            </p>
-            <motion.div
-              initial="initial"
-              whileHover="hovered"
-              className="group inline-block relative overflow-hidden whitespace-nowrap"
-            >
-              <button className="relative overflow-hidden block cursor-pointer text-white text-sm rounded-full bg-gradient-to-bl from-gray-600 to-slate-800 py-2.5 px-4 sm:py-3 sm:px-5 transform transition-all duration-300 shadow-md border border-transparent hover:border-white/50">
-                <motion.span
-                  variants={{
-                    initial: { y: 0 },
-                    hovered: { y: -100 },
-                  }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="relative z-10 block"
+              >
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-300 to-slate-600 via-green-400">
+                  ExoBot
+                </span>{" "}
+                Fastest Edgenuity Bot.
+              </h1>
+              <p className=" w-5/6 sm:w-2/3 lg:mx-0 mx-auto text-sm sm:text-[16px] text-gray-500">
+                ExoBot is your ultimate companion for online learning,
+                turbocharging your Edgenuity experience by helping you breeze
+                through courses faster and master the material with ease.
+              </p>
+              <div className="flex items-center justify-center lg:justify-self-start gap-5">
+                <Link
+                  smooth
+                  duration={1200}
+                  to="Pricing"
+                  className="relative inline-block hover:shadow-lg hover:shadow-cyan-800 overflow-hidden  cursor-pointer text-white text-sm rounded bg-gradient-to-bl from-gray-600 to-slate-800 py-2.5 px-4 sm:py-3 sm:px-5 transform transition-all duration-300 shadow-md border border-transparent hover:border-white/50"
                 >
                   Purchase Now
-                </motion.span>
-
-                <motion.span
-                  variants={{
-                    initial: { y: 100 },
-                    hovered: { y: 0 },
-                  }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                  className="absolute inset-0 flex items-center justify-center bg-gradient-to-tr from-slate-400 to-gray-700 text-white"
+                </Link>
+                <button
+                  onClick={() => setToggle(!toggle)}
+                  className="relative inline-block hover:shadow-lg hover:shadow-cyan-800 overflow-hidden  cursor-pointer text-white text-sm rounded bg-gradient-to-bl from-gray-600 to-slate-800 py-2.5 px-4 sm:py-3 sm:px-5 transform transition-all duration-300 shadow-md border border-transparent hover:border-white/50"
                 >
-                  Purchase Now
-                </motion.span>
-              </button>
-            </motion.div>
-          </div>
-          {/**** BANNER WITH CARD DESGIN SECTION (ONLY FOR LG++ DEVICE) ****/}
-          <div className="relative group mt-20 lg:block hidden">
-            <div className="relative p-1 my-10 rounded-sm bg-gradient-to-r from-gray-500 to-slate-800 via-green-700">
-              <div className="bg-[#212020] rounded-sm p-32 border-2 border-transparent bg-clip-padding ">
-                {/**** BANNER TEXT SECTION ****/}
-                <div className="w-[60%] space-y-3">
-                  <h1 className="text-white text-[16px] sm:text-3xl">
-                    Welcome to{" "}
-                    <span className="text-xl sm:text-3xl bg-gradient-to-tr from-gray-600 to-gray-400 text-transparent  bg-clip-text font-semibold">
-                      Nexus
-                    </span>
-                  </h1>
-                  <p className=" text-xs sm:text-[16px] text-gray-500">
-                    EdgyPro is a powerful tool for online schools like
-                    Edgenuity, helping students complete courses faster and
-                    learn more efficiently.
-                  </p>
-                </div>
+                  Quick setup
+                </button>
               </div>
             </div>
+
             {/**** BANNER CARD SECTION ****/}
-            <div className="absolute -top-8 right-6 bg-slate-800/10 backdrop-blur-lg w-[33%] rounded-lg p-4 border border-transparent group-hover:border-gray-400 transform translate-all duration-200  group-hover:-rotate-z-2  -skew-y-2">
+            <div className="feature-card backdrop-blur-2xl lg:block hidden border border-white/20 rounded-lg p-4  group-hover:border-cyan-500 transform translate-all duration-200  group-hover:-rotate-z-3 -skew-y-2 group-hover:shadow-lg group-hover:drop-shadow-lg group-hover:shadow-cyan-500 ">
               {/* hover:-rotate-z-2 -rotate-3 skew-y-3 */}
               <div className="flex items-center gap-x-2">
                 <img
-                  src="https://framerusercontent.com/images/VpiZF9i56wEWOzd8opBM90AzSfA.png"
+                  src={MainLogo}
                   alt="logo"
-                  className="max-w-14"
+                  className="max-w-14 rounded-xl"
                 />
                 <div className="space-y-3">
-                  <h1 className="text-sm  text-white font-semibold">Nexus</h1>
+                  <h1 className="text-sm  text-white font-semibold">Exobot</h1>
                   <p className="text-sm text-white">
                     Service key expires{" "}
                     <span className="font-semibold">1/3/2025</span> at{" "}
@@ -148,6 +137,7 @@ const Banner = () => {
               </div>
             </div>
           </div>
+          {toggle && <Video isModalOpen={toggle} setModalOpen={setToggle} />}
           {/**** FOR MOBILE AND TABLE DEVICE ONLY ****/}
           <div className="slider-container cursor-pointer lg:hidden block mt-12">
             <Slider {...settings}>

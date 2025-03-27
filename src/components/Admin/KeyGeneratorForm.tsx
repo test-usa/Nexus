@@ -1,6 +1,5 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
-import { toast, ToastContainer } from "react-toastify"; // Import toast and ToastContainer
-import "react-toastify/dist/ReactToastify.css"; // Import CSS for toast
+import { toast } from "sonner";
 
 interface FormData {
   keyName: string;
@@ -133,8 +132,6 @@ export default function CreateKeyForm() {
           Submit
         </button>
       </form>
-      <ToastContainer />{" "}
-      {/* Add ToastContainer to display the toast notifications */}
     </div>
   );
 }
