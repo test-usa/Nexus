@@ -36,6 +36,8 @@ const PaymentHistory: React.FC = () => {
     }
   }, [isSuccess, data]);
 
+  console.log(data)
+
   const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected);
   };
@@ -64,21 +66,25 @@ const PaymentHistory: React.FC = () => {
         <Table>
           <TableHeader className="bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]">
             <TableRow className="text-sm font-semibold tracking-wide">
+            <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+                Key Name
+              </TableHead>
               <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
                 User ID
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)] ">
-                Customer ID
-              </TableHead>
+
               <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
-                Subscription ID
+                Transaction ID
               </TableHead>
               <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)] ">
-                Period End
+                Amount
               </TableHead>
 
               <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
-                Created At
+                Price
+              </TableHead>
+              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+                Purchase Date
               </TableHead>
               <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
                 Status
@@ -96,17 +102,20 @@ const PaymentHistory: React.FC = () => {
                       : "bg-[var(--color-evencolor)]"
                   }`}
                 >
+                <TableCell className="px-6 py-5 font-medium">
+                    {payment.key.keyName}
+                  </TableCell>
                   <TableCell className="px-6 py-5 font-medium">
                     {payment.userId}
                   </TableCell>
                   <TableCell className="px-6 py-5">
-                    {payment.customerId}
+                    {payment.transactionId}
                   </TableCell>
                   <TableCell className="px-6 py-5">
-                    {payment.subscriptionId}
+                    {payment.keyDetails.amount}
                   </TableCell>
                   <TableCell className="px-6 py-5">
-                    {new Date(payment.currentPeriodEnd).toLocaleString()}
+                    {payment.keyDetails.price}
                   </TableCell>
 
                   <TableCell className="px-6 py-5">
