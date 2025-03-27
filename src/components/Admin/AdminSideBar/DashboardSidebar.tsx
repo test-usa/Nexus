@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { History, Home, Key, LogOut, Table, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { GoX } from "react-icons/go";
 import { FcMenu } from "react-icons/fc";
@@ -27,7 +27,7 @@ const navItems: NavItem[] = [
   { title: "All User Info", href: "all-user-info", icon: User },
   { title: "All Key Subscribtion", href: "all-keys", icon: FaAllergies },
   { title: "All User Keys", href: "key-table", icon: Table },
-  { title: "Add Subscribe ", href: "key-generate", icon: Key },
+  { title: "Create Subscription", href: "key-generate", icon: Key },
   { title: "Payment History", href: "payment-history", icon: History },
 ];
 
@@ -35,8 +35,9 @@ export function DashboardSidebar() {
   const [toggle, setToggle] = useState<boolean>(false);
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const { data} = useFetch("user/get-self");
+  const { data } = useFetch("user/get-self");
   const { logout_user } = userStore();
+  const location = useLocation(); // Get the current location (URL)
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -80,7 +81,7 @@ export function DashboardSidebar() {
           x: toggle ? 0 : "-100%",
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="md:hidden w-64 h-full fixed bg-gradient-to-r from-gray-800 to-gray-900 text-white border-r p-6 shadow-lg z-50"
+        className="md:hidden w-64 h-screen fixed bg-gradient-to-r from-gray-800 to-gray-900 text-white border-r border-gray-400 p-6 shadow-lg z-50 flex flex-col"
       >
         <div className="flex flex-col items-center border-b pb-6 mb-6">
           <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-gray-500">
@@ -98,63 +99,18 @@ export function DashboardSidebar() {
           </p>
         </div>
 
-        <nav className="flex-1 space-y-2">
+        <nav className="flex-grow space-y-2">
           {navItems.map((item) => (
             <Link
               key={item.href}
               to={item.href}
               className={cn(
                 "flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition-all duration-300",
-                "hover:bg-gray-700 hover:text-white"
+                location.pathname.includes(item.href)
+                  ? "bg-gray-700 text-white"
+                  : "hover:bg-gray-700 hover:text-white"
               )}
               onClick={() => setToggle(false)}
-            >
-              <item.icon className="h-5 w-5" />
-              {item.title}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="mt-auto">
-          <Button
-            variant="ghost"
-            className="w-full justify-start gap-3"
-            asChild
-          >
-            <Link to="/logout">
-              <LogOut className="h-5 w-5" />
-              Logout
-            </Link>
-          </Button>
-        </div>
-      </motion.aside>
-
-      <aside className="md:flex w-72 flex-col text-black border-r p-6 shadow-lg hidden">
-        <div className="flex flex-col items-center border-b pb-6 mb-6">
-          <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-gray-500">
-            <img
-              src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
-              alt="Profile picture"
-              className="object-cover"
-            />
-          </div>
-          <p className="font-semibold mt-3">
-            {loading ? "Loading..." : user?.name}
-          </p>
-          <p className="text-xs text-gray-800">
-            {loading ? "Loading..." : user?.email}
-          </p>
-        </div>
-
-        <nav className="flex-1 space-y-2">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              to={item.href}
-              className={cn(
-                "flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition-all duration-300",
-                "hover:bg-gray-700 hover:text-white"
-              )}
             >
               <item.icon className="h-5 w-5" />
               {item.title}
@@ -171,6 +127,54 @@ export function DashboardSidebar() {
           >
             <Link to="/logout">
               <LogOut className="h-5 w-5" />
+              Logout
+            </Link>
+          </Button>
+        </div>
+      </motion.aside>
+
+      <aside className="md:flex w-72 flex-col text-[var(--color-textcolor)] border-r border-gray-700 p-6 shadow-lg hidden h-screen">
+        <div className="flex flex-col items-center border-b border-gray-700 pb-6 mb-6">
+          <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-gray-500">
+            <img
+              src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
+              alt="Profile picture"
+              className="object-cover"
+            />
+          </div>
+          <p className="font-semibold mt-3">
+            {loading ? "Loading..." : user?.name}
+          </p>
+          <p className="text-xs ">{loading ? "Loading..." : user?.email}</p>
+        </div>
+
+        <nav className="flex-grow space-y-2">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              to={item.href}
+              className={cn(
+                "flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition-all duration-300",
+                location.pathname.includes(item.href)
+                  ? "bg-gray-700 text-white"
+                  : "hover:bg-gray-700 hover:text-white text-[var(--color-textcolor)]"
+              )}
+            >
+              <item.icon className="h-5 w-5" />
+              {item.title}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="mt-auto">
+          <Button
+            onClick={() => logout_user()}
+            variant="destructive"
+            className="w-full justify-start gap-3 hover:bg-gray-700 hover:text-white"
+            asChild
+          >
+            <Link to="/logout">
+              <LogOut className="h-5 w-5 " />
               Logout
             </Link>
           </Button>

@@ -5,7 +5,7 @@ import useFetch from "@/hooks/shared/useFetch";
 import usePost from "@/hooks/shared/usePost";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
-
+import MainLogo from "../../public/mainLogo.png";
 type TSinglePriceData = {
   prices: {
     regularKey: number;
@@ -99,9 +99,9 @@ const Purchase = () => {
         {/**** IMAGE SECTION ****/}
         <div className=" bg-gradient-to-tr from-black/30 to-gray-800 rounded-2xl flex items-center justify-center w-full max-h-[400px]">
           <img
-            src="https://framerusercontent.com/images/VpiZF9i56wEWOzd8opBM90AzSfA.png"
+            src={MainLogo}
             alt="logo"
-            className="object-contain w-full h-auto rounded-lg"
+            className=" max-h-[400px] w-full h-auto rounded-lg"
           />
         </div>
 

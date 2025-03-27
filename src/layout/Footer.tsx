@@ -4,7 +4,7 @@ import logo from "../../public/image.png";
 const Footer = () => {
   return (
     <CommonWrapper>
-      <footer className="bg-[#212020] text-white py-16 px-8">
+      <footer className="bg-[#212020] font-montserrat text-white py-16 px-8">
         <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16">
           <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
             <div className="text-4xl font-bold text-white mb-6">
@@ -81,7 +81,7 @@ const Footer = () => {
 
           <div className="flex flex-col items-center sm:items-start">
             <h3 className="text-lg font-semibold mb-4">Credits</h3>
-            <p>Made with ❤️ by Luck</p>
+            <p>Made with EXBOT</p>
           </div>
         </div>
 

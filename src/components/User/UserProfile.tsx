@@ -1,8 +1,21 @@
 import { useEffect, useState } from "react";
-import { Mail, User, Loader2, } from "lucide-react";
+import { Mail, User, Loader2 } from "lucide-react";
 import useFetch from "@/hooks/shared/useFetch";
-import toast from "react-hot-toast";
-
+import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+const image_hosting_key = "9911f27aca3347c387f577a495373922";
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 interface UserData {
   id: string;
   name: string;
@@ -12,8 +25,11 @@ interface UserData {
 }
 
 const UserProfile = () => {
+  const axiosPublic = useAxiosPublic();
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [ModalOpen, setOpenModal] = useState<boolean>(false);
+  const [files, setFiles] = useState<[]>([]);
   const { data, isLoading } = useFetch("user/get-self");
 
   useEffect(() => {
@@ -22,80 +38,172 @@ const UserProfile = () => {
       setLoading(false);
     }
   }, [data]);
-  console.log(user)
-  const defaultAvatar = "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
+  // console.log(user);
+  const defaultAvatar =
+    "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
+
+  const SubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const imageFile = formData.get("file") as File;
+
+    if (!imageFile) {
+      console.error("No file selected!");
+      return;
+    }
+
+    const data = {
+      name,
+      email,
+      imageFile,
+    };
+    // console.log(name, email, imageFile);
+
+    try {
+      // // Convert file to base64 (if needed for ImgBB)
+      const imageData = new FormData();
+      imageData.append("image", imageFile);
+      imageData.append("key", image_hosting_api);
+
+      // Send to ImgBB API
+      const res = await axiosPublic.post(image_hosting_api, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log("Image uploaded successfully!", res.data);
+    } catch (error) {
+      console.error("Image upload failed:", error);
+    }
+  };
 
   return (
-    <div className="min-h-screen py-8">
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="bg-white shadow-lg rounded-2xl overflow-hidden">
-          {/* Header */}
-          <div className="bg-gradient-to-r from-indigo-500 to-purple-600 px-8 py-12">
-            <h2 className="text-3xl font-bold text-white text-center">
-              User Profile
-            </h2>
-          </div>
-
-          {loading || isLoading ? (
-            <div className="flex justify-center items-center h-64">
-              <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />
-            </div>
-          ) : (
-            <div className="p-8">
-              {/* Profile Photo Section */}
-              <div className="flex justify-center -mt-20 mb-8">
-                <div className="relative">
-                  <img
-                    src={user?.photo || defaultAvatar}
-                    alt={user?.name || "User Avatar"}
-                    className="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg"
-                  />
-                  <button 
-                    className="absolute bottom-0 right-0 bg-indigo-600 p-2 rounded-full text-white hover:bg-indigo-700 transition-colors"
-                    onClick={() => toast.success("Photo upload functionality coming soon!")}
-                  >
-                  </button>
-                </div>
-              </div>
-
-              {/* User Information */}
-              <div className="space-y-6">
-                {/* Name */}
-                <div className="bg-gray-50 rounded-lg p-4 flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <User className="w-5 h-5 text-indigo-600" />
-                    <div>
-                      <p className="text-sm font-medium text-gray-500">Full Name</p>
-                      <p className="text-lg font-medium text-gray-900">{user?.name}</p>
-                    </div>
-                  </div>
-                  <button 
-                    className="text-indigo-600 hover:text-indigo-800 transition-colors"
-                    onClick={() => toast.success("Edit functionality coming soon!")}
-                  >
-                  </button>
-                </div>
-
-                {/* Email */}
-                <div className="bg-gray-50 rounded-lg p-4 flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <Mail className="w-5 h-5 text-indigo-600" />
-                    <div>
-                      <p className="text-sm font-medium text-gray-500">Email Address</p>
-                      <p className="text-lg font-medium text-gray-900">{user?.email}</p>
-                    </div>
-                  </div>
-                  <button 
-                    className="text-indigo-600 hover:text-indigo-800 transition-colors"
-                    onClick={() => toast.success("Edit functionality coming soon!")}
-                  >
-                  </button>
-                </div>
-
-              </div>
-            </div>
-          )}
+    <div className=" flex items-center justify-center mx-auto min-w-[320px] max-w-[800px] h-full w-full px-4">
+      <div className="bg-[var(--color-dashboardbg)] overflow-hidden w-full ">
+        {/* Header */}
+        <div className=" px-8 py-12">
+          <h2 className="text-3xl font-bold text-[var(--color-textcolor)] text-center">
+            User Profile
+          </h2>
         </div>
+
+        {loading || isLoading ? (
+          <div className="flex justify-center items-center h-64">
+            <Loader2 className="w-8 h-8 text-[var(--color-textcolor)] animate-spin" />
+          </div>
+        ) : (
+          <div className="p-8">
+            {/* Profile Photo Section */}
+            <div className="flex justify-center -mt-20 mb-8 pt-2">
+              <div title="update" className="relative cursor-pointer">
+                <img
+                  src={user?.photo || defaultAvatar}
+                  alt={user?.name || "User Avatar"}
+                  className="w-24 h-24 rounded-[8px] object-cover border-4 bg-clip-border bg-gradient-to-r from-gray-700 to-slate-600 via-green-700 shadow-lg"
+                />
+              </div>
+            </div>
+
+            {/* User Information */}
+            <div className="space-y-6">
+              {/* Name */}
+              <div className="bg-gray-800  rounded-[8px] p-4 flex items-start justify-between">
+                <div className="flex items-center gap-3">
+                  <User className="text-xl text-[var(--color-textcolor)] " />
+                  <div>
+                    <p className="text-sm font-medium text-gray-300">
+                      Full Name
+                    </p>
+                    <p className="text-lg font-medium  text-[var(--color-textcolor)] ">
+                      {user?.name}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Email */}
+              <div className="bg-gray-800 rounded-lg p-4 flex items-start justify-between">
+                <div className="flex items-center gap-3">
+                  <Mail className="text-xl text-[var(--color-textcolor)] " />
+                  <div>
+                    <p className="text-sm font-medium text-gray-300">
+                      Email Address
+                    </p>
+                    <p className="text-lg font-medium text-[var(--color-textcolor)] ">
+                      {user?.email}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  className="text-indigo-600 hover:text-indigo-800 transition-colors"
+                  onClick={() =>
+                    toast.success("Edit functionality coming soon!")
+                  }
+                ></button>
+              </div>
+
+              <Button
+                onClick={() => setOpenModal(!ModalOpen)}
+                size="lg"
+                className="py-3 px-6 rounded-[8px] bg-[var(--color-dashboardsecondary)] text-gray-200 cursor-pointer transform translate duration-300 hover:bg-[var(--color-dashboardsecondary)] hover:text-white"
+              >
+                Edit Profile
+              </Button>
+
+              {/**** SHOW FORM MODAL FOR USER DATA UPDATE ****/}
+              {ModalOpen && (
+                <Dialog open={ModalOpen} onOpenChange={setOpenModal}>
+                  <DialogContent className="max-w-[450px]">
+                    <DialogHeader>
+                      <DialogTitle>Edit profile</DialogTitle>
+                      <DialogDescription>
+                        Make changes to your profile here. Click save when
+                        you're done.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <form onSubmit={SubmitHandler} className="grid gap-4 py-4">
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="name" className="text-right">
+                          Name
+                        </Label>
+                        <Input id="name" name="name" className="col-span-3" />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="eamil" className="text-right">
+                          Email
+                        </Label>
+                        <Input id="email" name="email" className="col-span-3" />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="image" className="text-right">
+                          Image
+                        </Label>
+                        <Input
+                          type="file"
+                          id="file"
+                          name="file"
+                          className="col-span-3"
+                        />
+                      </div>
+                      <DialogFooter>
+                        <Button
+                          type="submit"
+                          className="py-3 px-6 rounded-[8px] bg-[var(--color-dashboardbg)] hover:bg-[var(--color-dashboardbg)] text-gray-200 cursor-pointer transform translate duration-300 hover:text-gray-900"
+                        >
+                          Save changes
+                        </Button>
+                      </DialogFooter>
+                    </form>
+                  </DialogContent>
+                </Dialog>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
