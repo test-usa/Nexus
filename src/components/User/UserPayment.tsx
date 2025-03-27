@@ -10,16 +10,16 @@ interface Payment {
   customerId: string;
   subscriptionId: string;
   transactionId: string;
-  keyDetails:{
-    amount:number,
-    price:number
-  }
+  keyDetails: {
+    amount: number;
+    price: number;
+  };
   currentPeriodEnd: string;
   status: string;
   createdAt: string;
   key: {
-    keyName:string
-  }
+    keyName: string;
+  };
 }
 
 const UserPayment: React.FC = () => {
@@ -68,7 +68,6 @@ const UserPayment: React.FC = () => {
       <h2 className="text-2xl font-medium tracking-wide text-gray-700 mb-6">
         User Payment
       </h2>
-
       <div className="overflow-x-auto shadow-lg border border-gray-300 bg-white rounded-lg">
         <table className="min-w-full table-auto">
           <thead className="bg-gray-200 text-gray-700">
@@ -77,7 +76,7 @@ const UserPayment: React.FC = () => {
                 Key Subscription Name
               </th>
               <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
-                Subscription/Transaction ID
+                Transaction ID
               </th>
               <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
                 Key Amount
@@ -102,7 +101,9 @@ const UserPayment: React.FC = () => {
                 >
                   <td className="py-3 px-6 text-sm">{payment.key.keyName}</td>
                   <td className="py-3 px-6 text-sm">
-                    {payment.subscriptionId? payment.subscriptionId : payment.transactionId}
+                    {payment.subscriptionId
+                      ? payment.subscriptionId
+                      : payment.transactionId}
                   </td>
                   <td className="py-3 px-6 text-sm text-center">
                     {payment.keyDetails.amount}
