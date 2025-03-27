@@ -9,12 +9,13 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+const image_hosting_key = "9911f27aca3347c387f577a495373922";
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 interface UserData {
   id: string;
   name: string;
@@ -24,9 +25,11 @@ interface UserData {
 }
 
 const UserProfile = () => {
+  const axiosPublic = useAxiosPublic();
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [ModalOpen, setOpenModal] = useState<boolean>(false);
+  const [files, setFiles] = useState<[]>([]);
   const { data, isLoading } = useFetch("user/get-self");
 
   useEffect(() => {
@@ -39,13 +42,43 @@ const UserProfile = () => {
   const defaultAvatar =
     "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
 
-  const SubmitHandler = (e: React.FormEvent<HTMLFormElement>): void => {
+  const SubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    const name = formData.get("name");
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const imageFile = formData.get("file") as File;
 
-    console.log("Form submitted!", name);
+    if (!imageFile) {
+      console.error("No file selected!");
+      return;
+    }
+
+    const data = {
+      name,
+      email,
+      imageFile,
+    };
+    // console.log(name, email, imageFile);
+
+    try {
+      // // Convert file to base64 (if needed for ImgBB)
+      const imageData = new FormData();
+      imageData.append("image", imageFile);
+      imageData.append("key", image_hosting_api);
+
+      // Send to ImgBB API
+      const res = await axiosPublic.post(image_hosting_api, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log("Image uploaded successfully!", res.data);
+    } catch (error) {
+      console.error("Image upload failed:", error);
+    }
   };
 
   return (
