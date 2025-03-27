@@ -17,8 +17,16 @@ interface Payment {
   customerId: string;
   subscriptionId: string;
   currentPeriodEnd: string;
+  transactionId: string;
   status: string;
   createdAt: string;
+  key: {
+    keyName: string;
+  };
+  keyDetails: {
+    amount: number;
+    price: number;
+  };
 }
 
 const PaymentHistory: React.FC = () => {
@@ -35,8 +43,6 @@ const PaymentHistory: React.FC = () => {
       setPayments(data.data);
     }
   }, [isSuccess, data]);
-
-  console.log(data)
 
   const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected);
@@ -56,30 +62,37 @@ const PaymentHistory: React.FC = () => {
       <div className="text-red-500">Failed to load payments: {data.error}</div>
     );
   }
+  const [expandedRows, setExpandedRows] = useState<{ [key: string]: boolean }>(
+    {}
+  );
+  const toggleExpand = (id: string) => {
+    setExpandedRows((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
 
   return (
-    <div className="p-6 lg:p-8 min-h-screen -mt-10 text-[var(--color-textcolor)]">
-      <h1 className="text-2xl font-medium tracking-wide mb-5 mt-5">
+    <div className="p-6 lg:p-8 min-h-screen text-[var(--color-textcolor)]">
+      <h1 className="text-2xl font-medium tracking-wide mb-5 ">
         Payment History
       </h1>
-      <div className="rounded-lg shadow-lg overflow-hidden">
-        <Table>
+      <div className="rounded-lg shadow-lg overflow-x-auto">
+        <Table className="min-w-full">
           <TableHeader className="bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]">
             <TableRow className="text-sm font-semibold tracking-wide">
-            <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
                 Key Name
               </TableHead>
               <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
                 User ID
               </TableHead>
-
               <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
                 Transaction ID
               </TableHead>
               <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)] ">
                 Amount
               </TableHead>
-
               <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
                 Price
               </TableHead>
@@ -102,22 +115,35 @@ const PaymentHistory: React.FC = () => {
                       : "bg-[var(--color-evencolor)]"
                   }`}
                 >
-                <TableCell className="px-6 py-5 font-medium">
+                  <TableCell className="px-6 py-5 font-medium">
                     {payment.key.keyName}
                   </TableCell>
-                  <TableCell className="px-6 py-5 font-medium">
-                    {payment.userId}
+                  {/* User ID Cell */}
+                  <TableCell
+                    className="px-6 py-5 font-medium cursor-pointer"
+                    onClick={() => toggleExpand(payment._id + "-userId")}
+                  >
+                    {expandedRows[payment._id + "-userId"]
+                      ? payment.userId
+                      : payment.userId.slice(0, 5) + "..."}
                   </TableCell>
-                  <TableCell className="px-6 py-5">
-                    {payment.transactionId}
+
+                  {/* Transaction ID Cell */}
+                  <TableCell
+                    className="px-6 py-5 cursor-pointer"
+                    onClick={() => toggleExpand(payment._id + "-transactionId")}
+                  >
+                    {expandedRows[payment._id + "-transactionId"]
+                      ? payment.transactionId
+                      : payment.transactionId.slice(0, 5) + "..."}
                   </TableCell>
+
                   <TableCell className="px-6 py-5">
                     {payment.keyDetails.amount}
                   </TableCell>
                   <TableCell className="px-6 py-5">
                     {payment.keyDetails.price}
                   </TableCell>
-
                   <TableCell className="px-6 py-5">
                     {new Date(payment.createdAt).toLocaleString()}
                   </TableCell>
@@ -125,12 +151,12 @@ const PaymentHistory: React.FC = () => {
                     <span
                       className={`inline-block px-3 py-1 rounded-full text-gray-800 ${
                         payment.status === "active"
-                          ? "bg-sky-400" // For active status
+                          ? "bg-sky-400"
                           : payment.status === "refunded"
-                          ? "bg-green-600" // For refunded status
+                          ? "bg-blue-600"
                           : payment.status === "cancelled"
-                          ? "bg-red-400" // For cancelled status
-                          : "bg-gray-400" // Default color if status is something else
+                          ? "bg-red-400"
+                          : "bg-gray-400"
                       }`}
                     >
                       {payment.status}
@@ -141,7 +167,7 @@ const PaymentHistory: React.FC = () => {
             ) : (
               <TableRow>
                 <TableCell
-                  colSpan={6}
+                  colSpan={7}
                   className="py-3 px-6 text-center text-sm"
                 >
                   No payment records found.
@@ -151,6 +177,7 @@ const PaymentHistory: React.FC = () => {
           </TableBody>
         </Table>
       </div>
+
       <div className="mt-6 flex justify-center">
         <ReactPaginate
           previousLabel={"Previous"}

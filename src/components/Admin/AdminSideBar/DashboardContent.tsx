@@ -89,8 +89,8 @@ export function DashboardContent() {
   const currentUsers = users.slice(offset, offset + usersPerPage);
 
   return (
-    <div className="p-6 lg:p-8 min-h-screen -mt-10 text-[var(--color-textcolor)]">
-      <h1 className="text-2xl font-medium tracking-wide  mb-5 mt-5">
+    <div className="p-6 lg:p-8 sm:mt-10 sb:mt-0 min-h-screen  text-[var(--color-textcolor)]">
+      <h1 className="text-2xl font-medium tracking-wide  mb-5 mt-5  xs:mt-40">
         Dashboard Overview
       </h1>
 

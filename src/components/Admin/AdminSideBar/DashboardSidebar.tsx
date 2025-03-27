@@ -81,7 +81,7 @@ export function DashboardSidebar() {
           x: toggle ? 0 : "-100%",
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="md:hidden w-64 h-full fixed bg-gradient-to-r from-gray-800 to-gray-900 text-white border-r border-gray-400 p-6 shadow-lg z-50"
+        className="md:hidden w-64 h-screen fixed bg-gradient-to-r from-gray-800 to-gray-900 text-white border-r border-gray-400 p-6 shadow-lg z-50 flex flex-col"
       >
         <div className="flex flex-col items-center border-b pb-6 mb-6">
           <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-gray-500">
@@ -99,15 +99,15 @@ export function DashboardSidebar() {
           </p>
         </div>
 
-        <nav className="flex-1 space-y-2">
+        <nav className="flex-grow space-y-2">
           {navItems.map((item) => (
             <Link
               key={item.href}
               to={item.href}
               className={cn(
                 "flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition-all duration-300",
-                location.pathname.includes(item.href) // Check if the current path includes the href
-                  ? "bg-gray-700 text-white" // Active state styles
+                location.pathname.includes(item.href)
+                  ? "bg-gray-700 text-white"
                   : "hover:bg-gray-700 hover:text-white"
               )}
               onClick={() => setToggle(false)}
@@ -120,8 +120,9 @@ export function DashboardSidebar() {
 
         <div className="mt-auto">
           <Button
-            variant="ghost"
-            className="w-full justify-start gap-3"
+            onClick={() => logout_user()}
+            variant="destructive"
+            className="w-full justify-start gap-3 hover:bg-gray-700 hover:text-white"
             asChild
           >
             <Link to="/logout">
@@ -132,8 +133,8 @@ export function DashboardSidebar() {
         </div>
       </motion.aside>
 
-      <aside className="md:flex w-72 flex-col text-[var(--color-textcolor)] border-r p-6 shadow-lg hidden">
-        <div className="flex flex-col items-center border-b pb-6 mb-6">
+      <aside className="md:flex w-72 flex-col text-[var(--color-textcolor)] border-r border-gray-700 p-6 shadow-lg hidden h-screen">
+        <div className="flex flex-col items-center border-b border-gray-700 pb-6 mb-6">
           <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-gray-500">
             <img
               src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
@@ -147,15 +148,15 @@ export function DashboardSidebar() {
           <p className="text-xs ">{loading ? "Loading..." : user?.email}</p>
         </div>
 
-        <nav className="flex-1 space-y-2">
+        <nav className="flex-grow space-y-2">
           {navItems.map((item) => (
             <Link
               key={item.href}
               to={item.href}
               className={cn(
                 "flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition-all duration-300",
-                location.pathname.includes(item.href) // Check if the current path includes the href
-                  ? "bg-gray-700 text-white" // Active state styles
+                location.pathname.includes(item.href)
+                  ? "bg-gray-700 text-white"
                   : "hover:bg-gray-700 hover:text-white text-[var(--color-textcolor)]"
               )}
             >
@@ -165,7 +166,7 @@ export function DashboardSidebar() {
           ))}
         </nav>
 
-        <div className="mt-auto mb-14">
+        <div className="mt-auto">
           <Button
             onClick={() => logout_user()}
             variant="destructive"
