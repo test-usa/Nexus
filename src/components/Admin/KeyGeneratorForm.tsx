@@ -1,4 +1,6 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { toast, ToastContainer } from "react-toastify"; // Import toast and ToastContainer
+import "react-toastify/dist/ReactToastify.css"; // Import CSS for toast
 
 interface FormData {
   keyName: string;
@@ -15,15 +17,13 @@ export default function CreateKeyForm() {
     serviceKey: "",
   });
   const [authToken, setAuthToken] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [message, setMessage] = useState<string>("");
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
     if (token) {
       setAuthToken(token);
     } else {
-      setError("No auth token found. Please log in again.");
+      toast.error("No auth token found. Please log in again.");
     }
   }, []);
 
@@ -34,11 +34,9 @@ export default function CreateKeyForm() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(null);
-    setMessage("");
 
     if (!authToken) {
-      setError("Authentication token is missing. Please log in again.");
+      toast.error("Authentication token is missing. Please log in again.");
       return;
     }
 
@@ -48,7 +46,7 @@ export default function CreateKeyForm() {
       !formData.regularKey ||
       !formData.serviceKey
     ) {
-      setError("All fields are required.");
+      toast.error("All fields are required.");
       return;
     }
 
@@ -57,7 +55,7 @@ export default function CreateKeyForm() {
       isNaN(Number(formData.regularKey)) ||
       isNaN(Number(formData.serviceKey))
     ) {
-      setError("Please enter valid numeric values for duration and prices.");
+      toast.error("Please enter valid numeric values for duration and prices.");
       return;
     }
 
@@ -90,7 +88,7 @@ export default function CreateKeyForm() {
         throw new Error(result.message || "Failed to create key");
       }
 
-      setMessage("Key created successfully!");
+      toast.success("Key created successfully!"); // Show success toast
       setFormData({
         keyName: "",
         duration: "",
@@ -98,17 +96,13 @@ export default function CreateKeyForm() {
         serviceKey: "",
       });
     } catch (error: any) {
-      setError(error.message || "An unexpected error occurred.");
+      toast.error(error.message || "An unexpected error occurred.");
     }
   };
 
   return (
-    <div className=" max-w-lg text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)] mx-auto mt-32 p-6 rounded-xl shadow-lg ">
-      <h2 className="text-2xl font-semibold mb-5 ">Create Subscription Key</h2>
-
-      {error && <p className="text-red-600 mb-4 font-medium">{error}</p>}
-      {message && <p className="text-green-600 mb-4 font-medium">{message}</p>}
-
+    <div className="max-w-lg text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)] mx-auto mt-32 p-6 rounded-xl shadow-lg">
+      <h2 className="text-2xl font-semibold mb-5">Create Subscription Key</h2>
       <form
         onSubmit={handleSubmit}
         className="space-y-4 text-[var(--color-textcolor)]"
@@ -120,13 +114,13 @@ export default function CreateKeyForm() {
           { label: "Service Key Price", name: "serviceKey", type: "number" },
         ].map(({ label, name, type }) => (
           <div key={name}>
-            <label className="block  font-medium mb-2">{label}</label>
+            <label className="block font-medium mb-2">{label}</label>
             <input
               type={type}
               name={name}
               value={formData[name as keyof FormData]}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-500 rounded-lg bg-gray-400 focus:ring-2 focus:ring-gray-300 focus:outline-none transition-all"
+              className="w-full p-3 border border-gray-500 rounded-lg bg-gray-300 text-black focus:ring-2 focus:ring-gray-300 focus:outline-none transition-all"
               required
             />
           </div>
@@ -139,6 +133,8 @@ export default function CreateKeyForm() {
           Submit
         </button>
       </form>
+      <ToastContainer />{" "}
+      {/* Add ToastContainer to display the toast notifications */}
     </div>
   );
 }

@@ -118,7 +118,7 @@ const PaymentHistory: React.FC = () => {
                         payment.status === "active"
                           ? "bg-sky-400" // For active status
                           : payment.status === "refunded"
-                          ? "bg-green-600" // For refunded status
+                          ? "bg-blue-600" // For refunded status
                           : payment.status === "cancelled"
                           ? "bg-red-400" // For cancelled status
                           : "bg-gray-400" // Default color if status is something else

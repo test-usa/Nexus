@@ -187,7 +187,7 @@ const AllKeys: React.FC = () => {
 
       {deleteKeyId && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-4 sm:p-6 rounded-lg w-80 sm:w-96 shadow-lg text-center">
+          <div className="bg-gray-400 p-4 sm:p-6 rounded-lg w-80 sm:w-96 shadow-lg text-center">
             <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">
               Confirm Delete
             </h3>
@@ -203,7 +203,7 @@ const AllKeys: React.FC = () => {
               </button>
               <button
                 onClick={() => setDeleteKeyId(null)}
-                className="bg-gray-400 text-white p-2 text-xs sm:text-sm rounded"
+                className="bg-gray-500 text-white p-2 text-xs sm:text-sm rounded"
               >
                 Cancel
               </button>
