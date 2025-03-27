@@ -2,13 +2,13 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { ISignUp } from "./Form.types";
 import { Loader, Lock, Mail, UserRound } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useGoogleAuth } from "@/hooks/auth/googleAuth";
 import userStore from "@/store/userStore";
-import { useEffect } from "react";
+// import { useGoogleAuth } from "@/hooks/auth/googleAuth";
+// import { useEffect } from "react";
 const SignUp = () => {
   const navigate = useNavigate();
-  const { user: authuser, handleGoogleLogin } = useGoogleAuth();
-  const { signup_user, loading, auth } = userStore();
+  // const { user: authuser, handleGoogleLogin } = useGoogleAuth();
+  const { signup_user, loading } = userStore();
   const {
     register,
     handleSubmit,
@@ -18,12 +18,12 @@ const SignUp = () => {
     signup_user(data, navigate);
   };
 
-  useEffect(() => {
-    auth(authuser);
-  }, [authuser]);
+  // useEffect(() => {
+  //   auth(authuser);
+  // }, [authuser]);
   return (
     <div className=" bg-[#212020] min-h-screen flex flex-col items-center justify-center font-montserrat ">
-      <div className="bg-white mx-auto w-full md:max-w-lg lg:max-w-2xl">
+      <div className="bg-white mx-auto w-full rounded-lg md:rounded-none md:max-w-lg lg:max-w-2xl">
         <div className="p-8 w-full">
           <h1 className="text-center text-xl sm:text-2xl text-slate-800">
             Create an Account
@@ -47,7 +47,7 @@ const SignUp = () => {
                 </svg>
               </button> */}
 
-              <button
+              {/* <button
                 onClick={() => handleGoogleLogin()}
                 className="border p-0.5 sm:p-1 bg-gray-200 cursor-pointer"
               >
@@ -76,9 +76,14 @@ const SignUp = () => {
                     d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
                   ></path>
                 </svg>
-              </button>
+              </button> */}
+              <img
+                src="https://framerusercontent.com/images/VpiZF9i56wEWOzd8opBM90AzSfA.png"
+                alt="logo"
+                className="max-w-16 cursor-pointer"
+              />
             </div>
-            <p className="text-sm text-center text-gray-400">OR</p>
+            {/* <p className="text-sm text-center text-gray-400">OR</p> */}
           </div>
           {/**** SIGNUP FORM HERE ****/}
           <form
@@ -90,7 +95,6 @@ const SignUp = () => {
               <input
                 type="text"
                 placeholder="UserName"
-                defaultValue="developer-mehedi"
                 {...register("name", {
                   required: true,
                 })}
@@ -98,14 +102,13 @@ const SignUp = () => {
               />
             </div>
             {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name.message}</p>
+              <p className="text-cyan-500 text-sm">{errors.name.message}</p>
             )}
             <div className="flex items-center gap-x-3 border px-2 sm:px-4 py-3">
               <Mail className="text-gray-400" />
               <input
                 type="email"
                 placeholder="Email Address"
-                defaultValue="example@gmail.com"
                 {...register("email", {
                   required: true,
                   pattern: {
@@ -117,14 +120,13 @@ const SignUp = () => {
               />
             </div>
             {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email.message}</p>
+              <p className="text-cyan-500 text-sm">{errors.email.message}</p>
             )}
             <div className="flex items-center gap-x-3 border px-2 sm:px-4 py-3">
               <Lock className="text-gray-400" />
               <input
                 type="password"
                 placeholder="Password"
-                defaultValue="********"
                 {...register("password", {
                   required: true,
                   pattern: {
@@ -138,7 +140,7 @@ const SignUp = () => {
               />
             </div>
             {errors.password && (
-              <span className="text-red-500 text-sm">
+              <span className="text-cyan-500 text-sm">
                 {errors.password.message}
               </span>
             )}
@@ -149,7 +151,7 @@ const SignUp = () => {
           ${
             loading
               ? "bg-gray-500 cursor-not-allowed"
-              : "bg-green-500 hover:bg-green-600"
+              : "bg-cyan-500 hover:bg-cyan-600"
           }
         `}
             >
@@ -168,7 +170,7 @@ const SignUp = () => {
           to="/signin"
           className=" underline hover:text-gray-400 transform translate-all duration-200"
         >
-          Log in now!
+          Sign in now!
         </Link>
       </p>
     </div>

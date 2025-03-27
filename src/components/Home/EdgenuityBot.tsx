@@ -11,8 +11,9 @@ import {
   Grid,
   Gamepad2,
 } from "lucide-react";
-import Title from "./Shared/Title";
+
 import { Element } from "react-scroll";
+import Title from "./Shared/Title";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -99,8 +100,10 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
     <div
       ref={cardRef}
       className="feature-card bg-[#212020] text-white p-6 flex flex-col items-start space-y-3 transition           
-                 [&:nth-child(5)]:border-transparent
-                  border-l-[1px] first:border-transparent border-green-900/30"
+              md:[&:nth-child(5)]:border-transparent
+                md:border-l-[1px] md:first:border-transparent border-green-900/30
+                border-b-2 md:border-b-0 rounded-b-2xl md:rounded-b-none
+                "
     >
       <Icon className="w-6 h-6 text-gray-500" />
       <h3 className="text-xl font-semibold">{title}</h3>

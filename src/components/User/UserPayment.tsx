@@ -9,9 +9,17 @@ interface Payment {
   userId: string;
   customerId: string;
   subscriptionId: string;
+  transactionId: string;
+  keyDetails:{
+    amount:number,
+    price:number
+  }
   currentPeriodEnd: string;
   status: string;
   createdAt: string;
+  key: {
+    keyName:string
+  }
 }
 
 const UserPayment: React.FC = () => {
@@ -66,22 +74,22 @@ const UserPayment: React.FC = () => {
           <thead className="bg-gray-200 text-gray-700">
             <tr>
               <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
-                User ID
+                Key Subscription Name
               </th>
               <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
-                Customer ID
+                Subscription/Transaction ID
               </th>
               <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
-                Subscription ID
+                Key Amount
+              </th>
+              <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
+                Total Price
               </th>
               <th className="py-4 px-6 text-left font-medium tracking-wide uppercase hidden sm:table-cell">
                 Period End
               </th>
               <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
-                Created At
-              </th>
-              <th className="py-4 px-6 text-left font-medium tracking-wide uppercase">
-                Status
+                Purchased At
               </th>
             </tr>
           </thead>
@@ -92,27 +100,21 @@ const UserPayment: React.FC = () => {
                   key={payment._id}
                   className="border-t hover:bg-gray-50 transition duration-200 ease-in-out"
                 >
-                  <td className="py-3 px-6 text-sm">{payment.userId}</td>
-                  <td className="py-3 px-6 text-sm">{payment.customerId}</td>
+                  <td className="py-3 px-6 text-sm">{payment.key.keyName}</td>
                   <td className="py-3 px-6 text-sm">
-                    {payment.subscriptionId}
+                    {payment.subscriptionId? payment.subscriptionId : payment.transactionId}
+                  </td>
+                  <td className="py-3 px-6 text-sm text-center">
+                    {payment.keyDetails.amount}
+                  </td>
+                  <td className="py-3 px-6 text-sm text-center">
+                    ${payment.keyDetails.price}
                   </td>
                   <td className="py-3 px-6 text-sm hidden sm:table-cell">
                     {new Date(payment.currentPeriodEnd).toLocaleString()}
                   </td>
                   <td className="py-3 px-6 text-sm">
                     {new Date(payment.createdAt).toLocaleString()}
-                  </td>
-                  <td className="py-3 px-6 text-sm font-semibold capitalize">
-                    <span
-                      className={`inline-block px-3 py-1 rounded-full text-black ${
-                        payment.status === "active"
-                          ? "bg-green-100"
-                          : "bg-yellow-200"
-                      }`}
-                    >
-                      {payment.status}
-                    </span>
                   </td>
                 </tr>
               ))

@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import {
   Table,
   TableBody,
@@ -90,78 +89,75 @@ export function DashboardContent() {
   const currentUsers = users.slice(offset, offset + usersPerPage);
 
   return (
-    <div className="p-6 lg:p-8 min-h-screen -mt-10">
-      <h1 className="text-2xl font-medium tracking-wide text-gray-700 mb-6">
+    <div className="p-6 lg:p-8 min-h-screen -mt-10 text-[var(--color-textcolor)]">
+      <h1 className="text-2xl font-medium tracking-wide  mb-5 mt-5">
         Dashboard Overview
       </h1>
 
       <div className="mb-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* Users Count */}
-        <div className="rounded-lg bg-gray-500 p-6 text-white">
+        <div className="rounded-lg bg-[var(--color-dashboardsecondary)] p-6 hover:bg-gray-500 hover:text-white transition-colors">
           <div className="text-5xl font-bold">{users.length}</div>
           <p className="mt-2 text-sm">All User</p>
         </div>
 
         {/* Payments Count */}
-        <div className="rounded-lg bg-gray-200 p-6 text-black">
+        <div className="rounded-lg bg-[var(--color-dashboardsecondary)] p-6 hover:bg-gray-500 hover:text-white transition-colors">
           <div className="text-5xl font-bold">{payments.length}</div>
           <p className="mt-2 text-sm">Payment List</p>
         </div>
 
         {/* Completed User List */}
-        <div className="rounded-lg bg-gray-200 p-6 text-black">
+        <div className="rounded-lg bg-[var(--color-dashboardsecondary)] p-6 hover:bg-gray-500 hover:text-white transition-colors">
           <div className="text-5xl font-bold">{activedata?.length || 10}</div>
           <p className="mt-2 text-sm">Active User List</p>
         </div>
       </div>
 
       {/* Users Table */}
-      <div className="rounded-lg border border-gray-200 bg-white shadow-lg overflow-hidden ">
+      <div className="rounded-lg shadow-lg overflow-hidden ">
         <Table>
-          <TableHeader className="bg-gray-200 text-gray-800">
-            <TableRow className="text-sm font-semibold uppercase tracking-wide">
-              <TableHead className="bg-gray-200 text-gray-800">ID</TableHead>
-              <TableHead className="px-6 py-4 text-left text-gray-700">
+          <TableHeader className="bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]">
+            <TableRow className="text-sm font-semibold  tracking-wide">
+              <TableHead className=" px-6 py-6 text-left text-[var(--color-textcolor)] ">
+                ID
+              </TableHead>
+              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
                 Name
               </TableHead>
-              <TableHead className="px-6 py-4 text-left text-gray-700">
+              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
                 Email
               </TableHead>
-              <TableHead className="px-6 py-4 text-left text-gray-700">
+              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
                 Role
-              </TableHead>
-              <TableHead className="px-6 py-4 text-left text-gray-700">
-                Status
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {currentUsers.map((user, index) => (
-              <TableRow key={user._id} className="hover:bg-gray-50">
-                <TableCell className="px-6 py-4 text-gray-900 font-medium">
+              <TableRow
+                key={user._id}
+                className={`hover:bg-gray-200 hover:text-gray-700 ${
+                  index % 2 === 0
+                    ? " bg-[var(--color-oddcolor)]"
+                    : "bg-[var(--color-evencolor)]"
+                }`}
+              >
+                <TableCell className="px-6 py-5 font-medium">
                   {index + 1 + offset}
                 </TableCell>
-                <TableCell className="px-6 py-4 text-gray-700">
-                  {user.name}
-                </TableCell>
-                <TableCell className="px-6 py-4 text-gray-700">
-                  {user.email}
-                </TableCell>
-                <TableCell className="px-6 py-4 text-gray-700">
+                <TableCell className="px-6 py-4">{user.name}</TableCell>
+                <TableCell className="px-6 py-4 ">{user.email}</TableCell>
+                <TableCell
+                  className={`px-6 py-4 ${
+                    user.role === "ADMIN"
+                      ? "text-cyan-300"
+                      : user.role === "USER"
+                      ? "text-[var(--color-successthree)]"
+                      : ""
+                  }`}
+                >
                   {user.role}
-                </TableCell>
-                <TableCell className="px-6 py-4">
-                  <span
-                    className={cn(
-                      "inline-block rounded-full px-3 py-1 text-xs font-semibold",
-                      {
-                        "bg-red-100 text-red-800": user.status === "Pending",
-                        "bg-sky-400  text-sky-400": user.status === "Done", // Changed to sky color
-                      }
-                    )}
-                  >
-                    {user.status === "Pending" ? "Pending" : "Done"}
-                  </span>
                 </TableCell>
               </TableRow>
             ))}
@@ -177,10 +173,10 @@ export function DashboardContent() {
           pageCount={Math.ceil(users.length / usersPerPage)}
           onPageChange={handlePageChange}
           containerClassName="flex items-center space-x-2"
-          pageClassName="px-4 py-2 border rounded-md text-sm text-gray-600"
-          previousClassName="px-4 py-2 border rounded-md text-sm text-gray-600"
-          nextClassName="px-4 py-2 border rounded-md text-sm text-gray-600"
-          activeClassName="bg-gray-500 text-white"
+          pageClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]"
+          previousClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]"
+          nextClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)]"
+          activeClassName="text-white bg-[var(--color-dashboardsecondary)]"
           disabledClassName="text-gray-400 cursor-not-allowed"
         />
       </div>

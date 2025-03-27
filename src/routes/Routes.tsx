@@ -9,13 +9,16 @@ import SignUp from "@/pages/SignUp";
 import { createBrowserRouter } from "react-router-dom";
 import PaymentHistory from "@/components/Admin/PaymentHistory";
 import UserLayout from "@/layout/UserLayout";
-import UserDashboard from "@/components/User/UserSideBar/UserDashboard";
+
 import UserProfile from "@/components/User/UserProfile";
-import MyOrder from "@/components/User/MyOrder";
 import UserPayment from "@/components/User/UserPayment";
 import BuyingPage from "@/pages/BuyingPage";
 import AllKeys from "@/components/Admin/AllKeys";
 import AllUserInfo from "@/components/Admin/AllUserInfo";
+import PaymentSuccess from "@/pages/paymentSucces";
+import { MyKeys } from '../components/User/userKeys/MyKeys';
+import PrivateRoute from './PrivateRoute';
+import AdminPrivateRoute from './AdminPrivateRoute';
 
 const routes = createBrowserRouter([
   {
@@ -32,27 +35,19 @@ const routes = createBrowserRouter([
   /* UserLayout */
   {
     path: "user",
-    element: <UserLayout></UserLayout>,
+    element: <PrivateRoute><UserLayout></UserLayout></PrivateRoute>,
     children: [
       {
-        index: true,
-        element: <UserDashboard></UserDashboard>,
-      },
-      {
-        path: "dashboard",
-        element: <UserDashboard></UserDashboard>,
-      },
-      {
         path: "profile",
-        element: <UserProfile></UserProfile>,
+        element: <PrivateRoute><UserProfile></UserProfile></PrivateRoute>,
       },
       {
         path: "my-key",
-        element: <MyOrder></MyOrder>,
+        element: <PrivateRoute><MyKeys/></PrivateRoute>,
       },
       {
         path: "user-payment",
-        element: <UserPayment />,
+        element: <PrivateRoute><UserPayment /></PrivateRoute>,
       },
     ],
   },
@@ -61,38 +56,42 @@ const routes = createBrowserRouter([
     path: "/buy/:id",
     element: <BuyingPage />,
   },
+  {
+    path: "/payment-success",
+    element: <PaymentSuccess />,
+  },
   /* Admin Layout */
   {
     path: "admin",
-    element: <AdminLayout></AdminLayout>,
+    element: <AdminPrivateRoute><AdminLayout></AdminLayout></AdminPrivateRoute>,
     children: [
       {
         index: true,
-        element: <DashboardContent></DashboardContent>,
+        element: <AdminPrivateRoute><DashboardContent></DashboardContent></AdminPrivateRoute>,
       },
       {
         path: "dashboard",
-        element: <DashboardContent></DashboardContent>,
+        element: <AdminPrivateRoute><DashboardContent></DashboardContent></AdminPrivateRoute>,
       },
       {
         path: "all-user-info",
-        element: <AllUserInfo></AllUserInfo>,
+        element: <AdminPrivateRoute><AllUserInfo></AllUserInfo></AdminPrivateRoute>,
       },
       {
         path: "all-keys",
-        element: <AllKeys></AllKeys>,
+        element: <AdminPrivateRoute><AllKeys></AllKeys></AdminPrivateRoute>,
       },
       {
         path: "key-generate",
-        element: <KeyGeneratorForm></KeyGeneratorForm>,
+        element: <AdminPrivateRoute><KeyGeneratorForm></KeyGeneratorForm></AdminPrivateRoute>,
       },
       {
         path: "key-table",
-        element: <KeyManagementTable></KeyManagementTable>,
+        element: <AdminPrivateRoute><KeyManagementTable></KeyManagementTable></AdminPrivateRoute>,
       },
       {
         path: "payment-history",
-        element: <PaymentHistory />,
+        element: <AdminPrivateRoute><PaymentHistory /></AdminPrivateRoute>,
       },
     ],
   },

@@ -34,7 +34,10 @@ const userStore = create<IUserStore>()(
           set((state) => ({ ...state, loading: false }));
         }
       },
-      signIn_user: async (signdata: ISignInTypes) => {
+      signIn_user: async (
+        signdata: ISignInTypes,
+        navigate: (path: string) => void
+      ) => {
         const axiosPublic = useAxiosPublic();
         try {
           set({ loading: true });
@@ -46,6 +49,7 @@ const userStore = create<IUserStore>()(
             sessionStorage.setItem("token", data?.data?.accessToken);
             console.log(data, "login use from zustand");
             toast.success(data?.message);
+            navigate("/");
           }
         } catch (error) {
           toast.error("Signin failed, please try again");
@@ -55,7 +59,7 @@ const userStore = create<IUserStore>()(
       },
 
       auth: async (userData: IAuth) => {
-        const { name, email, token, photo } = userData;
+        const { name, email, token } = userData;
 
         console.log(userData, "46 no linneeeeee");
         const axiosPublic = useAxiosPublic();
@@ -67,11 +71,15 @@ const userStore = create<IUserStore>()(
             });
             if (data.success) {
               // success toast show
-              set({ user: data.user, token: data?.token });
+              // set({ user: data.user });
+              console.log(data,"success auth data")
+              toast.success("Signin successfull");
+              sessionStorage.setItem("token", token);
             }
           }
         } catch (error) {
           console.log(error, "auth signin error");
+          toast.success("Signin incomplete, try again");
         }
       },
       logout_user: () => {

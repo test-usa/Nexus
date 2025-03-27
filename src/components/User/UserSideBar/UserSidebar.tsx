@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { History, Home, LogOut, Table, User } from "lucide-react";
+import { History, LogOut, Table, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -24,11 +24,6 @@ interface UserData {
 
 const navItems: NavItem[] = [
   {
-    title: "Dashboard",
-    href: "dashboard",
-    icon: Home,
-  },
-  {
     title: "My Profile",
     href: "profile",
     icon: User,
@@ -50,7 +45,7 @@ export function UserSidebar() {
   const [toggle, setToggle] = useState<boolean>(false);
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const { data, isSuccess, isLoading, refetch } = useFetch("user/get-self");
+  const { data } = useFetch("user/get-self");
   const { logout_user } = userStore();
 
   useEffect(() => {

@@ -1,9 +1,9 @@
 import Slider from "react-slick";
 import profile1 from "../../assets/photo1.jpg";
 import profile2 from "../../assets/profile2.png";
-import profile3 from "../../assets/profile3.png";
-import Title from "./Shared/Title";
+import profile3 from "../../assets/profile3.png";;
 import { Element } from "react-scroll";
+import Title from "./Shared/Title";
 
 const CustomerReviews = () => {
   const settings = {
@@ -18,6 +18,32 @@ const CustomerReviews = () => {
     centerMode: true,
     centerPadding: "0px",
     touchMove: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
   const review = [
     {

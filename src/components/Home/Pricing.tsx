@@ -1,9 +1,9 @@
 import CommonWrapper from "@/wrapper/CommonWrapper";
 import { useEffect, useState } from "react";
-import Title from "./Shared/Title";
 import { Link } from "react-router-dom";
 import { Element } from "react-scroll";
 import useFetch from "@/hooks/shared/useFetch";
+import Title from "./Shared/Title";
 
 type PricingData = {
   keyName: string;
@@ -20,7 +20,7 @@ type PricingData = {
 };
 
 const Pricing = () => {
-  const { data, isSuccess, isLoading, refetch } = useFetch("/key/all-key");
+  const { data } = useFetch("/key/all-key");
   const [pricingData, setPricingData] = useState<[]>([]);
   useEffect(() => {
     fetch("/pricing.json")
@@ -28,7 +28,7 @@ const Pricing = () => {
       .then((data) => setPricingData(data));
   }, []);
 
-  console.log(data?.data, "allll keyyysss");
+  console.log(data?.data, pricingData, "allll keyyysss");
 
   return (
     <Element name="Pricing" className="font-montserrat mt-20">

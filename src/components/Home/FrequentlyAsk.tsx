@@ -1,5 +1,4 @@
-import { useState } from "react";
-import Title from "./Shared/Title";
+
 import {
   Accordion,
   AccordionContent,
@@ -7,13 +6,15 @@ import {
   AccordionTrigger,
 } from "../ui/accordion";
 import { Element } from "react-scroll";
+import Title from "./Shared/Title";
+
 
 export function FrequentlyAsk() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  // const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  // const toggleFAQ = (index: number) => {
+  //   setOpenIndex(openIndex === index ? null : index);
+  // };
 
   return (
     <Element name="FAQ" className="mt-10">

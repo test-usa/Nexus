@@ -1,9 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { FaRegEdit } from "react-icons/fa";
+/* import { FaRegEdit } from "react-icons/fa"; */
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const API_BASE_URL = "https://guidemc.vercel.app/api/v1/key";
 
@@ -109,57 +118,70 @@ const AllKeys: React.FC = () => {
   };
 
   return (
-    <div className="p-4 sm:p-8 min-h-screen -mt-10">
+    <div>
       <ToastContainer position="top-right" autoClose={3000} />
-      <h2 className="text-xl sm:text-2xl font-medium tracking-wide text-gray-700 mb-4 sm:mb-6">
-        All Keys
-      </h2>
-      <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-200">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse min-w-[600px]">
-            <thead className="text-xs sm:text-sm font-semibold uppercase tracking-wide bg-gray-200">
-              <tr>
-                <th className="py-3 px-4 sm:py-4 sm:px-6">Key Name</th>
-                <th className="py-3 px-4 sm:py-4 sm:px-6">Duration (Days)</th>
-                <th className="py-3 px-4 sm:py-4 sm:px-6">Regular Users</th>
-                <th className="py-3 px-4 sm:py-4 sm:px-6">Service Users</th>
-                <th className="py-3 px-4 sm:py-4 sm:px-6">Regular Price ($)</th>
-                <th className="py-3 px-4 sm:py-4 sm:px-6">Service Price ($)</th>
-                <th className="py-3 px-4 sm:py-4 sm:px-6">Delete</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white text-gray-700 text-sm sm:text-lg">
+      <div className="p-6 lg:p-8 min-h-screen -mt-10 text-[var(--color-textcolor)] ">
+        <h1 className="text-2xl font-medium tracking-wide mb-5 mt-5">
+          All User Information
+        </h1>
+        <div className="rounded-lg shadow-lg overflow-hidden ">
+          <Table>
+            <TableHeader className="bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]">
+              <TableRow className="text-sm font-semibold tracking-wide">
+                <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+                  Key Name
+                </TableHead>
+                <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+                  Duration (Days)
+                </TableHead>
+                <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+                  Regular Users
+                </TableHead>
+                <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+                  Service Users
+                </TableHead>
+                <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+                  Regular Price ($)
+                </TableHead>
+                <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+                  Service Price ($)
+                </TableHead>
+                <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+                  Delete
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {licenseKeys.map((key) => (
-                <tr
+                <TableRow
                   key={key._id}
-                  className="border-b border-gray-300 hover:bg-gray-100 transition-all"
+                  className="hover:bg-gray-200 hover:text-gray-700 "
                 >
-                  <td className="py-3 px-4 sm:py-4 sm:px-6">{key.keyName}</td>
-                  <td className="py-3 px-4 sm:py-4 sm:px-6">{key.duration}</td>
-                  <td className="py-3 px-4 sm:py-4 sm:px-6">
+                  <TableCell className="px-6 py-5">{key.keyName}</TableCell>
+                  <TableCell className="px-6 py-5 ">{key.duration}</TableCell>
+                  <TableCell className="px-6 py-5 ">
                     {key.users.regularKey}
-                  </td>
-                  <td className="py-3 px-4 sm:py-4 sm:px-6">
-                    {key.users.serviceKey}
-                  </td>
-                  <td className="py-3 px-4 sm:py-4 sm:px-6">
+                  </TableCell>
+
+                  <TableCell className="px-6 py-5 ">{key.duration}</TableCell>
+                  <TableCell className="px-6 py-5 ">
                     ${key.prices.regularKey}
-                  </td>
-                  <td className="py-3 px-4 sm:py-4 sm:px-6">
+                  </TableCell>
+                  <TableCell className="px-6 py-5 ">
                     ${key.prices.serviceKey}
-                  </td>
-                  <td className="py-3 px-4 sm:py-4 sm:px-6">
+                  </TableCell>
+                  <TableCell className="px-6 py-5 ">
                     <button
                       onClick={() => setDeleteKeyId(key._id)}
                       className="hover:bg-red-600 hover:text-white rounded-sm p-2 text-base sm:text-lg font-bold bg-red-500 transition-all"
                     >
                       <MdOutlineDeleteOutline />
                     </button>
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       </div>
 

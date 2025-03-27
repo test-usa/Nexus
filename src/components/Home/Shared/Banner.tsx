@@ -28,15 +28,14 @@ const Banner = () => {
   };
 
   const images = [
-    "https://tse3.mm.bing.net/th?id=OIP.ZB6sumZwwAtmZHx-xS0SCwAAAA&pid=Api",
-    "https://tse2.mm.bing.net/th?id=OIP.SYHwXVZzL2474mDA_3frgAHaFt&pid=Api",
+
     "https://tse2.mm.bing.net/th?id=OIP.7pbaYFsnAEXn266BHappVwHaEK&pid=Api",
     "https://tse1.mm.bing.net/th?id=OIP.P5ncWi8Xay4tKTScsH3lygHaEK&pid=Api",
   ];
   return (
     <Element name="banner" className="font-montserrat">
       <CommonWrapper>
-        <div  className="mt-28">
+        <div className="mt-28">
           {/**** TEXT SECTION ****/}
           <div className="space-y-5 text-center">
             <h1
@@ -132,7 +131,7 @@ const Banner = () => {
                   </button>
                 </div>
                 <div className="bg-gray-900 space-y-3 w-full p-2">
-                  {service?.map((item: Banner, index) => {
+                  {service?.map((item: any, index) => {
                     return (
                       <div
                         key={index}
@@ -157,7 +156,7 @@ const Banner = () => {
                   <img
                     src={src}
                     alt={`Nexus Slide ${index + 1}`}
-                    className="rounded-xl min-w-[290px] mx-auto h-[250px] shadow-lg"
+                    className="rounded-xl min-w-[310px] mx-auto h-[250px] shadow-lg"
                   />
                 </div>
               ))}
@@ -170,4 +169,3 @@ const Banner = () => {
 };
 
 export default Banner;
-
