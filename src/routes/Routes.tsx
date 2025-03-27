@@ -9,15 +9,15 @@ import SignUp from "@/pages/SignUp";
 import { createBrowserRouter } from "react-router-dom";
 import PaymentHistory from "@/components/Admin/PaymentHistory";
 import UserLayout from "@/layout/UserLayout";
+import UserProfile from "@/components/User/UserProfile";
 import UserPayment from "@/components/User/UserPayment";
 import BuyingPage from "@/pages/BuyingPage";
 import AllKeys from "@/components/Admin/AllKeys";
 import AllUserInfo from "@/components/Admin/AllUserInfo";
-import Purchase from "@/pages/Purchase";
-import PaymentSuccess from "@/pages/paymentSucces";
 import { MyKeys } from "../components/User/userKeys/MyKeys";
 import PrivateRoute from "./PrivateRoute";
 import AdminPrivateRoute from "./AdminPrivateRoute";
+import Purchase from "@/pages/Purchase";
 
 const routes = createBrowserRouter([
   {
@@ -40,6 +40,14 @@ const routes = createBrowserRouter([
       </PrivateRoute>
     ),
     children: [
+      {
+        path: "profile",
+        element: (
+          <PrivateRoute>
+            <UserProfile />
+          </PrivateRoute>
+        ),
+      },
       {
         path: "my-key",
         element: (
@@ -67,11 +75,6 @@ const routes = createBrowserRouter([
   {
     path: "/buy",
     element: <Purchase />,
-  },
-
-  {
-    path: "/payment-success",
-    element: <PaymentSuccess />,
   },
   /* Admin Layout */
   {
