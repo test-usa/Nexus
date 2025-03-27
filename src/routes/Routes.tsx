@@ -18,6 +18,7 @@ import { MyKeys } from "../components/User/userKeys/MyKeys";
 import PrivateRoute from "./PrivateRoute";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import Purchase from "@/pages/Purchase";
+import PaymentSuccess from "@/pages/paymentSucces";
 
 const routes = createBrowserRouter([
   {
@@ -70,8 +71,10 @@ const routes = createBrowserRouter([
   {
     path: "/buy/:id",
     element: <BuyingPage />,
-  },
-
+  },{
+  path: "/payment-success",
+  element: <PaymentSuccess />,
+},
   {
     path: "/buy",
     element: <Purchase />,
