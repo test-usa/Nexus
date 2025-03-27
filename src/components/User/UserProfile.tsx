@@ -14,7 +14,8 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import useAxiosPublic from "@/hooks/useAxiosPublic";
-const image_hosting_key = "9911f27aca3347c387f577a495373922";
+import axios from "axios";
+const image_hosting_key = "5524bfe220f89f241e43b7ad5af70f4f";
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 interface UserData {
   id: string;
@@ -43,40 +44,50 @@ const UserProfile = () => {
 
   const SubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData(e.currentTarget);
     const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
     const imageFile = formData.get("file") as File;
 
     if (!imageFile) {
-      console.error("No file selected!");
+      toast.error("Please select an image file");
+      setLoading(false);
       return;
     }
 
-    const data = {
-      name,
-      email,
-      imageFile,
-    };
-    // console.log(name, email, imageFile);
-
     try {
-      // // Convert file to base64 (if needed for ImgBB)
-      const imageData = new FormData();
-      imageData.append("image", imageFile);
-      imageData.append("key", image_hosting_api);
+      // Prepare form data for ImgBB
+      const imgbbFormData = new FormData();
+      imgbbFormData.append("image", imageFile);
 
-      // Send to ImgBB API
-      const res = await axiosPublic.post(image_hosting_api, data, {
+      // Upload to ImgBB
+      const uploadRes = await axios.post(image_hosting_api, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
-      console.log("Image uploaded successfully!", res.data);
+      if (uploadRes.data.success) {
+        const imageUrl = uploadRes.data.data.url;
+
+        // Now update user profile with the new image
+        const updateRes = await axiosPublic.patch("user/update-self", {
+          name,
+          photo: imageUrl,
+        });
+
+        if (updateRes.data.success) {
+          setUser(updateRes.data.data);
+          toast.success("Profile updated successfully!");
+          setOpenModal(false);
+        }
+      }
     } catch (error) {
-      console.error("Image upload failed:", error);
+      console.error("Error updating profile:", error);
+      toast.error("Failed to update profile");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -145,16 +156,16 @@ const UserProfile = () => {
                 ></button>
               </div>
 
-              <Button
+              {/* <Button
                 onClick={() => setOpenModal(!ModalOpen)}
                 size="lg"
                 className="py-3 px-6 rounded-[8px] bg-[var(--color-dashboardsecondary)] text-gray-200 cursor-pointer transform translate duration-300 hover:bg-[var(--color-dashboardsecondary)] hover:text-white"
               >
                 Edit Profile
-              </Button>
+              </Button> */}
 
               {/**** SHOW FORM MODAL FOR USER DATA UPDATE ****/}
-              {ModalOpen && (
+              {/* {ModalOpen && (
                 <Dialog open={ModalOpen} onOpenChange={setOpenModal}>
                   <DialogContent className="max-w-[450px]">
                     <DialogHeader>
@@ -175,7 +186,13 @@ const UserProfile = () => {
                         <Label htmlFor="eamil" className="text-right">
                           Email
                         </Label>
-                        <Input id="email" name="email" className="col-span-3" />
+                        <Input
+                          defaultValue={user?.email}
+                          disabled
+                          id="email"
+                          name="email"
+                          className="col-span-3"
+                        />
                       </div>
                       <div className="grid grid-cols-4 items-center gap-4">
                         <Label htmlFor="image" className="text-right">
@@ -199,7 +216,7 @@ const UserProfile = () => {
                     </form>
                   </DialogContent>
                 </Dialog>
-              )}
+              )} */}
             </div>
           </div>
         )}
