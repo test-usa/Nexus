@@ -9,16 +9,14 @@ import SignUp from "@/pages/SignUp";
 import { createBrowserRouter } from "react-router-dom";
 import PaymentHistory from "@/components/Admin/PaymentHistory";
 import UserLayout from "@/layout/UserLayout";
-import UserDashboard from "@/components/User/UserSideBar/UserDashboard";
 import UserProfile from "@/components/User/UserProfile";
 import UserPayment from "@/components/User/UserPayment";
 import BuyingPage from "@/pages/BuyingPage";
 import AllKeys from "@/components/Admin/AllKeys";
 import AllUserInfo from "@/components/Admin/AllUserInfo";
-import PaymentSuccess from "@/pages/paymentSucces";
-import { MyKeys } from '../components/User/userKeys/MyKeys';
-import PrivateRoute from './PrivateRoute';
-import AdminPrivateRoute from './AdminPrivateRoute';
+import { MyKeys } from "../components/User/userKeys/MyKeys";
+import PrivateRoute from "./PrivateRoute";
+import AdminPrivateRoute from "./AdminPrivateRoute";
 import Purchase from "@/pages/Purchase";
 
 const routes = createBrowserRouter([
@@ -36,19 +34,35 @@ const routes = createBrowserRouter([
   /* UserLayout */
   {
     path: "user",
-    element: <PrivateRoute><UserLayout></UserLayout></PrivateRoute>,
+    element: (
+      <PrivateRoute>
+        <UserLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "profile",
-        element: <PrivateRoute><UserProfile></UserProfile></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <UserProfile />
+          </PrivateRoute>
+        ),
       },
       {
         path: "my-key",
-        element: <PrivateRoute><MyKeys/></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <MyKeys />
+          </PrivateRoute>
+        ),
       },
       {
         path: "user-payment",
-        element: <PrivateRoute><UserPayment /></PrivateRoute>,
+        element: (
+          <PrivateRoute>
+            <UserPayment />
+          </PrivateRoute>
+        ),
       },
     ],
   },
@@ -65,35 +79,67 @@ const routes = createBrowserRouter([
   /* Admin Layout */
   {
     path: "admin",
-    element: <AdminPrivateRoute><AdminLayout></AdminLayout></AdminPrivateRoute>,
+    element: (
+      <AdminPrivateRoute>
+        <AdminLayout />
+      </AdminPrivateRoute>
+    ),
     children: [
       {
         index: true,
-        element: <AdminPrivateRoute><DashboardContent></DashboardContent></AdminPrivateRoute>,
+        element: (
+          <AdminPrivateRoute>
+            <DashboardContent />
+          </AdminPrivateRoute>
+        ),
       },
       {
         path: "dashboard",
-        element: <AdminPrivateRoute><DashboardContent></DashboardContent></AdminPrivateRoute>,
+        element: (
+          <AdminPrivateRoute>
+            <DashboardContent />
+          </AdminPrivateRoute>
+        ),
       },
       {
         path: "all-user-info",
-        element: <AdminPrivateRoute><AllUserInfo></AllUserInfo></AdminPrivateRoute>,
+        element: (
+          <AdminPrivateRoute>
+            <AllUserInfo />
+          </AdminPrivateRoute>
+        ),
       },
       {
         path: "all-keys",
-        element: <AdminPrivateRoute><AllKeys></AllKeys></AdminPrivateRoute>,
+        element: (
+          <AdminPrivateRoute>
+            <AllKeys />
+          </AdminPrivateRoute>
+        ),
       },
       {
         path: "key-generate",
-        element: <AdminPrivateRoute><KeyGeneratorForm></KeyGeneratorForm></AdminPrivateRoute>,
+        element: (
+          <AdminPrivateRoute>
+            <KeyGeneratorForm />
+          </AdminPrivateRoute>
+        ),
       },
       {
         path: "key-table",
-        element: <AdminPrivateRoute><KeyManagementTable></KeyManagementTable></AdminPrivateRoute>,
+        element: (
+          <AdminPrivateRoute>
+            <KeyManagementTable />
+          </AdminPrivateRoute>
+        ),
       },
       {
         path: "payment-history",
-        element: <AdminPrivateRoute><PaymentHistory /></AdminPrivateRoute>,
+        element: (
+          <AdminPrivateRoute>
+            <PaymentHistory />
+          </AdminPrivateRoute>
+        ),
       },
     ],
   },
