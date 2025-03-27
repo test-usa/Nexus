@@ -1,4 +1,5 @@
 import CommonWrapper from "@/wrapper/CommonWrapper";
+import "animate.css";
 
 type TitleProps = {
   title: string;

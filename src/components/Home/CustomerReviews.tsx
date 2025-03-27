@@ -72,7 +72,7 @@ const CustomerReviews = () => {
     <Element name="Review" className="w-full mt-16 text-white ">
       <div>
         <Title
-          title="People love Nexus
+          title="People love ExoBot
          and there's a good reason."
           subtitle="Skeptical of us? We have tons of positive reviews from our customers
           that use Edgenuity. We want to help you get out of this online
@@ -84,7 +84,7 @@ const CustomerReviews = () => {
           {review?.map((item) => {
             return (
               <div className="p-3">
-                <div className="max-w-[350px] sm:max-w-full lg:max-w-[500px] xl:max-w-[580px] mx-auto rounded-lg relative border border-gray-700 shadow-lg hover:shadow-lg space-y-3 p-5 transform transition-all duration-200 hover:shadow-gray-500 translate cursor-pointer ">
+                <div className="max-w-[350px] shadow-lg hover:shadow-gray-500  transform transition duration-500 sm:max-w-full lg:max-w-[500px] xl:max-w-[580px] mx-auto  rounded-[var(--radius-card)] relative border border-[#45444d] hover:shadow-lg space-y-3 p-5   translate cursor-pointer ">
                   <div>
                     <p className="text-gray-400 text-[16px]">
                       {item?.description}

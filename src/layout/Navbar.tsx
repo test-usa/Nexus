@@ -7,6 +7,7 @@ import CommonWrapper from "@/wrapper/CommonWrapper";
 import { Link as ScrollLink } from "react-scroll";
 import { NavLink } from "react-router-dom";
 import userStore from "@/store/userStore";
+import logo from "../../public/image.png";
 const Navbar = () => {
   const { user, logout_user } = userStore();
   const [toggle, setToggle] = useState<boolean>(false);
@@ -63,10 +64,7 @@ const Navbar = () => {
               duration={1200}
               className="max-w-16 cursor-pointer"
             >
-              <img
-                src="https://framerusercontent.com/images/VpiZF9i56wEWOzd8opBM90AzSfA.png"
-                alt="logo"
-              />
+              <img src={logo} alt="logo" />
             </ScrollLink>
             {/***** NAVIGATIONBAR START *****/}
             <div className="md:flex items-center lg:gap-x-8 gap-x-6 text-gray-400 hidden">
@@ -135,8 +133,8 @@ const Navbar = () => {
             {/**** AUTH OR PURCHASING ****/}
             <div className="md:flex items-center gap-x-4 text-gray-400 hidden">
               <NavLink
-                to="/buy/:id"
-                className="flex items-center gap-x-2 hover:text-white translate transform duration-300 bg-slate-800 hover:bg-slate-500 cursor-pointer py-2 px-2 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded-md"
+                to="/buy"
+                className="flex items-center gap-x-2 hover:text-white translate transform duration-300 bg-slate-800 hover:bg-slate-500 cursor-pointer py-2 px-2 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded"
               >
                 <FaOpencart />
                 Purchase
@@ -144,14 +142,14 @@ const Navbar = () => {
               {user && token ? (
                 <button
                   onClick={() => logout_user()}
-                  className="bg-slate-800 hover:bg-slate-500 hover:text-white translate transform duration-300 cursor-pointer py-2 px-3 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded-md"
+                  className="bg-slate-800 hover:bg-slate-500 hover:text-white translate transform duration-300 cursor-pointer py-2 px-3 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded"
                 >
                   Sign out
                 </button>
               ) : (
                 <NavLink
                   to="/signup"
-                  className="bg-slate-800 hover:bg-slate-500 hover:text-white translate transform duration-300 cursor-pointer py-2 px-3 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded-md"
+                  className="bg-slate-800 hover:bg-slate-500 hover:text-white translate transform duration-300 cursor-pointer py-2 px-3 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded"
                 >
                   Signup
                 </NavLink>
@@ -195,20 +193,69 @@ const Navbar = () => {
         >
           <div className=" w-full h-full flex flex-col bg-black/50 items-center justify-center">
             <div className="flex flex-col items-start gap-3">
-              {links?.map((link) => {
-                return (
-                  <ScrollLink
-                    to={link?.link}
-                    key={link.id}
-                    onClick={() => setToggle(false)}
-                    smooth
-                    duration={1200}
-                    className="hover:text-white transition-transform duration-300 text-[16px]"
+              <>
+                {/* // All other links are ScrollLink */}
+                <ScrollLink
+                  to="Feature"
+                  smooth
+                  duration={1200}
+                  onClick={() => setToggle(false)}
+                  className="hover:text-white transition-transform duration-300 text-[16px]"
+                >
+                  Feature
+                </ScrollLink>
+                <ScrollLink
+                  to="Review"
+                  smooth
+                  duration={1200}
+                  onClick={() => setToggle(false)}
+                  className="hover:text-white transition-transform duration-300 text-[16px]"
+                >
+                  Review
+                </ScrollLink>
+                <ScrollLink
+                  to="Pricing"
+                  smooth
+                  duration={1200}
+                  onClick={() => setToggle(false)}
+                  className="hover:text-white transition-transform duration-300 text-[16px]"
+                >
+                  Pricing
+                </ScrollLink>
+
+                <ScrollLink
+                  to="FAQ"
+                  smooth
+                  duration={1200}
+                  onClick={() => setToggle(false)}
+                  className="hover:text-white transition-transform duration-300 text-[16px]"
+                >
+                  FAQ
+                </ScrollLink>
+                {user && (user as { role: string }).role === "ADMIN" && (
+                  <NavLink
+                    to="/admin"
+                    className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                   >
-                    {link?.link}
-                  </ScrollLink>
-                );
-              })}
+                    Dashboard
+                  </NavLink>
+                )}
+                {user && (user as { role: string }).role === "USER" && (
+                  <NavLink
+                    to="/user"
+                    className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                  >
+                    Dashboard
+                  </NavLink>
+                )}
+                <NavLink
+                  to="Support"
+                  className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                >
+                  Support
+                </NavLink>
+              </>
+
               {user && (user as { role: string }).role === "ADMIN" && (
                 <NavLink
                   to="/admin"
