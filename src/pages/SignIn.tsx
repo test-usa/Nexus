@@ -3,6 +3,7 @@ import { ISingIn } from "./Form.types";
 import { Loader, Lock, Mail } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import userStore from "@/store/userStore";
+import MainLogo from "../assets/../../public/mainLogo.png"
 // import { useGoogleAuth } from "@/hooks/auth/googleAuth";
 // import { useEffect } from "react";
 
@@ -77,7 +78,7 @@ const SignIn = () => {
                 </svg>
               </button> */}
               <img
-                src="https://framerusercontent.com/images/VpiZF9i56wEWOzd8opBM90AzSfA.png"
+                src={MainLogo}
                 alt="logo"
                 className="max-w-16 cursor-pointer"
               />

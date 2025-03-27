@@ -22,12 +22,15 @@ const Pricing = () => {
   const { data: popular } = useFetch("/user-key/most-popular");
 
   const keyComments = popular?.data?.keyDetails
-    ? Object.entries(popular.data.keyDetails).reduce((acc, [keyName, { comment, position }]: any[]) => {
-        if (position !== undefined) {
-          acc[keyName] = { comment, position };
-        }
-        return acc;
-      }, {} as Record<string, { comment: string; position: number }>)
+    ? Object.entries(popular.data.keyDetails).reduce(
+        (acc, [keyName, { comment, position }]: any[]) => {
+          if (position !== undefined) {
+            acc[keyName] = { comment, position };
+          }
+          return acc;
+        },
+        {} as Record<string, { comment: string; position: number }>
+      )
     : {};
 
   return (
@@ -43,7 +46,7 @@ const Pricing = () => {
           {data?.data?.map((price: PricingData) => {
             // Check if the comment exists for the keyName and position
             const keyDetail = keyComments[price?.keyName];
-            const comment = keyDetail ? keyDetail.comment : "";  // Show comment if available, otherwise empty string
+            const comment = keyDetail ? keyDetail.comment : ""; // Show comment if available, otherwise empty string
 
             // Highlight the card if the comment is "Most Popular"
             const isMostPopular = comment === "Most Popular";
@@ -51,9 +54,10 @@ const Pricing = () => {
             return (
               <div
                 key={price?._id}
-                className={`rounded-[var(--radius-card)] hover:border-[1px] hover:border-cyan-600 min-w-[280px] relative sm:max-w-full border border-[#45444d] shadow-lg hover:shadow-gray-500 space-y-3 p-5 transform transition duration-500 ${isMostPopular ? 'shadow-xl' : ''}`}
+                className={`rounded-[var(--radius-card)] hover:border-[1px] hover:border-cyan-600 min-w-[280px] relative sm:max-w-full border border-[#45444d] shadow-lg hover:shadow-gray-500 space-y-3 p-5 transform transition duration-500 ${
+                  isMostPopular ? "shadow-xl" : ""
+                }`}
               >
-             
                 {comment && !isMostPopular && (
                   <p
                     className={`text-white absolute right-1.5 -top-3.5 rounded-lg bg-gradient-to-bl from-gray-800 to-black/50 py-2 px-3 text-xs sm:text-sm`}
@@ -64,9 +68,7 @@ const Pricing = () => {
 
                 {/* Most Popular Comment with Background */}
                 {isMostPopular && (
-                  <p
-                    className="absolute right-1.5 -top-3.5 rounded-lg bg-gradient-to-bl from-yellow-400 via-yellow-500 to-yellow-600 py-2 px-3 text-xs sm:text-sm text-white font-semibold"
-                  >
+                  <p className="absolute right-1.5 -top-3.5 rounded-lg bg-gradient-to-bl from-sky-600 via-gray-600 to-green-800 py-2 px-3 text-xs sm:text-sm text-white">
                     {comment} {/* Display "Most Popular" with background */}
                   </p>
                 )}
@@ -75,7 +77,8 @@ const Pricing = () => {
                   {price?.keyName}
                 </h1>
                 <p className="text-sm sm:text-[16px] text-gray-500">
-                  {price.description} "Perfect for quick access and trying us out with minimal cost."
+                  {price.description} "Perfect for quick access and trying us
+                  out with minimal cost."
                 </p>
                 <p className="text-xl sm:text-3xl font-semibold bg-gradient-to-r from-gray-400 to-slate-600 via-green-500 text-transparent bg-clip-text">
                   ${price.prices.regularKey} {price.currency} USD

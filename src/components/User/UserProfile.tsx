@@ -29,7 +29,6 @@ const UserProfile = () => {
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [ModalOpen, setOpenModal] = useState<boolean>(false);
-  const [files, setFiles] = useState<[]>([]);
   const { data, isLoading } = useFetch("user/get-self");
 
   useEffect(() => {

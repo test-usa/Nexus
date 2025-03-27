@@ -25,32 +25,7 @@ const Navbar = () => {
     }
   });
 
-  const links = [
-    {
-      id: 1,
-      link: "Feature",
-    },
-    {
-      id: 2,
-      link: "Review",
-    },
-    {
-      id: 3,
-      link: "Pricing",
-    },
-    {
-      id: 5,
-      link: "FAQ",
-    },
-    {
-      id: 6,
-      link: "Support",
-    },
-    {
-      id: 7,
-      link: "Support",
-    },
-  ];
+
 
   return (
     <div className={`fixed z-50 w-full h-auto `}>
