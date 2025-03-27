@@ -14,12 +14,13 @@ export const MyKeys = () => {
   const { mutate: redeemUser, isPending: isRedeeming } = useUpdate<any, RedeemUserPayload>(
     '/user-key/redeem-user-key',
   );
+  console.log(userKeys)
   const { mutate: renewSubscription, isPending: isRenewing } = usePost<any, {
     key: string;
     keyType: string;
     licensekey: string;
   }>('/payment/renew-subscription');
-
+  console.log 
   const [keys, setKeys] = useState<Order[]>([]);
   const [selectedKey, setSelectedKey] = useState<Order | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
