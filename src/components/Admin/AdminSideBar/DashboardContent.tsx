@@ -9,6 +9,9 @@ import {
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import useFetch from "@/hooks/shared/useFetch";
+import { MdPayments } from "react-icons/md";
+import { FaUsersRectangle } from "react-icons/fa6";
+import { VscLayersActive } from "react-icons/vsc";
 
 interface User {
   _id: string;
@@ -96,21 +99,46 @@ const DashboardContent = () => {
       <div className="overflow-x-auto text-[var(--color-textsecondarycolor)]">
         <div className="mb-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Users Count */}
-          <div className="rounded-lg bg-[var(--color-dashboardsecondary)] p-6 hover:bg-gray-500 hover:text-white transition-colors">
-            <div className="text-5xl font-bold">{users.length}</div>
-            <p className="mt-2 text-sm">All User</p>
+          <div className="rounded-lg bg-[var(--color-dashboardsecondary)] p-6 hover:bg-[var(--color-bghovercolor)]  hover:text-[var(--color-hovertext)] transition-colors">
+            <div className="flex justify-between items-center">
+              <div>
+                <FaUsersRectangle className="my-5 text-6xl" />
+              </div>
+              <div>
+                <div className="text-5xl font-bold">{users.length}</div>
+                <p className="mt-2 text-sm uppercase font-bold">All Users</p>
+              </div>
+            </div>
           </div>
 
           {/* Payments Count */}
-          <div className="rounded-lg bg-[var(--color-dashboardsecondary)] p-6 hover:bg-gray-500 hover:text-white transition-colors">
-            <div className="text-5xl font-bold">{payments.length}</div>
-            <p className="mt-2 text-sm">Payment List</p>
+          <div className="rounded-lg bg-[var(--color-dashboardsecondary)] p-6 hover:bg-[var(--color-bghovercolor)]  hover:text-[var(--color-hovertext)] transition-colors">
+            <div className="flex justify-between items-center">
+              <div>
+                <MdPayments className="my-5 text-6xl" />
+              </div>
+              <div>
+                <div className="text-5xl font-bold">{payments.length}</div>
+                <p className="mt-2 text-sm uppercase font-bold">All Payments</p>
+              </div>
+            </div>
           </div>
 
           {/* Completed User List */}
-          <div className="rounded-lg bg-[var(--color-dashboardsecondary)] p-6 hover:bg-gray-500 hover:text-white transition-colors">
-            <div className="text-5xl font-bold">{activedata?.length || 10}</div>
-            <p className="mt-2 text-sm">Active User List</p>
+          <div className="rounded-lg bg-[var(--color-dashboardsecondary)] p-6 hover:bg-[var(--color-bghovercolor)]  hover:text-[var(--color-hovertext)] transition-colors">
+            <div className="flex justify-between items-center">
+              <div>
+                <VscLayersActive className="my-5 text-6xl" />
+              </div>
+              <div>
+                <div className="text-5xl font-bold">
+                  {activedata?.length || 10}
+                </div>
+                <p className="mt-2 text-sm uppercase font-bold">
+                  Active User List
+                </p>
+              </div>
+            </div>
           </div>
         </div>
         {/* Added wrapper for scroll */}
