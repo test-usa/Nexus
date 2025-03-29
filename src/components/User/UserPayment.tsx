@@ -10,16 +10,16 @@ interface Payment {
   customerId: string;
   subscriptionId: string;
   transactionId: string;
-  keyDetails:{
-    amount:number,
-    price:number
-  }
+  keyDetails: {
+    amount: number;
+    price: number;
+  };
   currentPeriodEnd: string;
   status: string;
   createdAt: string;
   key: {
-    keyName:string
-  }
+    keyName: string;
+  };
 }
 
 const UserPayment: React.FC = () => {
@@ -27,6 +27,7 @@ const UserPayment: React.FC = () => {
   const { data, isSuccess, isLoading } = useFetch(
     "payment/get-all-user-payment"
   );
+  console.log(data);
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(0);
@@ -102,7 +103,9 @@ const UserPayment: React.FC = () => {
                 >
                   <td className="py-3 px-6 text-sm">{payment.key.keyName}</td>
                   <td className="py-3 px-6 text-sm">
-                    {payment.subscriptionId? payment.subscriptionId : payment.transactionId}
+                    {payment.subscriptionId
+                      ? payment.subscriptionId
+                      : payment.transactionId}
                   </td>
                   <td className="py-3 px-6 text-sm text-center">
                     {payment.keyDetails.amount}

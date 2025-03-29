@@ -17,7 +17,7 @@ interface User {
   email: string;
   role: string;
 }
-const AllUserInfo = () => {
+const KeyM = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [expandedUids, setExpandedUids] = useState<{ [key: string]: boolean }>(
@@ -100,7 +100,7 @@ const AllUserInfo = () => {
                 <TableCell onClick={() => handleToggleUid(user._id)}>
                   {expandedUids[user._id]
                     ? user.uid
-                    : `${user.uid.slice(0, 8)}...`}
+                    : `${user.uid.slice(0, 5)}...`}
                 </TableCell>
                 <TableCell
                   className={`text-right ${
@@ -139,4 +139,4 @@ const AllUserInfo = () => {
   );
 };
 
-export default AllUserInfo;
+export default KeyM;

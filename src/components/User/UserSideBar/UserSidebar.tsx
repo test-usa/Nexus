@@ -39,6 +39,11 @@ const navItems: NavItem[] = [
     href: "my-key",
     icon: Table,
   },
+  {
+    title: "My Order",
+    href: "my-order",
+    icon: Table,
+  },
 
   {
     title: "Payment History",

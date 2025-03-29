@@ -18,6 +18,8 @@ import PaymentSuccess from "@/pages/paymentSucces";
 import { MyKeys } from "../components/User/userKeys/MyKeys";
 import PrivateRoute from "./PrivateRoute";
 import AdminPrivateRoute from "./AdminPrivateRoute";
+import MyOrder from "@/components/User/MyOrder";
+import KeyM from "@/components/Admin/KeyM";
 
 const routes = createBrowserRouter([
   {
@@ -45,6 +47,14 @@ const routes = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyKeys />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "my-order",
+        element: (
+          <PrivateRoute>
+            <MyOrder />
           </PrivateRoute>
         ),
       },
@@ -127,6 +137,14 @@ const routes = createBrowserRouter([
         element: (
           <AdminPrivateRoute>
             <KeyManagementTable />
+          </AdminPrivateRoute>
+        ),
+      },
+      {
+        path: "key-m",
+        element: (
+          <AdminPrivateRoute>
+            <KeyM />
           </AdminPrivateRoute>
         ),
       },
