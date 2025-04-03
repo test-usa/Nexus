@@ -4,10 +4,8 @@ import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { Element, Link } from "react-scroll";
 import { gsap } from "gsap";
-import MainLogo from "../../../../public/mainLogo.png";
 import { cn } from "@/lib/utils";
 import Video from "@/components/Home/Video";
-
 
 const Banner = () => {
   const [service, setService] = useState([]);
@@ -101,9 +99,7 @@ const Banner = () => {
                   className="max-w-14 rounded-xl"
                 />
                 <div className="">
-                  <h1 className="text-xl text-white font-semibold">
-                    Exobot
-                  </h1>
+                  <h1 className="text-xl text-white font-semibold">Exobot</h1>
                   <p className="text-sm text-white">Opern beta 1.4.3.3 </p>
                 </div>
               </div>

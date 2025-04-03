@@ -7,7 +7,6 @@ import CommonWrapper from "@/wrapper/CommonWrapper";
 import { Link as ScrollLink } from "react-scroll";
 import { NavLink } from "react-router-dom";
 import userStore from "@/store/userStore";
-import logo from "../../public/image.png";
 const Navbar = () => {
   const { user, logout_user } = userStore();
   const [toggle, setToggle] = useState<boolean>(false);
