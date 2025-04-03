@@ -11,7 +11,6 @@ import { IoMdLogOut } from "react-icons/io";
 
 import userStore from "@/store/userStore";
 import useFetch from "@/hooks/shared/useFetch";
-import logo from "../../../assets/image.png";
 import { MdDashboard, MdPayments } from "react-icons/md";
 import { FaInfo, FaUsers } from "react-icons/fa6";
 
@@ -100,7 +99,7 @@ export function DashboardSidebar() {
             }}
           >
             <img
-              src={logo}
+              src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
               alt="Profile picture"
               className="object-cover p-1"
             />
@@ -160,7 +159,7 @@ export function DashboardSidebar() {
             }}
           >
             <img
-              src={logo}
+              src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
               alt="Profile picture"
               className="object-cover p-1"
             />
