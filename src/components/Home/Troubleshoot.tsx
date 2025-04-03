@@ -7,39 +7,45 @@ const Troubleshoot = () => {
       <Title title="Trouble shoot" subtitle="Resolve common issues easily" />
 
       <div>
-        <div className="max-w-3xl mx-auto space-y-6  border-gray-600 pl-2">
-          <div className="flex items-center">
-            <h1 className="text-3xl font-semibold text-[var(--color-textcolor)]">
+        <div className="max-w-3xl mx-auto space-y-6 border-gray-600 p-4 sm:p-6">
+          {/* Heading with Icon */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <h1 className="text-2xl sm:text-3xl font-semibold text-[var(--color-textcolor)]">
               Why isn't my menu appearing?
             </h1>
-            <div>
-              <FaRegEdit className="ml-3 text-[var(--color-hovertext)]" />
-            </div>
+            <FaRegEdit className="text-[var(--color-hovertext)]" />
           </div>
 
-          <p>
+          {/* Description */}
+          <p className="text-base sm:text-lg">
             If the EdgyPro menu is not appearing on your screen, try the
             following steps:
           </p>
 
-          <ul className="space-y-4 list-disc list-inside">
+          {/* Instructions List */}
+          <ul className="space-y-4 list-disc list-inside text-base sm:text-lg">
             <li>
-              <strong>Unhide the menu:</strong> Press
-              <kbd>CTRL + SHIFT + H</kbd> on your keyboard. This should make the
-              EdgyPro menu visible again.
+              <strong>Unhide the menu:</strong> Press{" "}
+              <kbd className="bg-gray-800 px-2 py-1 rounded text-white">
+                CTRL + SHIFT + H
+              </kbd>{" "}
+              on your keyboard. This should make the EdgyPro menu visible again.
             </li>
             <li>
               <strong>Reset the menu:</strong> If the previous step doesn't
-              work, try pressing <kbd>CTRL + SHIFT + R</kbd> to reset the menu,
-              which may resolve any display issues.
+              work, try pressing{" "}
+              <kbd className="bg-gray-800 px-2 py-1 rounded text-white">
+                CTRL + SHIFT + R
+              </kbd>{" "}
+              to reset the menu, which may resolve any display issues.
             </li>
             <li>
               <strong>Clear browser cache:</strong> Sometimes the menu can load
               incorrectly, resulting in a portion of code being corrupted. An
-              easy way to fix this is
+              easy way to fix this is{" "}
               <a
                 href=""
-                className="text-[var(--color-hovertext)] hover:text-[#695ce0] pl-2"
+                className="text-[var(--color-hovertext)] hover:text-[#695ce0] pl-1 underline"
               >
                 by clearing your browser cache
               </a>
@@ -47,20 +53,24 @@ const Troubleshoot = () => {
             </li>
           </ul>
 
-          <p>
+          {/* Support Section */}
+          <p className="text-base sm:text-lg">
             If you've tried these steps and the menu is still not appearing,
-            please contact our support team in the
+            please contact our support team in the{" "}
             <a
               href="https://discord.com/invite/edgypro"
-              className="text-[var(--color-hovertext)] hover:underline hover:text-[#695ce0] pl-2 pr-2"
+              className="text-[var(--color-hovertext)] hover:text-[#695ce0] hover:underline pl-1"
             >
               Discord server
             </a>
             . We’ll be happy to assist you in resolving the issue.
           </p>
 
+          {/* Divider */}
           <hr className="border-gray-700" />
-          <p className="text-sm text-gray-400">
+
+          {/* Last Updated */}
+          <p className="text-sm text-gray-400 text-center">
             Last updated: 30/12/2024, 15:26:42
           </p>
         </div>
