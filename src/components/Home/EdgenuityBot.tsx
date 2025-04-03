@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Element } from "react-scroll";
 import Title from "./Shared/Title";
+
 const EdgenuityBot = () => {
   useEffect(() => {
     const cards = gsap.utils.toArray(".feature-wrapper");
