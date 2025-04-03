@@ -4,7 +4,7 @@ import logo from "../../public/image.png";
 const Footer = () => {
   return (
     <CommonWrapper>
-      <footer className="bg-[#212020] font-montserrat text-white py-16 px-8">
+      <footer className="  bg-[var(--color-dashboardbg)] font-montserrat text-white py-16 px-8">
         <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16">
           <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
             <div className="text-4xl font-bold text-white mb-6">
@@ -20,20 +20,20 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <Link to="" smooth={true} duration={500}>
-                  <a className="flex items-center text-gray-400 hover:text-white transition-colors duration-300">
+                  <a className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-gray-400">
                     Features
                   </a>
                 </Link>
               </li>
               <li>
-                <a className="flex items-center text-gray-400 hover:text-white transition-colors duration-300">
+                <a className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-gray-400">
                   Reviews
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="flex items-center text-gray-400 hover:text-white transition-colors duration-300"
+                  className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-gray-400"
                 >
                   Pricing
                 </a>
@@ -41,7 +41,7 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className="flex items-center text-gray-400 hover:text-white transition-colors duration-300"
+                  className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-gray-400"
                 >
                   FAQ
                 </a>
@@ -55,7 +55,7 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className="text-gray-400 hover:text-white transition-colors duration-300"
+                  className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-gray-400"
                 >
                   Contact Us
                 </a>
@@ -63,7 +63,7 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className="text-gray-400 hover:text-white transition-colors duration-300"
+                  className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-gray-400"
                 >
                   Terms & Conditions
                 </a>
@@ -71,7 +71,7 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className="text-gray-400 hover:text-white transition-colors duration-300"
+                  className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-gray-400"
                 >
                   Privacy Policy
                 </a>
@@ -81,7 +81,9 @@ const Footer = () => {
 
           <div className="flex flex-col items-center sm:items-start">
             <h3 className="text-lg font-semibold mb-4">Credits</h3>
-            <p>Made with EXBOT</p>
+            <p className="text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] ">
+              Made with EXBOT
+            </p>
           </div>
         </div>
 

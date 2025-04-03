@@ -18,6 +18,9 @@ import { MyKeys } from "../components/User/userKeys/MyKeys";
 import PrivateRoute from "./PrivateRoute";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import Purchase from "@/pages/Purchase";
+import Download from "@/pages/Download";
+import Trabolshooting from "@/pages/Trabolshooting";
+import Success from "@/pages/Success";
 
 const routes = createBrowserRouter([
   {
@@ -28,6 +31,14 @@ const routes = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "/download",
+        element: <Download />,
+      },
+      {
+        path: "/trabolshooting",
+        element: <Trabolshooting />,
       },
     ],
   },
@@ -75,6 +86,11 @@ const routes = createBrowserRouter([
   {
     path: "/buy",
     element: <Purchase />,
+  },
+
+  {
+    path: "/success",
+    element: <Success />,
   },
   /* Admin Layout */
   {
