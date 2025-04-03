@@ -113,13 +113,13 @@ const BuyingPage = () => {
 
   return (
     <div className="min-h-screen bg-[#212020] flex items-center justify-center p-6">
-      <div className="flex flex-col sm:flex-row  justify-center w-full max-w-5xl gap-8 rounded-lg p-6">
+      <div className="flex flex-col sm:flex-row  justify-center w-full max-w-5xl gap-8 rounded p-6">
         {/**** IMAGE SECTION ****/}
         <div className=" bg-gradient-to-tr from-black/30 to-gray-800 rounded-2xl flex items-center justify-center w-full max-h-[400px]">
           <img
             src={MainLogo}
             alt="logo"
-            className=" max-h-[400px] w-full h-auto rounded-lg"
+            className=" max-h-[400px] w-full h-auto rounded"
           />
         </div>
 

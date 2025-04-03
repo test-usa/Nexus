@@ -21,6 +21,8 @@ import Purchase from "@/pages/Purchase";
 import PaymentSuccess from "@/pages/paymentSucces";
 import MyOrder from "@/components/User/MyOrder";
 import KeyM from "@/components/Admin/KeyM";
+import DownloadKeyScript from "@/components/home/DownloadInstallProcess";
+import Troubleshoot from "@/components/home/Troubleshoot";
 
 const routes = createBrowserRouter([
   {
@@ -31,6 +33,14 @@ const routes = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: "download-key-script",
+        element: <DownloadKeyScript />,
+      },
+      {
+        path: "troubleshoot",
+        element: <Troubleshoot />,
       },
     ],
   },

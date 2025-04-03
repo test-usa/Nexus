@@ -48,7 +48,7 @@ const Pricing = () => {
                 {/* <BadgeData badge={price?.keyName} /> */}
                 <p
                   className={cn(
-                    "text-white absolute right-1.5 -top-3.5 rounded-lg bg-gradient-to-bl from-gray-800 to-black/50 py-2 px-3 text-xs sm:text-sm",
+                    "text-white absolute right-1.5 -top-3.5 rounded bg-gradient-to-bl from-gray-800 to-black/50 py-2 px-3 text-xs sm:text-sm",
                     price.keyName === "Month Key" &&
                       "bg-gradient-to-r from-cyan-700 to-cyan-900"
                   )}
@@ -67,7 +67,7 @@ const Pricing = () => {
                 </p>
                 <Link
                   to={`/buy/${price._id}`}
-                  className="w-full cursor-pointer hover:-rotate-z-1 bg-gradient-to-tr from-gray-800 to-gray-500 text-white py-2 inline-block text-center rounded-lg text-sm sm:text-[16px]"
+                  className="w-full cursor-pointer hover:-rotate-z-1 bg-gradient-to-tr from-gray-800 to-gray-500 text-white py-2 inline-block text-center rounded text-sm sm:text-[16px]"
                 >
                   Purchase Now
                 </Link>

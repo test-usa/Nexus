@@ -5,7 +5,6 @@ import { FrequentlyAsk } from "@/components/home/FrequentlyAsk";
 import Pricing from "@/components/home/Pricing";
 import Banner from "@/components/home/Shared/Banner";
 import CommonWrapper from "@/wrapper/CommonWrapper";
-
 const Home = () => {
   return (
     <div>

@@ -77,7 +77,7 @@ const PaymentHistory = () => {
 
   return (
     <div className="pl-12 pr-12 pt-12 -sm:pr-5 ">
-      <h1 className="text-2xl font-medium tracking-wide mb-5 mt-5 text-[var(--color-textcolor)]">
+      <h1 className="text-2xl font-medium tracking-wide mb-5 mt-4 text-[var(--color-textcolor)]">
         Payment History
       </h1>
       <div className="overflow-x-auto text-[var(--color-textsecondarycolor)]">
@@ -85,25 +85,25 @@ const PaymentHistory = () => {
         <Table className="rounded-sm shadow-lg overflow-hidden">
           <TableHeader className="bg-[var(--color-dashboardsecondary)] ">
             <TableRow>
-              <TableHead className="px-6 sm:px-6 py-6 w-[100px] text-[var(--color-textsecondarycolor)]">
+              <TableHead className="px-6 sm:px-6 py-6 w-[100px] text-lg text-[var(--color-textcolor)]">
                 Key Name
               </TableHead>
-              <TableHead className="text-[var(--color-textsecondarycolor)]">
-                User ID
+              <TableHead className="text-lg text-[var(--color-textcolor)]">
+                User Id
               </TableHead>
-              <TableHead className="text-[var(--color-textsecondarycolor)]">
+              <TableHead className="text-lg text-[var(--color-textcolor)]">
                 Transaction ID
               </TableHead>
-              <TableHead className="text-[var(--color-textsecondarycolor)]">
+              <TableHead className="text-lg text-[var(--color-textcolor)]">
                 Amount
               </TableHead>
-              <TableHead className="text-right text-[var(--color-textsecondarycolor)]">
+              <TableHead className="text-right text-lg text-[var(--color-textcolor)]">
                 Price
               </TableHead>
-              <TableHead className="text-right text-[var(--color-textsecondarycolor)]">
+              <TableHead className="text-right text-lg text-[var(--color-textcolor)]">
                 Purchase Date
               </TableHead>
-              <TableHead className="text-right text-[var(--color-textsecondarycolor)]">
+              <TableHead className="text-right pr-10 text-lg text-[var(--color-textcolor)]">
                 Status
               </TableHead>
             </TableRow>
@@ -119,10 +119,11 @@ const PaymentHistory = () => {
                       : "bg-[var(--color-evencolor)]"
                   }`}
                 >
-                  <TableCell className="font-medium px-6 sm:px-6 py-6 ">
+                  <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px] ">
                     {payment.key.keyName}
                   </TableCell>
                   <TableCell
+                    className="text-[16px]"
                     onClick={() => toggleExpand(payment._id + "-userId")}
                   >
                     {expandedRows[payment._id + "-userId"]
@@ -131,23 +132,23 @@ const PaymentHistory = () => {
                   </TableCell>
 
                   <TableCell
-                    className="text-left"
+                    className="text-left text-[16px]"
                     onClick={() => toggleExpand(payment._id + "-transactionId")}
                   >
                     {expandedRows[payment._id + "-transactionId"]
                       ? payment.transactionId
                       : `${payment.transactionId.slice(0, 5)}...`}
                   </TableCell>
-                  <TableCell className="text-left">
+                  <TableCell className="text-left text-[16px]">
                     {payment.keyDetails.amount}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right text-[16px]">
                     {payment.keyDetails.price}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right text-[16px]">
                     {new Date(payment.createdAt).toLocaleString()}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right text-[16px]">
                     <span
                       className={`inline-block px-3 py-1 rounded-full text-gray-800 ${
                         payment.status === "active"
@@ -179,7 +180,7 @@ const PaymentHistory = () => {
       </div>
 
       {/* Pagination Section */}
-      <div className="mt-6 flex justify-center">
+      <div className="mt-3 flex justify-center">
         <ReactPaginate
           previousLabel={"Previous"}
           nextLabel={"Next"}
@@ -187,9 +188,9 @@ const PaymentHistory = () => {
           onPageChange={handlePageChange}
           containerClassName="flex items-center space-x-2"
           pageClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textsecondarycolor)]"
-          previousClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
-          nextClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
-          activeClassName="text-white bg-[var(--color-dashboardsecondary)]"
+          previousClassName="text-[16px]  px-4 py-2 border border-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
+          nextClassName="text-[16px]  px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
+          activeClassName="text-[16px]  text-white bg-[var(--color-dashboardsecondary)]"
           disabledClassName="text-gray-400 cursor-not-allowed"
         />
       </div>
