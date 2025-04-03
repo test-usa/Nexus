@@ -25,33 +25,6 @@ const Navbar = () => {
     }
   });
 
-  const links = [
-    {
-      id: 1,
-      link: "Feature",
-    },
-    {
-      id: 2,
-      link: "Review",
-    },
-    {
-      id: 3,
-      link: "Pricing",
-    },
-    {
-      id: 5,
-      link: "FAQ",
-    },
-    {
-      id: 6,
-      link: "Support",
-    },
-    {
-      id: 7,
-      link: "Support",
-    },
-  ];
-
   return (
     <div className={`fixed z-50 w-full h-auto `}>
       <div id="nav-bar" className="">
@@ -73,7 +46,7 @@ const Navbar = () => {
                 smooth
                 duration={1200}
                 to="Feature"
-                className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                 activeClass="text-green-400 font-bold"
               >
                 Feature
@@ -82,34 +55,44 @@ const Navbar = () => {
                 smooth
                 duration={1200}
                 to="Review"
-                className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-                activeClass="text-green-400 font-bold"
+                className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
               >
                 Review
               </ScrollLink>
-              <ScrollLink
+              {/* <ScrollLink
                 smooth
                 duration={1200}
                 to="Pricing"
-                className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-                activeClass="text-green-400 font-bold"
+                className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
               >
-                Pricing
-              </ScrollLink>
+                Purchase
+              </ScrollLink> */}
 
               <ScrollLink
                 smooth
                 duration={1200}
                 to="FAQ"
-                className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                 activeClass="text-green-400 font-bold"
               >
                 FAQ
               </ScrollLink>
+              <NavLink
+                to="/download"
+                className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+              >
+                Download
+              </NavLink>
+              <NavLink
+                to="/trabolshooting"
+                className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+              >
+                Trabolshooting
+              </NavLink>
               {user && (user as { role: string }).role === "ADMIN" && (
                 <NavLink
                   to="/admin"
-                  className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                  className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                 >
                   Dashboard
                 </NavLink>
@@ -124,7 +107,7 @@ const Navbar = () => {
               )}
               <NavLink
                 to="Support"
-                className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
               >
                 Support
               </NavLink>
@@ -132,24 +115,26 @@ const Navbar = () => {
 
             {/**** AUTH OR PURCHASING ****/}
             <div className="md:flex items-center gap-x-4 text-gray-400 hidden">
-              <NavLink
-                to="/buy"
-                className="flex items-center gap-x-2 hover:text-white translate transform duration-300 bg-slate-800 hover:bg-slate-500 cursor-pointer py-2 px-2 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded"
+              <ScrollLink
+                smooth
+                duration={1200}
+                to="Pricing"
+                className="flex items-center gap-x-2 hover:text-white transition-all ease-in-out duration-500 bg-slate-800 hover:bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer py-2 px-2 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded transform hover:scale-105"
               >
                 <FaOpencart />
                 Purchase
-              </NavLink>
+              </ScrollLink>
               {user && token ? (
                 <button
                   onClick={() => logout_user()}
-                  className="bg-slate-800 hover:bg-slate-500 hover:text-white translate transform duration-300 cursor-pointer py-2 px-3 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded"
+                  className="bg-slate-800 hover:bg-slate-500 hover:text-white transition-all ease-in-out duration-500 cursor-pointer py-2 px-3 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded hover:bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] transform hover:scale-105"
                 >
                   Sign out
                 </button>
               ) : (
                 <NavLink
                   to="/signup"
-                  className="bg-slate-800 hover:bg-slate-500 hover:text-white translate transform duration-300 cursor-pointer py-2 px-3 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded"
+                  className="bg-slate-800 hover:bg-slate-500 hover:text-white translate transition-all ease-in-out duration-500 cursor-pointer py-2 px-3 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded hover:bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] transform hover:scale-105"
                 >
                   Signup
                 </NavLink>
@@ -200,7 +185,7 @@ const Navbar = () => {
                   smooth
                   duration={1200}
                   onClick={() => setToggle(false)}
-                  className="hover:text-white transition-transform duration-300 text-[16px]"
+                  className="text-gray-400 transition-transform duration-300 text-[16px]"
                 >
                   Feature
                 </ScrollLink>
@@ -209,7 +194,7 @@ const Navbar = () => {
                   smooth
                   duration={1200}
                   onClick={() => setToggle(false)}
-                  className="hover:text-white transition-transform duration-300 text-[16px]"
+                  className="text-gray-400 transition-transform duration-300 text-[16px]"
                 >
                   Review
                 </ScrollLink>
@@ -218,7 +203,7 @@ const Navbar = () => {
                   smooth
                   duration={1200}
                   onClick={() => setToggle(false)}
-                  className="hover:text-white transition-transform duration-300 text-[16px]"
+                  className="text-gray-400 transition-transform duration-300 text-[16px]"
                 >
                   Pricing
                 </ScrollLink>
@@ -228,48 +213,47 @@ const Navbar = () => {
                   smooth
                   duration={1200}
                   onClick={() => setToggle(false)}
-                  className="hover:text-white transition-transform duration-300 text-[16px]"
+                  className="text-gray-400 transition-transform duration-300 text-[16px]"
                 >
                   FAQ
                 </ScrollLink>
-                {user && (user as { role: string }).role === "ADMIN" && (
-                  <NavLink
-                    to="/admin"
-                    className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-                  >
-                    Dashboard
-                  </NavLink>
-                )}
-                {user && (user as { role: string }).role === "USER" && (
-                  <NavLink
-                    to="/user"
-                    className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-                  >
-                    Dashboard
-                  </NavLink>
-                )}
+
+                <NavLink
+                  to="/download"
+                  className="text-gray-400 cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                >
+                  Download
+                </NavLink>
+
                 <NavLink
                   to="Support"
-                  className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                  className="text-gray-400 cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                 >
                   Support
                 </NavLink>
+                {user && (user as { role: string }).role === "ADMIN" && (
+                  <NavLink
+                    to="/admin"
+                    className="text-gray-400 cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                  >
+                    Dashboard
+                  </NavLink>
+                )}
               </>
 
-              {user && (user as { role: string }).role === "ADMIN" && (
-                <NavLink
-                  to="/admin"
-                  className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+              {user && token ? (
+                <button
+                  onClick={() => logout_user()}
+                  className="text-gray-400 cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                 >
-                  Dashboard
-                </NavLink>
-              )}
-              {user && (user as { role: string }).role === "USER" && (
+                  Sign out
+                </button>
+              ) : (
                 <NavLink
-                  to="/user"
-                  className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                  to="/signup"
+                  className="text-gray-400 cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                 >
-                  Dashboard
+                  Signup
                 </NavLink>
               )}
             </div>

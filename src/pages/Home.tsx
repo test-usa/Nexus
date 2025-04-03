@@ -1,4 +1,3 @@
-// import Video from "@/components/home/Video";
 import CustomerReviews from "@/components/home/CustomerReviews";
 import EdgenuityBot from "@/components/home/EdgenuityBot";
 import { FrequentlyAsk } from "@/components/home/FrequentlyAsk";

@@ -1,10 +1,13 @@
 import { IoArrowRedoCircleOutline } from "react-icons/io5";
 
 import Title from "./Shared/Title";
+import DownloadScript from "../DownloadScript";
 
 const DownloadInstallProcess = () => {
   return (
-    <div className="bg-[var(--color-dashboardbg)] min-h-screen ">
+    <div>
+      <DownloadScript/>
+       <div className="bg-[var(--color-dashboardbg)] min-h-screen ">
       {/* Process of Installation  */}
       <div className="text-[var(--color-textsecondarycolor)] px-6">
         <Title title="How to Setup EdgyPro." subtitle="" />
@@ -111,6 +114,8 @@ const DownloadInstallProcess = () => {
         </div>
       </div>
     </div>
+    </div>
+   
   );
 };
 

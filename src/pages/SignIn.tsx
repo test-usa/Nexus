@@ -3,6 +3,7 @@ import { ISingIn } from "./Form.types";
 import { Loader, Lock, Mail } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import userStore from "@/store/userStore";
+import MainLogo from "../assets/../../public/mainLogo.png"
 // import { useGoogleAuth } from "@/hooks/auth/googleAuth";
 // import { useEffect } from "react";
 
@@ -22,10 +23,10 @@ const SignIn = () => {
   //   auth(authuser)
   // },[authuser])
   return (
-    <div className=" bg-[#212020] min-h-screen flex flex-col items-center justify-center font-montserrat ">
-      <div className="bg-white mx-auto w-full rounded md:rounded-none md:max-w-lg lg:max-w-2xl">
+    <div className=" bg-[var(--color-dashboardbg)] min-h-screen flex flex-col items-center justify-center font-montserrat ">
+      <div className="border-cyan-400 rounded mx-auto w-full border md:max-w-lg lg:max-w-2xl">
         <div className="p-8 w-full">
-          <h1 className="text-center text-xl sm:text-2xl text-slate-800">
+          <h1 className="text-center text-xl sm:text-2xl text-gray-400">
             Sign in
           </h1>
           {/**** O AUTH START ****/}
@@ -77,7 +78,7 @@ const SignIn = () => {
                 </svg>
               </button> */}
               <img
-                src="https://framerusercontent.com/images/VpiZF9i56wEWOzd8opBM90AzSfA.png"
+                src={MainLogo}
                 alt="logo"
                 className="max-w-16 cursor-pointer"
               />
@@ -89,7 +90,7 @@ const SignIn = () => {
             className="flex flex-col gap-6 p-6"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className="flex items-center gap-x-3 border px-2 sm:px-4 py-3">
+            <div className="flex items-center gap-x-3 border px-2 sm:px-4 py-3 rounded border-gray-400">
               <Mail className="text-gray-400" />
               <input
                 type="email"
@@ -103,7 +104,7 @@ const SignIn = () => {
             {errors.email && (
               <p className="text-cyan-500 text-sm">{errors.email.message}</p>
             )}
-            <div className="flex items-center gap-x-3 border px-2 sm:px-4 py-3">
+            <div className="flex items-center gap-x-3 border px-2 sm:px-4 py-3 rounded border-gray-400">
               <Lock className="text-gray-400" />
               <input
                 type="password"
@@ -125,7 +126,7 @@ const SignIn = () => {
           ${
             loading
               ? "bg-gray-500 cursor-not-allowed"
-              : "bg-cyan-500 hover:bg-cyan-600"
+              : "bg-cyan-600"
           }
         `}
             >
@@ -138,11 +139,11 @@ const SignIn = () => {
           </form>{" "}
         </div>
       </div>
-      <p className="text-white text-center text-xs sm:text-[16px] my-7">
+      <p className=" text-center text-xs sm:text-[16px] my-7 text-gray-400">
         ANot a member yet? Welcome on board -
         <Link
           to="/signup"
-          className=" underline hover:text-gray-400  transform translate-all duration-200"
+          className=" underline hover:text-gray-400  transform translate-all duration-200 text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8]"
         >
           Sign up now!
         </Link>

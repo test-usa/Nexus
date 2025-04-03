@@ -3,6 +3,7 @@ import { ISignUp } from "./Form.types";
 import { Loader, Lock, Mail, UserRound } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import userStore from "@/store/userStore";
+import MainLogo from "../../public/mainLogo.png";
 // import { useGoogleAuth } from "@/hooks/auth/googleAuth";
 // import { useEffect } from "react";
 const SignUp = () => {
@@ -22,10 +23,10 @@ const SignUp = () => {
   //   auth(authuser);
   // }, [authuser]);
   return (
-    <div className=" bg-[#212020] min-h-screen flex flex-col items-center justify-center font-montserrat ">
-      <div className="bg-white mx-auto w-full rounded md:rounded-none md:max-w-lg lg:max-w-2xl">
+    <div className="bg-[var(--color-dashboardbg)] min-h-screen flex flex-col items-center justify-center font-montserrat ">
+      <div className="border border-cyan-400 rounded mx-auto w-full  md:max-w-lg lg:max-w-2xl">
         <div className="p-8 w-full">
-          <h1 className="text-center text-xl sm:text-2xl text-slate-800">
+          <h1 className="text-center text-xl sm:text-2xl text-gray-400">
             Create an Account
           </h1>
           {/**** O AUTH START ****/}
@@ -78,7 +79,7 @@ const SignUp = () => {
                 </svg>
               </button> */}
               <img
-                src="https://framerusercontent.com/images/VpiZF9i56wEWOzd8opBM90AzSfA.png"
+                src={MainLogo}
                 alt="logo"
                 className="max-w-16 cursor-pointer"
               />
@@ -90,7 +91,7 @@ const SignUp = () => {
             className="flex flex-col gap-6 p-6"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className="flex items-center gap-x-3 border px-2 sm:px-4 py-3">
+            <div className="flex items-center rounded border-gray-400 gap-x-3 border px-2 sm:px-4 py-3">
               <UserRound className="text-gray-400" />
               <input
                 type="text"
@@ -104,7 +105,7 @@ const SignUp = () => {
             {errors.name && (
               <p className="text-cyan-500 text-sm">{errors.name.message}</p>
             )}
-            <div className="flex items-center gap-x-3 border px-2 sm:px-4 py-3">
+            <div className="flex items-center rounded border-gray-400 gap-x-3 border px-2 sm:px-4 py-3">
               <Mail className="text-gray-400" />
               <input
                 type="email"
@@ -122,7 +123,7 @@ const SignUp = () => {
             {errors.email && (
               <p className="text-cyan-500 text-sm">{errors.email.message}</p>
             )}
-            <div className="flex items-center gap-x-3 border px-2 sm:px-4 py-3">
+            <div className="flex items-center gap-x-3 border px-2 sm:px-4 py-3 rounded border-gray-400">
               <Lock className="text-gray-400" />
               <input
                 type="password"
@@ -147,11 +148,11 @@ const SignUp = () => {
             <button
               type="submit"
               disabled={loading}
-              className={`py-3 w-full cursor-pointer text-white flex justify-center items-center gap-2 rounded transition
+              className={`py-3 w-full cursor-pointer text-white flex justify-center items-center gap-2 rounded transition-all transform duration-300  
           ${
             loading
               ? "bg-gray-500 cursor-not-allowed"
-              : "bg-cyan-500 hover:bg-cyan-600"
+              : "bg-cyan-600"
           }
         `}
             >
@@ -164,11 +165,11 @@ const SignUp = () => {
           </form>
         </div>
       </div>
-      <p className="text-white text-center text-xs sm:text-[16px] my-7">
+      <p className=" text-center text-xs sm:text-[16px] my-7 text-gray-400">
         Already a member? -{" "}
         <Link
           to="/signin"
-          className=" underline hover:text-gray-400 transform translate-all duration-200"
+          className=" underline hover:text-gray-400 transform translate-all duration-200 text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8]"
         >
           Sign in now!
         </Link>

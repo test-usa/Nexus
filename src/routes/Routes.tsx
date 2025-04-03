@@ -20,6 +20,8 @@ import AdminPrivateRoute from "./AdminPrivateRoute";
 import Purchase from "@/pages/Purchase";
 import PaymentSuccess from "@/pages/paymentSucces";
 import Troubleshoot from "@/components/Home/Troubleshoot";
+import Success from "@/pages/Success";
+import DownloadInstallProcess from "@/components/Home/DownloadInstallProcess";
 // import DownloadKeyScript from '@/components/home/DownloadInstallProcess';
 
 
@@ -34,10 +36,10 @@ const routes = createBrowserRouter([
         index: true,
         element: <Home />,
       },
-      // {
-      //   path: "download-key-script",
-      //   element: <DownloadKeyScript />,
-      // },
+      {
+        path: "download",
+        element: <DownloadInstallProcess />,
+      },
       {
         path: "troubleshoot",
         element: <Troubleshoot />,
@@ -90,6 +92,11 @@ const routes = createBrowserRouter([
   {
     path: "/buy",
     element: <Purchase />,
+  },
+
+  {
+    path: "/success",
+    element: <Success />,
   },
   /* Admin Layout */
   {

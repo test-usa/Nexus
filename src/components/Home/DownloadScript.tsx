@@ -5,6 +5,8 @@ import { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import Title from "./Shared/Title";
 
+
+
 const DownloadScript = () => {
   const [downloaded, setDownloaded] = useState(false);
 
@@ -25,7 +27,8 @@ const DownloadScript = () => {
   };
 
   return (
-    <div className="bg-[var(--color-dashboardbg)] mt-20">
+   
+       <div className="bg-[var(--color-dashboardbg)] mt-20">
       <Title title="Download Install...  " subtitle="" />
       <div className="flex flex-col items-center justify-center">
         <a
@@ -73,6 +76,8 @@ const DownloadScript = () => {
         </Button>
       </div>
     </div>
+   
+   
   );
 };
 

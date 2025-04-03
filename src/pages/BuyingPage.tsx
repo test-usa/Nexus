@@ -7,6 +7,7 @@ import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MainLogo from "../../public/mainLogo.png";
+import { Link } from "react-router-dom";
 
 type TSinglePriceData = {
   prices: {
@@ -112,14 +113,14 @@ const BuyingPage = () => {
   }, [checkoutData]);
 
   return (
-    <div className="min-h-screen bg-[#212020] flex items-center justify-center p-6">
-      <div className="flex flex-col sm:flex-row  justify-center w-full max-w-5xl gap-8 rounded p-6">
+    <div className="min-h-screen font-montserrat bg-[var(--color-dashboardbg)] flex items-center justify-center p-6">
+      <div className="flex flex-col sm:flex-row  justify-center w-full max-w-5xl gap-8 rounded-lg p-6">
         {/**** IMAGE SECTION ****/}
-        <div className=" bg-gradient-to-tr from-black/30 to-gray-800 rounded-2xl flex items-center justify-center w-full max-h-[400px]">
+        <div className=" rounded-2xl flex items-center justify-center w-full max-h-[400px]">
           <img
             src={MainLogo}
             alt="logo"
-            className=" max-h-[400px] w-full h-auto rounded"
+            className=" max-h-[400px] w-full h-auto rounded-lg "
           />
         </div>
 
@@ -145,7 +146,7 @@ const BuyingPage = () => {
                 id="keyType"
                 value={selectedKey}
                 onChange={handleSelectChange}
-                className="w-full cursor-pointer bg-cyan-800/50 text-white py-2.5 px-2 rounded-md focus:outline-none"
+                className="w-full cursor-pointer bg-gradient-to-br to-[#615993] via-[#716188] from-[#9179AB] text-white py-2.5 px-2 rounded-md focus:outline-none"
               >
                 <option value="select">Select Key</option>
                 {data?.data?.map((keys: TSinglePriceData) => {
@@ -165,19 +166,19 @@ const BuyingPage = () => {
               <div className="flex items-center gap-x-5">
                 <Button
                   onClick={handleDescres}
-                  className="bg-gray-200 cursor-pointer hover:bg-gray-300 sm:w-8 w-6  h-8 text-black text-sm"
+                  className=" cursor-pointer text-white  sm:w-8 w-6  h-8  text-sm bg-cyan-700"
                 >
                   -
                 </Button>
                 <p className="text-gray-200 text-sm sm:text-lg">{count}</p>
                 <Button
                   onClick={handleIncres}
-                  className="bg-gray-200 cursor-pointer hover:bg-gray-300 sm:w-8 w-6  h-8 text-black text-sm"
+                  className=" cursor-pointer text-white  sm:w-8 w-6  h-8  text-sm bg-cyan-700"
                 >
                   +
                 </Button>
               </div>
-              <div className="flex items-center  space-x-2">
+              <div className="flex items-center space-x-2">
                 <Checkbox
                   checked={isChecked}
                   onCheckedChange={(checked) => setIsChecked(!!checked)}
@@ -203,14 +204,11 @@ const BuyingPage = () => {
                 </p>
               </div>
               <p className="text-xs text-gray-300">${price}</p>
-
-              {/* <p className="text-xs text-gray-300">{price}</p>; */}
             </div>
 
             <Button
-              size="lg"
-              className="w-full cursor-pointer text-[16px] sm:text-lg bg-cyan-800/50 hover:bg-cyan-900 rounded-md py-2  text-white focus:outline-none"
               onClick={checkoutHanlder}
+              className="w-full cursor-pointer  text-center text-[16px] sm:text-lg bg-cyan-800/50 hover:bg-cyan-900 rounded-md py-5  text-white focus:outline-none bg-gradient-to-br to-[#615993] via-[#716188] from-[#9179AB] border-cyan-400 "
             >
               {isPending ? <Loader className="animate-spin" /> : "Checkout"}
             </Button>
