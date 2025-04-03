@@ -56,13 +56,13 @@ const KeyManagement = () => {
     return (
       <div className="flex justify-center items-center h-screen">
         <Loader className="animate-spin w-6 h-6" />
-        <span className="ml-2">Loading keys...</span>
+        <span className="ml-2">Loading keys data</span>
       </div>
     );
   }
 
   if (!isSuccess) {
-    return <div className="text-red-500">Failed to load keys.</div>;
+    return <div className="text-red-500">Failed to keys.</div>;
   }
   return (
     <div className="pl-12 pr-12 pt-12 -sm:pr-5 ">

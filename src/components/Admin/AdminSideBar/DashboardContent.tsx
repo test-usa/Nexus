@@ -163,64 +163,6 @@ const DashboardContent = () => {
               </div>
             </div>
           </motion.div>
-          {/*  <div className="mt-5 hover:shadow-lg hover:shadow-cyan-400 hover:border hover:border-gray-400  rounded p-6 border-transparent bg-[var(--color-dashboardsecondary)] transition-all duration-300 transform">
-            <div className="flex justify-between items-center">
-              <div>
-                <VscLayersActive className="my-5 text-6xl" />
-              </div>
-              <div>
-                <div className="text-5xl font-bold">
-                  {activedata?.length || 10}
-                </div>
-                <p className="mt-2 text-sm uppercase font-bold">
-                  Active User List
-                </p>
-              </div>
-            </div>
-          </div> */}
-
-          {/* Users Count */}
-          {/* <div className="rounded bg-[var(--color-dashboardsecondary)] p-6 hover:bg-[var(--color-bghovercolor)]  hover:text-[var(--color-hovertext)] transition-colors">
-            <div className="flex justify-between items-center">
-              <div>
-                <FaUsersRectangle className="my-5 text-6xl" />
-              </div>
-              <div>
-                <div className="text-5xl font-bold ">{users.length}</div>
-                <p className="mt-2 text-sm uppercase font-bold">All Users</p>
-              </div>
-            </div>
-          </div> */}
-
-          {/* <div className="rounded bg-[var(--color-dashboardsecondary)] p-6 hover:bg-[var(--color-bghovercolor)]  hover:text-[var(--color-hovertext)] transition-colors">
-            <div className="flex justify-between items-center">
-              <div>
-                <MdPayments className="my-5 text-6xl" />
-              </div>
-              <div>
-                <div className="text-5xl font-bold">{payments.length}</div>
-                <p className="mt-2 text-sm uppercase font-bold">All Payments</p>
-              </div>
-            </div>
-          </div> */}
-
-          {/* Completed User List */}
-
-          {/*  <div className="rounded bg-[var(--color-dashboardsecondary)] p-6 hover:bg-[var(--color-bghovercolor)]  hover:text-[var(--color-hovertext)] transition-colors">
-            <div className="flex justify-between items-center">
-              <div>
-                <VscLayersActive className="my-5 text-6xl" />
-              </div>
-              <div>
-                <div className="text-5xl font-bold">
-                  {activedata?.length || 10}
-                </div>
-                <p className="mt-2 text-sm uppercase font-bold">
-                  Active User List
-                </p>
-              </div>
-            </div>
-          </div> */}
         </div>
         {/* Added wrapper for scroll */}
         <Table className=" rounded-sm shadow-lg overflow-hidden">

@@ -19,10 +19,10 @@ import PrivateRoute from "./PrivateRoute";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import Purchase from "@/pages/Purchase";
 import PaymentSuccess from "@/pages/paymentSucces";
-import MyOrder from "@/components/User/MyOrder";
-import KeyM from "@/components/Admin/KeyM";
-import DownloadKeyScript from "@/components/home/DownloadInstallProcess";
-import Troubleshoot from "@/components/home/Troubleshoot";
+import Troubleshoot from "@/components/Home/Troubleshoot";
+// import DownloadKeyScript from '@/components/home/DownloadInstallProcess';
+
+
 
 const routes = createBrowserRouter([
   {
@@ -34,10 +34,10 @@ const routes = createBrowserRouter([
         index: true,
         element: <Home />,
       },
-      {
-        path: "download-key-script",
-        element: <DownloadKeyScript />,
-      },
+      // {
+      //   path: "download-key-script",
+      //   element: <DownloadKeyScript />,
+      // },
       {
         path: "troubleshoot",
         element: <Troubleshoot />,
@@ -66,14 +66,6 @@ const routes = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyKeys />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "my-order",
-        element: (
-          <PrivateRoute>
-            <MyOrder />
           </PrivateRoute>
         ),
       },
@@ -153,14 +145,6 @@ const routes = createBrowserRouter([
         element: (
           <AdminPrivateRoute>
             <KeyManagementTable />
-          </AdminPrivateRoute>
-        ),
-      },
-      {
-        path: "key-m",
-        element: (
-          <AdminPrivateRoute>
-            <KeyM />
           </AdminPrivateRoute>
         ),
       },

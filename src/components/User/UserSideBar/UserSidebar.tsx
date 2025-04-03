@@ -10,7 +10,7 @@ import userStore from "@/store/userStore";
 import useFetch from "@/hooks/shared/useFetch";
 import { NavLink } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { FaClipboardList, FaTableCellsRowUnlock } from "react-icons/fa6";
+import { FaTableCellsRowUnlock } from "react-icons/fa6";
 import { MdOutlinePayment } from "react-icons/md";
 import { IoMdHome, IoMdLogOut } from "react-icons/io";
 import logo from "../../../assets/image.png";
@@ -44,12 +44,6 @@ const navItems: NavItem[] = [
     href: "my-key",
     icon: FaTableCellsRowUnlock,
   },
-  {
-    title: "My Order",
-    href: "my-order",
-    icon: FaClipboardList,
-  },
-
   {
     title: "Payment History",
     href: "user-payment",
