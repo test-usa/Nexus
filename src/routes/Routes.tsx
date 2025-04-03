@@ -19,12 +19,10 @@ import PrivateRoute from "./PrivateRoute";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import Purchase from "@/pages/Purchase";
 import PaymentSuccess from "@/pages/paymentSucces";
-import Troubleshoot from "@/components/Home/Troubleshoot";
+
 import Success from "@/pages/Success";
-import DownloadInstallProcess from "@/components/Home/DownloadInstallProcess";
-// import DownloadKeyScript from '@/components/home/DownloadInstallProcess';
-
-
+import DownloadInstallProcess from "@/components/home/DownloadInstallProcess";
+import Troubleshoot from "@/components/home/Troubleshoot";
 
 const routes = createBrowserRouter([
   {
@@ -56,6 +54,14 @@ const routes = createBrowserRouter([
     ),
     children: [
       {
+        index: true,
+        element: (
+          <PrivateRoute>
+            <UserProfile />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "profile",
         element: (
           <PrivateRoute>
@@ -85,10 +91,11 @@ const routes = createBrowserRouter([
   {
     path: "/buy/:id",
     element: <BuyingPage />,
-  },{
-  path: "/payment-success",
-  element: <PaymentSuccess />,
-},
+  },
+  {
+    path: "/payment-success",
+    element: <PaymentSuccess />,
+  },
   {
     path: "/buy",
     element: <Purchase />,

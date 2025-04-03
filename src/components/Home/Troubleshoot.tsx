@@ -3,7 +3,7 @@ import Title from "./Shared/Title";
 
 const Troubleshoot = () => {
   return (
-    <div className="bg-[var(--color-dashboardbg)] text-[var(--color-textsecondarycolor)] min-h-screen p-24 ">
+    <div className="bg-[var(--color-dashboardbg)] text-[var(--color-textsecondarycolor)] min-h-screen p-24 font-montserrat ">
       <Title title="Trouble shoot" subtitle="Resolve common issues easily" />
 
       <div>

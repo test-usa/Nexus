@@ -118,7 +118,7 @@ const PaymentHistory = () => {
                   }`}
                 >
                   <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px] ">
-                    {payment.key.keyName}
+                    {payment?.key?.keyName}
                   </TableCell>
                   <TableCell
                     className="text-[16px]"
