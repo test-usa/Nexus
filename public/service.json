@@ -4,5 +4,6 @@
   { "name": "Auto Submit" },
   { "name": "Auto Advanced" },
   { "name": "Auto Write" },
-  { "name": "Auto Ungraded" }
+  { "name": "Auto Ungraded" },
+  { "name": "Ai Login" }
 ]

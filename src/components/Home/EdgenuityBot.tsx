@@ -103,7 +103,7 @@ const EdgenuityBot = () => {
   ];
 
   return (
-    <Element id="#smooth-wrapper" name="Feature" className="mt-28 font-montserrat">
+    <Element id="#smooth-wrapper" name="Feature" className="mt-56 font-montserrat">
       <Title
         title="ExoBot - Features"
         subtitle="We know that you're probably interested in all the features that Nexus has to offer to help "
@@ -117,9 +117,9 @@ const EdgenuityBot = () => {
                 key={index}
                 className="feature-wrapper border-[1px] border-[#45444d] rounded-[8px] text-white p-4 transition-all duration-300"
               >
-                <div className="feature-content flex flex-col bg-[#212020] items-center gap-[var(--spacing-card)] transition">
-                  <IconComponent className="w-9 h-9 text-gray-500" />
-                  <h3 className="text-xl font-semibold text-center">
+                <div className="feature-content flex flex-col  items-center gap-[var(--spacing-card)] transition">
+                  <IconComponent className="text-2xl  text-cyan-500" />
+                  <h3 className="text-xl font-semibold text-center text-[#CFF2FB]">
                     {feature.title}
                   </h3>
                   <p className="text-gray-500 text-sm text-center">

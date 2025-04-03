@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
 @plugin "tailwindcss-animate";
-
+/* 
 @theme {
   --font-montserrat: "Montserrat", sans-serif;
   --font-manrope: "Manrope", sans-serif;
@@ -20,27 +20,25 @@
   --radius-button: 8px;
   --spacing-card: 10px;
   --spacing-primary: 10px;
-}
-/* @theme {
+} */
+@theme {
   --font-montserrat: "Montserrat", sans-serif;
   --font-manrope: "Manrope", sans-serif;
   --color-primary: #6b7280;
-  --color-dashboardbg: #6c757d;
-  --color-rgb: rgba(0, 0, 0, 0.2);
-  --color-dashboardsecondary: #353c48;
+  --color-dashboardbg: #1A233A;
   --color-buttonhovercolor: #212429;
   --color-textcolor: #a9b7d0;
   --color-bgcolor: #f6f6f6;
-  --color-oddcolor: #252b33;
-  --color-evencolor: #2b3039;
   --color-successone: #54ca68;
   --color-successtwo: #fc544b;
+  --color-oddcolor: #252b33;
+  --color-evencolor: #2b3039;
   --color-successthree: #3abaf4;
   --radius-card: 8px;
   --radius-button: 8px;
   --spacing-card: 10px;
   --spacing-primary: 10px;
-} */
+}
 
 @custom-variant dark (&:is(.dark *));
 
