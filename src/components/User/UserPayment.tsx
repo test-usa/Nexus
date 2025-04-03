@@ -79,7 +79,7 @@ const UserPayment = () => {
   }
 
   return (
-    <div className="pl-12 pr-12 pt-12 -sm:pr-5 ">
+    <div className="pl-12 pr-12 pt-12 -sm:pr-5 min-h-screen ">
       <h1 className="text-2xl font-medium tracking-wide mb-5 mt-4 text-[var(--color-textcolor)]">
         User Payment
       </h1>
