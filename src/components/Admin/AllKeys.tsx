@@ -79,10 +79,9 @@ const AllKeys: React.FC = () => {
 
   return (
     <div>
-      {/*  <ToastContainer position="top-right" autoClose={3000} /> */}
-      <div className="p-6 lg:p-8 min-h-screen -mt-10 text-[var(--color-textcolor)] ">
+      <div className="pl-12 sm:pt-14 md:pt-0  pr-12   text-[var(--color-textcolor)] ">
         <h1 className="text-2xl font-medium tracking-wide mb-5 mt-5">
-          All User Information
+          All Subscription Key
         </h1>
         <div className="rounded-lg shadow-lg overflow-hidden ">
           <Table>

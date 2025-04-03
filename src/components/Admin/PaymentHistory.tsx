@@ -29,14 +29,15 @@ interface Payment {
   };
 }
 
-const PaymentHistory: React.FC = () => {
+const PaymentHistory = () => {
+  //Move all useState hooks to  top
   const [payments, setPayments] = useState<Payment[]>([]);
-  const { data, isSuccess, isLoading } = useFetch("payment/get-all-payment");
-
   const [currentPage, setCurrentPage] = useState(0);
-  const paymentsPerPage = 9;
-  const offset = currentPage * paymentsPerPage;
-  const currentPayments = payments.slice(offset, offset + paymentsPerPage);
+  const [expandedRows, setExpandedRows] = useState<{ [key: string]: boolean }>(
+    {}
+  );
+
+  const { data, isSuccess, isLoading } = useFetch("payment/get-all-payment");
 
   useEffect(() => {
     if (isSuccess && data?.data) {
@@ -44,8 +45,19 @@ const PaymentHistory: React.FC = () => {
     }
   }, [isSuccess, data]);
 
+  const paymentsPerPage = 9;
+  const offset = currentPage * paymentsPerPage;
+  const currentPayments = payments.slice(offset, offset + paymentsPerPage);
+
   const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected);
+  };
+
+  const toggleExpand = (id: string) => {
+    setExpandedRows((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
   };
 
   if (isLoading) {
@@ -62,44 +74,36 @@ const PaymentHistory: React.FC = () => {
       <div className="text-red-500">Failed to load payments: {data.error}</div>
     );
   }
-  const [expandedRows, setExpandedRows] = useState<{ [key: string]: boolean }>(
-    {}
-  );
-  const toggleExpand = (id: string) => {
-    setExpandedRows((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
-  };
 
   return (
-    <div className="p-6 lg:p-8 min-h-screen text-[var(--color-textcolor)]">
-      <h1 className="text-2xl font-medium tracking-wide mb-5 ">
+    <div className="pl-12 pr-12 pt-12 -sm:pr-5 ">
+      <h1 className="text-2xl font-medium tracking-wide mb-5 mt-5 text-[var(--color-textcolor)]">
         Payment History
       </h1>
-      <div className="rounded-lg shadow-lg overflow-x-auto">
-        <Table className="min-w-full">
-          <TableHeader className="bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]">
-            <TableRow className="text-sm font-semibold tracking-wide">
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+      <div className="overflow-x-auto text-[var(--color-textsecondarycolor)]">
+        {/* Added wrapper for scroll */}
+        <Table className="rounded-sm shadow-lg overflow-hidden">
+          <TableHeader className="bg-[var(--color-dashboardsecondary)] ">
+            <TableRow>
+              <TableHead className="px-6 sm:px-6 py-6 w-[100px] text-[var(--color-textsecondarycolor)]">
                 Key Name
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+              <TableHead className="text-[var(--color-textsecondarycolor)]">
                 User ID
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+              <TableHead className="text-[var(--color-textsecondarycolor)]">
                 Transaction ID
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)] ">
+              <TableHead className="text-[var(--color-textsecondarycolor)]">
                 Amount
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+              <TableHead className="text-right text-[var(--color-textsecondarycolor)]">
                 Price
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+              <TableHead className="text-right text-[var(--color-textsecondarycolor)]">
                 Purchase Date
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+              <TableHead className="text-right text-[var(--color-textsecondarycolor)]">
                 Status
               </TableHead>
             </TableRow>
@@ -109,49 +113,45 @@ const PaymentHistory: React.FC = () => {
               currentPayments.map((payment, index) => (
                 <TableRow
                   key={payment._id}
-                  className={`hover:bg-gray-200 hover:text-gray-700 ${
+                  className={`hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] ${
                     index % 2 === 0
-                      ? " bg-[var(--color-oddcolor)]"
+                      ? "bg-[var(--color-oddcolor)]"
                       : "bg-[var(--color-evencolor)]"
                   }`}
                 >
-                  <TableCell className="px-6 py-5 font-medium">
+                  <TableCell className="font-medium px-6 sm:px-6 py-6 ">
                     {payment.key.keyName}
                   </TableCell>
-                  {/* User ID Cell */}
                   <TableCell
-                    className="px-6 py-5 font-medium cursor-pointer"
                     onClick={() => toggleExpand(payment._id + "-userId")}
                   >
                     {expandedRows[payment._id + "-userId"]
                       ? payment.userId
-                      : payment.userId.slice(0, 5) + "..."}
+                      : `${payment.userId.slice(0, 5)}...`}
                   </TableCell>
 
-                  {/* Transaction ID Cell */}
                   <TableCell
-                    className="px-6 py-5 cursor-pointer"
+                    className="text-left"
                     onClick={() => toggleExpand(payment._id + "-transactionId")}
                   >
                     {expandedRows[payment._id + "-transactionId"]
                       ? payment.transactionId
-                      : payment.transactionId.slice(0, 5) + "..."}
+                      : `${payment.transactionId.slice(0, 5)}...`}
                   </TableCell>
-
-                  <TableCell className="px-6 py-5">
+                  <TableCell className="text-left">
                     {payment.keyDetails.amount}
                   </TableCell>
-                  <TableCell className="px-6 py-5">
+                  <TableCell className="text-right">
                     {payment.keyDetails.price}
                   </TableCell>
-                  <TableCell className="px-6 py-5">
+                  <TableCell className="text-right">
                     {new Date(payment.createdAt).toLocaleString()}
                   </TableCell>
-                  <TableCell className="px-6 py-5">
+                  <TableCell className="text-right">
                     <span
                       className={`inline-block px-3 py-1 rounded-full text-gray-800 ${
                         payment.status === "active"
-                          ? "bg-sky-400"
+                          ? "bg-green-400"
                           : payment.status === "refunded"
                           ? "bg-blue-600"
                           : payment.status === "cancelled"
@@ -178,6 +178,7 @@ const PaymentHistory: React.FC = () => {
         </Table>
       </div>
 
+      {/* Pagination Section */}
       <div className="mt-6 flex justify-center">
         <ReactPaginate
           previousLabel={"Previous"}
@@ -185,9 +186,9 @@ const PaymentHistory: React.FC = () => {
           pageCount={Math.ceil(payments.length / paymentsPerPage)}
           onPageChange={handlePageChange}
           containerClassName="flex items-center space-x-2"
-          pageClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]"
-          previousClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]"
-          nextClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)]"
+          pageClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textsecondarycolor)]"
+          previousClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
+          nextClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
           activeClassName="text-white bg-[var(--color-dashboardsecondary)]"
           disabledClassName="text-gray-400 cursor-not-allowed"
         />

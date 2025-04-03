@@ -25,8 +25,9 @@ interface NavItem {
 const navItems: NavItem[] = [
   { title: "Dashboard", href: "dashboard", icon: Home },
   { title: "All User Info", href: "all-user-info", icon: User },
-  { title: "All Key Subscribtion", href: "all-keys", icon: FaAllergies },
+  { title: "All Key Subscription", href: "all-keys", icon: FaAllergies },
   { title: "All User Keys", href: "key-table", icon: Table },
+  { title: "All User Keys M", href: "key-m", icon: Table },
   { title: "Create Subscription", href: "key-generate", icon: Key },
   { title: "Payment History", href: "payment-history", icon: History },
 ];
@@ -37,31 +38,23 @@ export function DashboardSidebar() {
   const [loading, setLoading] = useState<boolean>(true);
   const { data } = useFetch("user/get-self");
   const { logout_user } = userStore();
-  const location = useLocation(); // Get the current location (URL)
+  const location = useLocation();
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        if (data?.success) {
-          setUser(data.data);
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setLoading(false);
-      }
-    };
-    fetchUser();
+    if (data?.success) {
+      setUser(data.data);
+      setLoading(false);
+    }
   }, [data]);
 
   return (
     <>
       <button
-        className="md:hidden p-4 absolute top-4 left-4 z-50"
+        className="md:hidden p-4 fixed top-4 left-4 z-50"
         onClick={() => setToggle(!toggle)}
       >
         {toggle ? (
-          <GoX className="text-3xl text-white" />
+          <GoX className="text-3xl text-red-700" />
         ) : (
           <FcMenu className="text-3xl text-gray-800" />
         )}
@@ -76,14 +69,18 @@ export function DashboardSidebar() {
 
       <motion.aside
         initial={{ opacity: 0, x: "-100%" }}
-        animate={{
-          opacity: toggle ? 1 : 0,
-          x: toggle ? 0 : "-100%",
-        }}
+        animate={{ opacity: toggle ? 1 : 0, x: toggle ? 0 : "-100%" }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="md:hidden w-64 h-screen fixed bg-gradient-to-r from-gray-800 to-gray-900 text-white border-r border-gray-400 p-6 shadow-lg z-50 flex flex-col"
+        className="md:hidden w-64 h-screen fixed bg-gradient-to-r from-gray-800 to-gray-900 text-gray-700 border-r border-gray-400 p-6 shadow-lg z-50 flex flex-col"
       >
-        <div className="flex flex-col items-center border-b pb-6 mb-6">
+        <button
+          className="absolute top-4 right-4 text-gray-700 text-2xl"
+          onClick={() => setToggle(false)}
+        >
+          <GoX />
+        </button>
+
+        <div className="flex flex-col items-center border-b border-gray-700 pb-6 mb-6">
           <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-gray-500">
             <img
               src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
@@ -91,10 +88,10 @@ export function DashboardSidebar() {
               className="object-cover"
             />
           </div>
-          <p className="font-semibold mt-3">
+          <p className="font-semibold mt-3 text-[var(--color-textsecondarycolor)]">
             {loading ? "Loading..." : user?.name}
           </p>
-          <p className="text-xs text-gray-400">
+          <p className="text-xs  text-[var(--color-textsecondarycolor)]">
             {loading ? "Loading..." : user?.email}
           </p>
         </div>
@@ -107,8 +104,8 @@ export function DashboardSidebar() {
               className={cn(
                 "flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition-all duration-300",
                 location.pathname.includes(item.href)
-                  ? "bg-gray-700 text-white"
-                  : "hover:bg-gray-700 hover:text-white"
+                  ? "bg-[var(--color-bghovercolor)] text-[var(--color-hovertext)]"
+                  : "hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] text-[var(--color-textsecondarycolor)]"
               )}
               onClick={() => setToggle(false)}
             >
@@ -122,7 +119,7 @@ export function DashboardSidebar() {
           <Button
             onClick={() => logout_user()}
             variant="destructive"
-            className="w-full justify-start gap-3 hover:bg-gray-700 hover:text-white"
+            className="w-full justify-start gap-3 hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)]"
             asChild
           >
             <Link to="/logout">
@@ -133,7 +130,7 @@ export function DashboardSidebar() {
         </div>
       </motion.aside>
 
-      <aside className="md:flex w-72 flex-col text-[var(--color-textcolor)] border-r border-gray-700 p-6 shadow-lg hidden h-screen">
+      <aside className="md:flex w-72 flex-col text-[var(--color-textcolor)] border-r border-gray-700 p-6  hidden h-screen">
         <div className="flex flex-col items-center border-b border-gray-700 pb-6 mb-6">
           <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-gray-500">
             <img
@@ -142,10 +139,12 @@ export function DashboardSidebar() {
               className="object-cover"
             />
           </div>
-          <p className="font-semibold mt-3">
+          <p className="font-semibold mt-3 text-[var(--color-textsecondarycolor)]">
             {loading ? "Loading..." : user?.name}
           </p>
-          <p className="text-xs ">{loading ? "Loading..." : user?.email}</p>
+          <p className="text-xs text-[var(--color-textsecondarycolor)]">
+            {loading ? "Loading..." : user?.email}
+          </p>
         </div>
 
         <nav className="flex-grow space-y-2">
@@ -156,8 +155,8 @@ export function DashboardSidebar() {
               className={cn(
                 "flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition-all duration-300",
                 location.pathname.includes(item.href)
-                  ? "bg-gray-700 text-white"
-                  : "hover:bg-gray-700 hover:text-white text-[var(--color-textcolor)]"
+                  ? "bg-[var(--color-bghovercolor)] text-[var(--color-hovertext)]"
+                  : "hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] text-[var(--color-textsecondarycolor)]"
               )}
             >
               <item.icon className="h-5 w-5" />
@@ -170,11 +169,11 @@ export function DashboardSidebar() {
           <Button
             onClick={() => logout_user()}
             variant="destructive"
-            className="w-full justify-start gap-3 hover:bg-gray-700 hover:text-white"
+            className="w-full justify-start gap-3 hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)]"
             asChild
           >
             <Link to="/logout">
-              <LogOut className="h-5 w-5 " />
+              <LogOut className="h-5 w-5" />
               Logout
             </Link>
           </Button>
