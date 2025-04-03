@@ -104,26 +104,34 @@ const EdgenuityBot = () => {
   ];
 
   return (
-    <Element id="#smooth-wrapper" name="Feature" className="mt-56 font-montserrat">
+    <Element
+      id="#smooth-wrapper"
+      name="Feature"
+      className="mt-56 font-montserrat"
+    >
       <Title
         title="ExoBot - Features"
         subtitle="We know that you're probably interested in all the features that Nexus has to offer to help "
       />
-      <div id="#smooth-content" className="mt-16 flex justify-center items-center ">
+      <div
+        id="#smooth-content"
+        className="mt-16 flex justify-center items-center "
+      >
         <div className="max-w-6xl w-full grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {features.slice(0, 8).map((feature, index) => {
             const IconComponent = feature.icon;
             return (
               <div
                 key={index}
-                className="feature-wrapper border-[1px] border-[#45444d] rounded-[8px] text-white p-4 transition-all duration-300"
+                className="feature-wrapper border-[1px] border-gray-700
+ rounded-[8px] text-white p-4 transition-all duration-300"
               >
                 <div className="feature-content flex flex-col  items-center gap-[var(--spacing-card)] transition">
-                  <IconComponent className="text-2xl  text-cyan-500" />
-                  <h3 className="text-xl font-semibold text-center text-[#CFF2FB]">
+                  <IconComponent className="text-2xl  text-[var(--color-textsecondarycolor)]" />
+                  <h3 className="text-xl font-semibold text-center text-[var(--color-textcolor)]">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-500 text-sm text-center">
+                  <p className="text-[var(--color-textsecondarycolor)] text-sm text-center">
                     {feature.description}
                   </p>
                 </div>

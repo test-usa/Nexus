@@ -85,9 +85,12 @@ const CustomerReviews = () => {
           {review?.map((item) => {
             return (
               <div key={item.user} className="p-3">
-                <div className="max-w-[350px] shadow-lg hover:shadow-gray-500 hover:border-cyan-600 transform transition duration-500 sm:max-w-full lg:max-w-[500px] xl:max-w-[580px] mx-auto  rounded-[var(--radius-card)] relative border border-[#45444d] hover:shadow-lg space-y-3 p-5   translate cursor-pointer ">
+                <div
+                  className="max-w-[350px] shadow-lg hover:shadow-gray-500 hover:border-cyan-600 transform transition duration-500 sm:max-w-full lg:max-w-[500px] xl:max-w-[580px] mx-auto  rounded-[var(--radius-card)] relative border border-gray-700
+ hover:shadow-lg space-y-3 p-5  translate cursor-pointer "
+                >
                   <div>
-                    <p className="text-gray-400 text-[16px]">
+                    <p className="text-[var(--color-textsecondarycolor)] text-[16px]">
                       {item?.description}
                     </p>
                   </div>
@@ -100,8 +103,12 @@ const CustomerReviews = () => {
                       />
                     </div>
                     <div className="ml-4">
-                      <h3>{item.name}</h3>
-                      <p className="text-gray-400">{item.user}</p>
+                      <h3 className="text-[var(--color-textcolor)]">
+                        {item.name}
+                      </h3>
+                      <p className="text-[var(--color-textsecondarycolor)]">
+                        {item.user}
+                      </p>
                     </div>
                   </div>
                 </div>

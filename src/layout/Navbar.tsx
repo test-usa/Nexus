@@ -31,16 +31,14 @@ const Navbar = () => {
         <CommonWrapper>
           <div className="w-full flex items-center gap-x-4 justify-between font-montserrat transform transition-all duration-200">
             {/***** IMAGE START *****/}
-            <ScrollLink
-              to="banner"
-              smooth
-              duration={1200}
-              className="max-w-16 cursor-pointer"
+            <NavLink
+              to="/"
+              className="max-w-16 cursor-pointer hidden md:block "
             >
-              <img src={logo} alt="logo" />
-            </ScrollLink>
+              <img src="https://i.postimg.cc/zfCvqNvy/exoduspro.png" alt="logo" />
+            </NavLink>
             {/***** NAVIGATIONBAR START *****/}
-            <div className="md:flex items-center lg:gap-x-8 gap-x-6 text-gray-400 hidden">
+            <div className="md:flex items-center lg:gap-x-8 gap-x-6 text-[var(--color-textsecondarycolor)] hidden">
               {/* // All other links are ScrollLink */}
               <ScrollLink
                 smooth
@@ -84,10 +82,10 @@ const Navbar = () => {
                 Download
               </NavLink>
               <NavLink
-                to="/trabolshooting"
+                to="/troubleshoot"
                 className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
               >
-                Trabolshooting
+                Troubleshoot
               </NavLink>
               {user && (user as { role: string }).role === "ADMIN" && (
                 <NavLink
@@ -119,7 +117,7 @@ const Navbar = () => {
                 smooth
                 duration={1200}
                 to="Pricing"
-                className="flex items-center gap-x-2 hover:text-white transition-all ease-in-out duration-500 bg-slate-800 hover:bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer py-2 px-2 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded transform hover:scale-105"
+                className="flex items-center gap-x-2 hover:text-[var(--color-textcolor)] transition-all ease-in-out duration-500 bg-slate-800 hover:bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] cursor-pointer py-2 px-2 xl:px-4 text-sm xl:text-[16px] border border-gray-600 rounded transform hover:scale-105"
               >
                 <FaOpencart />
                 Purchase
@@ -127,14 +125,14 @@ const Navbar = () => {
               {user && token ? (
                 <button
                   onClick={() => logout_user()}
-                  className="bg-slate-800 hover:bg-slate-500 hover:text-white transition-all ease-in-out duration-500 cursor-pointer py-2 px-3 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded hover:bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] transform hover:scale-105"
+                  className="bg-slate-800 hover:text-[var(--color-textcolor)] transition-all ease-in-out duration-500 cursor-pointer py-2 px-2 xl:px-4 text-sm xl:text-[16px] border border-gray-700 rounded hover:bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] transform hover:scale-105"
                 >
                   Sign out
                 </button>
               ) : (
                 <NavLink
                   to="/signup"
-                  className="bg-slate-800 hover:bg-slate-500 hover:text-white translate transition-all ease-in-out duration-500 cursor-pointer py-2 px-3 lg:px-4 text-sm lg:text-[16px] border border-gray-600 rounded hover:bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] transform hover:scale-105"
+                  className="bg-slate-800 hover:text-[var(--color-textcolor)] translate transition-all ease-in-out duration-500 cursor-pointer py-2 px-2 xl:px-4 text-sm xl:text-[16px] border border-gray-700 rounded hover:bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] transform hover:scale-105"
                 >
                   Signup
                 </NavLink>
@@ -153,7 +151,7 @@ const Navbar = () => {
         </CommonWrapper>
       </div>
       {/**** TOGGLE BAR, ONLY FOR SM-MD DEVICE ****/}
-      <div className="relative md:hidden block">
+      <div className="relative lg:hidden block">
         {/* Toggle Bar */}
         <button
           onClick={() => setToggle(!toggle)}
@@ -220,9 +218,17 @@ const Navbar = () => {
 
                 <NavLink
                   to="/download"
+                  onClick={() => setToggle(false)}
                   className="text-gray-400 cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                 >
                   Download
+                </NavLink>
+                <NavLink
+                  to="/troubleshoot"
+                  onClick={() => setToggle(false)}
+                  className="text-gray-400 cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                >
+                  Troubleshoot
                 </NavLink>
 
                 <NavLink
@@ -234,6 +240,7 @@ const Navbar = () => {
                 {user && (user as { role: string }).role === "ADMIN" && (
                   <NavLink
                     to="/admin"
+                    onClick={() => setToggle(false)}
                     className="text-gray-400 cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                   >
                     Dashboard
