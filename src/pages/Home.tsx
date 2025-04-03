@@ -1,8 +1,8 @@
-import CustomerReviews from "@/components/home/CustomerReviews";
-import EdgenuityBot from "@/components/home/EdgenuityBot";
-import { FrequentlyAsk } from "@/components/home/FrequentlyAsk";
-import Pricing from "@/components/home/Pricing";
-import Banner from "@/components/home/Shared/Banner";
+import CustomerReviews from "@/components/Home/CustomerReviews";
+import EdgenuityBot from "@/components/Home/EdgenuityBot";
+import { FrequentlyAsk } from "@/components/Home/FrequentlyAsk";
+import Pricing from "@/components/Home/Pricing";
+import Banner from "@/components/Home/Shared/Banner";
 import CommonWrapper from "@/wrapper/CommonWrapper";
 const Home = () => {
   return (

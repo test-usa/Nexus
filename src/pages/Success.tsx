@@ -1,4 +1,3 @@
-import { Separator } from "@/components/ui/separator";
 import Footer from "@/layout/Footer";
 import CommonWrapper from "@/wrapper/CommonWrapper";
 import { IoIosArrowRoundBack } from "react-icons/io";
