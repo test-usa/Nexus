@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { Element, Link } from "react-scroll";
 import { gsap } from "gsap";
-import MainLogo from "../../../../public/mainLogo.png";
 import { cn } from "@/lib/utils";
 import Video from "@/components/Home/Video";
 
