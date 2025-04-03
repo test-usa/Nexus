@@ -120,7 +120,7 @@ const UserPayment = () => {
                   }`}
                 >
                   <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px] ">
-                    {payment.key.keyName}
+                    {payment?.key?.keyName}
                   </TableCell>
 
                   <TableCell
@@ -135,13 +135,13 @@ const UserPayment = () => {
                   </TableCell>
 
                   <TableCell className="text-left text-[16px]">
-                    {payment.keyDetails.amount}
+                    {payment?.keyDetails?.amount}
                   </TableCell>
                   <TableCell className="text-left text-[16px]">
                     ${payment.keyDetails.price}
                   </TableCell>
                   <TableCell className="text-right text-[16px]">
-                    {new Date(payment.updatedAt).toLocaleString()}
+                    {new Date(payment?.updatedAt).toLocaleString()}
                   </TableCell>
                   <TableCell className="text-right text-[16px]">
                     {new Date(payment.createdAt).toLocaleString()}
