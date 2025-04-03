@@ -55,7 +55,7 @@ export function DashboardSidebar() {
   }, [data]);
 
   return (
-    <div className="h-full">
+    <div className="h-full min-h-screen">
       <button
         className="md:hidden p-4 fixed top-4 left-8 z-50"
         onClick={() => setToggle(!toggle)}
