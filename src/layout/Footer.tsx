@@ -1,6 +1,5 @@
 import CommonWrapper from "@/wrapper/CommonWrapper";
 import { Link } from "react-scroll";
-import logo from "../../public/image.png";
 const Footer = () => {
   return (
     <CommonWrapper>
@@ -8,7 +7,7 @@ const Footer = () => {
         <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16">
           <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
             <div className="text-4xl font-bold text-[var(--color-textcolor)] mb-6">
-              <img src={logo} alt="" className="w-16 h-14" />
+              <img src="https://i.postimg.cc/zfCvqNvy/exoduspro.png" alt="logo" className="w-14 h-14" />
             </div>
             <p className="text-[var(--color-textsecondarycolor)] text-base mb-6 max-w-xs">
               Nexus - Finish your Edgenuity classes, fast.

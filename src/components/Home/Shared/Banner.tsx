@@ -96,7 +96,7 @@ const Banner = () => {
             <div className="feature-card backdrop-blur-2xl w-1/3 lg:block hidden border border-white/20 rounded-lg p-4  group-hover:border-cyan-500 transform translate-all duration-200  group-hover:-rotate-z-3 -skew-y-2 group-hover:shadow-lg group-hover:drop-shadow-lg group-hover:shadow-cyan-700 bg-[#CDADFA] max-h-[450px]">
               <div className="flex items-center gap-x-2">
                 <img
-                  src={MainLogo}
+                  src="https://i.postimg.cc/zfCvqNvy/exoduspro.png"
                   alt="logo"
                   className="max-w-14 rounded-xl"
                 />

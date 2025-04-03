@@ -35,7 +35,7 @@ const Navbar = () => {
               to="/"
               className="max-w-16 cursor-pointer hidden md:block "
             >
-              <img src={logo} alt="logo" />
+              <img src="https://i.postimg.cc/zfCvqNvy/exoduspro.png" alt="logo" />
             </NavLink>
             {/***** NAVIGATIONBAR START *****/}
             <div className="md:flex items-center lg:gap-x-8 gap-x-6 text-[var(--color-textsecondarycolor)] hidden">
