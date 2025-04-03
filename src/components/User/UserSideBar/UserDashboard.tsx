@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-
 interface Key {
   id: string;
   type: string;
@@ -10,8 +9,6 @@ interface Key {
 }
 
 const UserDashboard: React.FC = () => {
-
-
   const [keys, setKeys] = useState<Key[]>([
     {
       id: "1",
@@ -45,7 +42,6 @@ const UserDashboard: React.FC = () => {
     setKeys(keys.filter((key) => key.id !== id));
   };
 
-
   return (
     <div className=" ">
       <div className="max-w-8xl mx-auto bg-white p-8 ">
@@ -73,7 +69,7 @@ const UserDashboard: React.FC = () => {
             </select>
             <button
               onClick={handleCreateKey}
-              className="bg-gray-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+              className="bg-gray-600 text-white py-2 px-6 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
             >
               Create Key
             </button>
@@ -83,7 +79,7 @@ const UserDashboard: React.FC = () => {
         {/* Key Management */}
         <div>
           <h2 className="text-2xl font-medium text-gray-700 mb-4">Your Keys</h2>
-          <div className="overflow-x-auto rounded-lg shadow-md">
+          <div className="overflow-x-auto rounded shadow-md">
             <table className="min-w-full table-auto text-sm text-left">
               <thead className="bg-gray-200">
                 <tr>
@@ -123,7 +119,7 @@ const UserDashboard: React.FC = () => {
                     <td className="p-4">
                       <button
                         onClick={() => handleDeleteKey(key.id)}
-                        className="bg-red-600 text-white py-1 px-4 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
+                        className="bg-red-600 text-white py-1 px-4 rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 transition"
                       >
                         Delete
                       </button>

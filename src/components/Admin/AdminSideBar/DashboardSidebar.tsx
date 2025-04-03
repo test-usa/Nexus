@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
-import { History, Home, Key, LogOut, Table, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { GoX } from "react-icons/go";
 import { FcMenu } from "react-icons/fc";
-import { FaAllergies } from "react-icons/fa";
+import { GiHouseKeys } from "react-icons/gi";
+import { LuGitPullRequestCreateArrow } from "react-icons/lu";
+import { IoMdLogOut } from "react-icons/io";
+
 import userStore from "@/store/userStore";
 import useFetch from "@/hooks/shared/useFetch";
+import logo from "../../../assets/image.png";
+import { MdDashboard, MdOutlinePayments, MdPayments } from "react-icons/md";
+import { FaInfo, FaUsers } from "react-icons/fa6";
 
 interface UserData {
   name: string;
@@ -23,13 +28,17 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { title: "Dashboard", href: "dashboard", icon: Home },
-  { title: "All User Info", href: "all-user-info", icon: User },
-  { title: "All Key Subscription", href: "all-keys", icon: FaAllergies },
-  { title: "All User Keys", href: "key-table", icon: Table },
-  { title: "All User Keys M", href: "key-m", icon: Table },
-  { title: "Create Subscription", href: "key-generate", icon: Key },
-  { title: "Payment History", href: "payment-history", icon: History },
+  { title: "Dashboard", href: "dashboard", icon: MdDashboard },
+  { title: "All User Info", href: "all-user-info", icon: FaUsers },
+  { title: "All Key Subscription", href: "all-keys", icon: GiHouseKeys },
+  { title: "All User Keys", href: "key-table", icon: FaInfo },
+  { title: "All User Keys M", href: "key-m", icon: MdOutlinePayments },
+  {
+    title: "Create Subscription",
+    href: "key-generate",
+    icon: LuGitPullRequestCreateArrow,
+  },
+  { title: "Payment History", href: "payment-history", icon: MdPayments },
 ];
 
 export function DashboardSidebar() {
@@ -48,9 +57,9 @@ export function DashboardSidebar() {
   }, [data]);
 
   return (
-    <>
+    <div className="h-full">
       <button
-        className="md:hidden p-4 fixed top-4 left-4 z-50"
+        className="md:hidden p-4 fixed top-4 left-8 z-50"
         onClick={() => setToggle(!toggle)}
       >
         {toggle ? (
@@ -66,12 +75,12 @@ export function DashboardSidebar() {
           onClick={() => setToggle(false)}
         ></div>
       )}
-
+      {/* Mobile Sidebar */}
       <motion.aside
         initial={{ opacity: 0, x: "-100%" }}
         animate={{ opacity: toggle ? 1 : 0, x: toggle ? 0 : "-100%" }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="md:hidden w-64 h-screen fixed bg-gradient-to-r from-gray-800 to-gray-900 text-gray-700 border-r border-gray-400 p-6 shadow-lg z-50 flex flex-col"
+        className="md:hidden w-74 h-screen fixed bg-[var(--color-bghovercolor)] text-gray-700 border-r border-gray-600 p-6 shadow-lg z-50 flex flex-col"
       >
         <button
           className="absolute top-4 right-4 text-gray-700 text-2xl"
@@ -79,19 +88,29 @@ export function DashboardSidebar() {
         >
           <GoX />
         </button>
-
+        {/* Mobile: Admin Logo And User Name Email */}
         <div className="flex flex-col items-center border-b border-gray-700 pb-6 mb-6">
-          <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-gray-500">
+          <motion.div
+            className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-blue-500"
+            whileHover={{
+              scale: 1.15,
+              transition: { duration: 0.3 },
+            }}
+            style={{
+              boxShadow: "0 0 30px rgba(135, 206, 235, 0.5)",
+            }}
+          >
             <img
-              src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
+              src={logo}
               alt="Profile picture"
-              className="object-cover"
+              className="object-cover p-1"
             />
-          </div>
-          <p className="font-semibold mt-3 text-[var(--color-textsecondarycolor)]">
+          </motion.div>
+
+          <p className="font-semibold mt-3 text-[18px] text-[var(--color-textcolor)]">
             {loading ? "Loading..." : user?.name}
           </p>
-          <p className="text-xs  text-[var(--color-textsecondarycolor)]">
+          <p className="text-xs text-[16px] text-[var(--color-textsecondarycolor)]">
             {loading ? "Loading..." : user?.email}
           </p>
         </div>
@@ -102,7 +121,7 @@ export function DashboardSidebar() {
               key={item.href}
               to={item.href}
               className={cn(
-                "flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition-all duration-300",
+                "flex items-center gap-4 px-4 py-3 rounded text-sm transition-all duration-300",
                 location.pathname.includes(item.href)
                   ? "bg-[var(--color-bghovercolor)] text-[var(--color-hovertext)]"
                   : "hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] text-[var(--color-textsecondarycolor)]"
@@ -119,30 +138,39 @@ export function DashboardSidebar() {
           <Button
             onClick={() => logout_user()}
             variant="destructive"
-            className="w-full justify-start gap-3 hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)]"
+            className="w-full bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] hover:text-[var(--color-hovertext)] justify-start gap-3 hover:bg-[var(--color-bghovercolor)] "
             asChild
           >
             <Link to="/logout">
-              <LogOut className="h-5 w-5" />
+              <IoMdLogOut className="h-5 w-5" />
               Logout
             </Link>
           </Button>
         </div>
       </motion.aside>
-
+      {/* Desktop Sidebar */}
       <aside className="md:flex w-72 flex-col text-[var(--color-textcolor)] border-r border-gray-700 p-6  hidden h-screen">
+        {/* Desktop: Admin Logo And User Name Email */}
         <div className="flex flex-col items-center border-b border-gray-700 pb-6 mb-6">
-          <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-gray-500">
+          <motion.div
+            className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-blue-500 transition-all duration-300 transform perspective-1000"
+            whileHover={{
+              scale: 1.15,
+              boxShadow: "0 0 30px rgba(135, 206, 235, 0.5)",
+              transition: { duration: 0.6 },
+            }}
+          >
             <img
-              src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
+              src={logo}
               alt="Profile picture"
-              className="object-cover"
+              className="object-cover p-1"
             />
-          </div>
-          <p className="font-semibold mt-3 text-[var(--color-textsecondarycolor)]">
+          </motion.div>
+
+          <p className="font-semibold mt-3 text-[18px] text-[var(--color-textcolor)]">
             {loading ? "Loading..." : user?.name}
           </p>
-          <p className="text-xs text-[var(--color-textsecondarycolor)]">
+          <p className="text-xs text-[16px] text-[var(--color-textsecondarycolor)]">
             {loading ? "Loading..." : user?.email}
           </p>
         </div>
@@ -153,13 +181,13 @@ export function DashboardSidebar() {
               key={item.href}
               to={item.href}
               className={cn(
-                "flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition-all duration-300",
+                "flex items-center gap-4 px-4 py-3 rounded text-sm transition-all duration-300",
                 location.pathname.includes(item.href)
                   ? "bg-[var(--color-bghovercolor)] text-[var(--color-hovertext)]"
                   : "hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] text-[var(--color-textsecondarycolor)]"
               )}
             >
-              <item.icon className="h-5 w-5" />
+              <item.icon className="h-5 w-5 text-[16px]" />
               {item.title}
             </Link>
           ))}
@@ -169,17 +197,17 @@ export function DashboardSidebar() {
           <Button
             onClick={() => logout_user()}
             variant="destructive"
-            className="w-full justify-start gap-3 hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)]"
+            className="w-full bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] hover:text-[var(--color-hovertext)] justify-start gap-3 hover:bg-[var(--color-bghovercolor)]  "
             asChild
           >
             <Link to="/logout">
-              <LogOut className="h-5 w-5" />
+              <IoMdLogOut className="h-5 w-5" />
               Logout
             </Link>
           </Button>
         </div>
       </aside>
-    </>
+    </div>
   );
 }
 

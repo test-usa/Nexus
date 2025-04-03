@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 const queryClient = new QueryClient();
-const googleClientId = import.meta.env.VITE_GOOGLE_AUTH_ID; 
+const googleClientId = import.meta.env.VITE_GOOGLE_AUTH_ID;
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>

@@ -108,7 +108,7 @@ export default function CreateKeyForm() {
       <h2 className="text-2xl font-semibold mb-5">Create Subscription Key</h2>
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 text-[var(--color-textcolor)]"
+        className="space-y-4 text-[var(--color-textcolor)] text-lg"
       >
         {[
           { label: "Key Name", name: "keyName", type: "text" },
@@ -124,7 +124,7 @@ export default function CreateKeyForm() {
               name={name}
               value={formData[name as keyof FormData]}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-500 rounded-lg bg-gray-300 text-black focus:ring-2 focus:ring-gray-300 focus:outline-none transition-all"
+              className="w-full p-3 border border-gray-500 rounded bg-gray-300 text-black focus:ring-2 focus:ring-gray-300 focus:outline-none transition-all"
               required
             />
           </div>
@@ -132,9 +132,9 @@ export default function CreateKeyForm() {
 
         <button
           type="submit"
-          className="w-full bg-gray-700 text-white p-3 rounded-lg hover:bg-gray-800 transition-all font-medium"
+          className="w-full bg-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] text-[var(--color-textcolor)] p-3 rounded transition-all duration-300 ease-in-out font-medium"
         >
-          Submit
+          Create Key
         </button>
       </form>
     </div>

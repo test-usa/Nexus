@@ -1,8 +1,180 @@
-import { useState, useEffect } from "react";
+import { Loader } from "lucide-react";
+import useFetch from "@/hooks/shared/useFetch";
+import { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+interface Order {
+  _id: string;
+  LicenseKey: string;
+  keyType: string;
+  expiresAt: string;
+  RedeemedBy: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+const MyOrder = () => {
+  const {
+    data: userKeys,
+    isLoading,
+    isSuccess,
+  } = useFetch("/user-key/all-keys-user");
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(0);
+  const ordersPerPage = 8;
+  const offset = currentPage * ordersPerPage;
+  const currentOrders = orders.slice(offset, offset + ordersPerPage);
+
+  useEffect(() => {
+    if (userKeys?.data) {
+      setOrders(userKeys.data.reverse());
+    }
+  }, [userKeys]);
+
+  // Handle page change
+  const handlePageChange = ({ selected }: { selected: number }) => {
+    setCurrentPage(selected);
+  };
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <Loader className="animate-spin w-6 h-6" />
+        <span className="ml-2">Loading orders...</span>
+      </div>
+    );
+  }
+
+  // Handle error in data
+  if (!isSuccess) {
+    return (
+      <div className="text-red-500">
+        Failed to load orders. Please try again.
+      </div>
+    );
+  }
+
+  return (
+    <div className="pl-12 pr-12 pt-12 -sm:pr-5 ">
+      <h1 className="text-2xl font-medium tracking-wide mb-5 mt-4 text-[var(--color-textcolor)]">
+        My Orders
+      </h1>
+      <div className="overflow-x-auto text-[var(--color-textsecondarycolor)]">
+        {/* Added wrapper for scroll */}
+        <Table className="rounded-sm shadow-lg overflow-hidden">
+          <TableHeader className="bg-[var(--color-dashboardsecondary)] ">
+            <TableRow>
+              <TableHead className="px-6 sm:px-6 py-6 w-[100px] text-lg text-[var(--color-textcolor)]">
+                Order ID
+              </TableHead>
+              <TableHead className="text-lg text-[var(--color-textcolor)]">
+                License Key
+              </TableHead>
+              <TableHead className="text-lg text-[var(--color-textcolor)]">
+                Key Type
+              </TableHead>
+              <TableHead className="text-lg text-[var(--color-textcolor)]">
+                Expiry Date
+              </TableHead>
+              <TableHead className="text-right text-lg text-[var(--color-textcolor)]">
+                Redeemed By
+              </TableHead>
+              <TableHead className="text-right text-lg text-[var(--color-textcolor)]">
+                Actions
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {currentOrders.length ? (
+              currentOrders.map((order, index) => (
+                <TableRow
+                  key={order._id}
+                  className={`hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] ${
+                    index % 2 === 0
+                      ? "bg-[var(--color-oddcolor)]"
+                      : "bg-[var(--color-evencolor)]"
+                  }`}
+                >
+                  <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px] ">
+                    {order._id}
+                  </TableCell>
+
+                  <TableCell className="text-[16px]">
+                    {order.LicenseKey}
+                  </TableCell>
+
+                  <TableCell className="text-left text-[16px]">
+                    {order.keyType}
+                  </TableCell>
+                  <TableCell className="text-left text-[16px]">
+                    {new Date(order.expiresAt).toLocaleString()}
+                  </TableCell>
+                  <TableCell className="text-right text-[16px]">
+                    {order.RedeemedBy.join(", ")}
+                  </TableCell>
+                  <TableCell className="text-right text-[16px]">
+                    <span
+                      className="inline-block px-3 py-1 rounded-full text-black bg-blue-100 cursor-pointer"
+                      onClick={() =>
+                        alert(`Viewing details for order #${order._id}`)
+                      }
+                    >
+                      View Details
+                    </span>
+                  </TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={7}
+                  className="py-3 px-6 text-center text-sm"
+                >
+                  No payment records found.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+      {/* Pagination Section */}
+      <div className="mt-3 flex justify-center">
+        <ReactPaginate
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
+          pageCount={Math.ceil(orders.length / ordersPerPage)}
+          onPageChange={handlePageChange}
+          containerClassName="flex items-center space-x-2"
+          pageClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textsecondarycolor)]"
+          previousClassName="text-[16px]  px-4 py-2 border border-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
+          nextClassName="text-[16px]  px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
+          activeClassName="text-[16px]  text-white bg-[var(--color-dashboardsecondary)]"
+          disabledClassName="text-gray-400 cursor-not-allowed"
+        />
+      </div>
+    </div>
+  );
+};
+
+export default MyOrder;
+
+/* import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
 import { Loader } from "lucide-react";
+import useFetch from "@/hooks/shared/useFetch";
 
-// Declare the type for the order data
 interface Order {
   _id: string;
   LicenseKey: string;
@@ -14,87 +186,30 @@ interface Order {
 }
 
 const MyOrder: React.FC = () => {
+  const {
+    data: userKeys,
+    isLoading,
+    isSuccess,
+  } = useFetch("/user-key/all-keys-user");
   const [orders, setOrders] = useState<Order[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
 
-  // Retrieve the token from sessionStorage
-  const token = sessionStorage.getItem("token");
-
-  // Check if the token exists, if not show an error
-  if (!token) {
-    return (
-      <div className="text-center text-red-600">
-        You are not authenticated. Please log in.
-      </div>
-    );
-  }
-
-  // Decode the JWT token to extract the userId
-  const decodedToken = JSON.parse(atob(token.split(".")[1])); // Decode the token
-  console.log("Decoded token:", decodedToken);
-
-  const userId = decodedToken.uid;
-  console.log("User ID:", userId);
-
-  // Check if userId is available, if not show error
-  if (!userId) {
-    return (
-      <div className="text-center text-red-600">
-        Failed to retrieve user information from token.
-      </div>
-    );
-  }
-
-  // Pagination state
   const [currentPage, setCurrentPage] = useState(0);
   const ordersPerPage = 10;
   const offset = currentPage * ordersPerPage;
   const currentOrders = orders.slice(offset, offset + ordersPerPage);
 
-  // Fetch orders from the API
   useEffect(() => {
-    const fetchOrders = async () => {
-      setLoading(true);
-      setError(""); // Reset error before making a new request
+    if (userKeys?.data) {
+      setOrders(userKeys.data.reverse());
+    }
+  }, [userKeys]);
 
-      try {
-        const response = await fetch(
-          `https://guidemc.vercel.app/api/v1/user-key/single-user-key/${userId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `${token}`, // Add token in Authorization header
-            },
-          }
-        );
-        console.log("Response:", response);
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch orders.");
-        }
-
-        const data = await response.json();
-        setOrders(data.data); // Set the fetched data to state
-      } catch (error: any) {
-        setError(error.message || "Error fetching orders. Please try again.");
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchOrders();
-  }, [userId, token]);
-
-  // Handle page change
   const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected);
   };
 
-  // Show loading state
-  if (loading) {
+
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center">
         <Loader className="animate-spin w-6 h-6" />
@@ -103,9 +218,13 @@ const MyOrder: React.FC = () => {
     );
   }
 
-  // Handle error in data
-  if (error) {
-    return <div className="text-red-500">Failed to load orders: {error}</div>;
+
+  if (!isSuccess) {
+    return (
+      <div className="text-red-500">
+        Failed to load orders. Please try again.
+      </div>
+    );
   }
 
   return (
@@ -114,7 +233,7 @@ const MyOrder: React.FC = () => {
         My Orders
       </h2>
 
-      <div className="overflow-x-auto shadow-lg border border-gray-300 bg-white rounded-lg">
+      <div className="overflow-x-auto shadow-lg border border-gray-300 bg-white rounded">
         <table className="min-w-full table-auto">
           <thead className="bg-gray-200 text-gray-700">
             <tr>
@@ -156,7 +275,7 @@ const MyOrder: React.FC = () => {
                   </td>
                   <td className="py-3 px-6 text-sm font-semibold capitalize">
                     <span
-                      className="inline-block px-3 py-1 rounded-full text-black bg-blue-100"
+                      className="inline-block px-3 py-1 rounded-full text-black bg-blue-100 cursor-pointer"
                       onClick={() =>
                         alert(`Viewing details for order #${order._id}`)
                       }
@@ -177,7 +296,6 @@ const MyOrder: React.FC = () => {
         </table>
       </div>
 
-      {/* Pagination */}
       <div className="mt-6 flex justify-center">
         <ReactPaginate
           previousLabel={"Previous"}
@@ -197,3 +315,4 @@ const MyOrder: React.FC = () => {
 };
 
 export default MyOrder;
+ */

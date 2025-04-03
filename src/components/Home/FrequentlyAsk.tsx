@@ -1,4 +1,3 @@
-
 import {
   Accordion,
   AccordionContent,
@@ -7,7 +6,6 @@ import {
 } from "../ui/accordion";
 import { Element } from "react-scroll";
 import Title from "./Shared/Title";
-
 
 export function FrequentlyAsk() {
   // const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -22,7 +20,7 @@ export function FrequentlyAsk() {
         title="Frequently Asked Questions"
         subtitle="Get quick answers to the most common questions about Nexus."
       />
-      <div className="max-w-2xl mx-auto p-6 border-1 border-[#292727] rounded-lg mt-5 mb-5">
+      <div className="max-w-2xl mx-auto p-6 border-1 border-[#292727] rounded mt-5 mb-5">
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem
             value="item-1"

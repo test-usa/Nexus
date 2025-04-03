@@ -90,7 +90,7 @@ const Banner = () => {
             </div>
 
             {/**** BANNER CARD SECTION ****/}
-            <div className="feature-card backdrop-blur-2xl lg:block hidden border border-white/20 rounded-lg p-4  group-hover:border-cyan-500 transform translate-all duration-200  group-hover:-rotate-z-3 -skew-y-2 group-hover:shadow-lg group-hover:drop-shadow-lg group-hover:shadow-cyan-500 ">
+            <div className="feature-card backdrop-blur-2xl lg:block hidden border border-white/20 rounded p-4  group-hover:border-cyan-500 transform translate-all duration-200  group-hover:-rotate-z-3 -skew-y-2 group-hover:shadow-lg group-hover:drop-shadow-lg group-hover:shadow-cyan-500 ">
               {/* hover:-rotate-z-2 -rotate-3 skew-y-3 */}
               <div className="flex items-center gap-x-2">
                 <img
@@ -124,7 +124,7 @@ const Banner = () => {
                     return (
                       <div
                         key={index}
-                        className="flex items-center justify-between bg-gradient-to-r from-gray-500 to-slate-800 via-green-700 rounded-lg px-4 py-1.5"
+                        className="flex items-center justify-between bg-gradient-to-r from-gray-500 to-slate-800 via-green-700 rounded px-4 py-1.5"
                       >
                         <h1 className="text-sm font-semibold text-white">
                           {item?.name}
