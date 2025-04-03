@@ -17,6 +17,7 @@ export const MyKeys = () => {
     isLoading,
     isSuccess,
   } = useFetch("/user-key/all-keys-user");
+  console.log(userKeys);
 
   // Redeem user API mutation
   const { mutate: redeemUser, isPending: isRedeeming } = useUpdate<
