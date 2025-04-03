@@ -55,7 +55,7 @@ const Banner = () => {
   return (
     <Element name="banner" className="font-montserrat">
       <CommonWrapper>
-        <div className="mt-60">
+        <div className="xl:mt-60 mt-24">
           <div className="flex group items-center justify-between">
             {/**** TEXT SECTION ****/}
             <div className="space-y-5 w-3/4 mx-auto lg:mx-0  lg:text-start text-center">
