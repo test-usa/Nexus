@@ -12,7 +12,7 @@ import { IoMdLogOut } from "react-icons/io";
 import userStore from "@/store/userStore";
 import useFetch from "@/hooks/shared/useFetch";
 import logo from "../../../assets/image.png";
-import { MdDashboard, MdOutlinePayments, MdPayments } from "react-icons/md";
+import { MdDashboard, MdPayments } from "react-icons/md";
 import { FaInfo, FaUsers } from "react-icons/fa6";
 
 interface UserData {
@@ -32,7 +32,6 @@ const navItems: NavItem[] = [
   { title: "All User Info", href: "all-user-info", icon: FaUsers },
   { title: "All Key Subscription", href: "all-keys", icon: GiHouseKeys },
   { title: "All User Keys", href: "key-table", icon: FaInfo },
-  { title: "All User Keys M", href: "key-m", icon: MdOutlinePayments },
   {
     title: "Create Subscription",
     href: "key-generate",
