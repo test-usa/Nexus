@@ -2,21 +2,21 @@ import { useEffect, useState } from "react";
 import { Mail, User, Loader2 } from "lucide-react";
 import useFetch from "@/hooks/shared/useFetch";
 import { toast } from "sonner";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "../ui/dialog";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import useAxiosPublic from "@/hooks/useAxiosPublic";
-import axios from "axios";
-const image_hosting_key = "5524bfe220f89f241e43b7ad5af70f4f";
-const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+// import {
+//   Dialog,
+//   DialogContent,
+//   DialogDescription,
+//   DialogFooter,
+//   DialogHeader,
+//   DialogTitle,
+// } from "../ui/dialog";
+// import { Button } from "../ui/button";
+// import { Input } from "../ui/input";
+// import { Label } from "../ui/label";
+// import useAxiosPublic from "@/hooks/useAxiosPublic";
+// import axios from "axios";
+// const image_hosting_key = "5524bfe220f89f241e43b7ad5af70f4f";
+// const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 interface UserData {
   id: string;
   name: string;
@@ -26,10 +26,10 @@ interface UserData {
 }
 
 const UserProfile = () => {
-  const axiosPublic = useAxiosPublic();
+  // const axiosPublic = useAxiosPublic();
   const [user, setUser] = useState<UserData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [ModalOpen, setOpenModal] = useState<boolean>(false);
+  // const [ModalOpen, setOpenModal] = useState<boolean>(false);
   const { data, isLoading } = useFetch("user/get-self");
 
   useEffect(() => {
@@ -42,54 +42,54 @@ const UserProfile = () => {
   const defaultAvatar =
     "https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg";
 
-  const SubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
+  // const SubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   setLoading(true);
 
-    const formData = new FormData(e.currentTarget);
-    const name = formData.get("name") as string;
-    const imageFile = formData.get("file") as File;
+  //   const formData = new FormData(e.currentTarget);
+  //   const name = formData.get("name") as string;
+  //   const imageFile = formData.get("file") as File;
 
-    if (!imageFile) {
-      toast.error("Please select an image file");
-      setLoading(false);
-      return;
-    }
+  //   if (!imageFile) {
+  //     toast.error("Please select an image file");
+  //     setLoading(false);
+  //     return;
+  //   }
 
-    try {
-      // Prepare form data for ImgBB
-      const imgbbFormData = new FormData();
-      imgbbFormData.append("image", imageFile);
+  //   try {
+  //     // Prepare form data for ImgBB
+  //     const imgbbFormData = new FormData();
+  //     imgbbFormData.append("image", imageFile);
 
-      // Upload to ImgBB
-      const uploadRes = await axios.post(image_hosting_api, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+  //     // Upload to ImgBB
+  //     const uploadRes = await axios.post(image_hosting_api, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     });
 
-      if (uploadRes.data.success) {
-        const imageUrl = uploadRes.data.data.url;
+  //     if (uploadRes.data.success) {
+  //       const imageUrl = uploadRes.data.data.url;
 
-        // Now update user profile with the new image
-        const updateRes = await axiosPublic.patch("user/update-self", {
-          name,
-          photo: imageUrl,
-        });
+  //       // Now update user profile with the new image
+  //       const updateRes = await axiosPublic.patch("user/update-self", {
+  //         name,
+  //         photo: imageUrl,
+  //       });
 
-        if (updateRes.data.success) {
-          setUser(updateRes.data.data);
-          toast.success("Profile updated successfully!");
-          setOpenModal(false);
-        }
-      }
-    } catch (error) {
-      console.error("Error updating profile:", error);
-      toast.error("Failed to update profile");
-    } finally {
-      setLoading(false);
-    }
-  };
+  //       if (updateRes.data.success) {
+  //         setUser(updateRes.data.data);
+  //         toast.success("Profile updated successfully!");
+  //         setOpenModal(false);
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Error updating profile:", error);
+  //     toast.error("Failed to update profile");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className=" flex items-center justify-center mx-auto min-w-[320px] max-w-[800px] h-full w-full px-4">

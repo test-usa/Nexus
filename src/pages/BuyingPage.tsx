@@ -7,7 +7,7 @@ import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MainLogo from "../../public/mainLogo.png";
-import { Link } from "react-router-dom";
+
 
 type TSinglePriceData = {
   prices: {
