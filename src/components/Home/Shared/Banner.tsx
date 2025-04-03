@@ -62,14 +62,14 @@ const Banner = () => {
               <h1
                 className="text-4xl sm:text-5xl
                  inline-block
-               text-[#CFF2FB]"
+               text-[var(--color-textcolor)]"
               >
                 <span className=" text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8]">
                   ExoBot
                 </span>{" "}
                 Fastest Edgenuity Bot.
               </h1>
-              <p className=" w-5/6 sm:w-2/3 lg:mx-0 mx-auto text-sm sm:text-[16px] text-gray-500 ">
+              <p className=" w-5/6 sm:w-2/3 lg:mx-0 mx-auto text-sm sm:text-[16px] text-[var(--color-textsecondarycolor)]">
                 ExoBot is your ultimate companion for online learning,
                 turbocharging your Edgenuity experience by helping you breeze
                 through courses faster and master the material with ease.

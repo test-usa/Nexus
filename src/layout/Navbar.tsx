@@ -40,7 +40,7 @@ const Navbar = () => {
               <img src={logo} alt="logo" />
             </ScrollLink>
             {/***** NAVIGATIONBAR START *****/}
-            <div className="md:flex items-center lg:gap-x-8 gap-x-6 text-gray-400 hidden">
+            <div className="md:flex items-center lg:gap-x-8 gap-x-6 text-[var(--color-textsecondarycolor)] hidden">
               {/* // All other links are ScrollLink */}
               <ScrollLink
                 smooth
@@ -84,10 +84,10 @@ const Navbar = () => {
                 Download
               </NavLink>
               <NavLink
-                to="/trabolshooting"
+                to="/troubleshoot"
                 className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
               >
-                Trabolshooting
+               Troubleshoot 
               </NavLink>
               {user && (user as { role: string }).role === "ADMIN" && (
                 <NavLink
@@ -223,6 +223,12 @@ const Navbar = () => {
                   className="text-gray-400 cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                 >
                   Download
+                </NavLink>
+                <NavLink
+                  to="/troubleshoot"
+                  className="text-gray-400 cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                >
+                  Troubleshoot
                 </NavLink>
 
                 <NavLink
