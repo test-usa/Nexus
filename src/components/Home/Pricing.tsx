@@ -34,19 +34,19 @@ const Pricing = () => {
             return (
               <div
                 key={price?._id}
-                className={`rounded-[var(--radius-card)] hover:border-[1px] hover:border-cyan-600 min-w-[280px] relative sm:max-w-full border border-[#45444d] shadow-lg hover:shadow-gray-500 space-y-3 p-5 transform transition duration-500`}
+                className={`rounded-[var(--radius-card)] hover:border-[1px] hover:border-cyan-600 min-w-[280px] relative sm:max-w-full border border-gray-700 shadow-lg hover:shadow-gray-500 space-y-3 p-5 transform transition duration-500`}
               >
                 {price?.badge && (
-                  <p className="absolute right-1.5 -top-3.5 rounded-lg bg-gradient-to-bl from-sky-600 via-gray-600 to-green-800 py-2 px-3 text-xs sm:text-sm text-white">
+                  <p className="absolute right-1.5 -top-3.5 rounded-lg bg-gradient-to-bl from-sky-600 via-gray-600 to-green-800 py-2 px-3 text-xs sm:text-sm text-[var(--color-textcolor)]">
                     {price?.badge}
                   </p>
                 )}
 
-                <h1 className="text-2xl sm:text-3xl font-semibold text-[#CFF2FB]">
+                <h1 className="text-2xl sm:text-3xl font-semibold text-[var(--color-textcolor)]">
                   {price?.keyName}
                 </h1>
-                <p className="text-sm sm:text-[16px] text-gray-500">
-                  {price.description} "Perfect for quick access and trying us
+                <p className="text-sm sm:text-[16px] text-[var(--color-textsecondarycolor)]">
+                  {price?.description} "Perfect for quick access and trying us
                   out with minimal cost."
                 </p>
                 <p className="text-xl sm:text-3xl font-semibold bg-gradient-to-r from-gray-400 to-slate-600 via-green-500 text-transparent bg-clip-text">
@@ -54,7 +54,7 @@ const Pricing = () => {
                 </p>
                 <Link
                   to={`/buy/${price._id}`}
-                  className="w-full cursor-pointer hover:-rotate-z-1 bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] text-white py-2 inline-block text-center rounded-lg text-sm sm:text-[16px]"
+                  className="w-full cursor-pointer hover:-rotate-z-1 bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] text-[var(--color-textcolor)] py-2 inline-block text-center rounded-lg text-sm sm:text-[16px]"
                 >
                   Purchase Now
                 </Link>

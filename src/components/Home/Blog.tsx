@@ -94,7 +94,7 @@ const Blog: React.FC = () => {
           ref={containerRef}
         >
           {selectedPost ? (
-            <div className="col-span-3 bg-gray-900 p-6 rounded-lg shadow-lg">
+            <div className="col-span-3 bg-gray-900 p-6 rounded shadow-lg">
               <h2 className="text-2xl font-semibold text-yellow-500">
                 {selectedPost.title}
               </h2>
@@ -111,7 +111,7 @@ const Blog: React.FC = () => {
             blogPosts.map((post) => (
               <div
                 key={post.id}
-                className="bg-gray-900 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow"
+                className="bg-gray-900 p-6 rounded shadow-lg hover:shadow-xl transition-shadow"
               >
                 <h2 className="text-xl font-semibold text-yellow-500">
                   {post.title}

@@ -3,12 +3,12 @@ import { Outlet } from "react-router-dom";
 
 export default function AdminDashboard() {
   return (
-    <div className="flex  font-manrope bg-[var(--color-dashboardsecondary)]">
+    <div className="flex min-h-screen font-manrope bg-[var(--color-dashboardbg)]">
       {/* Sidebar  */}
       <DashboardSidebar />
 
       {/* Main Content */}
-      <main className="flex-1 font-manrope   transition-all duration-300 bg-[var(--color-dashboardbg)] ease-in-out">
+      <main className="flex-1 font-manrope min-h-screen  transition-all duration-300 bg-[var(--color-dashboardbg)] ease-in-out">
         <Outlet />
       </main>
     </div>

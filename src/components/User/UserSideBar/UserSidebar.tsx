@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { History, LogOut, Table, User, HomeIcon } from "lucide-react";
+
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -9,6 +9,11 @@ import { FcMenu } from "react-icons/fc";
 import userStore from "@/store/userStore";
 import useFetch from "@/hooks/shared/useFetch";
 import { NavLink } from "react-router-dom";
+import { CgProfile } from "react-icons/cg";
+import { FaTableCellsRowUnlock } from "react-icons/fa6";
+import { MdOutlinePayment } from "react-icons/md";
+import { IoMdHome, IoMdLogOut } from "react-icons/io";
+import logo from "../../../assets/image.png";
 
 interface NavItem {
   title: string;
@@ -27,23 +32,22 @@ const navItems: NavItem[] = [
   {
     title: "Home",
     href: "/",
-    icon: HomeIcon,
+    icon: IoMdHome,
   },
   {
     title: "My Profile",
     href: "profile",
-    icon: User,
+    icon: CgProfile,
   },
   {
     title: "My Key",
     href: "my-key",
-    icon: Table,
+    icon: FaTableCellsRowUnlock,
   },
-
   {
     title: "Payment History",
     href: "user-payment",
-    icon: History,
+    icon: MdOutlinePayment,
   },
 ];
 
@@ -73,7 +77,7 @@ export function UserSidebar() {
     <>
       <div className="font-manrope bg-[var(--color-dashboardbg)] ">
         <button
-          className="md:hidden p-4 absolute top-4 left-4 z-50"
+          className="md:hidden p-4 absolute top-4 left-8 z-50"
           onClick={() => setToggle(!toggle)}
         >
           {toggle ? (
@@ -99,32 +103,38 @@ export function UserSidebar() {
             x: toggle ? 0 : "-100%",
           }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="md:hidden w-64 h-screen fixed bg-gradient-to-r from-gray-800 to-gray-900  border-r border-[var(--color-dashboardsecondary)] p-6 shadow-lg z-50"
+          className="md:hidden w-74 h-screen fixed bg-gradient-to-r from-gray-800 to-gray-900  border-r border-[var(--color-dashboardsecondary)] p-6 shadow-lg z-50 flex flex-col"
         >
-          <div className="flex flex-col items-center border-b pb-6 mb-6">
+          <button
+            className="absolute top-4 right-4 text-gray-700 text-2xl"
+            onClick={() => setToggle(false)}
+          >
+            <GoX />
+          </button>
+          <div className="flex flex-col items-center border-b border-gray-700 pb-6 mb-6">
             <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-gray-500">
               <img
-                src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
+                src={logo}
                 alt="Profile picture"
-                className="object-cover"
+                className="object-cover p-1"
               />
             </div>
             <p className="font-semibold mt-3 text-[var(--color-textcolor)]">
               {loading ? "Loading..." : user?.name}
             </p>
-            <p className="text-xs text-[var(--color-textcolor)]">
+            <p className="text-xs text-[var(--color-textsecondarycolor)]">
               {loading ? "Loading..." : user?.email}
             </p>
           </div>
 
-          <nav className="flex-1 space-y-2">
+          <nav className="flex-grow space-y-2">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 to={item.href}
                 className={cn(
-                  "flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition-all duration-300",
-                  "hover:bg-gray-700 hover:text-white text-[var(--color-textcolor)]"
+                  "flex items-center gap-4 px-4 py-3 rounded text-sm transition-all duration-300",
+                  "hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] text-[var(--color-textsecondarycolor)]"
                 )}
                 onClick={() => setToggle(false)}
               >
@@ -137,11 +147,11 @@ export function UserSidebar() {
           <div className="mt-auto">
             <Button
               variant="ghost"
-              className="w-full justify-start gap-3"
+              className="w-full bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] hover:text-[var(--color-hovertext)] justify-start gap-3 hover:bg-[var(--color-bghovercolor)]"
               asChild
             >
               <Link to="/logout">
-                <LogOut className="h-5 w-5" />
+                <IoMdLogOut className="h-5 w-5" />
                 Logout
               </Link>
             </Button>
@@ -149,19 +159,29 @@ export function UserSidebar() {
         </motion.aside>
 
         {/* Large Screens Sidebar */}
-        <aside className="md:flex w-72 h-screen flex-col text-black border-r border-gray-400 shadow-lg shadow-gray-400 p-6 hidden">
-          <div className="flex flex-col items-center border-b border-gray-400 pb-6 mb-6">
-            <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-gray-500 animate-pulse cursor-pointer">
+        <aside className="md:flex w-72 bg-[var(--color-dashboardbg)] h-screen flex-col  border-r border-gray-700 shadow-lg shadow-gray-400 p-6 hidden">
+          <div className="flex flex-col items-center border-b border-gray-700 pb-6 mb-6">
+            <motion.div
+              className=" animate-pulse cursor-pointer relative h-20 w-20 overflow-hidden rounded-full border-2 border-blue-500"
+              whileHover={{
+                scale: 1.15,
+                transition: { duration: 0.3 },
+              }}
+              style={{
+                boxShadow: "0 0 30px rgba(135, 206, 235, 0.5)",
+              }}
+            >
               <img
-                src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
+                src={logo}
                 alt="Profile picture"
-                className="object-cover"
+                className="object-cover p-1"
               />
-            </div>
-            <p className="font-semibold mt-3 text-[var(--color-textcolor)]">
+            </motion.div>
+
+            <p className="font-semibold mt-3 text-[18px] text-[var(--color-textcolor)]">
               {loading ? "Loading..." : user?.name}
             </p>
-            <p className="text-xs text-[var(--color-textcolor)]">
+            <p className="text-xs text-[16px] text-[var(--color-textsecondarycolor)]">
               {loading ? "Loading..." : user?.email}
             </p>
           </div>
@@ -173,9 +193,10 @@ export function UserSidebar() {
                 to={item.href}
                 className={({ isActive }) =>
                   cn(
-                    "flex items-center gap-4 px-4 py-3 rounded-lg text-sm transition-all duration-300",
-                    "hover:bg-gray-700 hover:text-white text-[var(--color-textcolor)]",
-                    isActive && "bg-gray-700 text-white"
+                    "flex items-center gap-4 px-4 py-3 rounded text-sm transition-all duration-300",
+                    "hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] text-[var(--color-textsecondarycolor)]",
+                    isActive &&
+                      "bg-[var(--color-bghovercolor)] text-[var(--color-hovertext)]"
                   )
                 }
               >
@@ -188,11 +209,11 @@ export function UserSidebar() {
           <div className="mt-auto">
             <Button
               onClick={logout_user}
-              className="w-full justify-start gap-3 bg-gray-700 hover:text-white text-[var(--color-textcolor)]"
+              className="w-full justify-start gap-3 bg-[var(--color-dashboardsecondary)] hover:text-[var(--color-hovertext)] text-[var(--color-textcolor)] hover:bg-[var(--color-bghovercolor)] "
               asChild
             >
               <Link to="/logout">
-                <LogOut className="h-5 w-5" />
+                <IoMdLogOut className="h-5 w-5" />
                 Logout
               </Link>
             </Button>

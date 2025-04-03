@@ -3,6 +3,7 @@ import { toast } from "sonner";
 
 interface FormData {
   keyName: string;
+  badge: string;
   duration: string;
   regularKey: string;
   serviceKey: string;
@@ -11,6 +12,7 @@ interface FormData {
 export default function CreateKeyForm() {
   const [formData, setFormData] = useState<FormData>({
     keyName: "",
+    badge: "",
     duration: "",
     regularKey: "",
     serviceKey: "",
@@ -60,6 +62,7 @@ export default function CreateKeyForm() {
 
     const payload = {
       keyName: formData.keyName,
+      badge: formData.badge,
       duration: Number(formData.duration),
       users: { serviceKey: 5, regularKey: 1 },
       prices: {
@@ -80,7 +83,7 @@ export default function CreateKeyForm() {
           body: JSON.stringify(payload),
         }
       );
-
+      console.log(response);
       const result = await response.json();
 
       if (!response.ok) {
@@ -90,6 +93,7 @@ export default function CreateKeyForm() {
       toast.success("Key created successfully!"); // Show success toast
       setFormData({
         keyName: "",
+        badge: "",
         duration: "",
         regularKey: "",
         serviceKey: "",
@@ -100,14 +104,15 @@ export default function CreateKeyForm() {
   };
 
   return (
-    <div className="max-w-lg text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)] mx-auto mt-32 p-6 rounded-xl shadow-lg">
+    <div className="max-w-lg  text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)] mx-auto mt-32 p-6 rounded-xl shadow-lg">
       <h2 className="text-2xl font-semibold mb-5">Create Subscription Key</h2>
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 text-[var(--color-textcolor)]"
+        className="space-y-4 text-[var(--color-textcolor)] text-lg"
       >
         {[
           { label: "Key Name", name: "keyName", type: "text" },
+          { label: "Badge Name", name: "badge", type: "text" },
           { label: "Duration (Days)", name: "duration", type: "number" },
           { label: "Regular Key Price", name: "regularKey", type: "number" },
           { label: "Service Key Price", name: "serviceKey", type: "number" },
@@ -119,7 +124,7 @@ export default function CreateKeyForm() {
               name={name}
               value={formData[name as keyof FormData]}
               onChange={handleChange}
-              className="w-full p-3 border border-gray-500 rounded-lg bg-gray-300 text-black focus:ring-2 focus:ring-gray-300 focus:outline-none transition-all"
+              className="w-full p-3 border border-gray-500 rounded bg-gray-300 text-black focus:ring-2 focus:ring-gray-300 focus:outline-none transition-all"
               required
             />
           </div>
@@ -127,9 +132,9 @@ export default function CreateKeyForm() {
 
         <button
           type="submit"
-          className="w-full bg-gray-700 text-white p-3 rounded-lg hover:bg-gray-800 transition-all font-medium"
+          className="w-full bg-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] text-[var(--color-textcolor)] p-3 rounded transition-all duration-300 ease-in-out font-medium"
         >
-          Submit
+          Create Key
         </button>
       </form>
     </div>

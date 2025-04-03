@@ -17,16 +17,14 @@ interface User {
   email: string;
   role: string;
 }
-
-export function AllUserInfo() {
+const AllUserInfo = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [expandedUids, setExpandedUids] = useState<{ [key: string]: boolean }>(
     {}
   );
-
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const usersPerPage = 11;
+  const usersPerPage = 9;
 
   const { data: usersData, isSuccess, isLoading } = useFetch("user/all-users");
 
@@ -55,27 +53,30 @@ export function AllUserInfo() {
   const currentUsers = users.slice(offset, offset + usersPerPage);
 
   return (
-    <div className="p-6 lg:p-8  sm:mt-10 sb:mt-0 min-h-screen -mt-10 text-[var(--color-textcolor)] ">
-      <h1 className="text-2xl font-medium tracking-wide mb-5 mt-5 xs:mt-40">
+    <div className="pl-12 pr-12 pt-12 -sm:pr-5 ">
+      <h1 className="text-2xl font-medium tracking-wide mb-5 mt-4 text-[var(--color-textcolor)]">
         All User Information
       </h1>
-      <div className="rounded-lg shadow-lg overflow-hidden ">
-        <Table>
-          <TableHeader className="bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]">
-            <TableRow className="text-sm font-semibold tracking-wide">
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
-                ID
+      <div className="overflow-x-auto text-[var(--color-textsecondarycolor)]">
+        {" "}
+        {/* Added wrapper for scroll */}
+        <Table className="rounded-sm shadow-lg overflow-hidden">
+          <TableHeader className="bg-[var(--color-dashboardsecondary)] ">
+            <TableRow>
+              <TableHead className="px-6 sm:px-6 py-6 w-[100px] text-lg text-[var(--color-textcolor)]">
+                Id
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
-                User ID
-              </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+
+              <TableHead className="text-lg text-[var(--color-textcolor)]">
                 Name
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+              <TableHead className=" text-lg text-[var(--color-textcolor)]">
                 Email
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+              <TableHead className="text-lg text-[var(--color-textcolor)]">
+                User ID
+              </TableHead>
+              <TableHead className="text-right pr-10 text-lg text-[var(--color-textcolor)]">
                 Role
               </TableHead>
             </TableRow>
@@ -84,27 +85,28 @@ export function AllUserInfo() {
             {currentUsers.map((user, index) => (
               <TableRow
                 key={user._id}
-                className={`hover:bg-gray-200 hover:text-gray-700 ${
+                className={`hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] ${
                   index % 2 === 0
-                    ? " bg-[var(--color-oddcolor)]"
+                    ? "bg-[var(--color-oddcolor)]"
                     : "bg-[var(--color-evencolor)]"
                 }`}
               >
-                <TableCell className="px-6 py-5 font-medium">
+                <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px]">
                   {index + 1 + offset}
                 </TableCell>
+
+                <TableCell className="text-[16px]">{user.name}</TableCell>
+                <TableCell className="text-[16px]">{user.email}</TableCell>
                 <TableCell
-                  className="px-2 sm:px-4 py-5 truncate cursor-pointer"
+                  className="text-[16px]"
                   onClick={() => handleToggleUid(user._id)}
                 >
                   {expandedUids[user._id]
                     ? user.uid
-                    : `${user.uid.slice(0, 5)}...`}
+                    : `${user.uid.slice(0, 8)}...`}
                 </TableCell>
-                <TableCell className="px-6 py-5">{user.name}</TableCell>
-                <TableCell className="px-6 py-5 ">{user.email}</TableCell>
                 <TableCell
-                  className={`px-6 py-5 ${
+                  className={`text-right pr-10 text-[16px] ${
                     user.role === "ADMIN"
                       ? "text-cyan-300"
                       : user.role === "USER"
@@ -119,22 +121,24 @@ export function AllUserInfo() {
           </TableBody>
         </Table>
       </div>
-      <div className="mt-6 flex justify-center">
+
+      {/* Pagination Section */}
+      <div className="mt-2 flex justify-center">
         <ReactPaginate
           previousLabel={"Previous"}
           nextLabel={"Next"}
           pageCount={Math.ceil(users.length / usersPerPage)}
           onPageChange={handlePageChange}
           containerClassName="flex items-center space-x-2"
-          pageClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]"
-          previousClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]"
-          nextClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)]"
+          pageClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textsecondarycolor)]"
+          previousClassName="text-[16px] px-4 py-2 border border-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
+          nextClassName="text-[16px] px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
           activeClassName="text-white bg-[var(--color-dashboardsecondary)]"
           disabledClassName="text-gray-400 cursor-not-allowed"
         />
       </div>
     </div>
   );
-}
+};
 
 export default AllUserInfo;

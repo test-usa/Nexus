@@ -4,13 +4,13 @@ import logo from "../../public/image.png";
 const Footer = () => {
   return (
     <CommonWrapper>
-      <footer className="  bg-[var(--color-dashboardbg)] font-montserrat text-white py-16 px-8">
+      <footer className="  bg-[var(--color-dashboardbg)] font-montserrat text-[var(--color-textcolor)] py-16 px-8">
         <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16">
           <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-            <div className="text-4xl font-bold text-white mb-6">
+            <div className="text-4xl font-bold text-[var(--color-textcolor)] mb-6">
               <img src={logo} alt="" className="w-16 h-14" />
             </div>
-            <p className="text-gray-400 text-base mb-6 max-w-xs">
+            <p className="text-[var(--color-textsecondarycolor)] text-base mb-6 max-w-xs">
               Nexus - Finish your Edgenuity classes, fast.
             </p>
           </div>
@@ -20,20 +20,20 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <Link to="" smooth={true} duration={500}>
-                  <a className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-gray-400">
+                  <a className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]">
                     Features
                   </a>
                 </Link>
               </li>
               <li>
-                <a className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-gray-400">
+                <a className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]">
                   Reviews
                 </a>
               </li>
               <li>
                 <a
                   href="#"
-                  className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-gray-400"
+                  className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
                 >
                   Pricing
                 </a>
@@ -41,7 +41,7 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-gray-400"
+                  className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
                 >
                   FAQ
                 </a>
@@ -55,7 +55,7 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-gray-400"
+                  className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
                 >
                   Contact Us
                 </a>
@@ -63,7 +63,7 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-gray-400"
+                  className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
                 >
                   Terms & Conditions
                 </a>
@@ -71,7 +71,7 @@ const Footer = () => {
               <li>
                 <a
                   href="#"
-                  className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-gray-400"
+                  className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
                 >
                   Privacy Policy
                 </a>
@@ -88,7 +88,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-700 mt-12 pt-8 text-center">
-          <p className="text-gray-400 text-sm mb-4">
+          <p className="text-[var(--color-textsecondarycolor)] text-sm mb-4">
             Nexus © All rights reserved
           </p>
         </div>

@@ -13,7 +13,7 @@ const FreeKeyCard = () => {
         className="absolute inset-0 bg-black opacity-40"
         style={{ zIndex: -1 }} // This ensures the overlay stays behind the content
       ></div>
-      <div className="bg-opacity-60 p-6 rounded-lg text-center text-white w-full max-w-md">
+      <div className="bg-opacity-60 p-6 rounded text-center text-white w-full max-w-md">
         <Button
           className="relative bg-blue-500 hover:bg-blue-600 text-white font-medium px-4 py-4 rounded-[100px] shadow-[rgba(255,255,255,0.05)_0px_1px_10px_0px_inset]"
           style={{ backgroundColor: "rgba(255, 255, 255, 0.02)", opacity: 50 }}

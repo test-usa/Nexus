@@ -28,7 +28,7 @@ interface LicenseKey {
   };
 }
 
-const AllKeys: React.FC = () => {
+const AllKeys = () => {
   const [licenseKeys, setLicenseKeys] = useState<LicenseKey[]>([]);
   const [deleteKeyId, setDeleteKeyId] = useState<string | null>(null);
 
@@ -78,62 +78,68 @@ const AllKeys: React.FC = () => {
   };
 
   return (
-    <div>
-      {/*  <ToastContainer position="top-right" autoClose={3000} /> */}
-      <div className="p-6 lg:p-8 min-h-screen -mt-10 text-[var(--color-textcolor)] ">
-        <h1 className="text-2xl font-medium tracking-wide mb-5 mt-5">
-          All User Information
-        </h1>
-        <div className="rounded-lg shadow-lg overflow-hidden ">
-          <Table>
-            <TableHeader className="bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]">
-              <TableRow className="text-sm font-semibold tracking-wide">
-                <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+    <div className="pl-12 pr-12 pt-12 -sm:pr-5 ">
+      <h1 className="text-2xl font-medium tracking-wide mb-5 mt-4 text-[var(--color-textcolor)]">
+        All Subscription Key
+      </h1>
+      <div className="overflow-x-auto text-[var(--color-textsecondarycolor)]">
+        <div className="w-full overflow-x-scroll sm:overflow-x-hidden">
+          <Table className="rounded-sm shadow-lg overflow-hidden min-w-max">
+            <TableHeader className="bg-[var(--color-dashboardsecondary)] ">
+              <TableRow>
+                <TableHead className="px-6 sm:px-6 py-6 w-[100px] text-lg text-[var(--color-textcolor)]">
                   Key Name
                 </TableHead>
-                <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+                <TableHead className="text-lg text-[var(--color-textcolor)]">
                   Duration (Days)
                 </TableHead>
-                <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+                <TableHead className="text-lg text-[var(--color-textcolor)]">
                   Regular Users
                 </TableHead>
-                <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
-                  Service Users
-                </TableHead>
-                <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+                <TableHead className="text-lg text-[var(--color-textcolor)]">
                   Regular Price ($)
                 </TableHead>
-                <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+                <TableHead className="text-lg text-[var(--color-textcolor)]">
+                  Service Users
+                </TableHead>
+                <TableHead className="text-lg text-[var(--color-textcolor)]">
                   Service Price ($)
                 </TableHead>
-                <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+                <TableHead className="text-right pr-10 text-lg text-[var(--color-textcolor)]">
                   Delete
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {licenseKeys.map((key) => (
+              {licenseKeys.map((key, index) => (
                 <TableRow
                   key={key._id}
-                  className="hover:bg-gray-200 hover:text-gray-700 "
+                  className={`hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] ${
+                    index % 2 === 0
+                      ? "bg-[var(--color-oddcolor)]"
+                      : "bg-[var(--color-evencolor)]"
+                  }`}
                 >
-                  <TableCell className="px-6 py-5">{key.keyName}</TableCell>
-                  <TableCell className="px-6 py-5 ">{key.duration}</TableCell>
-                  <TableCell className="px-6 py-5 ">
+                  <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px]">
+                    {key.keyName}
+                  </TableCell>
+                  <TableCell className="text-[16px]">{key.duration}</TableCell>
+                  <TableCell className="text-[16px]">
                     {key.users.regularKey}
                   </TableCell>
-
-                  <TableCell className="px-6 py-5 ">{key.duration}</TableCell>
-                  <TableCell className="px-6 py-5 ">
+                  <TableCell className="text-[16px]">
                     ${key.prices.regularKey}
                   </TableCell>
-                  <TableCell className="px-6 py-5 ">
+                  <TableCell className="text-[16px]">
+                    {key.users.serviceKey}
+                  </TableCell>
+                  <TableCell className="text-[16px]">
                     ${key.prices.serviceKey}
                   </TableCell>
-                  <TableCell className="px-6 py-5 ">
+                  <TableCell className="text-right pr-10 text-[16px]">
                     <button
                       onClick={() => setDeleteKeyId(key._id)}
-                      className="hover:bg-red-600 hover:text-white rounded-sm p-2 text-base sm:text-lg font-bold bg-red-500 transition-all"
+                      className="hover:bg-red-600 hover:text-white rounded-sm p-2 text-base sm:text-lg font-bold bg-red-700 transition-all"
                     >
                       <MdOutlineDeleteOutline />
                     </button>
@@ -147,7 +153,7 @@ const AllKeys: React.FC = () => {
 
       {deleteKeyId && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-gray-400 p-4 sm:p-6 rounded-lg w-80 sm:w-96 shadow-lg text-center">
+          <div className="bg-gray-400 p-4 sm:p-6 rounded w-80 sm:w-96 shadow-lg text-center">
             <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">
               Confirm Delete
             </h3>
@@ -157,7 +163,7 @@ const AllKeys: React.FC = () => {
             <div className="mt-3 sm:mt-4 flex justify-center gap-2 sm:gap-4">
               <button
                 onClick={handleDelete}
-                className="bg-red-500 text-white p-2 text-xs sm:text-sm rounded"
+                className="bg-red-700 text-white p-2 text-xs sm:text-sm rounded"
               >
                 Yes, Delete
               </button>

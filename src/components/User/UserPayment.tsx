@@ -20,6 +20,7 @@ interface Payment {
   transactionId: string;
   status: string;
   createdAt: string;
+  updatedAt: string;
   key: {
     keyName: string;
   };
@@ -29,25 +30,27 @@ interface Payment {
   };
 }
 
-const PaymentHistory: React.FC = () => {
+const UserPayment = () => {
+  //Move all useState hooks to  top
   const [payments, setPayments] = useState<Payment[]>([]);
-  const { data, isSuccess, isLoading } = useFetch(
-    "payment/get-all-user-payment"
-  );
+  const [currentPage, setCurrentPage] = useState(0);
   const [expandedRows, setExpandedRows] = useState<{ [key: string]: boolean }>(
     {}
   );
-  const [currentPage, setCurrentPage] = useState(0);
 
-  const paymentsPerPage = 9;
-  const offset = currentPage * paymentsPerPage;
-  const currentPayments = payments.slice(offset, offset + paymentsPerPage);
+  const { data, isSuccess, isLoading } = useFetch(
+    "payment/get-all-user-payment"
+  );
 
   useEffect(() => {
     if (isSuccess && data?.data) {
       setPayments(data.data);
     }
   }, [isSuccess, data]);
+
+  const paymentsPerPage = 9;
+  const offset = currentPage * paymentsPerPage;
+  const currentPayments = payments.slice(offset, offset + paymentsPerPage);
 
   const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected);
@@ -58,16 +61,6 @@ const PaymentHistory: React.FC = () => {
       ...prev,
       [id]: !prev[id],
     }));
-  };
-
-  // Check if a payment is within the last 24 hours
-  const isWithin24Hours = (createdAt: string) => {
-    const paymentDate = new Date(createdAt);
-    const currentDate = new Date();
-    const differenceInMilliseconds =
-      currentDate.getTime() - paymentDate.getTime();
-    const differenceInHours = differenceInMilliseconds / (1000 * 3600);
-    return differenceInHours <= 24;
   };
 
   if (isLoading) {
@@ -86,34 +79,32 @@ const PaymentHistory: React.FC = () => {
   }
 
   return (
-    <div className="p-6 lg:p-8 min-h-screen text-[var(--color-textcolor)]">
-      <h1 className="text-2xl font-medium tracking-wide mb-5 ">
-        Payment History
+    <div className="pl-12 pr-12 pt-12 -sm:pr-5 ">
+      <h1 className="text-2xl font-medium tracking-wide mb-5 mt-4 text-[var(--color-textcolor)]">
+        User Payment
       </h1>
-      <div className="rounded-lg shadow-lg overflow-x-auto">
-        <Table className="min-w-full">
-          <TableHeader className="bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]">
-            <TableRow className="text-sm font-semibold tracking-wide">
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+      <div className="overflow-x-auto text-[var(--color-textsecondarycolor)]">
+        {/* Added wrapper for scroll */}
+        <Table className="rounded-sm shadow-lg overflow-hidden">
+          <TableHeader className="bg-[var(--color-dashboardsecondary)] ">
+            <TableRow>
+              <TableHead className="px-6 sm:px-6 py-6 w-[100px] text-lg text-[var(--color-textcolor)]">
                 Key Name
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
-                User ID
+              <TableHead className="text-lg text-[var(--color-textcolor)]">
+                Tnx ID
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
-                Transaction ID
+              <TableHead className="text-lg text-[var(--color-textcolor)]">
+                Key Amount
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)] ">
-                Amount
+              <TableHead className="text-lg text-[var(--color-textcolor)]">
+                Total Price
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
-                Price
+              <TableHead className="text-right text-lg text-[var(--color-textcolor)]">
+                Update Date
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
-                Purchase Date
-              </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
-                Status
+              <TableHead className="text-right text-lg text-[var(--color-textcolor)]">
+                Purchased Act
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -122,67 +113,39 @@ const PaymentHistory: React.FC = () => {
               currentPayments.map((payment, index) => (
                 <TableRow
                   key={payment._id}
-                  className={`hover:bg-gray-200 hover:text-gray-700 ${
+                  className={`hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] ${
                     index % 2 === 0
-                      ? " bg-[var(--color-oddcolor)]"
+                      ? "bg-[var(--color-oddcolor)]"
                       : "bg-[var(--color-evencolor)]"
                   }`}
                 >
-                  <TableCell className="px-6 py-5 font-medium">
+                  <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px] ">
                     {payment.key.keyName}
                   </TableCell>
 
                   <TableCell
-                    className="px-6 py-5 font-medium cursor-pointer"
-                    onClick={() => toggleExpand(payment._id + "-userId")}
+                    className="text-[16px]"
+                    onClick={() =>
+                      toggleExpand(payment.subscriptionId + "-userId")
+                    }
                   >
-                    {expandedRows[payment._id + "-userId"]
-                      ? payment.userId
-                      : payment.userId.slice(0, 5) + "..."}
-                  </TableCell>
-
-                  <TableCell
-                    className="px-6 py-5 cursor-pointer"
-                    onClick={() => toggleExpand(payment._id + "-transactionId")}
-                  >
-                    {expandedRows[payment._id + "-transactionId"]
+                    {expandedRows[payment.subscriptionId + "-userId"]
                       ? payment.transactionId
-                      : payment.transactionId.slice(0, 5) + "..."}
+                      : `${payment.transactionId.slice(0, 5)}...`}
                   </TableCell>
 
-                  <TableCell className="px-6 py-5">
+                  <TableCell className="text-left text-[16px]">
                     {payment.keyDetails.amount}
                   </TableCell>
-                  <TableCell className="px-6 py-5">
-                    {payment.keyDetails.price}
+                  <TableCell className="text-left text-[16px]">
+                    ${payment.keyDetails.price}
                   </TableCell>
-                  <TableCell className="px-6 py-5">
+                  <TableCell className="text-right text-[16px]">
+                    {new Date(payment.updatedAt).toLocaleString()}
+                  </TableCell>
+                  <TableCell className="text-right text-[16px]">
                     {new Date(payment.createdAt).toLocaleString()}
                   </TableCell>
-                  <TableCell className="px-6 py-5">
-                    <span
-                      className={`inline-block px-3 py-1 rounded-full text-gray-800 ${
-                        payment.status === "active"
-                          ? "bg-sky-400"
-                          : payment.status === "refunded"
-                          ? "bg-blue-600"
-                          : payment.status === "cancelled"
-                          ? "bg-red-400"
-                          : "bg-gray-400"
-                      }`}
-                    >
-                      {payment.status}
-                    </span>
-                  </TableCell>
-
-                  {payment.status === "active" &&
-                    isWithin24Hours(payment.createdAt) && (
-                      <TableCell className="px-6 py-5">
-                        <button className="bg-red-500 text-white px-4 py-2 rounded-md">
-                          Cancel Order
-                        </button>
-                      </TableCell>
-                    )}
                 </TableRow>
               ))
             ) : (
@@ -199,17 +162,18 @@ const PaymentHistory: React.FC = () => {
         </Table>
       </div>
 
-      <div className="mt-6 flex justify-center">
+      {/* Pagination Section */}
+      <div className="mt-3 flex justify-center">
         <ReactPaginate
           previousLabel={"Previous"}
           nextLabel={"Next"}
           pageCount={Math.ceil(payments.length / paymentsPerPage)}
           onPageChange={handlePageChange}
           containerClassName="flex items-center space-x-2"
-          pageClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]"
-          previousClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]"
-          nextClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)]"
-          activeClassName="text-white bg-[var(--color-dashboardsecondary)]"
+          pageClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textsecondarycolor)]"
+          previousClassName=" text-[16px] px-4 py-2 border border-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
+          nextClassName="text-[16px]  px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
+          activeClassName=" text-[16px] text-white bg-[var(--color-dashboardsecondary)]"
           disabledClassName="text-gray-400 cursor-not-allowed"
         />
       </div>
@@ -217,4 +181,4 @@ const PaymentHistory: React.FC = () => {
   );
 };
 
-export default PaymentHistory;
+export default UserPayment;

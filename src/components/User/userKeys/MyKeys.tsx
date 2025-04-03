@@ -10,15 +10,21 @@ import { KeyDetailsModal } from "./ketDetailsModal";
 
 export const MyKeys = () => {
   const queryClient = useQueryClient();
+
+  // Fetch user keys from API
   const {
     data: userKeys,
     isLoading,
     isSuccess,
   } = useFetch("/user-key/all-keys-user");
+
+  // Redeem user API mutation
   const { mutate: redeemUser, isPending: isRedeeming } = useUpdate<
     any,
     RedeemUserPayload
   >("/user-key/redeem-user-key");
+
+  // Renew subscription API mutation
   const { mutate: renewSubscription, isPending: isRenewing } = usePost<
     any,
     {
@@ -28,6 +34,7 @@ export const MyKeys = () => {
     }
   >("/payment/renew-subscription");
 
+  // State management
   const [keys, setKeys] = useState<Order[]>([]);
   const [selectedKey, setSelectedKey] = useState<Order | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,12 +43,12 @@ export const MyKeys = () => {
   const [email, setEmail] = useState("");
   const [redeemError, setRedeemError] = useState("");
   const [renewError, setRenewError] = useState("");
-  console.log(userKeys);
-  // Pagination states
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
 
-  // State for showing full key
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
+
+  // Show/hide full key state
   const [showFullKey, setShowFullKey] = useState<{ [key: string]: boolean }>(
     {}
   );
@@ -52,16 +59,19 @@ export const MyKeys = () => {
     }
   }, [userKeys]);
 
+  // Pagination logic
   const totalPages = Math.ceil(keys.length / itemsPerPage);
   const paginatedKeys = keys.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
+  // Toggle key visibility
   const toggleShowFullKey = (id: string) => {
     setShowFullKey((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
+  // Copy key to clipboard
   const copyToClipboard = async (key: string) => {
     try {
       await navigator.clipboard.writeText(key);
@@ -71,6 +81,7 @@ export const MyKeys = () => {
     }
   };
 
+  // Format date
   const formatDateTime = (dateString: string) => {
     return new Date(dateString).toLocaleString("en-US", {
       year: "numeric",
@@ -82,6 +93,7 @@ export const MyKeys = () => {
     });
   };
 
+  // Determine key status
   const getKeyStatus = (expiresAt: string | null): KeyStatus => {
     if (expiresAt === null) {
       return {
@@ -105,6 +117,7 @@ export const MyKeys = () => {
         };
   };
 
+  // Open key details modal
   const showKeyDetails = async (key: Order) => {
     setSelectedKey(key);
     setIsModalOpen(true);
@@ -120,6 +133,7 @@ export const MyKeys = () => {
     }
   };
 
+  // Handle renew subscription
   const handleRenewKey = async (keyId: string) => {
     setRenewError("");
     const keyToRenew = keys.find((key) => key._id === keyId);
@@ -162,6 +176,7 @@ export const MyKeys = () => {
     );
   };
 
+  // Handle redeem new user
   const handleRedeemNewUser = async () => {
     if (!selectedKey) return;
 
@@ -213,18 +228,14 @@ export const MyKeys = () => {
   };
 
   return (
-    <div className=" p-6">
-      <div className="max-w-8xl bg-white p-8">
-        <h2 className="text-2xl font-medium tracking-wide text-gray-700 mb-6">
-          My Keys
-        </h2>
-
+    <div className="">
+      <div className="">
         {isLoading ? (
-          <div className="text-center text-gray-600">Loading orders...</div>
+          <div className="text-center text-gray-600">Loading keys...</div>
         ) : !isSuccess ? (
           <div className="text-center text-red-600">Something went wrong</div>
         ) : keys.length === 0 ? (
-          <div className="text-center text-gray-600">You have no orders.</div>
+          <div className="text-center text-gray-600">You have no keys.</div>
         ) : (
           <KeyTable
             keys={paginatedKeys}

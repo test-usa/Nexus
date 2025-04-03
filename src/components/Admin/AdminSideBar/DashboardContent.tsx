@@ -9,6 +9,10 @@ import {
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import useFetch from "@/hooks/shared/useFetch";
+import { MdPayments } from "react-icons/md";
+import { FaUsersRectangle } from "react-icons/fa6";
+import { VscLayersActive } from "react-icons/vsc";
+import { motion } from "framer-motion";
 
 interface User {
   _id: string;
@@ -25,7 +29,7 @@ interface Payment {
   date: string;
 }
 
-export function DashboardContent() {
+const DashboardContent = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [payments, setPayments] = useState<Payment[]>([]); // For storing payment data
   const [error, setError] = useState<string | null>(null);
@@ -49,7 +53,7 @@ export function DashboardContent() {
     useFetch("/user-key/all-key");
 
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const usersPerPage = 8;
+  const usersPerPage = 6;
 
   // Handle users data
   useEffect(() => {
@@ -89,46 +93,93 @@ export function DashboardContent() {
   const currentUsers = users.slice(offset, offset + usersPerPage);
 
   return (
-    <div className="p-6 lg:p-8 sm:mt-10 sb:mt-0 min-h-screen  text-[var(--color-textcolor)]">
-      <h1 className="text-2xl font-medium tracking-wide  mb-5 mt-5  xs:mt-40">
+    <div className="pl-12 pr-12 pt-12 -sm:pr-5 ">
+      <h1 className="text-2xl ml-5 font-medium tracking-wide mb-5 mt-5 text-[var(--color-textcolor)]">
         Dashboard Overview
       </h1>
+      <div className=" pl-5 pr-5 overflow-x-auto text-[var(--color-textsecondarycolor)]">
+        <div className="mb-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/*  */}
+          {/* Users Card */}
+          <motion.div
+            className="mt-5 rounded p-6 bg-[var(--color-dashboardsecondary)] transition-all duration-300 transform"
+            whileHover={{
+              boxShadow: "0 0 15px rgba(0, 123, 255, 0.7)", // Blue glowing shadow
+              border: "2px solid rgba(0, 123, 255, 0.7)", // Blue border
+              transition: { duration: 0.3 }, // Smooth transition
+            }}
+          >
+            <div className="flex justify-between items-center">
+              <div>
+                <FaUsersRectangle className="my-5 text-6xl" />
+              </div>
+              <div>
+                <div className="text-5xl font-bold">{users.length}</div>
+                <p className="mt-2 text-sm uppercase font-bold">All Users</p>
+              </div>
+            </div>
+          </motion.div>
 
-      <div className="mb-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Users Count */}
-        <div className="rounded-lg bg-[var(--color-dashboardsecondary)] p-6 hover:bg-gray-500 hover:text-white transition-colors">
-          <div className="text-5xl font-bold">{users.length}</div>
-          <p className="mt-2 text-sm">All User</p>
+          {/* Payments Count */}
+          <motion.div
+            className="mt-5 rounded p-6 bg-[var(--color-dashboardsecondary)] transition-all duration-300 transform"
+            whileHover={{
+              boxShadow: "0 0 15px rgba(0, 123, 255, 0.7)", // Blue glowing shadow
+              border: "2px solid rgba(0, 123, 255, 0.7)", // Blue border
+              transition: { duration: 0.3 }, // Smooth transition
+            }}
+          >
+            <div className="flex justify-between items-center">
+              <div>
+                <MdPayments className="my-5 text-6xl" />
+              </div>
+              <div>
+                <div className="text-5xl font-bold">{payments.length}</div>
+                <p className="mt-2 text-sm uppercase font-bold">All Payments</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Active User List */}
+          <motion.div
+            className="mt-5 rounded p-6 border-transparent bg-[var(--color-dashboardsecondary)] transition-all duration-300 transform"
+            whileHover={{
+              boxShadow: "0 0 15px rgba(0, 123, 255, 0.7)", // Blue glowing shadow
+              border: "2px solid rgba(0, 123, 255, 0.7)", // Blue border
+              transition: { duration: 0.3 }, // Smooth transition
+            }}
+          >
+            <div className="flex justify-between items-center">
+              <div>
+                <VscLayersActive className="my-5 text-6xl" />
+              </div>
+              <div>
+                <div className="text-5xl font-bold">
+                  {activedata?.length || 10}
+                </div>
+                <p className="mt-2 text-sm uppercase font-bold">
+                  Active User List
+                </p>
+              </div>
+            </div>
+          </motion.div>
         </div>
-
-        {/* Payments Count */}
-        <div className="rounded-lg bg-[var(--color-dashboardsecondary)] p-6 hover:bg-gray-500 hover:text-white transition-colors">
-          <div className="text-5xl font-bold">{payments.length}</div>
-          <p className="mt-2 text-sm">Payment List</p>
-        </div>
-
-        {/* Completed User List */}
-        <div className="rounded-lg bg-[var(--color-dashboardsecondary)] p-6 hover:bg-gray-500 hover:text-white transition-colors">
-          <div className="text-5xl font-bold">{activedata?.length || 10}</div>
-          <p className="mt-2 text-sm">Active User List</p>
-        </div>
-      </div>
-
-      {/* Users Table */}
-      <div className="rounded-lg shadow-lg overflow-hidden ">
-        <Table>
-          <TableHeader className="bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]">
-            <TableRow className="text-sm font-semibold  tracking-wide">
-              <TableHead className=" px-6 py-6 text-left text-[var(--color-textcolor)] ">
-                ID
+        {/* Added wrapper for scroll */}
+        <Table className=" rounded-sm shadow-lg overflow-hidden">
+          <TableHeader className="bg-[var(--color-dashboardsecondary)] ">
+            <TableRow>
+              <TableHead className=" px-6 sm:px-6 py-6 w-[100px] text-lg text-[var(--color-textcolor)]">
+                Id
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+
+              <TableHead className=" text-lg text-[var(--color-textcolor)]">
                 Name
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+              <TableHead className=" text-lg  text-[var(--color-textcolor)]">
                 Email
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+
+              <TableHead className="text-right text-lg pr-10  text-[var(--color-textcolor)]">
                 Role
               </TableHead>
             </TableRow>
@@ -137,19 +188,21 @@ export function DashboardContent() {
             {currentUsers.map((user, index) => (
               <TableRow
                 key={user._id}
-                className={`hover:bg-gray-200 hover:text-gray-700 ${
+                className={`hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] ${
                   index % 2 === 0
-                    ? " bg-[var(--color-oddcolor)]"
+                    ? "bg-[var(--color-oddcolor)]"
                     : "bg-[var(--color-evencolor)]"
                 }`}
               >
-                <TableCell className="px-6 py-5 font-medium">
+                <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px]">
                   {index + 1 + offset}
                 </TableCell>
-                <TableCell className="px-6 py-4">{user.name}</TableCell>
-                <TableCell className="px-6 py-4 ">{user.email}</TableCell>
+
+                <TableCell className="text-[16px]">{user.name}</TableCell>
+                <TableCell className="text-[16px]">{user.email}</TableCell>
+
                 <TableCell
-                  className={`px-6 py-4 ${
+                  className={`text-right pr-10 text-[16px] ${
                     user.role === "ADMIN"
                       ? "text-cyan-300"
                       : user.role === "USER"
@@ -165,7 +218,7 @@ export function DashboardContent() {
         </Table>
       </div>
 
-      {/* Pagination for Users */}
+      {/* Pagination Section */}
       <div className="mt-6 flex justify-center">
         <ReactPaginate
           previousLabel={"Previous"}
@@ -173,15 +226,14 @@ export function DashboardContent() {
           pageCount={Math.ceil(users.length / usersPerPage)}
           onPageChange={handlePageChange}
           containerClassName="flex items-center space-x-2"
-          pageClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]"
-          previousClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]"
-          nextClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)]"
+          pageClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textsecondarycolor)]"
+          previousClassName=" text-[16px] px-4 py-2  border border-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
+          nextClassName="text-[16px] px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
           activeClassName="text-white bg-[var(--color-dashboardsecondary)]"
           disabledClassName="text-gray-400 cursor-not-allowed"
         />
       </div>
     </div>
   );
-}
-
+};
 export default DashboardContent;

@@ -3,10 +3,12 @@ import { CiSettings } from "react-icons/ci";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { Element, Link } from "react-scroll";
-import Video from "../Video";
 import { gsap } from "gsap";
 import MainLogo from "../../../../public/mainLogo.png";
 import { cn } from "@/lib/utils";
+import Video from "@/components/Home/Video";
+
+
 const Banner = () => {
   const [service, setService] = useState([]);
   const [toggle, setToggle] = useState<boolean>(false);
@@ -53,21 +55,21 @@ const Banner = () => {
   return (
     <Element name="banner" className="font-montserrat">
       <CommonWrapper>
-        <div className="mt-60">
+        <div className="xl:mt-60 mt-24">
           <div className="flex group items-center justify-between">
             {/**** TEXT SECTION ****/}
             <div className="space-y-5 w-3/4 mx-auto lg:mx-0  lg:text-start text-center">
               <h1
                 className="text-4xl sm:text-5xl
                  inline-block
-               text-[#CFF2FB]"
+               text-[var(--color-textcolor)]"
               >
                 <span className=" text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8]">
                   ExoBot
                 </span>{" "}
                 Fastest Edgenuity Bot.
               </h1>
-              <p className=" w-5/6 sm:w-2/3 lg:mx-0 mx-auto text-sm sm:text-[16px] text-gray-500 ">
+              <p className=" w-5/6 sm:w-2/3 lg:mx-0 mx-auto text-sm sm:text-[16px] text-[var(--color-textsecondarycolor)]">
                 ExoBot is your ultimate companion for online learning,
                 turbocharging your Edgenuity experience by helping you breeze
                 through courses faster and master the material with ease.

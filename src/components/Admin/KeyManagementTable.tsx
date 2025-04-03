@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
 import {
   Table,
   TableBody,
@@ -8,6 +6,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
+import { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
+
 import { Badge } from "@/components/ui/badge";
 import { Loader } from "lucide-react";
 import useFetch from "@/hooks/shared/useFetch";
@@ -54,37 +56,38 @@ const KeyManagement = () => {
     return (
       <div className="flex justify-center items-center h-screen">
         <Loader className="animate-spin w-6 h-6" />
-        <span className="ml-2">Loading keys...</span>
+        <span className="ml-2">Loading keys data</span>
       </div>
     );
   }
 
   if (!isSuccess) {
-    return <div className="text-red-500">Failed to load keys.</div>;
+    return <div className="text-red-500">Failed to keys.</div>;
   }
-
   return (
-    <div className="p-6 lg:p-8 min-h-screen -mt-10 text-[var(--color-textcolor)] ">
-      <h1 className="text-2xl font-medium tracking-wide mb-5 mt-5">
+    <div className="pl-12 pr-12 pt-12 -sm:pr-5 ">
+      <h1 className="text-2xl font-medium tracking-wide mb-5 mt-4 text-[var(--color-textcolor)]">
         All User Keys
       </h1>
-      <div className="rounded-lg shadow-lg overflow-hidden ">
-        <Table>
-          <TableHeader className="bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]">
-            <TableRow className="text-sm font-semibold tracking-wide">
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+      <div className="overflow-x-auto text-[var(--color-textsecondarycolor)]">
+        {" "}
+        {/* Added wrapper for scroll */}
+        <Table className="rounded-sm shadow-lg overflow-hidden ">
+          <TableHeader className="bg-[var(--color-dashboardsecondary)] ">
+            <TableRow>
+              <TableHead className="px-6 sm:px-6 py-6 w-[100px] text-lg text-[var(--color-textcolor)]">
                 No
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+              <TableHead className="text-lg text-[var(--color-textcolor)]">
                 Key
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
-                Expiry
+              <TableHead className="text-lg text-[var(--color-textcolor)]">
+                Expiry Date
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
-                Created At
+              <TableHead className="text-right text-lg text-[var(--color-textcolor)]">
+                Created Date
               </TableHead>
-              <TableHead className="px-6 py-6 text-left text-[var(--color-textcolor)]">
+              <TableHead className="text-right pr-10 text-lg text-[var(--color-textcolor)]">
                 Status
               </TableHead>
             </TableRow>
@@ -93,42 +96,36 @@ const KeyManagement = () => {
             {currentKeys.map((keyItem: any, index) => (
               <TableRow
                 key={index}
-                className={`hover:bg-gray-200 hover:text-gray-700 ${
+                className={`hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] ${
                   index % 2 === 0
-                    ? " bg-[var(--color-oddcolor)]"
+                    ? "bg-[var(--color-oddcolor)]"
                     : "bg-[var(--color-evencolor)]"
                 }`}
               >
-                <TableCell className="px-6 py-5 font-medium">
+                <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px]">
                   {index + 1 + offset}
                 </TableCell>
                 <TableCell
-                  className="px-2 sm:px-4 py-5 truncate cursor-pointer"
+                  className="text-[16px]"
                   onClick={() => toggleReveal(index)}
                 >
                   {revealedKeys[index]
                     ? keyItem.key
-                    : `${keyItem.key.slice(0, 18)}...`}
+                    : `${keyItem.key.slice(0, 6)}...`}
                 </TableCell>
-                <TableCell className="px-6 py-5">
+                <TableCell className="text-[16px]">
                   {keyItem.expiresAt === null
                     ? "N/A"
                     : keyItem.expiresAt === "Livetime"
                     ? "Life time"
-                    : keyItem.expiresAt}
+                    : new Date(keyItem.createdAt).toLocaleString()}
                 </TableCell>
-                <TableCell className="px-6 py-5 ">
-                  {" "}
+                <TableCell className="text-right text-[16px]">
                   {new Date(keyItem.createdAt).toLocaleString()}
                 </TableCell>
-                <TableCell className="px-6 py-5 ">
+                <TableCell className="text-right text-[16px]">
                   <Badge
-                    // variant={
-
-                    //     ? "default"
-                    //     : "destructive"
-                    // }
-                    className={`capitalize px-3 py-1 text-sm font-medium text-black ${
+                    className={`capitalize px-3 py-1 text-sm font-medium text-black pr-10 ${
                       keyItem.expiresAt === null
                         ? "bg-gray-400"
                         : "bg-green-400"
@@ -142,17 +139,19 @@ const KeyManagement = () => {
           </TableBody>
         </Table>
       </div>
-      <div className="mt-9 flex justify-center">
+
+      {/* Pagination Section */}
+      <div className="mt-3 flex justify-center">
         <ReactPaginate
           previousLabel={"Previous"}
           nextLabel={"Next"}
           pageCount={Math.ceil(keys.length / keysPerPage)}
           onPageChange={handlePageChange}
           containerClassName="flex items-center space-x-2"
-          pageClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]"
-          previousClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)]"
-          nextClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)]"
-          activeClassName="text-white bg-[var(--color-dashboardsecondary)]"
+          pageClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textsecondarycolor)]"
+          previousClassName=" text-[16px] px-4 py-2 border border-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
+          nextClassName="text-[16px]  px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
+          activeClassName=" text-[16px] text-white bg-[var(--color-dashboardsecondary)]"
           disabledClassName="text-gray-400 cursor-not-allowed"
         />
       </div>
