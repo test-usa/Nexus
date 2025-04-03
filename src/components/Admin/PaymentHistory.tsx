@@ -70,9 +70,7 @@ const PaymentHistory = () => {
   }
 
   if (data?.error) {
-    return (
-      <div className="text-red-500">Failed to load payments: {data.error}</div>
-    );
+    return <div className="text-red-500">Failed to payments: {data.error}</div>;
   }
 
   return (
