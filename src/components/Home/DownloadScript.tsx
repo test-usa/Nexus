@@ -28,7 +28,7 @@ const DownloadScript = () => {
 
   return (
    
-       <div className="bg-[var(--color-dashboardbg)] mt-20">
+       <div className="bg-[var(--color-dashboardbg)] pt-24">
       <Title title="Download Install...  " subtitle="" />
       <div className="flex flex-col items-center justify-center">
         <a

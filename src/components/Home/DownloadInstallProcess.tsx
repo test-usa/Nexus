@@ -1,11 +1,13 @@
 import { IoArrowRedoCircleOutline } from "react-icons/io5";
-
+import DownloadScript from "./DownloadScript";
 import Title from "./Shared/Title";
-import DownloadScript from "../DownloadScript";
+import CommonWrapper from "@/wrapper/CommonWrapper";
+
+
 
 const DownloadInstallProcess = () => {
   return (
-    <div>
+    <CommonWrapper>
       <DownloadScript/>
        <div className="bg-[var(--color-dashboardbg)] min-h-screen ">
       {/* Process of Installation  */}
@@ -114,7 +116,7 @@ const DownloadInstallProcess = () => {
         </div>
       </div>
     </div>
-    </div>
+    </CommonWrapper>
    
   );
 };
