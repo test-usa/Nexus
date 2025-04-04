@@ -44,7 +44,7 @@ const BuyingPage = () => {
   } = usePost<
     { url: string },
     { key: string | undefined; amount: number; keyType: string }
-  >("/payment/subscribe");
+  >("/payment/create-purchase-link");
 
   //**** ALL KEYS DATA ****/
   const { data = [] } = useFetch(`/key/all-key`);
