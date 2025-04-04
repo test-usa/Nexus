@@ -6,8 +6,6 @@ import usePost from "@/hooks/shared/usePost";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import MainLogo from "../../public/mainLogo.png";
-import { Link } from "react-router-dom";
 
 type TSinglePriceData = {
   prices: {
@@ -120,7 +118,7 @@ const BuyingPage = () => {
           <img
             src="https://i.postimg.cc/zfCvqNvy/exoduspro.png"
             alt="logo"
-            className=" max-h-[400px]  h-auto"
+            className="max-h-[400px] h-auto"
           />
         </div>
 

@@ -165,10 +165,10 @@ const routes = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "/signup",
-    element: <SignUp />,
-  },
+  // {
+  //   path: "/signup",
+  //   element: <SignUp />,
+  // },
   {
     path: "/signin",
     element: <SignIn />,

@@ -18,7 +18,7 @@ export function FrequentlyAsk() {
     <Element name="FAQ" className="mt-10">
       <Title
         title="Frequently Asked Questions"
-        subtitle="Get quick answers to the most common questions about Nexus."
+        subtitle="Get quick answers to the most common questions about Exbot."
       />
       <div className="max-w-2xl mx-auto p-6 border-1 border-[#292727] rounded mt-5 mb-5">
         <Accordion type="single" collapsible className="w-full">
