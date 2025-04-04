@@ -34,25 +34,30 @@ const Navbar = () => {
               to="/"
               className="max-w-16 cursor-pointer hidden md:block "
             >
-              <img src="https://i.postimg.cc/zfCvqNvy/exoduspro.png" alt="logo" />
+              <img
+                src="https://i.postimg.cc/zfCvqNvy/exoduspro.png"
+                alt="logo"
+              />
             </NavLink>
             {/***** NAVIGATIONBAR START *****/}
             <div className="md:flex items-center lg:gap-x-8 gap-x-6 text-[var(--color-textsecondarycolor)] hidden">
               {/* // All other links are ScrollLink */}
-              <ScrollLink
-                smooth
-                duration={1200}
-                to="Feature"
-                className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-                activeClass="text-green-400 font-bold"
-              >
-                Feature
-              </ScrollLink>
+              
+                  <ScrollLink
+                    smooth
+                    duration={1200}
+                    to="Feature"
+                    className="hover:text-[var(--color-textcolor)] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                    activeClass="text-green-400 font-bold"
+                  >
+                    Feature
+                  </ScrollLink>
+
               <ScrollLink
                 smooth
                 duration={1200}
                 to="Review"
-                className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                className="hover:text-[var(--color-textcolor)] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
               >
                 Review
               </ScrollLink>
@@ -60,7 +65,7 @@ const Navbar = () => {
                 smooth
                 duration={1200}
                 to="Pricing"
-                className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                className="hover:text-[var(--color-textcolor)] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
               >
                 Purchase
               </ScrollLink> */}
@@ -69,42 +74,34 @@ const Navbar = () => {
                 smooth
                 duration={1200}
                 to="FAQ"
-                className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                className="hover:text-[var(--color-textcolor)] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                 activeClass="text-green-400 font-bold"
               >
                 FAQ
               </ScrollLink>
               <NavLink
                 to="/download"
-                className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                className="hover:text-[var(--color-textcolor)] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
               >
                 Download
               </NavLink>
               <NavLink
                 to="/troubleshoot"
-                className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                className="hover:text-[var(--color-textcolor)] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
               >
                 Troubleshoot
               </NavLink>
               {user && (user as { role: string }).role === "ADMIN" && (
                 <NavLink
                   to="/admin"
-                  className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-                >
-                  Dashboard
-                </NavLink>
-              )}
-              {user && (user as { role: string }).role === "USER" && (
-                <NavLink
-                  to="/user"
-                  className="hover:text-white cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                  className="hover:text-[var(--color-textcolor)] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                 >
                   Dashboard
                 </NavLink>
               )}
               <NavLink
                 to="Support"
-                className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                className="hover:text-[var(--color-textcolor)] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
               >
                 Support
               </NavLink>
@@ -116,24 +113,36 @@ const Navbar = () => {
                 smooth
                 duration={1200}
                 to="Pricing"
-                className="flex items-center gap-x-2 hover:text-[var(--color-textcolor)] transition-all ease-in-out duration-500 bg-slate-800 hover:bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] cursor-pointer py-2 px-2 xl:px-4 text-sm xl:text-[16px] border border-gray-600 rounded transform hover:scale-105"
+                className="flex items-center gap-x-2 text-[var(--color-textcolor)] transform transition-all duration-300 
+                bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] cursor-pointer py-2 px-2 xl:px-4 text-sm xl:text-[16px] 
+                border border-transparent hover:border-[#CDADFA] 
+                hover:bg-transparent hover:shadow-sm hover:shadow-[#CDADFA] rounded"
               >
                 <FaOpencart />
                 Purchase
               </ScrollLink>
+
               {user && token ? (
                 <button
                   onClick={() => logout_user()}
-                  className="bg-slate-800 hover:text-[var(--color-textcolor)] transition-all ease-in-out duration-500 cursor-pointer py-2 px-2 xl:px-4 text-sm xl:text-[16px] border border-gray-700 rounded hover:bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] transform hover:scale-105"
+                  className="text-[var(--color-textcolor)] transform transition-all duration-300 cursor-pointer 
+                py-2 px-2 xl:px-4 text-sm xl:text-[16px] 
+                border border-transparent hover:border-[#CDADFA] 
+                hover:bg-transparent hover:shadow-sm hover:shadow-[#CDADFA] rounded
+                bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] "
                 >
                   Sign out
                 </button>
               ) : (
                 <NavLink
-                  to="/signup"
-                  className="bg-slate-800 hover:text-[var(--color-textcolor)] translate transition-all ease-in-out duration-500 cursor-pointer py-2 px-2 xl:px-4 text-sm xl:text-[16px] border border-gray-700 rounded hover:bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] transform hover:scale-105"
+                  to="/signin"
+                  className="text-[var(--color-textcolor)] transform transition-all duration-300 cursor-pointer 
+                  py-2 px-2 xl:px-4 text-sm xl:text-[16px] 
+                  border border-transparent hover:border-[#CDADFA] 
+                hover:bg-transparent hover:shadow-sm hover:shadow-[#CDADFA] rounded
+                  bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB]"
                 >
-                  Signup
+                  Signin
                 </NavLink>
               )}
             </div>
@@ -256,10 +265,10 @@ const Navbar = () => {
                 </button>
               ) : (
                 <NavLink
-                  to="/signup"
+                  to="/signin"
                   className="text-gray-400 cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                 >
-                  Signup
+                  Signin
                 </NavLink>
               )}
             </div>

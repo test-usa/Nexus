@@ -5,7 +5,6 @@ import AdminLayout from "@/layout/AdminLayout";
 import App from "@/pages/App";
 import Home from "@/pages/Home";
 import SignIn from "@/pages/SignIn";
-import SignUp from "@/pages/SignUp";
 import { createBrowserRouter } from "react-router-dom";
 import PaymentHistory from "@/components/Admin/PaymentHistory";
 import UserLayout from "@/layout/UserLayout";
@@ -172,10 +171,10 @@ const routes = createBrowserRouter([
       },
     ],
   },
-  {
-    path: "/signup",
-    element: <SignUp />,
-  },
+  // {
+  //   path: "/signup",
+  //   element: <SignUp />,
+  // },
   {
     path: "/signin",
     element: <SignIn />,

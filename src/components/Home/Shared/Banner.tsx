@@ -77,13 +77,13 @@ const Banner = () => {
                   smooth
                   duration={1200}
                   to="Pricing"
-                  className="relative inline-block hover:shadow-lg hover:shadow-[#CDADFA] overflow-hidden  cursor-pointer text-white text-xs sm:text-sm rounded bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] py-2.5 px-4 sm:py-3 sm:px-5 transform transition-all duration-300 shadow-md border border-transparent hover:border-white/50"
+                  className="relative inline-block hover:shadow-sm hover:shadow-[#CDADFA] overflow-hidden  cursor-pointer text-white text-xs sm:text-sm rounded bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] py-2.5 px-4 sm:py-3 sm:px-5 transform transition-all duration-300 shadow-md border border-transparent hover:border-[#CDADFA] "
                 >
                   Purchase Now
                 </Link>
-                <button
+                <button 
                   onClick={() => setToggle(!toggle)}
-                  className="relative inline-block hover:shadow-lg hover:shadow-[#CDADFA] overflow-hidden  cursor-pointer text-white text-xs sm:text-sm rounded bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] py-2.5 px-4 sm:py-3 sm:px-5 transform transition-all duration-300 shadow-md border border-transparent hover:border-white/50"
+                  className="relative inline-block hover:shadow-sm hover:shadow-[#CDADFA] overflow-hidden hover:border-[#CDADFA]  cursor-pointer text-white text-xs sm:text-sm rounded bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] py-2.5 px-4 sm:py-3 sm:px-5 transform transition-all duration-300 shadow-md border border-transparent "
                 >
                   Quick setup
                 </button>
@@ -91,7 +91,7 @@ const Banner = () => {
             </div>
 
             {/**** BANNER CARD SECTION ****/}
-            <div className="feature-card backdrop-blur-2xl w-1/3 lg:block hidden border border-white/20 rounded-lg p-4  group-hover:border-cyan-500 transform translate-all duration-200  group-hover:-rotate-z-3 -skew-y-2 group-hover:shadow-lg group-hover:drop-shadow-lg group-hover:shadow-cyan-700 bg-[#CDADFA] max-h-[450px]">
+            <div className="feature-card backdrop-blur-2xl w-1/3 lg:block hidden border border-white/20 rounded-lg p-4  group-hover:border-cyan-500 transform translate-all duration-200  group-hover:-rotate-z-3 -skew-y-2 group-hover:shadow-lg group-hover:drop-shadow-lg  bg-[#CDADFA] max-h-[450px]">
               <div className="flex items-center gap-x-2">
                 <img
                   src="https://i.postimg.cc/zfCvqNvy/exoduspro.png"
