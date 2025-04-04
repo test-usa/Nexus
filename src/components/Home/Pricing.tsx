@@ -35,10 +35,10 @@ const Pricing = () => {
             return (
               <div
                 key={price?._id}
-                className={`rounded-[var(--radius-card)] hover:border-[1px] hover:border-cyan-600 min-w-[280px] relative sm:max-w-full border border-gray-700 shadow-lg hover:shadow-gray-500 space-y-3 p-5 transform transition duration-500`}
+                className={`rounded-[var(--radius-card)] hover:border-[1px] hover:hover:border-[#CDADFA]  min-w-[280px] relative sm:max-w-full border border-gray-700 shadow-sm hover:shadow-[#CDADFA]  space-y-3 p-5 transform transition duration-500`}
               >
                 {price?.badge && (
-                  <p className="absolute right-1.5 -top-3.5 rounded-lg bg-gradient-to-bl from-sky-600 via-gray-600 to-green-800 py-2 px-3 text-xs sm:text-sm text-[var(--color-textcolor)]">
+                  <p className="absolute right-1.5 -top-3.5 rounded bg-gradient-to-bl from-sky-600 via-gray-600 to-green-800 py-2 px-3 text-xs sm:text-sm text-[var(--color-textcolor)]">
                     {price?.badge}
                   </p>
                 )}
@@ -55,7 +55,7 @@ const Pricing = () => {
                 </p>
                 <Link
                   to={`/buy/${price._id}`}
-                  className="w-full cursor-pointer hover:-rotate-z-1 bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] text-[var(--color-textcolor)] py-2 inline-block text-center rounded-lg text-sm sm:text-[16px]"
+                  className="w-full cursor-pointer hover:-rotate-z-1 bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] text-[var(--color-textcolor)] py-2 inline-block text-center rounded text-sm sm:text-[16px]"
                 >
                   Purchase Now
                 </Link>
