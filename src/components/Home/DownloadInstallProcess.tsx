@@ -1,8 +1,8 @@
 import { IoArrowRedoCircleOutline } from "react-icons/io5";
 
 import Title from "./Shared/Title";
-import CommonWrapper from "@/wrapper/CommonWrapper";
 import DownloadScript from "./DownloadScript";
+import CommonWrapper from "@/wrapper/CommonWrapper";
 
 const DownloadInstallProcess = () => {
   return (
@@ -15,7 +15,7 @@ const DownloadInstallProcess = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* bg-[var(--color-dashboardsecondary)] rounded shadow-lg */}
-            <div className="p-6  border-l border-gray-700 pl-2">
+            <div className="p-6  border-l border-gray-700 pl-4">
               <h3 className="text-2xl font-semibold mb-3 text-[var(--color-textcolor)]">
                 Step 1: Install Tampermonkey:
               </h3>
@@ -30,7 +30,7 @@ const DownloadInstallProcess = () => {
                 EdgyPro.
               </p>
             </div>
-            <div className="p-6 border-l border-gray-600 pl-2">
+            <div className="p-6 border-l border-gray-600 pl-4">
               <h3 className="text-2xl font-semibold mb-3 text-[var(--color-textcolor)]">
                 Step 2: Enable Developer Mode:
               </h3>
@@ -78,7 +78,7 @@ const DownloadInstallProcess = () => {
                 </p>
               </div>
             </div>
-            <div className="p-6 border-l border-gray-600 pl-2">
+            <div className="p-6 border-l border-gray-600 pl-4">
               <h3 className="text-2xl font-semibold mb-3 text-[var(--color-textcolor)]">
                 Step 3: Access the Tampermonkey Dashboard:
               </h3>
@@ -87,7 +87,7 @@ const DownloadInstallProcess = () => {
                 dropdown.
               </p>
             </div>
-            <div className="p-6 border-l border-gray-600 pl-2">
+            <div className="p-6 border-l border-gray-600 pl-4">
               <h3 className="text-2xl font-semibold mb-3 text-[var(--color-textcolor)]">
                 Step 4: Add the EdgyPro Script:
               </h3>
@@ -97,7 +97,7 @@ const DownloadInstallProcess = () => {
                 that you've downloaded.
               </p>
             </div>
-            <div className="p-6 border-l border-gray-600 pl-2">
+            <div className="p-6 border-l border-gray-600 pl-4">
               <h3 className="text-2xl font-semibold mb-3 text-[var(--color-textcolor)]">
                 Step 5: Activate EdgyPro:
               </h3>

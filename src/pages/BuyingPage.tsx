@@ -118,9 +118,9 @@ const BuyingPage = () => {
         {/**** IMAGE SECTION ****/}
         <div className=" rounded-2xl flex items-center justify-center w-full max-h-[400px]">
           <img
-            src={MainLogo}
+            src="https://i.postimg.cc/zfCvqNvy/exoduspro.png"
             alt="logo"
-            className=" max-h-[400px] w-full h-auto rounded-lg "
+            className=" max-h-[400px]  h-auto"
           />
         </div>
 

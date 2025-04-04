@@ -14,7 +14,7 @@ const Video = ({
       {isModalOpen && (
         <div className="fixed inset-0 flex justify-center items-center bg-black/70 backdrop-blur-lg z-50">
           {/* Video Container */}
-          <div className="relative w-[90%] max-w-4xl aspect-video bg-black rounded-2xl overflow-hidden">
+          <div className="relative w-[90%] max-w-4xl aspect-video  rounded-2xl overflow-hidden">
             <iframe
               width="100%"
               height="100%"
@@ -28,7 +28,7 @@ const Video = ({
             {/* Close Button */}
             <button
               onClick={() => setModalOpen(!isModalOpen)}
-              className="absolute cursor-pointer top-1 right-1 bg-white text-black p-2 rounded-full shadow-lg hover:bg-gray-300 transition"
+              className="absolute cursor-pointer top-1 right-1 bg-[var(--color-textcolor)] text-black p-2 rounded-full shadow-lg transition"
             >
               <X />
             </button>

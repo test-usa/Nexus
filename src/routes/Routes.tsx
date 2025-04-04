@@ -19,7 +19,6 @@ import PrivateRoute from "./PrivateRoute";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import Purchase from "@/pages/Purchase";
 import PaymentSuccess from "@/pages/paymentSucces";
-
 import Success from "@/pages/Success";
 import DownloadInstallProcess from "@/components/Home/DownloadInstallProcess";
 import Troubleshoot from "@/components/Home/Troubleshoot";
