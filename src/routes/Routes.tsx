@@ -24,9 +24,6 @@ import DownloadInstallProcess from "@/components/Home/DownloadInstallProcess";
 import Troubleshoot from "@/components/Home/Troubleshoot";
 
 
-
-
-
 const routes = createBrowserRouter([
   {
     path: "/",

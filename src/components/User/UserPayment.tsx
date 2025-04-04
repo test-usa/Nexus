@@ -79,7 +79,7 @@ const UserPayment = () => {
   }
 
   return (
-    <div className="pl-12 pr-12 pt-12 -sm:pr-5 ">
+    <div className="pl-12 pr-12 pt-12 -sm:pr-5 min-h-screen ">
       <h1 className="text-2xl font-medium tracking-wide mb-5 mt-4 text-[var(--color-textcolor)]">
         User Payment
       </h1>
@@ -120,7 +120,7 @@ const UserPayment = () => {
                   }`}
                 >
                   <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px] ">
-                    {payment.key.keyName}
+                    {payment?.key?.keyName}
                   </TableCell>
 
                   <TableCell
@@ -135,13 +135,13 @@ const UserPayment = () => {
                   </TableCell>
 
                   <TableCell className="text-left text-[16px]">
-                    {payment.keyDetails.amount}
+                    {payment?.keyDetails?.amount}
                   </TableCell>
                   <TableCell className="text-left text-[16px]">
                     ${payment.keyDetails.price}
                   </TableCell>
                   <TableCell className="text-right text-[16px]">
-                    {new Date(payment.updatedAt).toLocaleString()}
+                    {new Date(payment?.updatedAt).toLocaleString()}
                   </TableCell>
                   <TableCell className="text-right text-[16px]">
                     {new Date(payment.createdAt).toLocaleString()}

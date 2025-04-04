@@ -3,48 +3,47 @@ import Title from "./Shared/Title";
 
 const Troubleshoot = () => {
   return (
-    <div className="bg-[var(--color-dashboardbg)] text-[var(--color-textsecondarycolor)] min-h-screen p-24 font-montserrat ">
+    <div className=" font-montserrat bg-[var(--color-dashboardbg)] text-[var(--color-textsecondarycolor)] min-h-screen p-24 ">
       <Title title="Trouble shoot" subtitle="Resolve common issues easily" />
 
-      <div>
-        <div className="max-w-3xl mx-auto space-y-6 border-gray-600 p-4 sm:p-6">
+      <div className="text-[var(--color-textsecondarycolor)]">
+        <div className="max-w-3xl mx-auto space-y-7 border border-gray-600 rounded-lg p-5 sm:p-6 bg-[var(--color-dashboardsecondary)] shadow-lg">
           {/* Heading with Icon */}
           <div className="flex items-center gap-2 flex-wrap">
-            <h1 className="text-2xl sm:text-3xl font-semibold text-[var(--color-textcolor)]">
+            <h1 className="text-lg sm:text-2xl md:text-3xl font-semibold text-[var(--color-textcolor)]">
               Why isn't my menu appearing?
             </h1>
             <FaRegEdit className="text-[var(--color-hovertext)]" />
           </div>
 
           {/* Description */}
-          <p className="text-base sm:text-lg">
+          <p className="text-sm sm:text-base md:text-lg">
             If the EdgyPro menu is not appearing on your screen, try the
             following steps:
           </p>
 
-          {/* Instructions List */}
-          <ul className="space-y-4 list-disc list-inside text-base sm:text-lg">
+          <ul className="space-y-3 sm:space-y-4 list-disc list-inside text-sm sm:text-base md:text-lg">
             <li>
-              <strong>Unhide the menu:</strong> Press{" "}
-              <kbd className="bg-gray-800 px-2 py-1 rounded text-white">
+              <strong>Unhide the menu:</strong> Press
+              <kbd className="bg-gray-800 px-2 py-1 rounded text-white mx-1">
                 CTRL + SHIFT + H
-              </kbd>{" "}
+              </kbd>
               on your keyboard. This should make the EdgyPro menu visible again.
             </li>
             <li>
               <strong>Reset the menu:</strong> If the previous step doesn't
-              work, try pressing{" "}
-              <kbd className="bg-gray-800 px-2 py-1 rounded text-white">
+              work, try pressing
+              <kbd className="bg-gray-800 px-2 py-1 rounded text-white mx-1">
                 CTRL + SHIFT + R
-              </kbd>{" "}
+              </kbd>
               to reset the menu, which may resolve any display issues.
             </li>
             <li>
               <strong>Clear browser cache:</strong> Sometimes the menu can load
               incorrectly, resulting in a portion of code being corrupted. An
-              easy way to fix this is{" "}
+              easy way to fix this is
               <a
-                href=""
+                href="#"
                 className="text-[var(--color-hovertext)] hover:text-[#695ce0] pl-1 underline"
               >
                 by clearing your browser cache
@@ -54,9 +53,9 @@ const Troubleshoot = () => {
           </ul>
 
           {/* Support Section */}
-          <p className="text-base sm:text-lg">
+          <p className="text-sm sm:text-base md:text-lg">
             If you've tried these steps and the menu is still not appearing,
-            please contact our support team in the{" "}
+            please contact our support team in the
             <a
               href="https://discord.com/invite/edgypro"
               className="text-[var(--color-hovertext)] hover:text-[#695ce0] hover:underline pl-1"
@@ -70,34 +69,34 @@ const Troubleshoot = () => {
           <hr className="border-gray-700" />
 
           {/* Last Updated */}
-          <p className="text-sm text-gray-400 text-center">
+          <p className="text-xs sm:text-sm text-gray-400 text-center">
             Last updated: 30/12/2024, 15:26:42
           </p>
         </div>
 
         {/* Part -2 */}
-        <div className="max-w-3xl mx-auto space-y-6 mt-5  border-gray-600 pl-2">
-          <div className="flex items-center ">
-            <h1 className="text-3xl font-semibold text-[var(--color-textcolor)]">
-              Why is Tampermonkey not working1?
+        <div className="max-w-3xl mx-auto space-y-6 border border-gray-600 rounded-lg p-5 sm:p-6 bg-[var(--color-dashboardsecondary)]  shadow-lg mt-6">
+          {/* Heading with Icon */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <h1 className="text-lg sm:text-2xl md:text-3xl font-semibold text-[var(--color-textcolor)] ">
+              Why is Tampermonkey not working?
             </h1>
-            <hr className="border-gray-700" />
-            <div>
-              <FaRegEdit className="ml-3 text-[var(--color-hovertext)]" />
-            </div>
+            <FaRegEdit className="text-[var(--color-hovertext)]" />
           </div>
-          <p>
+
+          {/* Description */}
+          <p className="text-sm sm:text-base md:text-lg">
             It’s possible that Tampermonkey may not always function correctly.
             If you're encountering issues, I recommend trying Violentmonkey
             instead by following these steps:
           </p>
 
-          <ul className="space-y-4 list-disc list-inside">
+          <ul className="space-y-3 sm:space-y-4 list-disc list-inside text-sm sm:text-base md:text-lg">
             <li>
               <strong>Install Violentmonkey:</strong> Visit the
               <a
-                className="text-[var(--color-hovertext)] hover:text-[#695ce0] pl-2 pr-2"
                 href="https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag"
+                className="text-[var(--color-hovertext)] hover:text-[#695ce0] pl-1 underline"
               >
                 Chrome Web Store
               </a>
@@ -108,8 +107,8 @@ const Troubleshoot = () => {
               <strong>Install the EdgyPro script:</strong> In the browser’s
               search bar, enter the following URL:
               <a
-                className="text-[var(--color-hovertext)] hover:text-[#695ce0] pl-2 pr-2"
                 href="https://edgypro.net/edgypro.user.js"
+                className="text-[var(--color-hovertext)] hover:text-[#695ce0] pl-1 underline"
               >
                 https://edgypro.net/edgypro.user.js
               </a>
@@ -121,71 +120,81 @@ const Troubleshoot = () => {
             </li>
           </ul>
 
-          <div>
+          {/* Video Tutorial */}
+          <p className="text-sm sm:text-base md:text-lg">
             For a more detailed tutorial, you can also refer to this video:
             <a
-              className="text-[var(--color-hovertext)] hover:text-[#695ce0] pl-2"
               href="https://youtu.be/iXj5CHtkCIA"
+              className="text-[var(--color-hovertext)] hover:text-[#695ce0] pl-1 underline"
             >
-              https://youtu.be/iXj5CHtkCIA
+              Watch on YouTube
             </a>
-            <p>
-              If you continue experiencing issues, feel free to reach out to our
-              support team on the
-            </p>
+          </p>
+
+          {/* Support Section */}
+          <p className="text-sm sm:text-base md:text-lg">
+            If you continue experiencing issues, feel free to reach out to our
+            support team on the
             <a
               href="https://discord.com/invite/edgypro"
-              className="text-[var(--color-hovertext)] hover:underline hover:text-[#695ce0] pr-2"
+              className="text-[var(--color-hovertext)] hover:underline hover:text-[#695ce0] pl-1"
             >
               Discord server
             </a>
-            .We’ll be happy to help!
-          </div>
+            . We’ll be happy to help!
+          </p>
 
+          {/* Divider */}
           <hr className="border-gray-700" />
-          <p className="text-sm text-gray-400">
+
+          {/* Last Updated */}
+          <p className="text-xs sm:text-sm text-gray-400 text-center">
             Last updated: 30/12/2024, 15:26:42
           </p>
         </div>
         {/* Part -3 */}
-        <div className="max-w-3xl mx-auto space-y-6 mt-5">
-          <div className="flex items-center ">
-            <h1 className="text-3xl font-semibold text-[var(--color-textcolor)]">
+        <div className="max-w-3xl mx-auto space-y-5 border border-gray-600 rounded-lg p-5 sm:p-6 bg-[var(--color-dashboardsecondary)]  shadow-lg mt-6">
+          {/* Heading with Icon */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <h1 className="text-lg sm:text-2xl md:text-3xl font-semibold text-[var(--color-textcolor)]">
               Where do I find my key?
             </h1>
-            <div>
-              <FaRegEdit className="ml-3 text-[var(--color-hovertext)]" />
-            </div>
+            <FaRegEdit className="text-[var(--color-hovertext)]" />
           </div>
-          <p>
-            If you purchased an EdgyPro key and are struggling to find it check
+
+          {/* Description */}
+          <p className="text-sm sm:text-base md:text-lg">
+            If you purchased an EdgyPro key and are struggling to find it, check
             the following places:
           </p>
 
-          <ul className="space-y-4 list-disc list-inside">
+          <ul className="space-y-3 sm:space-y-4 list-disc list-inside text-sm sm:text-base md:text-lg">
             <li>The inbox of the email address you entered when purchasing.</li>
             <li>
               The spam folder of the email address you entered when purchasing.
             </li>
           </ul>
 
-          <div>
-            If you still can't find it, contact support in our .
+          {/* Support Section */}
+          <div className="text-sm sm:text-base md:text-lg">
+            If you still can't find it, contact support in our
             <a
-              className="text-[var(--color-hovertext)] hover:text-[#695ce0] pl-2"
               href="https://discord.com/invite/edgypro"
+              className="text-[var(--color-hovertext)] hover:text-[#695ce0] pl-1 underline"
             >
               Discord server
             </a>
+            .
           </div>
-          <div>
-            <p>
-              Typos are common in email addresses when ordering keys. If
-              possible, check your PayPal receipt for a typo to quicker identify
-              the issue.
-            </p>
+
+          {/* Additional Tip */}
+          <div className="text-sm sm:text-base md:text-lg">
+            Typos are common in email addresses when ordering keys. If possible,
+            check your PayPal receipt for a typo to quicker identify the issue.
           </div>
-          <div className="flex pr-2">
+
+          {/* Purchase Link */}
+          <div className="flex items-center text-sm sm:text-base md:text-lg pr-2">
             <p>Click</p>
             <a
               href="https://discord.com/invite/edgypro"
@@ -196,43 +205,54 @@ const Troubleshoot = () => {
             to purchase an EdgyPro key.
           </div>
 
+          {/* Divider */}
           <hr className="border-gray-700" />
-          <p className="text-sm text-gray-400">
+
+          {/* Last Updated */}
+          <p className="text-xs sm:text-sm text-gray-400 text-center">
             Last updated: 30/12/2024, 15:26:42
           </p>
         </div>
         {/* Part -4 */}
-        <div className="max-w-3xl mx-auto space-y-6 mt-5">
-          <div className="flex items-center ">
-            <h1 className="text-3xl font-semibold text-[var(--color-textcolor)]">
+        <div className="max-w-3xl mx-auto space-y-6 mt-6 border border-gray-600 rounded-lg p-5 sm:p-6 bg-[var(--color-dashboardsecondary)] shadow-lg">
+          {/* Heading with Icon */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <h1 className="text-lg sm:text-2xl md:text-3xl font-semibold text-[var(--color-textcolor)]">
               Why isn't my menu appearing?
             </h1>
-            <div>
-              <FaRegEdit className="ml-3 text-[var(--color-hovertext)]" />
-            </div>
+            <FaRegEdit className="text-[var(--color-hovertext)]" />
           </div>
-          <p>
+
+          {/* Description */}
+          <p className="text-sm sm:text-base md:text-lg">
             Is the EdgyPro menu not appearing on your screen? To resolve this, I
             recommend trying the following steps:
           </p>
 
-          <ul className="space-y-4 list-disc list-inside">
+          {/* Troubleshooting Steps */}
+          <ul className="space-y-3 sm:space-y-4 list-disc list-inside text-sm sm:text-base md:text-lg">
             <li>
-              <strong>Unhide the menu: </strong> Visit the Press CTRL+SHIFT+H on
-              your keyboard. This should unhide the EdgyPro menu, making it
+              <strong>Unhide the menu:</strong> Press
+              <kbd className="bg-gray-800 px-2 py-1 rounded text-white mx-1">
+                CTRL + SHIFT + H
+              </kbd>
+              on your keyboard. This should unhide the EdgyPro menu, making it
               visible again.
             </li>
             <li>
-              <strong>Reset the menu: </strong> If the above step doesn't work,
-              try pressing CTRL+SHIFT+R. This will reset the menu, which may
-              help resolve any display issues.
+              <strong>Reset the menu:</strong> If the above step doesn't work,
+              try pressing
+              <kbd className="bg-gray-800 px-2 py-1 rounded text-white mx-1">
+                CTRL + SHIFT + R
+              </kbd>
+              to reset the menu, which may help resolve any display issues.
             </li>
             <li>
-              <strong>Clear browser cache: </strong> Sometimes the menu can load
+              <strong>Clear browser cache:</strong> Sometimes the menu can load
               incorrectly, resulting in a portion of code being corrupted. An
-              easy way to fix this is
+              easy way to fix this is{" "}
               <a
-                className="text-[var(--color-hovertext)] hover:text-[#695ce0] pl-2"
+                className="text-[var(--color-hovertext)] hover:text-[#695ce0] pl-1 underline"
                 href="https://youtu.be/iXj5CHtkCIA"
               >
                 by clearing your browser cache.
@@ -240,87 +260,87 @@ const Troubleshoot = () => {
             </li>
           </ul>
 
-          <div className="">
+          {/* Support Section */}
+          <div className="text-sm sm:text-base md:text-lg">
             If you've tried these steps and the menu is still not appearing,
             please feel free to contact our support team in the
             <a
-              className="text-[var(--color-hovertext)] pr-2 pl-2 hover:text-[#695ce0]"
               href="https://youtu.be/iXj5CHtkCIA"
+              className="text-[var(--color-hovertext)] hover:text-[#695ce0] pl-2 underline"
             >
               Discord server
             </a>
-            or further assistance. We'll be happy to help you troubleshoot the
+            for further assistance. We'll be happy to help you troubleshoot the
             issue and get your menu working again.
           </div>
 
+          {/* Divider */}
           <hr className="border-gray-700" />
-          <p className="text-sm text-gray-400">
+
+          {/* Last Updated */}
+          <p className="text-xs sm:text-sm text-gray-400 text-center">
             Last updated: 30/12/2024, 15:26:42
           </p>
         </div>
         {/* Part -5 */}
-        <div className="max-w-3xl mx-auto space-y-6 mt-5">
-          <div className="flex items-center ">
-            <h1 className="text-3xl font-semibold text-[var(--color-textcolor)]">
+        <div className="max-w-3xl mx-auto space-y-6 mt-6 border border-gray-600 rounded-lg p-5 sm:p-6 bg-[var(--color-dashboardsecondary)]  shadow-lg">
+          {/* Heading with Icon */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <h1 className="text-lg sm:text-2xl md:text-3xl font-semibold text-[var(--color-textcolor)]">
               Why does it say EdgyPro failed to load?
             </h1>
-            <div>
-              <FaRegEdit className="ml-3 text-[var(--color-hovertext)]" />
-            </div>
+            <FaRegEdit className="text-[var(--color-hovertext)]" />
           </div>
-          <p>
+
+          {/* Description */}
+          <p className="text-sm sm:text-base md:text-lg">
             If you see this message, it's usually safe to ignore and click
             Close. However, if EdgyPro still doesn’t load, it could be due to
             your Wi-Fi blocking the site, or you may need to try the following
             steps:
           </p>
 
-          <div className="pl-4 text-lg">
-            <div className="flex  items-center">
-              <div>
-                <p>1. Reload the page.</p>
-              </div>
+          {/* Troubleshooting Steps */}
+          <div className="pl-4 text-sm sm:text-base md:text-lg">
+            <div className="flex items-center">
+              <p>1. Reload the page.</p>
             </div>
 
             <p>2. Clear your browser cache (instructions below).</p>
-
             <p>3. Reinstall the script.</p>
             <p>4. Try using a different browser (suggestions below).</p>
-            <p>3. Close the page and reopen it..</p>
+            <p>5. Close the page and reopen it.</p>
           </div>
-          <h1 className="text-2xl text-[var(--color-textcolor)]">
+
+          {/* Cache Clearing Instructions */}
+          <h2 className="text-xl sm:text-2xl text-[var(--color-textcolor)]">
             How to clear your cache:
-          </h1>
-          <div className="pl-4 text-lg">
-            <div className="flex  items-center">
-              <div>
-                <p>
-                  1. Press Ctrl + Shift + Delete to open the clear browsing data
-                  window, or type chrome://settings/clearBrowserData in your
-                  browser’s address bar.
-                </p>
-              </div>
+          </h2>
+          <div className="pl-4 text-sm sm:text-base md:text-lg">
+            <div className="flex items-center">
+              <p>
+                1. Press Ctrl + Shift + Delete to open the clear browsing data
+                window, or type{" "}
+                <span className="text-gray-300">
+                  chrome://settings/clearBrowserData
+                </span>
+                in your browser’s address bar.
+              </p>
             </div>
 
-            <p>2. In the Time range dropdown, select All time..</p>
-
+            <p>2. In the Time range dropdown, select All time.</p>
             <p>3. Check the box for Cached images and files.</p>
-            <p>4. Try using a different browser (suggestions below).</p>
-            <p>3. Close the page and reopen it..</p>
-            <p>3. Click Clear data. .</p>
+            <p>4. Click Clear data.</p>
           </div>
-          <p>
-            Note: Each browser may have slightly different steps to clear cache,
-            so be sure to follow the instructions specific to your browser.
-          </p>
-          <h1 className="text-1xl text-[var(--color-textcolor)]">
-            Suggested Browsers:
-          </h1>
 
-          <ul className="space-y-4 list-disc list-inside">
+          {/* Browser Suggestions */}
+          <h2 className="text-xl sm:text-2xl text-[var(--color-textcolor)]">
+            Suggested Browsers:
+          </h2>
+          <ul className="space-y-4 list-disc list-inside text-sm sm:text-base md:text-lg">
             <li>
               <a
-                href=""
+                href="#"
                 className="text-[var(--color-hovertext)] hover:text-[#695ce0]"
               >
                 Brave
@@ -328,16 +348,15 @@ const Troubleshoot = () => {
             </li>
             <li>
               <a
-                href=""
+                href="#"
                 className="text-[var(--color-hovertext)] hover:text-[#695ce0]"
               >
                 Opera GX
               </a>
             </li>
             <li>
-              {" "}
               <a
-                href=""
+                href="#"
                 className="text-[var(--color-hovertext)] hover:text-[#695ce0]"
               >
                 Edge
@@ -345,19 +364,21 @@ const Troubleshoot = () => {
             </li>
           </ul>
 
-          <div>
-            <p>
-              If you continue experiencing issues, feel free to reach out to our
-              support team on the{" "}
-              <span className="text-[var(--color-hovertext)]">
-                Discord server
-              </span>{" "}
-              We’ll be happy to help!
-            </p>
+          {/* Support Section */}
+          <div className="text-sm sm:text-base md:text-lg">
+            If you continue experiencing issues, feel free to reach out to our
+            support team on the{" "}
+            <span className="text-[var(--color-hovertext)] hover:text-[#695ce0]">
+              Discord server
+            </span>
+            . We’ll be happy to help!
           </div>
 
+          {/* Divider */}
           <hr className="border-gray-700" />
-          <p className="text-sm text-gray-400">
+
+          {/* Last Updated */}
+          <p className="text-xs sm:text-sm text-gray-400 text-center">
             Last updated: 30/12/2024, 15:26:42
           </p>
         </div>

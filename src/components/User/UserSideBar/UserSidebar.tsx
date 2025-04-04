@@ -13,7 +13,6 @@ import { CgProfile } from "react-icons/cg";
 import { FaTableCellsRowUnlock } from "react-icons/fa6";
 import { MdOutlinePayment } from "react-icons/md";
 import { IoMdHome, IoMdLogOut } from "react-icons/io";
-import logo from "../../../assets/image.png";
 
 interface NavItem {
   title: string;
@@ -114,7 +113,7 @@ export function UserSidebar() {
           <div className="flex flex-col items-center border-b border-gray-700 pb-6 mb-6">
             <div className="relative h-20 w-20 overflow-hidden rounded-full border-2 border-gray-500">
               <img
-                src={logo}
+                src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
                 alt="Profile picture"
                 className="object-cover p-1"
               />
@@ -172,7 +171,7 @@ export function UserSidebar() {
               }}
             >
               <img
-                src={logo}
+                src="https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png"
                 alt="Profile picture"
                 className="object-cover p-1"
               />
