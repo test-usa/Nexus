@@ -78,7 +78,7 @@ const SignIn = () => {
                 </svg>
               </button> */}
               <img
-                src={MainLogo}
+                src="https://i.postimg.cc/zfCvqNvy/exoduspro.png"
                 alt="logo"
                 className="max-w-16 cursor-pointer"
               />

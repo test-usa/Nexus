@@ -55,21 +55,21 @@ const Banner = () => {
   return (
     <Element name="banner" className="font-montserrat">
       <CommonWrapper>
-        <div className="mt-60">
+        <div className="xl:mt-60 mt-24">
           <div className="flex group items-center justify-between">
             {/**** TEXT SECTION ****/}
             <div className="space-y-5 w-3/4 mx-auto lg:mx-0  lg:text-start text-center">
               <h1
                 className="text-4xl sm:text-5xl
                  inline-block
-               text-[#CFF2FB]"
+               text-[var(--color-textcolor)]"
               >
                 <span className=" text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8]">
                   ExoBot
                 </span>{" "}
                 Fastest Edgenuity Bot.
               </h1>
-              <p className=" w-5/6 sm:w-2/3 lg:mx-0 mx-auto text-sm sm:text-[16px] text-gray-500 ">
+              <p className=" w-5/6 sm:w-2/3 lg:mx-0 mx-auto text-sm sm:text-[16px] text-[var(--color-textsecondarycolor)]">
                 ExoBot is your ultimate companion for online learning,
                 turbocharging your Edgenuity experience by helping you breeze
                 through courses faster and master the material with ease.
@@ -96,7 +96,7 @@ const Banner = () => {
             <div className="feature-card backdrop-blur-2xl w-1/3 lg:block hidden border border-white/20 rounded-lg p-4  group-hover:border-cyan-500 transform translate-all duration-200  group-hover:-rotate-z-3 -skew-y-2 group-hover:shadow-lg group-hover:drop-shadow-lg group-hover:shadow-cyan-700 bg-[#CDADFA] max-h-[450px]">
               <div className="flex items-center gap-x-2">
                 <img
-                  src={MainLogo}
+                  src="https://i.postimg.cc/zfCvqNvy/exoduspro.png"
                   alt="logo"
                   className="max-w-14 rounded-xl"
                 />
