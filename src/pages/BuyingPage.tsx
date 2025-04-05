@@ -58,7 +58,7 @@ const BuyingPage = () => {
       amount: number;
       keyType: string;
     }) => {
-      const response = await axios.post(`${url}/payment/subscribe`, obj);
+      const response = await axios.post(`${url}/payment/create-purchase-link`, obj);
       return response.data;
     },
     onSuccess: (data) => {
