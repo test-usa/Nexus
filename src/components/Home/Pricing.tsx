@@ -20,7 +20,6 @@ type PricingData = {
 
 const Pricing = () => {
   const { data } = useFetch("/key/all-key");
-
   return (
     <Element name="Pricing" className="font-montserrat mt-20">
       <CommonWrapper>
@@ -38,7 +37,7 @@ const Pricing = () => {
                 className={`rounded-[var(--radius-card)] hover:border-[1px] hover:hover:border-[#CDADFA]  min-w-[280px] relative sm:max-w-full border border-gray-700 shadow-sm hover:shadow-[#CDADFA]  space-y-3 p-5 transform transition duration-500`}
               >
                 {price?.badge && (
-                  <p className="absolute right-1.5 -top-3.5 rounded bg-gradient-to-bl from-sky-600 via-gray-600 to-green-800 py-2 px-3 text-xs sm:text-sm text-[var(--color-textcolor)]">
+                  <p className="absolute right-1.5 -top-3.5 rounded bg-gradient-to-bl from-[#5c3991] via-gray-600 to-green-700 py-2 px-3 text-xs sm:text-sm text-[var(--color-textcolor)]">
                     {price?.badge}
                   </p>
                 )}
@@ -55,7 +54,7 @@ const Pricing = () => {
                 </p>
                 <Link
                   to={`/buy/${price._id}`}
-                  className="w-full cursor-pointer hover:-rotate-z-1 bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] text-[var(--color-textcolor)] py-2 inline-block text-center rounded text-sm sm:text-[16px]"
+                  className="w-full cursor-pointer hover:-rotate-z-1  bg-gradient-to-r from-[#5c3991]  to-[#3a2b49] text-[var(--color-textcolor)] py-2 inline-block text-center rounded text-sm sm:text-[16px]"
                 >
                   Purchase Now
                 </Link>

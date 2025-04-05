@@ -6,7 +6,7 @@ import Banner from "@/components/Home/Shared/Banner";
 import CommonWrapper from "@/wrapper/CommonWrapper";
 const Home = () => {
   return (
-    <div>
+    <div className="bg-neutral-900">
       <CommonWrapper>
         <Banner />
         {/* <Video/> */}
