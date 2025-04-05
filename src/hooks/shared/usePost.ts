@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../useAxiosSecure";
 import { toast } from "sonner";
-type ApiResponse<T> = {
+export type ApiResponse<T> = {
   message: string;
   success: boolean;
   data: T;

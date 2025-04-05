@@ -1,5 +1,6 @@
-import { useEffect } from "react";
-import { gsap } from "gsap";
+import { useRef } from "react";
+
+import { motion, useInView } from "framer-motion";
 import {
   LucideIcon,
   CheckCircle,
@@ -12,46 +13,14 @@ import {
 } from "lucide-react";
 import { Element } from "react-scroll";
 import Title from "./Shared/Title";
-
+interface FeatureCardProps {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+}
 const EdgenuityBot = () => {
-  useEffect(() => {
-    const cards = gsap.utils.toArray(".feature-wrapper");
-
-    cards.forEach((card: any, index) => {
-      gsap.fromTo(
-        card,
-        {
-          x: index % 3 === 0 ? -300 : 300,
-          opacity: 0,
-        },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 1.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-            end: "botton 60%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    });
-
-    return () => {
-      cards.forEach((card: any) => {
-        card.removeEventListener("mouseenter", () => {});
-        card.removeEventListener("mouseleave", () => {});
-      });
-    };
-  }, []);
-
-  interface FeatureCardProps {
-    icon: LucideIcon;
-    title: string;
-    description: string;
-  }
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: false, margin: "100px" });
 
   const features: FeatureCardProps[] = [
     {
@@ -107,7 +76,7 @@ const EdgenuityBot = () => {
     <Element
       id="#smooth-wrapper"
       name="Feature"
-      className="mt-56 font-montserrat"
+      className="mt-60 font-montserrat"
     >
       <Title
         title="ExoBot - Features"
@@ -115,19 +84,31 @@ const EdgenuityBot = () => {
       />
       <div
         id="#smooth-content"
-        className="mt-16 flex justify-center items-center "
+        className="mt-16 flex justify-center items-center"
       >
         <div className="max-w-6xl w-full grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {features.slice(0, 8).map((feature, index) => {
             const IconComponent = feature.icon;
             return (
-              <div
+              <motion.div
+                ref={ref}
+                initial={
+                  index % 2 === 1 && inView
+                    ? { opacity: 0, x: -80 }
+                    : { opacity: 0, x: 80 }
+                }
+                animate={
+                  index % 2 === 1 && inView
+                    ? { opacity: 1, x: 0 }
+                    : { opacity: 1, x: 0 }
+                }
+                transition={{ delay: 0.5, ease: "easeInOut", duration: 2 }}
                 key={index}
                 className="feature-wrapper border-[1px] border-gray-700
- rounded-[8px] text-white p-4 transition-all duration-300"
+              rounded-[8px] text-white p-4 transition-all duration-300"
               >
                 <div className="feature-content flex flex-col  items-center gap-[var(--spacing-card)] transition">
-                  <IconComponent className="text-2xl  text-[var(--color-textsecondarycolor)]" />
+                  <IconComponent className="text-2xl  text-[#7350a8]" />
                   <h3 className="text-xl font-semibold text-center text-[var(--color-textcolor)]">
                     {feature.title}
                   </h3>
@@ -135,7 +116,7 @@ const EdgenuityBot = () => {
                     {feature.description}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
