@@ -42,6 +42,10 @@ const routes = createBrowserRouter([
         path: "troubleshoot",
         element: <Troubleshoot />,
       },
+      {
+        path: "/success",
+        element: <Success />,
+      },
     ],
   },
   /* UserLayout */
@@ -93,10 +97,6 @@ const routes = createBrowserRouter([
     element: <Purchase />,
   },
 
-  {
-    path: "/success",
-    element: <Success />,
-  },
   /* Admin Layout */
   {
     path: "admin",
