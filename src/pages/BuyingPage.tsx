@@ -3,9 +3,14 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import useFetch from "@/hooks/shared/useFetch";
 import usePost from "@/hooks/shared/usePost";
+import useAxiosPublic from "@/hooks/useAxiosPublic";
+// import usePost from "@/hooks/shared/usePost";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "sonner";
 
 type TSinglePriceData = {
   prices: {
@@ -35,14 +40,41 @@ const BuyingPage = () => {
   };
   const handleIncres = (): void => setCount((prev) => prev + 1);
 
+  // const {
+  //   data: checkoutData,
+  //   mutate,
+  //   isPending,
+  // } = usePost<
+  //   { url: string },
+  //   { key: string | undefined; amount: number; keyType: string }
+  // >("/payment/subscribe");
+
+  const url = import.meta.env.VITE_API_BASE_URL;
   const {
     data: checkoutData,
     mutate,
     isPending,
-  } = usePost<
-    { url: string },
-    { key: string | undefined; amount: number; keyType: string }
-  >("/payment/subscribe");
+  } = useMutation({
+    mutationFn: async (obj: {
+      key: string | undefined;
+      amount: number;
+      keyType: string;
+    }) => {
+      const response = await axios.post(`${url}/payment/subscribe`, obj);
+      return response.data;
+    },
+    onSuccess: (data) => {
+      if (data) {
+        // toast here
+        toast.success(data?.message);
+      }
+    },
+    onError: (error) => {
+      console.log(error, "use post hook onError");
+      // toast here
+      toast.error(data?.message);
+    },
+  });
 
   //**** ALL KEYS DATA ****/
   const { data = [] } = useFetch(`/key/all-key`);
@@ -111,7 +143,7 @@ const BuyingPage = () => {
   }, [checkoutData]);
 
   return (
-    <div className="min-h-screen font-montserrat bg-[var(--color-dashboardbg)] flex items-center justify-center p-6">
+    <div className="min-h-screen font-montserrat bg-gray-950 flex items-center justify-center p-6">
       <div className="flex flex-col sm:flex-row  justify-center w-full max-w-5xl gap-8 rounded-lg p-6">
         {/**** IMAGE SECTION ****/}
         <div className=" rounded-2xl flex items-center justify-center w-full max-h-[400px]">
@@ -123,7 +155,7 @@ const BuyingPage = () => {
         </div>
 
         {/**** PURCHASE CARD SECTION ****/}
-        <div className=" w-full  sm:max-w-lg border border-gray-600 p-6  rounded-2xl shadow-lg shadow-gray-600 ">
+        <div className=" w-full  sm:max-w-lg border border-gray-600 p-6  rounded-2xl ">
           <h2 className="text-2xl sm:text-3xl font-semibold mb-4 text-gray-200">
             New Key
           </h2>
@@ -144,7 +176,7 @@ const BuyingPage = () => {
                 id="keyType"
                 value={selectedKey}
                 onChange={handleSelectChange}
-                className="w-full cursor-pointer bg-gradient-to-br to-[#615993] via-[#716188] from-[#9179AB] text-white py-2.5 px-2 rounded-md focus:outline-none"
+                className="w-full cursor-pointer bg-[#6359A6] text-white py-2.5 px-2 rounded focus:outline-none"
               >
                 <option value="select">Select Key</option>
                 {data?.data?.map((keys: TSinglePriceData) => {
@@ -164,14 +196,14 @@ const BuyingPage = () => {
               <div className="flex items-center gap-x-5">
                 <Button
                   onClick={handleDescres}
-                  className=" cursor-pointer text-white  sm:w-8 w-6  h-8  text-sm bg-cyan-700"
+                  className=" cursor-pointer text-white  sm:w-8 w-6  h-8  text-sm bg-[#6359A6] rounded"
                 >
                   -
                 </Button>
                 <p className="text-gray-200 text-sm sm:text-lg">{count}</p>
                 <Button
                   onClick={handleIncres}
-                  className=" cursor-pointer text-white  sm:w-8 w-6  h-8  text-sm bg-cyan-700"
+                  className=" cursor-pointer text-white  sm:w-8 w-6  h-8  text-sm bg-[#6359A6] rounded"
                 >
                   +
                 </Button>
@@ -206,7 +238,7 @@ const BuyingPage = () => {
 
             <Button
               onClick={checkoutHanlder}
-              className="w-full cursor-pointer  text-center text-[16px] sm:text-lg bg-cyan-800/50 hover:bg-cyan-900 rounded-md py-5  text-white focus:outline-none bg-gradient-to-br to-[#615993] via-[#716188] from-[#9179AB] border-cyan-400 "
+              className="w-full cursor-pointer  text-center text-[16px] sm:text-lg  hover:bg-[#7469bc] rounded py-5 font-normal  text-white focus:outline-none bg-[#6359A6] border-cyan-400 "
             >
               {isPending ? <Loader className="animate-spin" /> : "Checkout"}
             </Button>
