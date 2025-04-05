@@ -5,6 +5,7 @@ import profile3 from "../../assets/profile3.png";
 import { Element } from "react-scroll";
 import Title from "./Shared/Title";
 
+
 const CustomerReviews = () => {
   const settings = {
     infinite: true,

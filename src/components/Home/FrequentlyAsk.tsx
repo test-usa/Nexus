@@ -7,6 +7,7 @@ import {
 import { Element } from "react-scroll";
 import Title from "./Shared/Title";
 
+
 export function FrequentlyAsk() {
   // const [openIndex, setOpenIndex] = useState<number | null>(null);
 

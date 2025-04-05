@@ -1,13 +1,12 @@
-import { Separator } from "@/components/ui/separator";
-import Footer from "@/layout/Footer";
+
 import CommonWrapper from "@/wrapper/CommonWrapper";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { Link } from "react-router-dom";
 
 const Success = () => {
   return (
-    <div className="min-h-screen font-montserrat bg-[var(--color-dashboardbg)] w-full">
-      <div className="max-w-[1540px] mx-auto flex-col items-center pt-8">
+    <div className="font-montserrat bg-[var(--color-dashboardbg)] w-full">
+      <div className="max-w-[1540px] mx-auto flex-col items-center justify-center py-44 ">
         <CommonWrapper>
           <Link to="/" className="flex items-center gap-x-2 text-[var(--color-textcolor)]">
             <IoIosArrowRoundBack className="text-2xl" />
@@ -42,7 +41,6 @@ const Success = () => {
      
         </CommonWrapper>
       </div>
-      <Footer />
     </div>
   );
 };

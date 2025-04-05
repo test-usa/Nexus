@@ -5,15 +5,13 @@ import { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import Title from "./Shared/Title";
 
-
-
 const DownloadScript = () => {
   const [downloaded, setDownloaded] = useState(false);
 
   const handleDownload = () => {
     const link = document.createElement("a");
-    link.href = "/exodues-bot-v2.js";
-    link.download = "exodues-bot-v2.js";
+    link.href = "/exodues-bot-v3.js";
+    link.download = "exodues-bot-v3.js";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -27,8 +25,7 @@ const DownloadScript = () => {
   };
 
   return (
-   
-       <div className="bg-[var(--color-dashboardbg)] pt-24">
+    <div className="bg-[var(--color-dashboardbg)] pt-24 font-montserrat">
       <Title title="Download Install...  " subtitle="" />
       <div className="flex flex-col items-center justify-center">
         <a
@@ -76,8 +73,6 @@ const DownloadScript = () => {
         </Button>
       </div>
     </div>
-   
-   
   );
 };
 

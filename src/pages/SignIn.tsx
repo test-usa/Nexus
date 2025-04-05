@@ -1,9 +1,8 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ISingIn } from "./Form.types";
 import { Loader, Lock, Mail } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import userStore from "@/store/userStore";
-import MainLogo from "../assets/../../public/mainLogo.png"
 // import { useGoogleAuth } from "@/hooks/auth/googleAuth";
 // import { useEffect } from "react";
 
@@ -79,9 +78,9 @@ const SignIn = () => {
               disabled={loading}
               className={`py-3 w-full text-white flex justify-center items-center gap-2 
                 transform transition-all duration-300 
-                bg-gradient-to-r to-[#615993] via-[#716188] from-[#9179AB] cursor-pointer  px-2 xl:px-4 text-sm xl:text-[16px] 
+                !bg-[#6359A6] cursor-pointer  px-2 xl:px-4 text-sm xl:text-[16px] 
                 border border-transparent hover:border-[#CDADFA] 
-                hover:bg-transparent hover:shadow-sm hover:shadow-[#CDADFA] rounded
+                 rounded
           ${
             loading
               ? "bg-gray-500 cursor-not-allowed"

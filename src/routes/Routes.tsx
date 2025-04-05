@@ -23,9 +23,6 @@ import Success from "@/pages/Success";
 import DownloadInstallProcess from "@/components/home/DownloadInstallProcess";
 import Troubleshoot from "@/components/home/Troubleshoot";
 
-
-
-
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -43,6 +40,10 @@ const routes = createBrowserRouter([
       {
         path: "troubleshoot",
         element: <Troubleshoot />,
+      },
+      {
+        path: "/success",
+        element: <Success />,
       },
     ],
   },
@@ -85,19 +86,16 @@ const routes = createBrowserRouter([
   {
     path: "/buy/:id",
     element: <BuyingPage />,
-  },{
-  path: "/payment-success",
-  element: <PaymentSuccess />,
-},
+  },
+  {
+    path: "/payment-success",
+    element: <PaymentSuccess />,
+  },
   {
     path: "/buy",
     element: <Purchase />,
   },
 
-  {
-    path: "/success",
-    element: <Success />,
-  },
   /* Admin Layout */
   {
     path: "admin",

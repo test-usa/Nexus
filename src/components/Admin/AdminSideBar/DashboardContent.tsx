@@ -93,7 +93,7 @@ const DashboardContent = () => {
   const currentUsers = users.slice(offset, offset + usersPerPage);
 
   return (
-    <div className="pl-12 pr-12 pt-12 -sm:pr-5 ">
+    <div className="pl-12 pr-12 pt-12 -sm:pr-5 font-montserrat">
       <h1 className="text-2xl ml-5 font-medium tracking-wide mb-5 mt-5 text-[var(--color-textcolor)]">
         Dashboard Overview
       </h1>
@@ -102,11 +102,9 @@ const DashboardContent = () => {
           {/*  */}
           {/* Users Card */}
           <motion.div
-            className="mt-5 rounded p-6 bg-[var(--color-dashboardsecondary)] transition-all duration-300 transform"
+            className="mt-5 rounded p-6 bg-[var(--color-dashboardsecondary)] transition-colors duration-300"
             whileHover={{
-              boxShadow: "0 0 15px rgba(0, 123, 255, 0.7)", // Blue glowing shadow
-              border: "2px solid rgba(0, 123, 255, 0.7)", // Blue border
-              transition: { duration: 0.3 }, // Smooth transition
+              backgroundColor: "rgba(0, 123, 255, 0.1)", // Light blue hover effect
             }}
           >
             <div className="flex justify-between items-center">
@@ -121,12 +119,11 @@ const DashboardContent = () => {
           </motion.div>
 
           {/* Payments Count */}
+
           <motion.div
-            className="mt-5 rounded p-6 bg-[var(--color-dashboardsecondary)] transition-all duration-300 transform"
+            className="mt-5 rounded p-6 bg-[var(--color-dashboardsecondary)] transition-colors duration-300"
             whileHover={{
-              boxShadow: "0 0 15px rgba(0, 123, 255, 0.7)", // Blue glowing shadow
-              border: "2px solid rgba(0, 123, 255, 0.7)", // Blue border
-              transition: { duration: 0.3 }, // Smooth transition
+              backgroundColor: "rgba(0, 123, 255, 0.1)", // Light blue hover effect
             }}
           >
             <div className="flex justify-between items-center">
@@ -142,6 +139,27 @@ const DashboardContent = () => {
 
           {/* Active User List */}
           <motion.div
+            className="mt-5 rounded p-6 bg-[var(--color-dashboardsecondary)] transition-colors duration-300"
+            whileHover={{
+              backgroundColor: "rgba(0, 123, 255, 0.1)", // Light blue hover effect
+            }}
+          >
+            <div className="flex justify-between items-center">
+              <div>
+                <VscLayersActive className="my-5 text-6xl" />
+              </div>
+              <div>
+                <div className="text-5xl font-bold">
+                  {activedata?.length || 10}
+                </div>
+                <p className="mt-2 text-sm uppercase font-bold">
+                  Active User List
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/*  <motion.div
             className="mt-5 rounded p-6 border-transparent bg-[var(--color-dashboardsecondary)] transition-all duration-300 transform"
             whileHover={{
               boxShadow: "0 0 15px rgba(0, 123, 255, 0.7)", // Blue glowing shadow
@@ -162,7 +180,7 @@ const DashboardContent = () => {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </motion.div> */}
         </div>
         {/* Added wrapper for scroll */}
         <Table className=" rounded-sm shadow-lg overflow-hidden">

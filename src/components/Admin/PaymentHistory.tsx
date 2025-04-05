@@ -13,7 +13,7 @@ import {
 
 interface Payment {
   _id: string;
-  userId: string;
+  email:string,
   customerId: string;
   subscriptionId: string;
   currentPeriodEnd: string;
@@ -41,6 +41,7 @@ const PaymentHistory = () => {
 
   useEffect(() => {
     if (isSuccess && data?.data) {
+      console.log(data.data)
       setPayments(data.data);
     }
   }, [isSuccess, data]);
@@ -87,7 +88,7 @@ const PaymentHistory = () => {
                 Key Name
               </TableHead>
               <TableHead className="text-lg text-[var(--color-textcolor)]">
-                User Id
+                User Email
               </TableHead>
               <TableHead className="text-lg text-[var(--color-textcolor)]">
                 Transaction ID
@@ -118,15 +119,15 @@ const PaymentHistory = () => {
                   }`}
                 >
                   <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px] ">
-                    {payment.key.keyName}
+                    {payment?.key?.keyName}
                   </TableCell>
                   <TableCell
                     className="text-[16px]"
-                    onClick={() => toggleExpand(payment._id + "-userId")}
+                    onClick={() => toggleExpand(payment.email + "-email")}
                   >
-                    {expandedRows[payment._id + "-userId"]
-                      ? payment.userId
-                      : `${payment.userId.slice(0, 5)}...`}
+                    {expandedRows[payment.email + "-email"]
+                      ? payment?.email
+                      : `${payment.email.slice(0, 5)}...`}
                   </TableCell>
 
                   <TableCell

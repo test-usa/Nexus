@@ -2,8 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import useFetch from "@/hooks/shared/useFetch";
-import usePost from "@/hooks/shared/usePost";
-import useAxiosPublic from "@/hooks/useAxiosPublic";
 // import usePost from "@/hooks/shared/usePost";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -60,7 +58,7 @@ const BuyingPage = () => {
       amount: number;
       keyType: string;
     }) => {
-      const response = await axios.post(`${url}/payment/subscribe`, obj);
+      const response = await axios.post(`${url}/payment/create-purchase-link`, obj);
       return response.data;
     },
     onSuccess: (data) => {
