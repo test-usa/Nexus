@@ -20,9 +20,8 @@ import AdminPrivateRoute from "./AdminPrivateRoute";
 import Purchase from "@/pages/Purchase";
 import PaymentSuccess from "@/pages/paymentSucces";
 import Success from "@/pages/Success";
-import DownloadInstallProcess from "@/components/Home/DownloadInstallProcess";
-import Troubleshoot from "@/components/Home/Troubleshoot";
-
+import DownloadInstallProcess from "@/components/home/DownloadInstallProcess";
+import Troubleshoot from "@/components/home/Troubleshoot";
 
 const routes = createBrowserRouter([
   {
@@ -41,6 +40,10 @@ const routes = createBrowserRouter([
       {
         path: "troubleshoot",
         element: <Troubleshoot />,
+      },
+      {
+        path: "/success",
+        element: <Success />,
       },
     ],
   },
@@ -93,10 +96,6 @@ const routes = createBrowserRouter([
     element: <Purchase />,
   },
 
-  {
-    path: "/success",
-    element: <Success />,
-  },
   /* Admin Layout */
   {
     path: "admin",

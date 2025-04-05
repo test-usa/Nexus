@@ -109,11 +109,8 @@ const Banner = () => {
                 </button>
               </div>
             </motion.div>
-
             {/**** BANNER CARD SECTION ****/}
             <div
-              
-              
               className="feature-card backdrop-blur-2xl w-1/3 lg:block hidden transform translate-all duration-200 group-hover:-rotate-z-3 -skew-y-3  group-hover:shadow-lg group-hover:drop-shadow-lg  min-h-[460px] group-hover:scale-105 relative rounded-lg perspective-1000 hover:rotate-3d hover:scale-105"
             >
               <div className="relative z-30 min-h-[460px] bg-gradient-to-r from-[#5c3991] to-[#3a2b49] p-4 border-white/20 rounded-lg  group-hover:border-cyan-500 ">
