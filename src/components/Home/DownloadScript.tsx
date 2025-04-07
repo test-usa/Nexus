@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import logo from "../../assets/image.png";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa";

@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { Badge } from "@/components/ui/badge";
-import { Delete, Loader } from "lucide-react";
+import { Loader } from "lucide-react";
 import useFetch from "@/hooks/shared/useFetch";
 import { MdDelete } from "react-icons/md";
 import { GiDuration } from "react-icons/gi";
@@ -78,7 +78,7 @@ const GeneratedKeyTable = () => {
   const { data, isSuccess, isLoading, refetch } = useFetch(
     "/user-key/all-generated-key"
   );
-  const { mutate: extendDuration, isPending: isExtending } = useUpdate<
+  const { mutate: extendDuration } = useUpdate<
     any,
     any
   >("/user-key/extend-duration");
