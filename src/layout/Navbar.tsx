@@ -5,12 +5,12 @@ import { FaOpencart } from "react-icons/fa";
 import { motion } from "framer-motion";
 import CommonWrapper from "@/wrapper/CommonWrapper";
 import { Link as ScrollLink } from "react-scroll";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import userStore from "@/store/userStore";
 const Navbar = () => {
-  const { user, logout_user } = userStore();
+  const { user } = userStore();
   const [toggle, setToggle] = useState<boolean>(false);
-  const token = sessionStorage.getItem("token");
+  const location = useLocation();
 
   // Add scroll effect for sticky navbar
   window.addEventListener("scroll", () => {
@@ -40,28 +40,40 @@ const Navbar = () => {
               />
             </NavLink>
             {/***** NAVIGATIONBAR START *****/}
-            <div className="md:flex items-center lg:gap-x-8 gap-x-6 text-[var(--color-textsecondarycolor)] hidden">
-              {/* // All other links are ScrollLink */}
+          
+              <div className="md:flex items-center lg:gap-x-8 gap-x-6 text-[var(--color-textsecondarycolor)] hidden">
+                {/* // All other links are ScrollLink */}
+                {location.pathname !== "/" && (
+                  <NavLink
+                    to="/"
+                    className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate-x-2 transform duration-300 text-sm lg:text-[16px]"
+                  >
+                    Home
+                  </NavLink>
+                )}
+                {location.pathname === "/" && (
+                  <ScrollLink
+                    smooth
+                    duration={1200}
+                    to="Feature"
+                    className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate-x-2 transform duration-300 text-sm lg:text-[16px]"
+                    activeClass="text-green-400 font-bold"
+                  >
+                    Feature
+                  </ScrollLink>
+                )}
 
-              <ScrollLink
-                smooth
-                duration={1200}
-                to="Feature"
-                className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-                activeClass="text-green-400 font-bold"
-              >
-                Feature
-              </ScrollLink>
-
-              <ScrollLink
-                smooth
-                duration={1200}
-                to="Review"
-                className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-              >
-                Review
-              </ScrollLink>
-              {/* <ScrollLink
+                {location?.pathname === "/" && (
+                  <ScrollLink
+                    smooth
+                    duration={1200}
+                    to="Review"
+                    className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                  >
+                    Review
+                  </ScrollLink>
+                )}
+                {/* <ScrollLink
                 smooth
                 duration={1200}
                 to="Pricing"
@@ -69,60 +81,63 @@ const Navbar = () => {
               >
                 Purchase
               </ScrollLink> */}
-
-              <ScrollLink
-                smooth
-                duration={1200}
-                to="FAQ"
-                className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-                activeClass="text-green-400 font-bold"
-              >
-                FAQ
-              </ScrollLink>
-              <NavLink
-                to="/download"
-                className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-              >
-                Download
-              </NavLink>
-              <NavLink
-                to="/troubleshoot"
-                className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-              >
-                Troubleshoot
-              </NavLink>
-              {user && (user as { role: string }).role === "ADMIN" && (
+                {location.pathname === "/" && (
+                  <ScrollLink
+                    smooth
+                    duration={1200}
+                    to="FAQ"
+                    className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                    activeClass="text-green-400 font-bold"
+                  >
+                    FAQ
+                  </ScrollLink>
+                )}
                 <NavLink
-                  to="/admin"
+                  to="/download"
                   className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                 >
-                  Dashboard
+                  Download
                 </NavLink>
-              )}
-              <NavLink
-                to="Support"
-                className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-              >
-                Support
-              </NavLink>
-            </div>
+                <NavLink
+                  to="/troubleshoot"
+                  className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                >
+                  Troubleshoot
+                </NavLink>
+                {user && (user as { role: string }).role === "ADMIN" && (
+                  <NavLink
+                    to="/admin"
+                    className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                  >
+                    Dashboard
+                  </NavLink>
+                )}
+                <NavLink
+                  to="Support"
+                  className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                >
+                  Support
+                </NavLink>
+              </div>
 
-            {/**** AUTH OR PURCHASING ****/}
-            <div className="md:flex items-center gap-x-4 text-gray-400 hidden">
-              <ScrollLink
-                smooth
-                duration={1200}
-                to="Pricing"
-                className="flex items-center gap-x-2 text-[var(--color-textcolor)] transform transition-all duration-300 
-                bg-gradient-to-r from-[#5c3991]  to-[#3a2b49] cursor-pointer py-2 px-2 xl:px-4 text-sm xl:text-[16px] 
-                border border-transparent hover:border-[#CDADFA] 
-                hover:bg-transparent hover:shadow-sm hover:shadow-[#CDADFA] rounded"
-              >
-                <FaOpencart />
-                Purchase
-              </ScrollLink>
+              {/**** AUTH OR PURCHASING ****/}
+              <div className="md:flex items-center gap-x-4 text-gray-400 hidden">
+                {location.pathname == "/" && (
+                  <ScrollLink
+                    smooth
+                    duration={1200}
+                    to="Pricing"
+                    className="flex items-center gap-x-2 text-[var(--color-textcolor)] transform transition-all duration-300 
+              bg-gradient-to-r from-[#5c3991]  to-[#3a2b49] cursor-pointer py-2 px-2 xl:px-4 text-sm xl:text-[16px] 
+              border border-transparent hover:border-[#CDADFA] 
+              hover:bg-transparent hover:shadow-sm hover:shadow-[#CDADFA] rounded"
+                  >
+                    <FaOpencart />
+                    Purchase
+                  </ScrollLink>
+                )}
 
-              {user && token ? (
+                {/* {user && token ? (
                 <button
                   onClick={() => logout_user()}
                   className="text-[var(--color-textcolor)] transform transition-all duration-300 cursor-pointer 
@@ -144,17 +159,18 @@ const Navbar = () => {
                 >
                   Signin
                 </NavLink>
-              )}
-            </div>
+              )} */}
+              </div>
 
-            <button
-              onClick={() => setToggle(!toggle)}
-              className="absolute right-0 z-50 md:hidden block"
-            >
-              {!toggle && (
-                <FcMenu className="text-3xl cursor-pointer text-gray-400 hover:text-white transition-all duration-300 transform hover:scale-110" />
-              )}
-            </button>
+              <button
+                onClick={() => setToggle(!toggle)}
+                className="absolute right-0 z-50 md:hidden block"
+              >
+                {!toggle && (
+                  <FcMenu className="text-3xl cursor-pointer text-gray-400 hover:text-white transition-all duration-300 transform hover:scale-110" />
+                )}
+              </button>
+           
           </div>
         </CommonWrapper>
       </div>
@@ -256,7 +272,7 @@ const Navbar = () => {
                 )}
               </>
 
-              {user && token ? (
+              {/* {user && token ? (
                 <button
                   onClick={() => logout_user()}
                   className="text-gray-400 cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
@@ -270,7 +286,7 @@ const Navbar = () => {
                 >
                   Signin
                 </NavLink>
-              )}
+              )} */}
             </div>
           </div>
         </motion.div>

@@ -47,6 +47,10 @@ const routes = createBrowserRouter([
         path: "/success",
         element: <Success />,
       },
+      {
+        path: "/buy/:id",
+        element: <BuyingPage />,
+      },
     ],
   },
   /* UserLayout */
@@ -85,10 +89,7 @@ const routes = createBrowserRouter([
   //   ],
   // },
 
-  {
-    path: "/buy/:id",
-    element: <BuyingPage />,
-  },
+
   {
     path: "/payment-success",
     element: <PaymentSuccess />,

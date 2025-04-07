@@ -29,6 +29,7 @@ const BuyingPage = () => {
   const [price, setPrice] = useState<number>();
   const [reqularKey, setReqularKey] = useState<number>(0);
   const [serviceKey, setServiceKey] = useState<number>(0);
+  // const [keyNames, setKeyName] = useState<string>("");
   const [keyId, setKeyId] = useState<string>("");
   const [filteredKeys, setFilteredKeys] = useState<[]>([]);
   const [isChecked, setIsChecked] = useState<boolean>(false);
@@ -58,7 +59,10 @@ const BuyingPage = () => {
       amount: number;
       keyType: string;
     }) => {
-      const response = await axios.post(`${url}/payment/create-purchase-link`, obj);
+      const response = await axios.post(
+        `${url}/payment/create-purchase-link`,
+        obj
+      );
       return response.data;
     },
     onSuccess: (data) => {
@@ -73,7 +77,7 @@ const BuyingPage = () => {
       toast.error(data?.message);
     },
   });
-
+  console.log(reqularKey, "name");
   //**** ALL KEYS DATA ****/
   const { data = [] } = useFetch(`/key/all-key`);
   //**** FILTERED SINGLE KEY ****/
@@ -99,6 +103,8 @@ const BuyingPage = () => {
         // Update regular and service key values
         setReqularKey(prices.regularKey);
         setServiceKey(prices.serviceKey);
+        // setKeyName(keyName);
+
         setKeyId(_id);
 
         // Set the correct price based on isChecked
@@ -141,8 +147,8 @@ const BuyingPage = () => {
   }, [checkoutData]);
 
   return (
-    <div className="min-h-screen font-montserrat bg-gray-950 flex items-center justify-center p-6">
-      <div className="flex flex-col sm:flex-row  justify-center w-full max-w-5xl gap-8 rounded-lg p-6">
+    <div className="py-28 font-montserrat bg-gray-950 flex items-center justify-center p-6 ">
+      <div className="flex flex-col sm:flex-row  justify-center w-full max-w-5xl gap-8 rounded-lg p-6 mt-14">
         {/**** IMAGE SECTION ****/}
         <div className=" rounded-2xl flex items-center justify-center w-full max-h-[400px]">
           <img
@@ -168,7 +174,7 @@ const BuyingPage = () => {
                 htmlFor="keyType"
                 className="block text-xs text-gray-500 mb-2"
               >
-                Select one*
+                select key
               </label>
               <select
                 id="keyType"
