@@ -42,16 +42,16 @@ const Navbar = () => {
             {/***** NAVIGATIONBAR START *****/}
             <div className="md:flex items-center lg:gap-x-8 gap-x-6 text-[var(--color-textsecondarycolor)] hidden">
               {/* // All other links are ScrollLink */}
-              
-                  <ScrollLink
-                    smooth
-                    duration={1200}
-                    to="Feature"
-                    className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-                    activeClass="text-green-400 font-bold"
-                  >
-                    Feature
-                  </ScrollLink>
+
+              <ScrollLink
+                smooth
+                duration={1200}
+                to="Feature"
+                className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                activeClass="text-green-400 font-bold"
+              >
+                Feature
+              </ScrollLink>
 
               <ScrollLink
                 smooth

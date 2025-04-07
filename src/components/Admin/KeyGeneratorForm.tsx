@@ -7,12 +7,14 @@ interface FormData {
   duration: string;
   regularKey: string;
   serviceKey: string;
+  description: string;
 }
 
 export default function CreateKeyForm() {
   const [formData, setFormData] = useState<FormData>({
     keyName: "",
     badge: "",
+    description: "",
     duration: "",
     regularKey: "",
     serviceKey: "",
@@ -94,6 +96,7 @@ export default function CreateKeyForm() {
       setFormData({
         keyName: "",
         badge: "",
+        description: "",
         duration: "",
         regularKey: "",
         serviceKey: "",
@@ -113,6 +116,7 @@ export default function CreateKeyForm() {
         {[
           { label: "Key Name", name: "keyName", type: "text" },
           { label: "Badge Name", name: "badge", type: "text" },
+          { label: "Key Description", name: "Description", type: "text" },
           { label: "Duration (Days)", name: "duration", type: "number" },
           { label: "Regular Key Price", name: "regularKey", type: "number" },
           { label: "Service Key Price", name: "serviceKey", type: "number" },

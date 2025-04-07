@@ -45,7 +45,7 @@ const DownloadScript = () => {
             }}
           >
             <img
-              src={logo}
+              src="https://i.postimg.cc/zfCvqNvy/exoduspro.png"
               alt="Profile picture"
               className="object-cover p-1"
             />

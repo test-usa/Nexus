@@ -20,9 +20,10 @@ import AdminPrivateRoute from "./AdminPrivateRoute";
 import Purchase from "@/pages/Purchase";
 import PaymentSuccess from "@/pages/paymentSucces";
 import Success from "@/pages/Success";
+
+import GeneratedKeyTable from "@/components/Admin/generatedKeyTable";
 import DownloadInstallProcess from "@/components/Home/DownloadInstallProcess";
 import Troubleshoot from "@/components/Home/Troubleshoot";
-
 
 const routes = createBrowserRouter([
   {
@@ -135,6 +136,14 @@ const routes = createBrowserRouter([
         element: (
           <AdminPrivateRoute>
             <AllKeys />
+          </AdminPrivateRoute>
+        ),
+      },
+      {
+        path: "my-generated-keys",
+        element: (
+          <AdminPrivateRoute>
+            <GeneratedKeyTable />
           </AdminPrivateRoute>
         ),
       },
