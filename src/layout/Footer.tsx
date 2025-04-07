@@ -1,6 +1,10 @@
 import CommonWrapper from "@/wrapper/CommonWrapper";
+import { NavLink } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Link } from "react-scroll";
 const Footer = () => {
+  const location = useLocation();
+
   return (
     <div className="bg-gray-950">
       <CommonWrapper>
@@ -15,7 +19,7 @@ const Footer = () => {
                 />
               </div>
               <p className="text-[var(--color-textsecondarycolor)] text-base mb-6 max-w-xs">
-                Exbot - Finish your Edgenuity classes, fast.
+                Exodus - Finish your Edgenuity classes, fast.
               </p>
             </div>
 
@@ -23,32 +27,88 @@ const Footer = () => {
               <h3 className="text-lg font-semibold mb-4">Website</h3>
               <ul className="space-y-3">
                 <li>
-                  <Link to="" smooth={true} duration={500}>
-                    <a className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]">
-                      Features
-                    </a>
-                  </Link>
+                  {location.pathname !== "/" ? (
+                    <NavLink
+                      to="/"
+                      // onClick={() => setToggle(false)}
+                      className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
+                    >
+                      Feature
+                    </NavLink>
+                  ) : (
+                    <Link
+                      to="Feature"
+                      smooth
+                      duration={1200}
+                      // onClick={() => setToggle(false)}
+                      className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
+                    >
+                      Feature
+                    </Link>
+                  )}
                 </li>
                 <li>
-                  <a className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]">
-                    Reviews
-                  </a>
+                  {location.pathname !== "/" ? (
+                    <NavLink
+                      to="/"
+                      // onClick={() => setToggle(false)}
+                      className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
+                    >
+                      Reviews
+                    </NavLink>
+                  ) : (
+                    <Link
+                      to="Review"
+                      smooth
+                      duration={1200}
+                      // onClick={() => setToggle(false)}
+                      className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
+                    >
+                      Reviews
+                    </Link>
+                  )}
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
-                  >
-                    Pricing
-                  </a>
+                  {location.pathname !== "/" ? (
+                    <NavLink
+                      to="/"
+                      // onClick={() => setToggle(false)}
+                      className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
+                    >
+                      Pricing
+                    </NavLink>
+                  ) : (
+                    <Link
+                      to="Pricing"
+                      smooth
+                      duration={1200}
+                      // onClick={() => setToggle(false)}
+                      className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
+                    >
+                      Pricing
+                    </Link>
+                  )}
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
-                  >
-                    FAQ
-                  </a>
+                  {location.pathname !== "/" ? (
+                    <NavLink
+                      to="/"
+                      // onClick={() => setToggle(false)}
+                      className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
+                    >
+                      FAQ
+                    </NavLink>
+                  ) : (
+                    <Link
+                      to="FAQ"
+                      smooth
+                      duration={1200}
+                      // onClick={() => setToggle(false)}
+                      className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
+                    >
+                      FAQ
+                    </Link>
+                  )}
                 </li>
               </ul>
             </div>
@@ -57,28 +117,28 @@ const Footer = () => {
               <h3 className="text-lg font-semibold mb-4">Legal</h3>
               <ul className="space-y-3">
                 <li>
-                  <a
+                  <Link
                     href="#"
                     className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
                   >
                     Contact Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="#"
                     className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
                   >
                     Terms & Conditions
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="#"
                     className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
                   >
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -86,14 +146,14 @@ const Footer = () => {
             <div className="flex flex-col items-center sm:items-start">
               <h3 className="text-lg font-semibold mb-4">Credits</h3>
               <p className="text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] ">
-                Made with EXBOT
+                Made with Exodus
               </p>
             </div>
           </div>
 
           <div className="border-t border-gray-700 mt-12 pt-8 text-center">
             <p className="text-[var(--color-textsecondarycolor)] text-sm mb-4">
-              Exobot © All rights reserved
+              Exodus © All rights reserved
             </p>
           </div>
         </footer>

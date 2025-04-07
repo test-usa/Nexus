@@ -34,7 +34,7 @@ const Pricing = () => {
             return (
               <div
                 key={price?._id}
-                className={`rounded-[var(--radius-card)] hover:border-[1px] hover:hover:border-[#CDADFA]  min-w-[280px] relative sm:max-w-full border border-gray-700 shadow-sm hover:shadow-[#CDADFA]  space-y-3 p-5 transform transition duration-500`}
+                className={`rounded-[var(--radius-card)] hover:border-[1px] hover:hover:border-[#CDADFA]  min-w-[280px] relative sm:max-w-full border border-gray-700 shadow-sm hover:shadow-[#CDADFA] hover:bg-[#312344]  space-y-3 p-5 transform transition duration-500`}
               >
                 {price?.badge && (
                   <p className="absolute right-1.5 -top-3.5 rounded bg-gradient-to-bl from-[#5c3991] via-gray-600 to-green-700 py-2 px-3 text-xs sm:text-sm text-[var(--color-textcolor)]">

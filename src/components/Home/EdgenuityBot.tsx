@@ -76,10 +76,10 @@ const EdgenuityBot = () => {
     <Element
       id="#smooth-wrapper"
       name="Feature"
-      className="mt-60 font-montserrat"
+      className="mt-16 font-montserrat"
     >
       <Title
-        title="ExoBot - Features"
+        title="Exodus - Features"
         subtitle="We know that you're probably interested in all the features that Nexus has to offer to help "
       />
       <div
