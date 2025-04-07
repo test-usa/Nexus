@@ -90,7 +90,7 @@ const GeneratedKeyTable = () => {
   const { mutate: generateKeys, isPending: isGenerating } = usePost<any, any>(
     "/user-key/create-user-key"
   );
-  const { mutate: deleteKey, isPending: isDeleting } = useDelete(
+  const { mutate: deleteKey} = useDelete(
     "/user-key/delete-key/"
   );
 
