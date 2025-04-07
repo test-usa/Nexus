@@ -116,7 +116,7 @@ export default function CreateKeyForm() {
         {[
           { label: "Key Name", name: "keyName", type: "text" },
           { label: "Badge Name", name: "badge", type: "text" },
-          { label: "Key Description", name: "Description", type: "text" },
+          { label: "Key Description", name: "description", type: "text" },
           { label: "Duration (Days)", name: "duration", type: "number" },
           { label: "Regular Key Price", name: "regularKey", type: "number" },
           { label: "Service Key Price", name: "serviceKey", type: "number" },
