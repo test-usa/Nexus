@@ -8,12 +8,14 @@ import routes from "./routes/Routes";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import BlackFireTrail from "./components/BlackFireTrail";
 const queryClient = new QueryClient();
 const googleClientId = import.meta.env.VITE_GOOGLE_AUTH_ID;
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <GoogleOAuthProvider clientId={googleClientId}>
+        <BlackFireTrail />
         <RouterProvider router={routes} />
       </GoogleOAuthProvider>
     </QueryClientProvider>

@@ -76,7 +76,7 @@ const EdgenuityBot = () => {
     <Element
       id="#smooth-wrapper"
       name="Feature"
-      className="mt-60 font-montserrat"
+      className="mt-16 font-montserrat"
     >
       <Title
         title="Exodus - Features"

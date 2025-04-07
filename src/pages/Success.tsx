@@ -1,4 +1,3 @@
-
 import CommonWrapper from "@/wrapper/CommonWrapper";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { Link } from "react-router-dom";
@@ -8,7 +7,10 @@ const Success = () => {
     <div className="font-montserrat bg-[var(--color-dashboardbg)] w-full">
       <div className="max-w-[1540px] mx-auto flex-col items-center justify-center py-44 ">
         <CommonWrapper>
-          <Link to="/" className="flex items-center gap-x-2 text-[var(--color-textcolor)]">
+          <Link
+            to="/"
+            className="flex items-center gap-x-2 text-[var(--color-textcolor)]"
+          >
             <IoIosArrowRoundBack className="text-2xl" />
             <span>Back to Home</span>
           </Link>
@@ -38,7 +40,6 @@ const Success = () => {
               We appreciate your support and hope you enjoy using Exodus! 🚀
             </p>
           </div>
-     
         </CommonWrapper>
       </div>
     </div>
