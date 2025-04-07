@@ -30,6 +30,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import usePost from "@/hooks/shared/usePost";
 import useUpdate from "@/hooks/shared/useUpdate";
+import useDelete from "@/hooks/shared/useDelete";
 
 interface LicenseKey {
   key: string;
@@ -78,10 +79,9 @@ const GeneratedKeyTable = () => {
   const { data, isSuccess, isLoading, refetch } = useFetch(
     "/user-key/all-generated-key"
   );
-  const { mutate: extendDuration } = useUpdate<
-    any,
-    any
-  >("/user-key/extend-duration");
+  const { mutate: extendDuration } = useUpdate<any, any>(
+    "/user-key/extend-duration"
+  );
 
   // Fetch key types for generation form
   const { data: keyTypes = [] } = useFetch(`/key/all-key`);
@@ -90,10 +90,30 @@ const GeneratedKeyTable = () => {
   const { mutate: generateKeys, isPending: isGenerating } = usePost<any, any>(
     "/user-key/create-user-key"
   );
+  const { mutate: deleteKey, isPending: isDeleting } = useDelete(
+    "/user-key/delete-key/"
+  );
+
+  const confirmDelete = async (key: string) => {
+    try {
+      deleteKey(key, {
+        onSuccess: () => {
+          toast.success("Key deleted successfully");
+          refetch();
+        },
+        onError: () => {
+          toast.error("Failed to delete key");
+        },
+      });
+    } finally {
+      setIsDeleteModalOpen(false);
+    }
+  };
+
   const { data: userData } = useFetch("user/get-self");
   useEffect(() => {
     if (userData?.success) {
-      setEmail(userData.data.email);
+      setEmail(userData?.data?.email);
     }
   }, [userData]);
 
@@ -174,21 +194,6 @@ const GeneratedKeyTable = () => {
   const handleExtendClick = (keyItem: LicenseKey) => {
     setSelectedKey(keyItem);
     setIsExtendModalOpen(true);
-  };
-
-  const confirmDelete = async () => {
-    setIsProcessing(true);
-    try {
-      // Replace with your actual delete API call
-      // await deleteKey(selectedKey?.key);
-      toast.success("Key deleted successfully");
-      refetch();
-    } catch (error) {
-      toast.error("Failed to delete key");
-    } finally {
-      setIsProcessing(false);
-      setIsDeleteModalOpen(false);
-    }
   };
 
   const confirmExtend = async (key: string) => {
@@ -537,7 +542,7 @@ const GeneratedKeyTable = () => {
                         <Button
                           type="button"
                           variant="destructive"
-                          onClick={confirmDelete}
+                          onClick={() => confirmDelete(keyItem?.key)}
                           disabled={isProcessing}
                           className="border bg-transparent hover:bg-transparent cursor-pointer !border-red-400 text-white"
                         >
