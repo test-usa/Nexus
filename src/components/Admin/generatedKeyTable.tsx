@@ -79,10 +79,11 @@ const GeneratedKeyTable = () => {
   const { data, isSuccess, isLoading, refetch } = useFetch(
     "/user-key/all-generated-key"
   );
+  console.log(data);
   const { mutate: extendDuration } = useUpdate<any, any>(
     "/user-key/extend-duration"
   );
-
+  console.log(selectedKey);
   // Fetch key types for generation form
   const { data: keyTypes = [] } = useFetch(`/key/all-key`);
 
@@ -90,9 +91,7 @@ const GeneratedKeyTable = () => {
   const { mutate: generateKeys, isPending: isGenerating } = usePost<any, any>(
     "/user-key/create-user-key"
   );
-  const { mutate: deleteKey, isPending: isDeleting } = useDelete(
-    "/user-key/delete-key/"
-  );
+  const { mutate: deleteKey } = useDelete("/user-key/delete-key/");
 
   const confirmDelete = async (key: string) => {
     try {
@@ -110,12 +109,14 @@ const GeneratedKeyTable = () => {
     }
   };
 
-  const { data: userData } = useFetch("user/get-self");
+  // Update the user data fetching logic and loading states
+  const { data: userData, isLoading: isUserLoading } =
+    useFetch("user/get-self");
+
+  // In your useEffect for setting email, add a check for loading
   useEffect(() => {
-    if (userData?.success) {
-      setEmail(userData?.data?.email);
-    }
-  }, [userData]);
+    setEmail(userData?.data?.email);
+  }, [userData, isUserLoading, isLoading]);
 
   useEffect(() => {
     if (isSuccess && data?.data) {
@@ -130,6 +131,20 @@ const GeneratedKeyTable = () => {
       );
     }
   }, [isSuccess, data]);
+
+  // Update the loading state check at the beginning of the component
+  if (isLoading || isUserLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader className="animate-spin w-6 h-6" />
+        <span className="ml-2">Loading user data...</span>
+      </div>
+    );
+  }
+
+  if (!isSuccess) {
+    return <div className="text-red-500">Failed to load keys.</div>;
+  }
 
   // Handle key type selection change
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -162,7 +177,7 @@ const GeneratedKeyTable = () => {
       amount: count,
       key: filteredKeys[0],
     };
-    console.log(payload);
+
     generateKeys(payload, {
       onSuccess: () => {
         toast.success(`${count} keys generated successfully`);
@@ -187,6 +202,7 @@ const GeneratedKeyTable = () => {
   };
 
   const handleDeleteClick = (keyItem: LicenseKey) => {
+    console.log(keyItem);
     setSelectedKey(keyItem);
     setIsDeleteModalOpen(true);
   };
@@ -201,10 +217,9 @@ const GeneratedKeyTable = () => {
     try {
       const payload = {
         extendedDuration: extendDays,
-        key,
+        key, // This should be the key string (license key value)
       };
-      console.log(payload);
-      // Assuming extendDuration is an API call function that returns a promise
+
       await extendDuration(payload, {
         onSuccess: () => {
           toast.success(`Key extended by ${extendDays} days successfully`);
@@ -391,169 +406,175 @@ const GeneratedKeyTable = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {currentKeys.map((keyItem, index) => (
-              <TableRow
-                key={index}
-                className={`hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] ${
-                  index % 2 === 0
-                    ? "bg-[var(--color-oddcolor)]"
-                    : "bg-[var(--color-evencolor)]"
-                }`}
-              >
-                <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px]">
-                  {index + 1 + offset}
-                </TableCell>
-                <TableCell
-                  className="text-[16px] cursor-pointer"
-                  onClick={() => toggleReveal(index, "email")}
+            {currentKeys.map((keyItem, index) => {
+              return (
+                <TableRow
+                  key={index}
+                  className={`hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] ${
+                    index % 2 === 0
+                      ? "bg-[var(--color-oddcolor)]"
+                      : "bg-[var(--color-evencolor)]"
+                  }`}
                 >
-                  {revealedKeys[index]?.email
-                    ? keyItem.email
-                    : `${keyItem?.email?.slice(0, 6)}...`}
-                </TableCell>
-                <TableCell
-                  className="text-[16px] cursor-pointer"
-                  onClick={() => toggleReveal(index, "key")}
-                >
-                  {revealedKeys[index]?.key
-                    ? keyItem.key
-                    : `${keyItem?.key?.slice(0, 6)}...`}
-                </TableCell>
-                <TableCell className="text-[16px]">
-                  {keyItem.expiresAt === null
-                    ? "N/A"
-                    : keyItem.expiresAt === "Livetime"
-                    ? "Life time"
-                    : new Date(keyItem.expiresAt).toLocaleString()}
-                </TableCell>
-                <TableCell className="text-[16px]">
-                  {keyItem.redeemedUsers}
-                </TableCell>
-                <TableCell className="text-right text-[16px]">
-                  {new Date(keyItem.createdAt).toLocaleString()}
-                </TableCell>
-                <TableCell className="text-right text-[16px]">
-                  <Badge
-                    className={`capitalize px-3 py-1 text-sm font-medium text-black pr-10 ${
-                      keyItem.expiresAt === null
-                        ? "bg-gray-400"
-                        : "bg-green-400"
-                    }`}
+                  <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px]">
+                    {index + 1 + offset}
+                  </TableCell>
+                  <TableCell
+                    className="text-[16px] cursor-pointer"
+                    onClick={() => toggleReveal(index, "email")}
                   >
-                    {keyItem.expiresAt === null ? "Not Redeemed" : "Active"}
-                  </Badge>
-                </TableCell>
-                <TableCell className="text-2xl flex justify-center gap-5 items-center mt-4">
-                  {/* Extend Time Button with Modal */}
-                  <Dialog
-                    open={isExtendModalOpen}
-                    onOpenChange={setIsExtendModalOpen}
+                    {revealedKeys[index]?.email
+                      ? keyItem?.email
+                      : `${keyItem?.email?.slice(0, 6)}...`}
+                  </TableCell>
+                  <TableCell
+                    className="text-[16px] cursor-pointer"
+                    onClick={() => toggleReveal(index, "key")}
                   >
-                    <DialogTrigger asChild>
-                      <div
-                        className="relative group cursor-pointer"
-                        onClick={() => handleExtendClick(keyItem)}
-                      >
-                        <GiDuration className="text-yellow-600 transition-transform duration-300 transform group-hover:scale-125" />
-                        <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gray-900 text-white text-xs rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-                          Extend Time
-                        </span>
-                      </div>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px] bg-[#1a233a] text-white">
-                      <DialogHeader>
-                        <DialogTitle>Extend License Key</DialogTitle>
-                        <DialogDescription>
-                          Extend the expiration date for key:{" "}
-                          {selectedKey?.key?.slice(0, 8)}...
-                        </DialogDescription>
-                      </DialogHeader>
-                      <div className="grid gap-4 py-4">
-                        <div className="grid grid-cols-4 items-center gap-4">
-                          <Label htmlFor="days" className="text-right">
-                            Days
-                          </Label>
-                          <Input
-                            id="days"
-                            type="number"
-                            value={extendDays}
-                            onChange={(e) =>
-                              setExtendDays(Number(e.target.value))
-                            }
-                            className="col-span-3"
-                            min="1"
-                          />
+                    {revealedKeys[index]?.key
+                      ? keyItem.key
+                      : `${keyItem?.key?.slice(0, 6)}...`}
+                  </TableCell>
+                  <TableCell className="text-[16px]">
+                    {keyItem.expiresAt === null
+                      ? "N/A"
+                      : keyItem.expiresAt === "Livetime"
+                      ? "Life time"
+                      : new Date(keyItem.expiresAt).toLocaleString()}
+                  </TableCell>
+                  <TableCell className="text-[16px]">
+                    {keyItem.redeemedUsers}
+                  </TableCell>
+                  <TableCell className="text-right text-[16px]">
+                    {new Date(keyItem.createdAt).toLocaleString()}
+                  </TableCell>
+                  <TableCell className="text-right text-[16px]">
+                    <Badge
+                      className={`capitalize px-3 py-1 text-sm font-medium text-black pr-10 ${
+                        keyItem.expiresAt === null
+                          ? "bg-gray-400"
+                          : "bg-green-400"
+                      }`}
+                    >
+                      {keyItem.expiresAt === null ? "Not Redeemed" : "Active"}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="text-2xl flex justify-center gap-5 items-center mt-4">
+                    {/* Extend Time Button with Modal */}
+                    <Dialog
+                      open={isExtendModalOpen}
+                      onOpenChange={setIsExtendModalOpen}
+                    >
+                      <DialogTrigger asChild>
+                        <div
+                          className="relative group cursor-pointer"
+                          onClick={() => handleExtendClick(keyItem)}
+                        >
+                          <GiDuration className="text-yellow-600 transition-transform duration-300 transform group-hover:scale-125" />
+                          <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gray-900 text-white text-xs rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+                            Extend Time
+                          </span>
                         </div>
-                      </div>
-                      <DialogFooter>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          className="border bg-transparent hover:bg-transparent cursor-pointer hover:text-white"
-                          onClick={() => setIsExtendModalOpen(false)}
-                        >
-                          Cancel
-                        </Button>
-                        <Button
-                          type="button"
-                          onClick={() => confirmExtend(keyItem.key)}
-                          disabled={isProcessing}
-                          className="border bg-transparent hover:bg-transparent cursor-pointer !border-blue-400"
-                        >
-                          {isProcessing ? "Extending..." : "Extend Key"}
-                        </Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[425px] bg-[#1a233a] text-white">
+                        <DialogHeader>
+                          <DialogTitle>Extend License Key</DialogTitle>
+                          <DialogDescription>
+                            Extend the expiration date for key:{" "}
+                            {selectedKey?.key?.slice(0, 8)}...
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="grid gap-4 py-4">
+                          <div className="grid grid-cols-4 items-center gap-4">
+                            <Label htmlFor="days" className="text-right">
+                              Days
+                            </Label>
+                            <Input
+                              id="days"
+                              type="number"
+                              value={extendDays}
+                              onChange={(e) =>
+                                setExtendDays(Number(e.target.value))
+                              }
+                              className="col-span-3"
+                              min="1"
+                            />
+                          </div>
+                        </div>
+                        <DialogFooter>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            className="border bg-transparent hover:bg-transparent cursor-pointer hover:text-white"
+                            onClick={() => setIsExtendModalOpen(false)}
+                          >
+                            Cancel
+                          </Button>
+                          <Button
+                            type="button"
+                            onClick={() =>
+                              confirmExtend(selectedKey?.key || "")
+                            }
+                            disabled={isProcessing}
+                            className="border bg-transparent hover:bg-transparent cursor-pointer !border-blue-400"
+                          >
+                            {isProcessing ? "Extending..." : "Extend Key"}
+                          </Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
 
-                  {/* Delete Button with Modal */}
-                  <Dialog
-                    open={isDeleteModalOpen}
-                    onOpenChange={setIsDeleteModalOpen}
-                  >
-                    <DialogTrigger asChild>
-                      <div
-                        className="relative group cursor-pointer"
-                        onClick={() => handleDeleteClick(keyItem)}
-                      >
-                        <MdDelete className="text-red-600 transition-transform duration-300 transform group-hover:scale-125" />
-                        <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gray-900 text-white text-xs rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-                          Delete
-                        </span>
-                      </div>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[425px] bg-[#1a233a] text-white">
-                      <DialogHeader>
-                        <DialogTitle>Delete License Key</DialogTitle>
-                        <DialogDescription className="text-white mt-4">
-                          Are you sure you want to delete this key? This action
-                          cannot be undone.
-                        </DialogDescription>
-                      </DialogHeader>
-                      <DialogFooter>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          onClick={() => setIsDeleteModalOpen(false)}
-                          className="border bg-transparent hover:bg-transparent cursor-pointer hover:text-white"
+                    {/* Delete Button with Modal */}
+                    <Dialog
+                      open={isDeleteModalOpen}
+                      onOpenChange={setIsDeleteModalOpen}
+                    >
+                      <DialogTrigger asChild>
+                        <div
+                          className="relative group cursor-pointer"
+                          onClick={() => handleDeleteClick(keyItem)}
                         >
-                          Cancel
-                        </Button>
-                        <Button
-                          type="button"
-                          variant="destructive"
-                          onClick={() => confirmDelete(keyItem?.key)}
-                          disabled={isProcessing}
-                          className="border bg-transparent hover:bg-transparent cursor-pointer !border-red-400 text-white"
-                        >
-                          {isProcessing ? "Deleting..." : "Delete Key"}
-                        </Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
-                </TableCell>
-              </TableRow>
-            ))}
+                          <MdDelete className="text-red-600 transition-transform duration-300 transform group-hover:scale-125" />
+                          <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gray-900 text-white text-xs rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+                            Delete
+                          </span>
+                        </div>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[425px] bg-[#1a233a] text-white">
+                        <DialogHeader>
+                          <DialogTitle>Delete License Key</DialogTitle>
+                          <DialogDescription className="text-white mt-4">
+                            Are you sure you want to delete this key? This
+                            action cannot be undone.
+                          </DialogDescription>
+                        </DialogHeader>
+                        <DialogFooter>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => setIsDeleteModalOpen(false)}
+                            className="border bg-transparent hover:bg-transparent cursor-pointer hover:text-white"
+                          >
+                            Cancel
+                          </Button>
+                          <Button
+                            type="button"
+                            variant="destructive"
+                            onClick={() =>
+                              confirmDelete(selectedKey?.key as string)
+                            }
+                            disabled={isProcessing}
+                            className="border bg-transparent hover:bg-transparent cursor-pointer !border-red-400 text-white"
+                          >
+                            {isProcessing ? "Deleting..." : "Delete Key"}
+                          </Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </div>
