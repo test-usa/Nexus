@@ -124,7 +124,7 @@ const GeneratedKeyTable = () => {
           key: item.key,
           expiresAt: item.expiresAt,
           createdAt: item.createdAt,
-          email: item.email,
+          email: item?.email,
           redeemedUsers: item.RedeemedBy?.length,
         }))
       );
@@ -223,7 +223,7 @@ const GeneratedKeyTable = () => {
   };
 
   const offset = currentPage * keysPerPage;
-  const currentKeys = keys.slice(offset, offset + keysPerPage);
+  const currentKeys = keys?.slice(offset, offset + keysPerPage);
 
   if (isLoading) {
     return (
@@ -409,7 +409,7 @@ const GeneratedKeyTable = () => {
                 >
                   {revealedKeys[index]?.email
                     ? keyItem.email
-                    : `${keyItem.email.slice(0, 6)}...`}
+                    : `${keyItem?.email?.slice(0, 6)}...`}
                 </TableCell>
                 <TableCell
                   className="text-[16px] cursor-pointer"
@@ -417,7 +417,7 @@ const GeneratedKeyTable = () => {
                 >
                   {revealedKeys[index]?.key
                     ? keyItem.key
-                    : `${keyItem.key.slice(0, 6)}...`}
+                    : `${keyItem?.key?.slice(0, 6)}...`}
                 </TableCell>
                 <TableCell className="text-[16px]">
                   {keyItem.expiresAt === null
@@ -465,7 +465,7 @@ const GeneratedKeyTable = () => {
                         <DialogTitle>Extend License Key</DialogTitle>
                         <DialogDescription>
                           Extend the expiration date for key:{" "}
-                          {selectedKey?.key.slice(0, 8)}...
+                          {selectedKey?.key?.slice(0, 8)}...
                         </DialogDescription>
                       </DialogHeader>
                       <div className="grid gap-4 py-4">
