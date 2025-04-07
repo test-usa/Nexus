@@ -65,6 +65,7 @@ export default function CreateKeyForm() {
     const payload = {
       keyName: formData.keyName,
       badge: formData.badge,
+      description:formData.description,
       duration: Number(formData.duration),
       users: { serviceKey: 5, regularKey: 1 },
       prices: {
@@ -75,7 +76,7 @@ export default function CreateKeyForm() {
 
     try {
       const response = await fetch(
-        "https://guidemc.vercel.app/api/v1/key/create-key",
+        `${import.meta.env.VITE_API_BASE_URL}/key/create-key`,
         {
           method: "POST",
           headers: {
