@@ -14,7 +14,7 @@ const Success = () => {
           </Link>
           <div className="mt-8 space-y-4">
             <h1 className="lg:text-2xl text-xl text-[var(--color-textcolor)] font-semibold">
-              Thank you for choosing Exobot! ❤️{" "}
+              Thank you for choosing Exodus! ❤️{" "}
             </h1>
             <p className="lg:text-[16px] text-sm text-[var(--color-textsecondarycolor)]">
               {" "}
@@ -35,7 +35,7 @@ const Success = () => {
               </li>
             </ul>
             <p className="lg:text-[16px] text-sm text-[var(--color-textsecondarycolor)]">
-              We appreciate your support and hope you enjoy using Exobot! 🚀
+              We appreciate your support and hope you enjoy using Exodus! 🚀
             </p>
           </div>
      

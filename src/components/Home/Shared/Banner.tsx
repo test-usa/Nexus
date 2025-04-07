@@ -81,12 +81,12 @@ const Banner = () => {
                text-[var(--color-textcolor)]"
               >
                 <span className=" text-transparent bg-clip-text bg-[#7d57b5]">
-                  ExoBot
+                  Exodus
                 </span>{" "}
                 Fastest Edgenuity Bot.
               </h1>
               <p className=" w-5/6 sm:w-2/3 lg:mx-0 mx-auto text-sm sm:text-[16px] text-[var(--color-textsecondarycolor)] leading-relaxed">
-                ExoBot is your ultimate companion for online learning,
+                Exodus is your ultimate companion for online learning,
                 turbocharging your Edgenuity experience by helping you breeze
                 through courses faster and master the material with ease.
               </p>
@@ -121,7 +121,7 @@ const Banner = () => {
                     className="max-w-14 rounded-xl"
                   />
                   <div className="">
-                    <h1 className="text-xl text-white font-semibold">Exobot</h1>
+                    <h1 className="text-xl text-white font-semibold">Exodus</h1>
                     <p className="text-sm text-white">Opern beta 1.4.3.3 </p>
                   </div>
                 </div>

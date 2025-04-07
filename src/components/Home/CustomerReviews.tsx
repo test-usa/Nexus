@@ -73,7 +73,7 @@ const CustomerReviews = () => {
     <Element name="Review" className="w-full mt-16 text-white ">
       <div>
         <Title
-          title="People love ExoBot
+          title="People love Exodus
          and there's a good reason."
           subtitle="Skeptical of us? We have tons of positive reviews from our customers
           that use Edgenuity. We want to help you get out of this online

@@ -31,6 +31,7 @@ const navItems: NavItem[] = [
   { title: "All User Info", href: "all-user-info", icon: FaUsers },
   { title: "All Key Subscription", href: "all-keys", icon: GiHouseKeys },
   { title: "All User Keys", href: "key-table", icon: FaInfo },
+  { title: "My Generated Keys", href: "my-generated-keys", icon: FaInfo },
   {
     title: "Create Subscription",
     href: "key-generate",

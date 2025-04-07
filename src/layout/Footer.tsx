@@ -1,5 +1,5 @@
 import CommonWrapper from "@/wrapper/CommonWrapper";
-import { Link } from "react-scroll";
+import { Link as ScrollLink } from "react-scroll";
 const Footer = () => {
   return (
     <div className="bg-gray-950">
@@ -15,7 +15,7 @@ const Footer = () => {
                 />
               </div>
               <p className="text-[var(--color-textsecondarycolor)] text-base mb-6 max-w-xs">
-                Exbot - Finish your Edgenuity classes, fast.
+                Exodus - Finish your Edgenuity classes, fast.
               </p>
             </div>
 
@@ -23,16 +23,24 @@ const Footer = () => {
               <h3 className="text-lg font-semibold mb-4">Website</h3>
               <ul className="space-y-3">
                 <li>
-                  <Link to="" smooth={true} duration={500}>
-                    <a className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]">
-                      Features
-                    </a>
-                  </Link>
+                  <ScrollLink
+                    to="Feature"
+                    smooth={true}
+                    duration={500}
+                    className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
+                  >
+                    Feature
+                  </ScrollLink>
                 </li>
                 <li>
-                  <a className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]">
-                    Reviews
-                  </a>
+                  <ScrollLink
+                    to="Review"
+                    smooth={true}
+                    duration={500}
+                    className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
+                  >
+                    Review
+                  </ScrollLink>
                 </li>
                 <li>
                   <a
@@ -43,12 +51,14 @@ const Footer = () => {
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="#"
+                  <ScrollLink
+                    smooth
+                    duration={1200}
+                    to="FAQ"
                     className="hover:text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] text-[var(--color-textsecondarycolor)]"
                   >
                     FAQ
-                  </a>
+                  </ScrollLink>
                 </li>
               </ul>
             </div>
@@ -86,14 +96,14 @@ const Footer = () => {
             <div className="flex flex-col items-center sm:items-start">
               <h3 className="text-lg font-semibold mb-4">Credits</h3>
               <p className="text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8] cursor-pointer translate transform duration-300 text-sm lg:text-[16px] ">
-                Made with EXBOT
+                Made with Exodus
               </p>
             </div>
           </div>
 
           <div className="border-t border-gray-700 mt-12 pt-8 text-center">
             <p className="text-[var(--color-textsecondarycolor)] text-sm mb-4">
-              Exobot © All rights reserved
+              Exodus © All rights reserved
             </p>
           </div>
         </footer>

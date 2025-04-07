@@ -22,6 +22,7 @@ import PaymentSuccess from "@/pages/paymentSucces";
 import Success from "@/pages/Success";
 import DownloadInstallProcess from "@/components/home/DownloadInstallProcess";
 import Troubleshoot from "@/components/home/Troubleshoot";
+import GeneratedKeyTable from "@/components/Admin/generatedKeyTable";
 
 const routes = createBrowserRouter([
   {
@@ -134,6 +135,14 @@ const routes = createBrowserRouter([
         element: (
           <AdminPrivateRoute>
             <AllKeys />
+          </AdminPrivateRoute>
+        ),
+      },
+      {
+        path: "my-generated-keys",
+        element: (
+          <AdminPrivateRoute>
+            <GeneratedKeyTable />
           </AdminPrivateRoute>
         ),
       },
