@@ -120,8 +120,8 @@ const Banner = () => {
       >
         {" "}
         <CommonWrapper>
-          <div className="mt-60">
-            <div className="flex group z-10 items-center justify-between xl:mt-44 mt-20">
+          <div className="mt-60 z-10">
+            <div className="flex group  items-center justify-between xl:mt-44 mt-20">
               {/**** TEXT SECTION ****/}
               <motion.div
                 ref={ref}
@@ -164,7 +164,7 @@ const Banner = () => {
                   </button>
                 </div>
 
-                <div className="mt-8 flex items-center gap-x-12">
+                <div className="mt-8 flex items-center gap-x-12 lg:justify-self-start justify-center z-10">
                   <div className="space-y-2">
                     {" "}
                     <h1 className="text-5xl font-semibold text-[#7d57b5]">
@@ -187,10 +187,10 @@ const Banner = () => {
 
               {/**** BANNER CARD SECTION ****/}
               <div
-                className={`feature-card backdrop-blur-2xl w-1/3 lg:block hidden transform translate-all duration-200 group-hover:-rotate-z-3 -skew-y-3  group-hover:shadow-lg group-hover:drop-shadow-lg  min-h-[460px] group-hover:scale-105 relative rounded-lg `}
+                className={`feature-card backdrop-blur-2xl w-1/3 lg:block hidden transform translate-all duration-200 group-hover:-rotate-z-3 -skew-y-3 group-hover:shadow-lg group-hover:drop-shadow-lg min-h-[460px] group-hover:scale-105 relative rounded-lg`}
               >
-                <div className="relative z-30 min-h-[460px] bg-gradient-to-r from-[#5c3991] to-[#3a2b49] p-4 border-white/20 rounded-lg  group-hover:border-cyan-500 ">
-                  <div className=" flex items-center gap-x-2 ">
+                <div className="relative z-30 min-h-[460px] bg-gradient-to-r from-[#5c3991] to-[#3a2b49] p-4 border-white/20 rounded-lg  group-hover:border-cyan-500">
+                  <div className=" flex items-center gap-x-2">
                     <img
                       src="https://i.postimg.cc/zfCvqNvy/exoduspro.png"
                       alt="logo"
@@ -200,7 +200,7 @@ const Banner = () => {
                       <h1 className="text-xl text-white font-semibold">
                         Exodus
                       </h1>
-                      <p className="text-sm text-white">Opern beta 1.4.3.3 </p>
+                      <p className="text-sm text-white">Open beta 1.4.3.3</p>
                     </div>
                   </div>
 
@@ -210,7 +210,7 @@ const Banner = () => {
                         <div
                           key={index}
                           className={cn(
-                            `flex items-center justify-between  rounded-lg px-4 py-1.5 w-full`,
+                            `flex items-center justify-between rounded-lg px-4 py-1.5 w-full`,
                             Math.floor(index / 2) % 2 === 0
                               ? "bg-[#9881c2]"
                               : "bg-[#ac8eec]"

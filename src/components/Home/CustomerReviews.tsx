@@ -74,7 +74,7 @@ const CustomerReviews = () => {
   return (
     <Element name="Review" className="w-full text-white ">
       <CommonWrapper>
-        <div className="mt-16 relative z-10">
+        <div className="mt-16 relative z-30">
           {" "}
           <div>
             <Title
@@ -85,7 +85,7 @@ const CustomerReviews = () => {
           school mess "
             />
           </div>
-          <div className="mt-10 w-full px-3">
+          <div className="mt-10 w-full px-3 z-30">
             <Slider {...settings}>
               {review?.map((item) => {
                 return (
@@ -129,10 +129,11 @@ const CustomerReviews = () => {
             style={{ position: "absolute", top: 0, left: 0 }}
           >
             {/* Ensure Stars component is correctly set up */}
-            <Stars radius={50} count={250} factor={4} fade speed={2} />
+            <Stars radius={50} count={250} factor={1} fade speed={2} />
           </Canvas>
         </motion.div>
       </CommonWrapper>
+   
     </Element>
   );
 };
