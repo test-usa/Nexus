@@ -17,12 +17,12 @@ const Troubleshoot = () => {
           </div>
 
           {/* Description */}
-          <p className="text-sm sm:text-base md:text-lg">
+          <p className="lg:text-[16px] text-sm">
             If the EdgyPro menu is not appearing on your screen, try the
             following steps:
           </p>
 
-          <ul className="space-y-3 sm:space-y-4 list-disc list-inside text-sm sm:text-base md:text-lg">
+          <ul className="space-y-3 sm:space-y-4 list-disc list-inside lg:text-[16px] text-sm">
             <li>
               <strong>Unhide the menu:</strong> Press
               <kbd className="bg-gray-800 px-2 py-1 rounded text-white mx-1">
@@ -53,7 +53,7 @@ const Troubleshoot = () => {
           </ul>
 
           {/* Support Section */}
-          <p className="text-sm sm:text-base md:text-lg">
+          <p className="lg:text-[16px] text-sm">
             If you've tried these steps and the menu is still not appearing,
             please contact our support team in the
             <a
@@ -85,13 +85,13 @@ const Troubleshoot = () => {
           </div>
 
           {/* Description */}
-          <p className="text-sm sm:text-base md:text-lg">
+          <p className="lg:text-[16px] text-sm">
             It’s possible that Tampermonkey may not always function correctly.
             If you're encountering issues, I recommend trying Violentmonkey
             instead by following these steps:
           </p>
 
-          <ul className="space-y-3 sm:space-y-4 list-disc list-inside text-sm sm:text-base md:text-lg">
+          <ul className="space-y-3 sm:space-y-4 list-disc list-inside lg:text-[16px] text-sm">
             <li>
               <strong>Install Violentmonkey:</strong> Visit the
               <a
@@ -121,7 +121,7 @@ const Troubleshoot = () => {
           </ul>
 
           {/* Video Tutorial */}
-          <p className="text-sm sm:text-base md:text-lg">
+          <p className="lg:text-[16px] text-sm">
             For a more detailed tutorial, you can also refer to this video:
             <a
               href="https://youtu.be/iXj5CHtkCIA"
@@ -132,7 +132,7 @@ const Troubleshoot = () => {
           </p>
 
           {/* Support Section */}
-          <p className="text-sm sm:text-base md:text-lg">
+          <p className="lg:text-[16px] text-sm">
             If you continue experiencing issues, feel free to reach out to our
             support team on the
             <a
@@ -163,12 +163,12 @@ const Troubleshoot = () => {
           </div>
 
           {/* Description */}
-          <p className="text-sm sm:text-base md:text-lg">
+          <p className="lg:text-[16px] text-sm">
             If you purchased an EdgyPro key and are struggling to find it, check
             the following places:
           </p>
 
-          <ul className="space-y-3 sm:space-y-4 list-disc list-inside text-sm sm:text-base md:text-lg">
+          <ul className="space-y-3 sm:space-y-4 list-disc list-inside lg:text-[16px] text-sm">
             <li>The inbox of the email address you entered when purchasing.</li>
             <li>
               The spam folder of the email address you entered when purchasing.
@@ -176,7 +176,7 @@ const Troubleshoot = () => {
           </ul>
 
           {/* Support Section */}
-          <div className="text-sm sm:text-base md:text-lg">
+          <div className="lg:text-[16px] text-sm">
             If you still can't find it, contact support in our
             <a
               href="https://discord.com/invite/edgypro"
@@ -188,13 +188,13 @@ const Troubleshoot = () => {
           </div>
 
           {/* Additional Tip */}
-          <div className="text-sm sm:text-base md:text-lg">
+          <div className="lg:text-[16px] text-sm">
             Typos are common in email addresses when ordering keys. If possible,
             check your PayPal receipt for a typo to quicker identify the issue.
           </div>
 
           {/* Purchase Link */}
-          <div className="flex items-center text-sm sm:text-base md:text-lg pr-2">
+          <div className="flex items-center lg:text-[16px] text-sm pr-2">
             <p>Click</p>
             <a
               href="https://discord.com/invite/edgypro"
@@ -224,13 +224,13 @@ const Troubleshoot = () => {
           </div>
 
           {/* Description */}
-          <p className="text-sm sm:text-base md:text-lg">
+          <p className="lg:text-[16px] text-sm">
             Is the EdgyPro menu not appearing on your screen? To resolve this, I
             recommend trying the following steps:
           </p>
 
           {/* Troubleshooting Steps */}
-          <ul className="space-y-3 sm:space-y-4 list-disc list-inside text-sm sm:text-base md:text-lg">
+          <ul className="space-y-3 sm:space-y-4 list-disc list-inside lg:text-[16px] text-sm">
             <li>
               <strong>Unhide the menu:</strong> Press
               <kbd className="bg-gray-800 px-2 py-1 rounded text-white mx-1">
@@ -261,7 +261,7 @@ const Troubleshoot = () => {
           </ul>
 
           {/* Support Section */}
-          <div className="text-sm sm:text-base md:text-lg">
+          <div className="lg:text-[16px] text-sm">
             If you've tried these steps and the menu is still not appearing,
             please feel free to contact our support team in the
             <a
@@ -293,7 +293,7 @@ const Troubleshoot = () => {
           </div>
 
           {/* Description */}
-          <p className="text-sm sm:text-base md:text-lg">
+          <p className="lg:text-[16px] text-sm">
             If you see this message, it's usually safe to ignore and click
             Close. However, if EdgyPro still doesn’t load, it could be due to
             your Wi-Fi blocking the site, or you may need to try the following
@@ -301,7 +301,7 @@ const Troubleshoot = () => {
           </p>
 
           {/* Troubleshooting Steps */}
-          <div className="pl-4 text-sm sm:text-base md:text-lg">
+          <div className="pl-4 lg:text-[16px] text-sm">
             <div className="flex items-center">
               <p>1. Reload the page.</p>
             </div>
@@ -316,7 +316,7 @@ const Troubleshoot = () => {
           <h2 className="text-xl sm:text-2xl text-[var(--color-textcolor)]">
             How to clear your cache:
           </h2>
-          <div className="pl-4 text-sm sm:text-base md:text-lg">
+          <div className="pl-4 lg:text-[16px] text-sm">
             <div className="flex items-center">
               <p>
                 1. Press Ctrl + Shift + Delete to open the clear browsing data
@@ -337,7 +337,7 @@ const Troubleshoot = () => {
           <h2 className="text-xl sm:text-2xl text-[var(--color-textcolor)]">
             Suggested Browsers:
           </h2>
-          <ul className="space-y-4 list-disc list-inside text-sm sm:text-base md:text-lg">
+          <ul className="space-y-4 list-disc list-inside lg:text-[16px] text-sm">
             <li>
               <a
                 href="#"
@@ -365,7 +365,7 @@ const Troubleshoot = () => {
           </ul>
 
           {/* Support Section */}
-          <div className="text-sm sm:text-base md:text-lg">
+          <div className="lg:text-[16px] text-sm">
             If you continue experiencing issues, feel free to reach out to our
             support team on the{" "}
             <span className="text-[var(--color-hovertext)] hover:text-[#695ce0]">
