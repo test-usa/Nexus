@@ -80,7 +80,7 @@ const EdgenuityBot = () => {
     <Element
       id="#smooth-wrapper"
       name="Feature"
-      className=" font-montserrat relative z-30 bg-[#120234]"
+      className=" font-montserrat relative z-30 bg-[#282D32]"
     >
       <CommonWrapper>
         <div className="py-16">

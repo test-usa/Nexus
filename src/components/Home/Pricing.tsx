@@ -23,7 +23,7 @@ type PricingData = {
 const Pricing = () => {
   const { data } = useFetch("/key/all-key");
   return (
-    <Element name="Pricing" className="font-montserrat mt-20 relative z-30">
+    <Element name="Pricing" className="font-montserrat py-10 relative z-30 bg-[#282D32]">
       <CommonWrapper>
         <Title
           title="All hacks and features for Edgenuity, for every price."
