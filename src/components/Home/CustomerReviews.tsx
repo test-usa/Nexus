@@ -72,9 +72,9 @@ const CustomerReviews = () => {
     },
   ];
   return (
-    <Element name="Review" className="w-full text-white ">
+    <Element name="Review" className="w-full text-white bg-[#282D32] py-10">
       <CommonWrapper>
-        <div className="mt-16 relative z-30">
+        <div className=" relative z-30 ">
           {" "}
           <div>
             <Title
@@ -85,7 +85,7 @@ const CustomerReviews = () => {
           school mess "
             />
           </div>
-          <div className="mt-10 w-full px-3 z-30">
+          <div className=" w-full px-3 z-30 py-16">
             <Slider {...settings}>
               {review?.map((item) => {
                 return (
