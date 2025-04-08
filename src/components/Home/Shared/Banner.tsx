@@ -120,8 +120,8 @@ const Banner = () => {
       >
         {" "}
         <CommonWrapper>
-          <div className="mt-60 z-10">
-            <div className="flex group  items-center justify-between xl:mt-44 mt-20">
+          <div className=" z-10">
+            <div className="flex group  items-center justify-between xl:mt-56 mt-36">
               {/**** TEXT SECTION ****/}
               <motion.div
                 ref={ref}
