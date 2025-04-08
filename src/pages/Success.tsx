@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Success = () => {
   return (
-    <div className="font-montserrat bg-[#282D32] w-full">
+    <div className="font-montserrat bg-[#182029] w-full">
       <div className="max-w-[1540px] mx-auto flex-col items-center justify-center py-44 ">
         <CommonWrapper>
           <Link
