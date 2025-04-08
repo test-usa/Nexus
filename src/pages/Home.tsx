@@ -9,8 +9,8 @@ const Home = () => {
   return (
     <div className="bg-neutral-900 ">
       <Banner />
-      <CustomerReviews />
       <EdgenuityBot />
+      <CustomerReviews />
       <Pricing />
       <FrequentlyAsk />
       <Support />

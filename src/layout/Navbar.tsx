@@ -166,7 +166,7 @@ const Navbar = () => {
 
             <button
               onClick={() => setToggle(!toggle)}
-              className="absolute right-0 z-50 md:hidden block"
+              className="absolute right-0 top-1 z-50 md:hidden block"
             >
               {!toggle && (
                 <FcMenu className="text-3xl cursor-pointer text-gray-400 hover:text-white transition-all duration-300 transform hover:scale-110" />
@@ -176,11 +176,11 @@ const Navbar = () => {
         </CommonWrapper>
       </div>
       {/**** TOGGLE BAR, ONLY FOR SM-MD DEVICE ****/}
-      <div className="relative lg:hidden block">
+      <div className="relative  bg-amber-400 lg:hidden block ">
         {/* Toggle Bar */}
         <button
           onClick={() => setToggle(!toggle)}
-          className="absolute right-3 -top-16 z-50 md:hidden block"
+          className="absolute right-3  z-50 md:hidden block"
         >
           {toggle && (
             <GoX className="text-3xl cursor-pointer text-white transition-all duration-300 transform hover:scale-110" />
