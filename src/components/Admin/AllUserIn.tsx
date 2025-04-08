@@ -17,7 +17,7 @@ interface User {
   email: string;
   role: string;
 }
-const AllUserInfo = () => {
+const AllUserIn = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [expandedUids, setExpandedUids] = useState<{ [key: string]: boolean }>(
@@ -123,7 +123,7 @@ const AllUserInfo = () => {
       </div>
 
       {/* Pagination Section */}
-      <div className="mt-2 flex justify-center sm:mt-20">
+      <div className="mt-2 flex justify-center">
         <ReactPaginate
           previousLabel={"Previous"}
           nextLabel={"Next"}
@@ -141,4 +141,4 @@ const AllUserInfo = () => {
   );
 };
 
-export default AllUserInfo;
+export default AllUserIn;

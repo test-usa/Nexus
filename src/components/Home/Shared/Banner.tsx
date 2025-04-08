@@ -84,7 +84,7 @@ const Banner = () => {
         `${url}/payment/get-all-payment`
       );
       const data = response.data;
-      console.log(data);
+      console.log(data)
       // setData(data);
     } catch (error) {
       console.error("Error fetching data:", error);

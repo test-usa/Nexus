@@ -25,6 +25,7 @@ import GeneratedKeyTable from "@/components/Admin/generatedKeyTable";
 import DownloadInstallProcess from "@/components/Home/DownloadInstallProcess";
 import Troubleshoot from "@/components/Home/Troubleshoot";
 
+
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -88,7 +89,6 @@ const routes = createBrowserRouter([
   //     },
   //   ],
   // },
-
 
   {
     path: "/payment-success",

@@ -182,74 +182,76 @@ const DashboardContent = () => {
             </div>
           </motion.div> */}
         </div>
-        {/* Added wrapper for scroll */}
-        <Table className=" rounded-sm shadow-lg overflow-hidden">
-          <TableHeader className="bg-[var(--color-dashboardsecondary)] ">
-            <TableRow>
-              <TableHead className=" px-6 sm:px-6 py-6 w-[100px] text-lg text-[var(--color-textcolor)]">
-                Id
-              </TableHead>
 
-              <TableHead className=" text-lg text-[var(--color-textcolor)]">
-                Name
-              </TableHead>
-              <TableHead className=" text-lg  text-[var(--color-textcolor)]">
-                Email
-              </TableHead>
+        <div>
+          {/* Added wrapper for scroll */}
+          <Table className=" rounded-sm shadow-lg overflow-hidden">
+            <TableHeader className="bg-[var(--color-dashboardsecondary)] ">
+              <TableRow>
+                <TableHead className=" px-6 sm:px-6 py-6 w-[100px] text-lg text-[var(--color-textcolor)]">
+                  Id
+                </TableHead>
 
-              <TableHead className="text-right text-lg pr-10  text-[var(--color-textcolor)]">
-                Role
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {currentUsers.map((user, index) => (
-              <TableRow
-                key={user._id}
-                className={`hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] ${
-                  index % 2 === 0
-                    ? "bg-[var(--color-oddcolor)]"
-                    : "bg-[var(--color-evencolor)]"
-                }`}
-              >
-                <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px]">
-                  {index + 1 + offset}
-                </TableCell>
+                <TableHead className=" text-lg text-[var(--color-textcolor)]">
+                  Name
+                </TableHead>
+                <TableHead className=" text-lg  text-[var(--color-textcolor)]">
+                  Email
+                </TableHead>
 
-                <TableCell className="text-[16px]">{user.name}</TableCell>
-                <TableCell className="text-[16px]">{user.email}</TableCell>
-
-                <TableCell
-                  className={`text-right pr-10 text-[16px] ${
-                    user.role === "ADMIN"
-                      ? "text-cyan-300"
-                      : user.role === "USER"
-                      ? "text-[var(--color-successthree)]"
-                      : ""
+                <TableHead className="text-right text-lg pr-10  text-[var(--color-textcolor)]">
+                  Role
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {currentUsers.map((user, index) => (
+                <TableRow
+                  key={user._id}
+                  className={`hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] ${
+                    index % 2 === 0
+                      ? "bg-[var(--color-oddcolor)]"
+                      : "bg-[var(--color-evencolor)]"
                   }`}
                 >
-                  {user.role}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+                  <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px]">
+                    {index + 1 + offset}
+                  </TableCell>
 
-      {/* Pagination Section */}
-      <div className="mt-6 flex justify-center">
-        <ReactPaginate
-          previousLabel={"Previous"}
-          nextLabel={"Next"}
-          pageCount={Math.ceil(users.length / usersPerPage)}
-          onPageChange={handlePageChange}
-          containerClassName="flex items-center space-x-2"
-          pageClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textsecondarycolor)]"
-          previousClassName=" text-[16px] px-4 py-2  border border-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
-          nextClassName="text-[16px] px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
-          activeClassName="text-white bg-[var(--color-dashboardsecondary)]"
-          disabledClassName="text-gray-400 cursor-not-allowed"
-        />
+                  <TableCell className="text-[16px]">{user.name}</TableCell>
+                  <TableCell className="text-[16px]">{user.email}</TableCell>
+
+                  <TableCell
+                    className={`text-right pr-10 text-[16px] ${
+                      user.role === "ADMIN"
+                        ? "text-cyan-300"
+                        : user.role === "USER"
+                        ? "text-[var(--color-successthree)]"
+                        : ""
+                    }`}
+                  >
+                    {user.role}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          {/* Pagination Section */}
+          <div className="mt-6 flex justify-center">
+            <ReactPaginate
+              previousLabel={"Previous"}
+              nextLabel={"Next"}
+              pageCount={Math.ceil(users.length / usersPerPage)}
+              onPageChange={handlePageChange}
+              containerClassName="flex items-center space-x-2"
+              pageClassName="px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textsecondarycolor)]"
+              previousClassName=" text-[16px] px-4 py-2  border border-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] rounded-md text-sm bg-[var(--color-dashboardsecondary)] text-[var(--color-textcolor)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
+              nextClassName="text-[16px] px-4 py-2 border border-[var(--color-dashboardsecondary)] rounded-md text-sm text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)] hover:text-[var(--color-hovertext)] hover:bg-[var(--color-bghovercolor)]"
+              activeClassName="text-white bg-[var(--color-dashboardsecondary)]"
+              disabledClassName="text-gray-400 cursor-not-allowed"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

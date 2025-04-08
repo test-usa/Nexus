@@ -8,25 +8,24 @@ const DownloadInstallProcess = () => {
   return (
     <CommonWrapper>
       <DownloadScript />
-      <div className="bg-[var(--color-dashboardbg)] min-h-screen font-montserrat">
-        {/* Process of Installation  */}
+      <div className=" bg-[#181818] min-h-screen font-montserrat">
+        {/*  Installation  */}
         <div className="text-[var(--color-textsecondarycolor)] px-6">
           <Title title="How to Setup EdgyPro." subtitle="" />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* bg-[var(--color-dashboardsecondary)] rounded shadow-lg */}
             <div className="p-6  border-l border-gray-700 pl-4">
               <h3 className="text-2xl font-semibold mb-3 text-[var(--color-textcolor)]">
                 Step 1: Install Tampermonkey:
               </h3>
-              <p className="text-lg leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg ">
                 Begin by adding the
                 <span className="text-[var(--color-hovertext)] hover:text-[#695ce0] pl-2 pr-2">
                   <a href="https://www.tampermonkey.net/" target="_blank">
                     Tampermonkey extension
                   </a>
                 </span>
-                to your browser. This is required for running user scripts like
+                to your browser. This is required for running users scripts like
                 EdgyPro.
               </p>
             </div>
@@ -34,14 +33,14 @@ const DownloadInstallProcess = () => {
               <h3 className="text-2xl font-semibold mb-3 text-[var(--color-textcolor)]">
                 Step 2: Enable Developer Mode:
               </h3>
-              <p className="text-lg leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg ">
                 Make sure that Developer Mode is enabled in your browser's
                 extensions settings.
               </p>
-              <h4 className="text-xl font-semibold mt-4">
+              <h4 className="text-sm sm:text-base md:text-lg  mt-4">
                 To enable developer mode in Chrome:
               </h4>
-              <div className="pl-4 text-lg">
+              <div className="pl-4 text-sm sm:text-base md:text-lg ">
                 <div className="flex  items-center">
                   <div>
                     <p>1. Open Chrome</p>
@@ -82,7 +81,7 @@ const DownloadInstallProcess = () => {
               <h3 className="text-2xl font-semibold mb-3 text-[var(--color-textcolor)]">
                 Step 3: Access the Tampermonkey Dashboard:
               </h3>
-              <p className="text-lg leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg ">
                 Click the Tampe rmonkey icon and select Dashboard from the
                 dropdown.
               </p>
@@ -91,7 +90,7 @@ const DownloadInstallProcess = () => {
               <h3 className="text-2xl font-semibold mb-3 text-[var(--color-textcolor)]">
                 Step 4: Add the EdgyPro Script:
               </h3>
-              <p className="text-lg leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg ">
                 In the Tampermonkey Dashboard, navigate to the Utilities tab at
                 the top. Under Import from File, select the exodus.user.js file
                 that you've downloaded.
@@ -101,7 +100,7 @@ const DownloadInstallProcess = () => {
               <h3 className="text-2xl font-semibold mb-3 text-[var(--color-textcolor)]">
                 Step 5: Activate EdgyPro:
               </h3>
-              <p className="text-lg leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg ">
                 After installing the script, go to
                 <span className="text-[var(--color-hovertext)] hover:text-[#695ce0]  ml-2">
                   <a href="https://www.imaginelearning.com/" target="_blank">
