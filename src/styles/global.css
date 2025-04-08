@@ -1,0 +1,26 @@
+/* Global CSS file (global.css) */
+@media (max-width: 768px) {
+  .table-responsive {
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS devices */
+    overflow-x: auto !important; /* Enable horizontal scrolling on small screens */
+  }
+
+  /* Ensure the scrollbar appears below the table header */
+  .table-responsive table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  /* Adjust pagination layout for small screens */
+  .pagination {
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .page-item {
+    padding: 0.25rem 0.5rem;
+  }
+}

@@ -8,7 +8,7 @@ export default function AdminDashboard() {
       <DashboardSidebar />
 
       {/* Main Content */}
-      <main className="flex-1 font-manrope min-h-screen  transition-all duration-300 bg-[var(--color-dashboardbg)] ease-in-out">
+      <main className="flex-1 overflow-auto  font-manrope min-h-screen  transition-all duration-300 bg-[var(--color-dashboardbg)] ease-in-out">
         <Outlet />
       </main>
     </div>
