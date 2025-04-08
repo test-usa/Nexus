@@ -22,7 +22,7 @@ const SignIn = () => {
   //   auth(authuser)
   // },[authuser])
   return (
-    <div className=" bg-[var(--color-dashboardbg)] min-h-screen flex flex-col items-center justify-center font-montserrat ">
+    <div className=" bg-[#282D32] min-h-screen flex flex-col items-center justify-center font-montserrat ">
       <div className="border-cyan-400 rounded mx-auto w-full border md:max-w-lg lg:max-w-2xl">
         <div className="p-8 w-full">
           <h1 className="text-center text-xl sm:text-2xl text-gray-400">
