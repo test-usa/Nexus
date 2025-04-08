@@ -5,7 +5,7 @@ import { Stars } from "@react-three/drei";
 import { motion } from "framer-motion";
 const Support = () => {
   return (
-    <section className="py-16  relative z-30 font-montserrat  bg-[#120234]">
+    <section className="py-16  relative z-30 font-montserrat  bg-[#1b132c]">
       <div className="container mx-auto flex flex-col items-center justify-center p-4 space-y-8 md:p-10 md:px-24 xl:px-48">
         <Title
           title="Join our Discord for 24/7 support!"

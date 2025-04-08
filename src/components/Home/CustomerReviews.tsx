@@ -72,7 +72,7 @@ const CustomerReviews = () => {
     },
   ];
   return (
-    <Element name="Review" className="w-full text-white bg-[#282D32] pt-10">
+    <Element name="Review" className="w-full text-white bg-[#182029] pt-10">
       <CommonWrapper>
         <div className=" relative z-30 ">
           {" "}
