@@ -13,6 +13,11 @@ import {
 } from "lucide-react";
 import { Element } from "react-scroll";
 import Title from "./Shared/Title";
+import CommonWrapper from "@/wrapper/CommonWrapper";
+
+
+import { Canvas } from "@react-three/fiber";
+import { Stars } from "@react-three/drei";
 interface FeatureCardProps {
   icon: LucideIcon;
   title: string;
@@ -76,51 +81,62 @@ const EdgenuityBot = () => {
     <Element
       id="#smooth-wrapper"
       name="Feature"
-      className="mt-16 font-montserrat"
+      className="mt-16 font-montserrat relative z-30"
     >
-      <Title
-        title="Exodus - Features"
-        subtitle="We know that you're probably interested in all the features that Nexus has to offer to help "
-      />
-      <div
-        id="#smooth-content"
-        className="mt-16 flex justify-center items-center"
-      >
-        <div className="max-w-6xl w-full grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {features.slice(0, 8).map((feature, index) => {
-            const IconComponent = feature.icon;
-            return (
-              <motion.div
-                ref={ref}
-                initial={
-                  index % 2 === 1 && inView
-                    ? { opacity: 0, x: -80 }
-                    : { opacity: 0, x: 80 }
-                }
-                animate={
-                  index % 2 === 1 && inView
-                    ? { opacity: 1, x: 0 }
-                    : { opacity: 1, x: 0 }
-                }
-                transition={{ delay: 0.5, ease: "easeInOut", duration: 2 }}
-                key={index}
-                className="feature-wrapper border-[1px] border-gray-700
+      <CommonWrapper>
+        <Title
+          title="Exodus - Features"
+          subtitle="We know that you're probably interested in all the features that Nexus has to offer to help "
+        />
+        <div
+          id="#smooth-content"
+          className="mt-16 flex justify-center items-center"
+        >
+          <div className="max-w-6xl w-full grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {features.slice(0, 8).map((feature, index) => {
+              const IconComponent = feature.icon;
+              return (
+                <motion.div
+                  ref={ref}
+                  initial={
+                    index % 2 === 1 && inView
+                      ? { opacity: 0, x: -80 }
+                      : { opacity: 0, x: 80 }
+                  }
+                  animate={
+                    index % 2 === 1 && inView
+                      ? { opacity: 1, x: 0 }
+                      : { opacity: 1, x: 0 }
+                  }
+                  transition={{ delay: 0.5, ease: "easeInOut", duration: 2 }}
+                  key={index}
+                  className="feature-wrapper border-[1px] border-gray-700
               rounded-[8px] text-white p-4 transition-all duration-300"
-              >
-                <div className="feature-content flex flex-col  items-center gap-[var(--spacing-card)] transition">
-                  <IconComponent className="text-2xl  text-[#7350a8]" />
-                  <h3 className="text-xl font-semibold text-center text-[var(--color-textcolor)]">
-                    {feature.title}
-                  </h3>
-                  <p className="text-[var(--color-textsecondarycolor)] text-sm text-center">
-                    {feature.description}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
+                >
+                  <div className="feature-content flex flex-col  items-center gap-[var(--spacing-card)] transition">
+                    <IconComponent className="text-2xl  text-[#7350a8]" />
+                    <h3 className="text-xl font-semibold text-center text-[var(--color-textcolor)]">
+                      {feature.title}
+                    </h3>
+                    <p className="text-[var(--color-textsecondarycolor)] text-sm text-center">
+                      {feature.description}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      </CommonWrapper>
+      <motion.div className="absolute inset-0 z-0">
+        <Canvas
+          className="w-full h-full"
+          style={{ position: "absolute", top: 0, left: 0 }}
+        >
+          {/* Ensure Stars component is correctly set up */}
+          <Stars radius={50} count={250} factor={1} fade speed={2} />
+        </Canvas>
+      </motion.div>
     </Element>
   );
 };

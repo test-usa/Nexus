@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { Element } from "react-scroll";
 import useFetch from "@/hooks/shared/useFetch";
 import Title from "./Shared/Title";
-
+import { Canvas } from "@react-three/fiber";
+import { Stars } from "@react-three/drei";
+import { motion } from "framer-motion";
 type PricingData = {
   keyName: string;
   _id: string;
@@ -21,7 +23,7 @@ type PricingData = {
 const Pricing = () => {
   const { data } = useFetch("/key/all-key");
   return (
-    <Element name="Pricing" className="font-montserrat mt-20">
+    <Element name="Pricing" className="font-montserrat mt-20 relative z-30">
       <CommonWrapper>
         <Title
           title="All hacks and features for Edgenuity, for every price."
@@ -63,6 +65,11 @@ const Pricing = () => {
           })}
         </div>
       </CommonWrapper>
+      <motion.div className="absolute inset-0 z-0">
+        <Canvas>
+          <Stars radius={50} count={250} factor={1} fade speed={2} />
+        </Canvas>
+      </motion.div>
     </Element>
   );
 };
