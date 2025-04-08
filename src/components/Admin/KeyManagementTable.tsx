@@ -25,7 +25,9 @@ interface LicenseKey {
 const KeyManagement = () => {
   const [keys, setKeys] = useState<LicenseKey[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [revealedKeys, setRevealedKeys] = useState<Record<number, { email: boolean; key: boolean }>>({});
+  const [revealedKeys, setRevealedKeys] = useState<
+    Record<number, { email: boolean; key: boolean }>
+  >({});
   const keysPerPage = 9;
   const { data, isSuccess, isLoading } = useFetch("/user-key/all-key");
 
@@ -139,7 +141,9 @@ const KeyManagement = () => {
                     ? "Life time"
                     : new Date(keyItem.expiresAt).toLocaleString()}
                 </TableCell>
-                <TableCell className="text-[16px]">{keyItem.redeemedUsers}</TableCell>
+                <TableCell className="text-[16px]">
+                  {keyItem.redeemedUsers}
+                </TableCell>
                 <TableCell className="text-right text-[16px]">
                   {new Date(keyItem.createdAt).toLocaleString()}
                 </TableCell>

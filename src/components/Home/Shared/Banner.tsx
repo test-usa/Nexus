@@ -77,7 +77,7 @@ const Banner = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   //**** MOUSEMOVEMENT EFFECT ****//
   const url = import.meta.env.VITE_API_BASE_URL;
-
+  
   const fetchData = async () => {
     try {
       const response: AxiosResponse<any> = await axios.get(
@@ -168,7 +168,7 @@ const Banner = () => {
                   <div className="space-y-2">
                     {" "}
                     <h1 className="text-5xl font-semibold text-[#7d57b5]">
-                  13K
+                      13K
                     </h1>
                     <p className="text-[var(--color-textcolor)] text-[16px]">
                       Active Exodus Users
