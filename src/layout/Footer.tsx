@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <div className="bg-gray-950">
       <CommonWrapper>
-        <footer className="  font-montserrat text-[var(--color-textcolor)] py-16 px-8">
+        <footer className="font-montserrat text-[var(--color-textcolor)] py-8 mt-16">
           <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16">
             <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
               <div className="text-4xl font-bold text-[var(--color-textcolor)] mb-6">
