@@ -72,11 +72,11 @@ const CustomerReviews = () => {
     },
   ];
   return (
-    <Element name="Review" className="w-full text-white ">
+    <Element name="Review" className="w-full text-white bg-[#282D32] pt-10">
       <CommonWrapper>
-        <div className="mt-16 relative z-30">
+        <div className=" relative z-30 ">
           {" "}
-          <div>
+         
             <Title
               title="People love Exodus
          and there's a good reason."
@@ -84,8 +84,8 @@ const CustomerReviews = () => {
           that use Edgenuity. We want to help you get out of this online
           school mess "
             />
-          </div>
-          <div className="mt-10 w-full px-3 z-30">
+          
+          <div className=" w-full px-3 z-30 py-10">
             <Slider {...settings}>
               {review?.map((item) => {
                 return (

@@ -19,7 +19,6 @@ import {
 
 import { Canvas } from "@react-three/fiber";
 import { Stars } from "@react-three/drei";
-import axios, { AxiosResponse } from "axios";
 import Video from "../Video";
 const COLORS = ["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C"];
 const Banner = () => {
@@ -76,21 +75,21 @@ const Banner = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   //**** MOUSEMOVEMENT EFFECT ****//
-  const url = import.meta.env.VITE_API_BASE_URL;
-  
-  const fetchData = async () => {
-    try {
-      const response: AxiosResponse<any> = await axios.get(
-        `${url}/payment/get-all-payment`
-      );
-      const data = response.data;
-      console.log(data)
-      // setData(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-  fetchData();
+  // const url = import.meta.env.VITE_API_BASE_URL;
+
+  // const fetchData = async () => {
+  //   try {
+  //     const response: AxiosResponse<any> = await axios.get(
+  //       `${url}/payment/get-all-payment`
+  //     );
+  //     const data = response.data;
+  //     console.log(data)
+  //     // setData(data);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+  // fetchData();
 
   const color = useMotionValue(COLORS[0]);
 
@@ -256,7 +255,7 @@ const Banner = () => {
       </motion.div>
       <motion.div className="absolute inset-0 z-0">
         <Canvas>
-          <Stars radius={50} count={250} factor={4} fade speed={2} />
+          <Stars radius={50} count={1000} factor={4} fade speed={2} />
         </Canvas>
       </motion.div>
     </div>

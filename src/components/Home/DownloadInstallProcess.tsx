@@ -8,8 +8,8 @@ const DownloadInstallProcess = () => {
   return (
     <CommonWrapper>
       <DownloadScript />
-      <div className=" bg-[#181818] min-h-screen font-montserrat">
-        {/*  Installation  */}
+      <div className="min-h-screen font-montserrat">
+        {/* Process of Installation  */}
         <div className="text-[var(--color-textsecondarycolor)] px-6">
           <Title title="How to Setup EdgyPro." subtitle="" />
 

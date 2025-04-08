@@ -7,7 +7,7 @@ import Support from "@/components/Home/Support";
 
 const Home = () => {
   return (
-    <div className="bg-neutral-900 ">
+    <div className="bg-neutral-900 relative z-30">
       <Banner />
       <EdgenuityBot />
       <CustomerReviews />

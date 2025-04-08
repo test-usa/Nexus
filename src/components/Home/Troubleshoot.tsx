@@ -3,10 +3,8 @@ import Title from "./Shared/Title";
 
 const Troubleshoot = () => {
   return (
-    <div className=" font-montserrat  text-[var(--color-textsecondarycolor)] min-h-screen p-16">
-      <div className="mt-10 md:mt-16">
-        <Title title="Trouble shoot" subtitle="Resolve common issues easily" />
-      </div>
+    <div className=" font-montserrat  text-[var(--color-textsecondarycolor)] min-h-screen p-24 ">
+      <Title title="Trouble shoot" subtitle="Resolve common issues easily" />
 
       <div className="text-[var(--color-textsecondarycolor)]">
         <div className="max-w-3xl mx-auto space-y-7 border border-gray-600 rounded-lg p-5 sm:p-6  shadow-lg">
