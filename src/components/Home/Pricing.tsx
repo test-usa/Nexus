@@ -23,14 +23,14 @@ type PricingData = {
 const Pricing = () => {
   const { data } = useFetch("/key/all-key");
   return (
-    <Element name="Pricing" className="font-montserrat py-10 relative z-30 bg-[#282D32]">
+    <Element name="Pricing" className="font-montserrat  relative z-30 bg-[#282D32]">
       <CommonWrapper>
         <Title
           title="All hacks and features for Edgenuity, for every price."
           subtitle="After purchase, your key will be sent to the email you provided at checkout. To purchase using PayPal, Venmo, or Zelle, please open a ticket on our Discord server."
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-10">
           {/*** CARDS ***/}
           {data?.data?.map((price: PricingData) => {
             return (

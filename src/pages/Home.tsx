@@ -6,7 +6,7 @@ import Banner from "@/components/Home/Shared/Banner";
 import Support from "@/components/home/Support";
 const Home = () => {
   return (
-    <div className="bg-neutral-900 ">
+    <div className="bg-neutral-900 relative z-30">
       <Banner />
       <EdgenuityBot />
       <CustomerReviews />

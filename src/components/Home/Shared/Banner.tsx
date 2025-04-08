@@ -24,7 +24,7 @@ import Video from "../Video";
 const COLORS = ["#13FFAA", "#1E67C6", "#CE84CF", "#DD335C"];
 const Banner = () => {
   const [service, setService] = useState([]);
-  const [data, setData] = useState();
+  // const [data, setData] = useState();
   const [toggle, setToggle] = useState<boolean>(false);
   useEffect(() => {
     fetch("/service.json")
@@ -76,21 +76,21 @@ const Banner = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   //**** MOUSEMOVEMENT EFFECT ****//
-  const url = import.meta.env.VITE_API_BASE_URL;
+  // const url = import.meta.env.VITE_API_BASE_URL;
 
-  const fetchData = async () => {
-    try {
-      const response: AxiosResponse<any> = await axios.get(
-        `${url}/payment/get-all-payment`
-      );
-      const data = response.data;
-      console.log(data)
-      setData(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-  fetchData();
+  // const fetchData = async () => {
+  //   try {
+  //     const response: AxiosResponse<any> = await axios.get(
+  //       `${url}/payment/get-all-payment`
+  //     );
+  //     const data = response.data;
+  //     console.log(data)
+  //     // setData(data);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+  // fetchData();
 
   const color = useMotionValue(COLORS[0]);
 
@@ -168,7 +168,7 @@ const Banner = () => {
                   <div className="space-y-2">
                     {" "}
                     <h1 className="text-5xl font-semibold text-[#7d57b5]">
-                  13K
+                      13K
                     </h1>
                     <p className="text-[var(--color-textcolor)] text-[16px]">
                       Active Exodus Users
@@ -256,7 +256,7 @@ const Banner = () => {
       </motion.div>
       <motion.div className="absolute inset-0 z-0">
         <Canvas>
-          <Stars radius={50} count={250} factor={4} fade speed={2} />
+          <Stars radius={50} count={1000} factor={4} fade speed={2} />
         </Canvas>
       </motion.div>
     </div>
