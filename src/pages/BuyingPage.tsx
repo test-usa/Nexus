@@ -148,7 +148,7 @@ const BuyingPage = () => {
 
   return (
     <div className="py-28 font-montserrat bg-gray-950 flex items-center  p-6 ">
-      <div className="flex flex-col sm:flex-row  justify-center w-full max-w-5xl ml-[250px] gap-8 rounded-lg p-6 mt-14">
+      <div className="flex flex-col sm:flex-row  justify-center w-full max-w-5xl xl:ml-[250px] ml-0 gap-8 rounded-lg p-6 mt-14">
         {/**** IMAGE SECTION ****/}
         <div className=" rounded-2xl flex items-center justify-center w-full max-h-[400px]">
           <img
