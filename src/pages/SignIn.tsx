@@ -22,7 +22,7 @@ const SignIn = () => {
   //   auth(authuser)
   // },[authuser])
   return (
-    <div className=" bg-[#282D32] min-h-screen flex flex-col items-center justify-center font-montserrat ">
+    <div className=" bg-[#182029] min-h-screen flex flex-col items-center justify-center font-montserrat ">
       <div className="border-cyan-400 rounded mx-auto w-full border md:max-w-lg lg:max-w-2xl">
         <div className="p-8 w-full">
           <h1 className="text-center text-xl sm:text-2xl text-gray-400">
@@ -31,7 +31,6 @@ const SignIn = () => {
           {/**** O AUTH START ****/}
           <div>
             <div className="flex items-center justify-center gap-2 py-4">
-              
               <img
                 src="https://i.postimg.cc/zfCvqNvy/exoduspro.png"
                 alt="logo"
@@ -81,11 +80,7 @@ const SignIn = () => {
                 !bg-[#6359A6] cursor-pointer  px-2 xl:px-4 text-sm xl:text-[16px] 
                 border border-transparent hover:border-[#CDADFA] 
                  rounded
-          ${
-            loading
-              ? "bg-gray-500 cursor-not-allowed"
-              : "bg-cyan-600"
-          }
+          ${loading ? "bg-gray-500 cursor-not-allowed" : "bg-cyan-600"}
         `}
             >
               {loading ? (
