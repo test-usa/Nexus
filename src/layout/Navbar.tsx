@@ -1,16 +1,16 @@
 import { GoX } from "react-icons/go";
 import { FcMenu } from "react-icons/fc";
 import { useState } from "react";
-import { FaOpencart } from "react-icons/fa";
+import { FaDiscord, FaOpencart } from "react-icons/fa";
 import { motion } from "framer-motion";
 import CommonWrapper from "@/wrapper/CommonWrapper";
 import { Link as ScrollLink } from "react-scroll";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import userStore from "@/store/userStore";
 const Navbar = () => {
-  const { user, logout_user } = userStore();
+  const { user } = userStore();
   const [toggle, setToggle] = useState<boolean>(false);
-  const token = sessionStorage.getItem("token");
+  const location = useLocation();
 
   // Add scroll effect for sticky navbar
   window.addEventListener("scroll", () => {
@@ -40,27 +40,39 @@ const Navbar = () => {
               />
             </NavLink>
             {/***** NAVIGATIONBAR START *****/}
+
             <div className="md:flex items-center lg:gap-x-8 gap-x-6 text-[var(--color-textsecondarycolor)] hidden">
               {/* // All other links are ScrollLink */}
-              
-                  <ScrollLink
-                    smooth
-                    duration={1200}
-                    to="Feature"
-                    className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-                    activeClass="text-green-400 font-bold"
-                  >
-                    Feature
-                  </ScrollLink>
+              {location.pathname !== "/" && (
+                <NavLink
+                  to="/"
+                  className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate-x-2 transform duration-300 text-sm lg:text-[16px]"
+                >
+                  Home
+                </NavLink>
+              )}
+              {location.pathname === "/" && (
+                <ScrollLink
+                  smooth
+                  duration={1200}
+                  to="Feature"
+                  className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate-x-2 transform duration-300 text-sm lg:text-[16px]"
+                  activeClass="text-green-400 font-bold"
+                >
+                  Feature
+                </ScrollLink>
+              )}
 
-              <ScrollLink
-                smooth
-                duration={1200}
-                to="Review"
-                className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-              >
-                Review
-              </ScrollLink>
+              {location?.pathname === "/" && (
+                <ScrollLink
+                  smooth
+                  duration={1200}
+                  to="Review"
+                  className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                >
+                  Review
+                </ScrollLink>
+              )}
               {/* <ScrollLink
                 smooth
                 duration={1200}
@@ -69,16 +81,17 @@ const Navbar = () => {
               >
                 Purchase
               </ScrollLink> */}
-
-              <ScrollLink
-                smooth
-                duration={1200}
-                to="FAQ"
-                className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
-                activeClass="text-green-400 font-bold"
-              >
-                FAQ
-              </ScrollLink>
+              {location.pathname === "/" && (
+                <ScrollLink
+                  smooth
+                  duration={1200}
+                  to="FAQ"
+                  className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
+                  activeClass="text-green-400 font-bold"
+                >
+                  FAQ
+                </ScrollLink>
+              )}
               <NavLink
                 to="/download"
                 className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
@@ -99,30 +112,34 @@ const Navbar = () => {
                   Dashboard
                 </NavLink>
               )}
-              <NavLink
-                to="Support"
+              <a
+                href="https://discord.com/invite/exodusbot"
                 className="text-[var(--color-textcolor)] hover:text-[#CDADFA] cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
               >
                 Support
-              </NavLink>
+              </a>
             </div>
 
             {/**** AUTH OR PURCHASING ****/}
             <div className="md:flex items-center gap-x-4 text-gray-400 hidden">
-              <ScrollLink
-                smooth
-                duration={1200}
-                to="Pricing"
-                className="flex items-center gap-x-2 text-[var(--color-textcolor)] transform transition-all duration-300 
-                bg-gradient-to-r from-[#5c3991]  to-[#3a2b49] cursor-pointer py-2 px-2 xl:px-4 text-sm xl:text-[16px] 
-                border border-transparent hover:border-[#CDADFA] 
-                hover:bg-transparent hover:shadow-sm hover:shadow-[#CDADFA] rounded"
-              >
-                <FaOpencart />
-                Purchase
-              </ScrollLink>
+              {location.pathname == "/" && (
+                <ScrollLink
+                  smooth
+                  duration={1200}
+                  to="Pricing"
+                  className="flex items-center gap-x-2 text-[var(--color-textcolor)] transform transition-all duration-300 
+              bg-gradient-to-r from-[#5c3991]  to-[#3a2b49] cursor-pointer py-2 px-2 xl:px-4 text-sm xl:text-[16px] 
+              border border-transparent hover:border-[#CDADFA] 
+              hover:bg-transparent hover:shadow-sm hover:shadow-[#CDADFA] rounded"
+                >
+                  <FaOpencart />
+                  Purchase
+                </ScrollLink>
+              )}
 
-              {user && token ? (
+              
+
+              {/* {user && token ? (
                 <button
                   onClick={() => logout_user()}
                   className="text-[var(--color-textcolor)] transform transition-all duration-300 cursor-pointer 
@@ -144,7 +161,7 @@ const Navbar = () => {
                 >
                   Signin
                 </NavLink>
-              )}
+              )} */}
             </div>
 
             <button
@@ -239,12 +256,12 @@ const Navbar = () => {
                   Troubleshoot
                 </NavLink>
 
-                <NavLink
-                  to="Support"
+                <a
+                  href="https://discord.com/invite/exodusbot"
                   className="text-gray-400 cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
                 >
                   Support
-                </NavLink>
+                </a>
                 {user && (user as { role: string }).role === "ADMIN" && (
                   <NavLink
                     to="/admin"
@@ -256,7 +273,7 @@ const Navbar = () => {
                 )}
               </>
 
-              {user && token ? (
+              {/* {user && token ? (
                 <button
                   onClick={() => logout_user()}
                   className="text-gray-400 cursor-pointer translate transform duration-300 text-sm lg:text-[16px]"
@@ -270,7 +287,7 @@ const Navbar = () => {
                 >
                   Signin
                 </NavLink>
-              )}
+              )} */}
             </div>
           </div>
         </motion.div>

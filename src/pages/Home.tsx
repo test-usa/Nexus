@@ -3,18 +3,16 @@ import EdgenuityBot from "@/components/Home/EdgenuityBot";
 import { FrequentlyAsk } from "@/components/Home/FrequentlyAsk";
 import Pricing from "@/components/Home/Pricing";
 import Banner from "@/components/Home/Shared/Banner";
-import CommonWrapper from "@/wrapper/CommonWrapper";
+import Support from "@/components/home/Support";
 const Home = () => {
   return (
-    <div className="bg-neutral-900">
-      <CommonWrapper>
-        <Banner />
-        {/* <Video/> */}
-        <EdgenuityBot />
-        <CustomerReviews />
-        <Pricing />
-        <FrequentlyAsk />
-      </CommonWrapper>
+    <div className="bg-neutral-900 ">
+      <Banner />
+      <CustomerReviews />
+      <EdgenuityBot />
+      <Pricing />
+      <FrequentlyAsk />
+      <Support />
     </div>
   );
 };

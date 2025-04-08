@@ -18,7 +18,7 @@ const Video = ({
             <iframe
               width="100%"
               height="100%"
-              src="https://www.youtube.com/embed/iwefAEFeEbw?autoplay=1"
+              src="https://exoduspro.store/assets/videos/video01.mp4?v=af6addfe"
               title="YouTube Video"
               frameBorder="0"
               allow="autoplay; encrypted-media"

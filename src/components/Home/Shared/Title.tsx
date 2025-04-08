@@ -15,9 +15,9 @@ const Title: React.FC<TitleProps> = ({ title, subtitle }) => {
       <div className="  space-y-5 w-[80%] mx-auto text-center font-montserrat">
         <motion.h1
           ref={ref}
-          initial={{ opacity: 0, y: -80 }}
+          initial={{ opacity: 0, y: 60 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 2, ease: "easeOut", delay: 0.5 }}
+          transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
           className="text-[var(--color-textcolor)] text-3xl sm:text-4xl text-center "
         >
           {title}
@@ -25,9 +25,9 @@ const Title: React.FC<TitleProps> = ({ title, subtitle }) => {
 
         <motion.p
           ref={ref}
-          initial={{ opacity: 0, x: -50 }}
-          animate={PInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 2, ease: "easeIn", delay: 0.5 }}
+          initial={{ opacity: 0, y: 60 }}
+          animate={PInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
           className=" w-5/6 sm:w-2/3  text-center text-xs sm:text-[16px] mx-auto text-[var(--color-textsecondarycolor)]"
         >
           {subtitle}

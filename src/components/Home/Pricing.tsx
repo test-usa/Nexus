@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { Element } from "react-scroll";
 import useFetch from "@/hooks/shared/useFetch";
 import Title from "./Shared/Title";
-
+import { Canvas } from "@react-three/fiber";
+import { Stars } from "@react-three/drei";
+import { motion } from "framer-motion";
 type PricingData = {
   keyName: string;
   _id: string;
@@ -21,7 +23,7 @@ type PricingData = {
 const Pricing = () => {
   const { data } = useFetch("/key/all-key");
   return (
-    <Element name="Pricing" className="font-montserrat mt-20">
+    <Element name="Pricing" className="font-montserrat mt-20 relative z-30">
       <CommonWrapper>
         <Title
           title="All hacks and features for Edgenuity, for every price."
@@ -34,7 +36,7 @@ const Pricing = () => {
             return (
               <div
                 key={price?._id}
-                className={`rounded-[var(--radius-card)] hover:border-[1px] hover:hover:border-[#CDADFA]  min-w-[280px] relative sm:max-w-full border border-gray-700 shadow-sm hover:shadow-[#CDADFA]  space-y-3 p-5 transform transition duration-500`}
+                className={`rounded-[var(--radius-card)] hover:border-[1px] hover:hover:border-[#CDADFA]  min-w-[280px] relative sm:max-w-full border border-gray-700 shadow-sm hover:shadow-[#CDADFA] hover:bg-[#312344]  space-y-3 p-5 transform transition duration-500`}
               >
                 {price?.badge && (
                   <p className="absolute right-1.5 -top-3.5 rounded bg-gradient-to-bl from-[#5c3991] via-gray-600 to-green-700 py-2 px-3 text-xs sm:text-sm text-[var(--color-textcolor)]">
@@ -63,6 +65,11 @@ const Pricing = () => {
           })}
         </div>
       </CommonWrapper>
+      <motion.div className="absolute inset-0 z-0">
+        <Canvas>
+          <Stars radius={50} count={250} factor={1} fade speed={2} />
+        </Canvas>
+      </motion.div>
     </Element>
   );
 };
