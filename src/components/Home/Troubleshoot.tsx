@@ -3,11 +3,11 @@ import Title from "./Shared/Title";
 
 const Troubleshoot = () => {
   return (
-    <div className=" font-montserrat bg-[var(--color-dashboardbg)] text-[var(--color-textsecondarycolor)] min-h-screen p-24 ">
+    <div className=" font-montserrat  text-[var(--color-textsecondarycolor)] min-h-screen p-24 ">
       <Title title="Trouble shoot" subtitle="Resolve common issues easily" />
 
       <div className="text-[var(--color-textsecondarycolor)]">
-        <div className="max-w-3xl mx-auto space-y-7 border border-gray-600 rounded-lg p-5 sm:p-6 bg-[var(--color-dashboardsecondary)] shadow-lg">
+        <div className="max-w-3xl mx-auto space-y-7 border border-gray-600 rounded-lg p-5 sm:p-6  shadow-lg">
           {/* Heading with Icon */}
           <div className="flex items-center gap-2 flex-wrap">
             <h1 className="text-lg sm:text-2xl md:text-3xl font-semibold text-[var(--color-textcolor)]">
@@ -75,7 +75,7 @@ const Troubleshoot = () => {
         </div>
 
         {/* Part -2 */}
-        <div className="max-w-3xl mx-auto space-y-6 border border-gray-600 rounded-lg p-5 sm:p-6 bg-[var(--color-dashboardsecondary)]  shadow-lg mt-6">
+        <div className="max-w-3xl mx-auto space-y-6 border border-gray-600 rounded-lg p-5 sm:p-6   shadow-lg mt-6">
           {/* Heading with Icon */}
           <div className="flex items-center gap-2 flex-wrap">
             <h1 className="text-lg sm:text-2xl md:text-3xl font-semibold text-[var(--color-textcolor)] ">
@@ -153,7 +153,7 @@ const Troubleshoot = () => {
           </p>
         </div>
         {/* Part -3 */}
-        <div className="max-w-3xl mx-auto space-y-5 border border-gray-600 rounded-lg p-5 sm:p-6 bg-[var(--color-dashboardsecondary)]  shadow-lg mt-6">
+        <div className="max-w-3xl mx-auto space-y-5 border border-gray-600 rounded-lg p-5 sm:p-6   shadow-lg mt-6">
           {/* Heading with Icon */}
           <div className="flex items-center gap-2 flex-wrap">
             <h1 className="text-lg sm:text-2xl md:text-3xl font-semibold text-[var(--color-textcolor)]">
@@ -214,7 +214,7 @@ const Troubleshoot = () => {
           </p>
         </div>
         {/* Part -4 */}
-        <div className="max-w-3xl mx-auto space-y-6 mt-6 border border-gray-600 rounded-lg p-5 sm:p-6 bg-[var(--color-dashboardsecondary)] shadow-lg">
+        <div className="max-w-3xl mx-auto space-y-6 mt-6 border border-gray-600 rounded-lg p-5 sm:p-6  shadow-lg">
           {/* Heading with Icon */}
           <div className="flex items-center gap-2 flex-wrap">
             <h1 className="text-lg sm:text-2xl md:text-3xl font-semibold text-[var(--color-textcolor)]">
@@ -283,7 +283,7 @@ const Troubleshoot = () => {
           </p>
         </div>
         {/* Part -5 */}
-        <div className="max-w-3xl mx-auto space-y-6 mt-6 border border-gray-600 rounded-lg p-5 sm:p-6 bg-[var(--color-dashboardsecondary)]  shadow-lg">
+        <div className="max-w-3xl mx-auto space-y-6 mt-6 border border-gray-600 rounded-lg p-5 sm:p-6   shadow-lg">
           {/* Heading with Icon */}
           <div className="flex items-center gap-2 flex-wrap">
             <h1 className="text-lg sm:text-2xl md:text-3xl font-semibold text-[var(--color-textcolor)]">

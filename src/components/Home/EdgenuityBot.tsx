@@ -83,7 +83,7 @@ const EdgenuityBot = () => {
       className=" font-montserrat relative z-30 bg-[#282D32]"
     >
       <CommonWrapper>
-        <div className="py-16">
+        <div className="pt-16">
           <Title
             title="Exodus - Features"
             subtitle="We know that you're probably interested in all the features that Nexus has to offer to help "

@@ -25,7 +25,7 @@ const DownloadScript = () => {
   };
 
   return (
-    <div className="bg-[var(--color-dashboardbg)] pt-24 font-montserrat">
+    <div className=" pt-24 font-montserrat">
       <Title title="Download Install...  " subtitle="" />
       <div className="flex flex-col items-center justify-center">
         <a

@@ -19,7 +19,7 @@ export function FrequentlyAsk() {
   // };
 
   return (
-    <Element name="FAQ" className=" relative z-30 bg-[#282D32] py-10">
+    <Element name="FAQ" className=" relative z-30 bg-[#282D32] ">
       <CommonWrapper>
         <div className="mt-10 ">
           {" "}
