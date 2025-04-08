@@ -2,7 +2,7 @@ import MainLayout from "@/layout/MainLayout";
 
 const App = () => {
   return (
-    <div className="  bg-[var(--color-dashboardbg)]">
+    <div className="bg-[#181818]">
       <MainLayout />
     </div>
   );
