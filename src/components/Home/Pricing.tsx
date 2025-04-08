@@ -48,8 +48,7 @@ const Pricing = () => {
                   {price?.keyName}
                 </h1>
                 <p className="text-sm sm:text-[16px] text-[var(--color-textsecondarycolor)]">
-                  {price?.description} "Perfect for quick access and trying us
-                  out with minimal cost."
+                  {price?.description} 
                 </p>
                 <p className="text-xl sm:text-3xl font-semibold bg-gradient-to-r from-gray-400 to-slate-600 via-green-500 text-transparent bg-clip-text">
                   ${price.prices.regularKey} {price.currency} USD
