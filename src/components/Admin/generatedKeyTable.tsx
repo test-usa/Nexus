@@ -13,6 +13,7 @@ import { Loader } from "lucide-react";
 import useFetch from "@/hooks/shared/useFetch";
 import { MdDelete } from "react-icons/md";
 import { GiDuration } from "react-icons/gi";
+import { FaUserLock } from "react-icons/fa";
 import {
   Dialog,
   DialogContent,
@@ -39,6 +40,11 @@ interface LicenseKey {
   createdAt: string;
   redeemedUsers: number;
   _id: string;
+  RedeemedBy?: {
+    accountId: string;
+    redeemedAt: string;
+    isBlocked?: boolean;
+  }[];
 }
 
 type TSinglePriceData = {
@@ -56,7 +62,6 @@ type TSinglePriceData = {
 
 const GeneratedKeyTable = () => {
   const [keys, setKeys] = useState<LicenseKey[]>([]);
-
   const [currentPage, setCurrentPage] = useState(0);
   const [revealedKeys, setRevealedKeys] = useState<
     Record<number, { email: boolean; key: boolean }>
@@ -64,9 +69,14 @@ const GeneratedKeyTable = () => {
   const [selectedKey, setSelectedKey] = useState<LicenseKey | null>(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isExtendModalOpen, setIsExtendModalOpen] = useState(false);
+  const [isAccountsModalOpen, setIsAccountsModalOpen] = useState(false);
   const [extendDays, setExtendDays] = useState(30);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [extendMinutes, setExtendMinutes] = useState(0);
+  const [extendHours, setExtendHours] = useState(0);
   const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
+  const [accountToBlock, setAccountToBlock] = useState<string | null>(null);
+  const [accountToUnblock, setAccountToUnblock] = useState<string | null>(null); // New state for unblock
 
   // New state for generate keys form
   const [count, setCount] = useState<number>(1);
@@ -79,22 +89,52 @@ const GeneratedKeyTable = () => {
   const { data, isSuccess, isLoading, refetch } = useFetch(
     "/user-key/all-generated-key"
   );
-  console.log(data);
   const { mutate: extendDuration } = useUpdate<any, any>(
     "/user-key/extend-duration"
   );
-  console.log(selectedKey);
-  // Fetch key types for generation form
-  const { data: keyTypes = [] } = useFetch(`/key/all-key`);
-
-  // API for generating keys
+  const { mutate: blockAccount, isPending: isBlocking } = useUpdate<any, any>(
+    "/user-key/block-account"
+  );
+  const { mutate: unblockAccount, isPending: isUnblocking } = useUpdate<any, any>(
+    "/user-key/unblock-account"
+  ); // New mutation for unblock
   const { mutate: generateKeys, isPending: isGenerating } = usePost<any, any>(
     "/user-key/create-user-key"
   );
   const { mutate: deleteKey } = useDelete("/user-key/delete-key/");
 
+  // Fetch key types for generation form
+  const { data: keyTypes = [] } = useFetch(`/key/all-key`);
+
+  // Fetch user data
+  const { data: userData, isLoading: isUserLoading } =
+    useFetch("user/get-self");
+
+  useEffect(() => {
+    if (isSuccess && data?.data) {
+      setKeys(
+        data.data.map((item: any) => ({
+          key: item.key,
+          expiresAt: item.expiresAt,
+          createdAt: item.createdAt,
+          email: item?.email,
+          redeemedUsers: item.RedeemedBy?.length || 0,
+          _id: item._id,
+          RedeemedBy: item.RedeemedBy || [],
+        }))
+      );
+    }
+  }, [isSuccess, data]);
+
+  useEffect(() => {
+    if (userData?.data?.email) {
+      setEmail(userData.data.email);
+    }
+  }, [userData, isUserLoading]);
+
   const confirmDelete = async (key: string) => {
     try {
+      setIsProcessing(true);
       deleteKey(key, {
         onSuccess: () => {
           toast.success("Key deleted successfully");
@@ -105,48 +145,63 @@ const GeneratedKeyTable = () => {
         },
       });
     } finally {
+      setIsProcessing(false);
       setIsDeleteModalOpen(false);
     }
   };
 
-  // Update the user data fetching logic and loading states
-  const { data: userData, isLoading: isUserLoading } =
-    useFetch("user/get-self");
+  const confirmBlockAccount = async (accountId: string) => {
+    if (!selectedKey) return;
 
-  // In your useEffect for setting email, add a check for loading
-  useEffect(() => {
-    setEmail(userData?.data?.email);
-  }, [userData, isUserLoading, isLoading]);
-
-  useEffect(() => {
-    if (isSuccess && data?.data) {
-      setKeys(
-        data.data.map((item: any) => ({
-          key: item.key,
-          expiresAt: item.expiresAt,
-          createdAt: item.createdAt,
-          email: item?.email,
-          redeemedUsers: item.RedeemedBy?.length,
-        }))
+    try {
+      setIsProcessing(true);
+      blockAccount(
+        { key: selectedKey.key, accountId },
+        {
+          onSuccess: () => {
+            toast.success(`Account ${accountId} blocked successfully`);
+            refetch();
+            setIsAccountsModalOpen(false);
+          },
+          onError: (error: any) => {
+            toast.error(
+              error.message || `Failed to block account ${accountId}`
+            );
+          },
+        }
       );
+    } finally {
+      setIsProcessing(false);
+      setAccountToBlock(null);
     }
-  }, [isSuccess, data]);
+  };
 
-  // Update the loading state check at the beginning of the component
-  if (isLoading || isUserLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <Loader className="animate-spin w-6 h-6" />
-        <span className="ml-2">Loading user data...</span>
-      </div>
-    );
-  }
+  const confirmUnblockAccount = async (accountId: string) => {
+    if (!selectedKey) return;
 
-  if (!isSuccess) {
-    return <div className="text-red-500">Failed to load keys.</div>;
-  }
+    try {
+      setIsProcessing(true);
+      unblockAccount(
+        { key: selectedKey.key, accountId },
+        {
+          onSuccess: () => {
+            toast.success(`Account ${accountId} unblocked successfully`);
+            refetch();
+            setIsAccountsModalOpen(false);
+          },
+          onError: (error: any) => {
+            toast.error(
+              error.message || `Failed to unblock account ${accountId}`
+            );
+          },
+        }
+      );
+    } finally {
+      setIsProcessing(false);
+      setAccountToUnblock(null);
+    }
+  };
 
-  // Handle key type selection change
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedKeyType(e.target.value);
     if (e.target.value) {
@@ -158,13 +213,11 @@ const GeneratedKeyTable = () => {
     }
   };
 
-  // Handle count changes
   const handleDescres = (): void => {
     setCount((prev) => Math.max(1, prev - 1));
   };
   const handleIncres = (): void => setCount((prev) => prev + 1);
 
-  // Handle key generation
   const handleGenerateKeys = () => {
     if (!selectedKeyType) {
       toast.error("Please select a key type");
@@ -175,7 +228,7 @@ const GeneratedKeyTable = () => {
       keyType: isChecked ? "Service" : "Regular",
       email,
       amount: count,
-      key: filteredKeys[0],
+      key: filteredKeys[0]?._id,
     };
 
     generateKeys(payload, {
@@ -202,7 +255,6 @@ const GeneratedKeyTable = () => {
   };
 
   const handleDeleteClick = (keyItem: LicenseKey) => {
-    console.log(keyItem);
     setSelectedKey(keyItem);
     setIsDeleteModalOpen(true);
   };
@@ -212,17 +264,29 @@ const GeneratedKeyTable = () => {
     setIsExtendModalOpen(true);
   };
 
+  const handleShowAccountsClick = (keyItem: LicenseKey) => {
+    setSelectedKey(keyItem);
+    setIsAccountsModalOpen(true);
+  };
+
+  const calculateTotalDays = () => {
+    const minutesToDays = extendMinutes / (60 * 24);
+    const hoursToDays = extendHours / 24;
+    const totalDays = minutesToDays + hoursToDays + extendDays;
+    return parseFloat(totalDays.toFixed(4));
+  };
+
   const confirmExtend = async (key: string) => {
     setIsProcessing(true);
     try {
       const payload = {
-        extendedDuration: extendDays,
-        key, // This should be the key string (license key value)
+        extendedDuration: calculateTotalDays(),
+        key,
       };
 
       await extendDuration(payload, {
         onSuccess: () => {
-          toast.success(`Key extended by ${extendDays} days successfully`);
+          toast.success(`Key extended successfully`);
           refetch();
         },
         onError: (error: any) => {
@@ -234,17 +298,20 @@ const GeneratedKeyTable = () => {
     } finally {
       setIsProcessing(false);
       setIsExtendModalOpen(false);
+      setExtendMinutes(0);
+      setExtendHours(0);
+      setExtendDays(0);
     }
   };
 
   const offset = currentPage * keysPerPage;
   const currentKeys = keys?.slice(offset, offset + keysPerPage);
 
-  if (isLoading) {
+  if (isLoading || isUserLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <Loader className="animate-spin w-6 h-6" />
-        <span className="ml-2">Loading keys data</span>
+        <span className="ml-2">Loading user data...</span>
       </div>
     );
   }
@@ -257,7 +324,7 @@ const GeneratedKeyTable = () => {
     <div className="pl-12 pr-12 pt-12 -sm:pr-5">
       <div className="flex justify-between items-center mb-5">
         <h1 className="text-2xl font-medium tracking-wide mt-4 text-[var(--color-textcolor)]">
-          All User Keys
+          All Generated Keys
         </h1>
 
         {/* Generate New Keys Button */}
@@ -293,14 +360,12 @@ const GeneratedKeyTable = () => {
                   onChange={handleSelectChange}
                   className="w-full cursor-pointer bg-cyan-800/50 text-white py-2.5 px-2 rounded-md focus:outline-none"
                 >
-                  <option value="select">Select Key</option>
-                  {keyTypes?.data?.map((keys: TSinglePriceData) => {
-                    return (
-                      <option key={keys._id} value={keys.keyName}>
-                        {keys.keyName}
-                      </option>
-                    );
-                  })}
+                  <option value="">Select Key</option>
+                  {keyTypes?.data?.map((keys: TSinglePriceData) => (
+                    <option key={keys._id} value={keys.keyName}>
+                      {keys.keyName}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -406,175 +471,368 @@ const GeneratedKeyTable = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {currentKeys.map((keyItem, index) => {
-              return (
-                <TableRow
-                  key={index}
-                  className={`hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] ${
-                    index % 2 === 0
-                      ? "bg-[var(--color-oddcolor)]"
-                      : "bg-[var(--color-evencolor)]"
-                  }`}
+            {currentKeys.map((keyItem, index) => (
+              <TableRow
+                key={index}
+                className={`hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] ${
+                  index % 2 === 0
+                    ? "bg-[var(--color-oddcolor)]"
+                    : "bg-[var(--color-evencolor)]"
+                }`}
+              >
+                <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px]">
+                  {index + 1 + offset}
+                </TableCell>
+                <TableCell
+                  className="text-[16px] cursor-pointer"
+                  onClick={() => toggleReveal(index, "email")}
                 >
-                  <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px]">
-                    {index + 1 + offset}
-                  </TableCell>
-                  <TableCell
-                    className="text-[16px] cursor-pointer"
-                    onClick={() => toggleReveal(index, "email")}
+                  {revealedKeys[index]?.email
+                    ? keyItem?.email
+                    : `${keyItem?.email?.slice(0, 6)}...`}
+                </TableCell>
+                <TableCell
+                  className="text-[16px] cursor-pointer"
+                  onClick={() => toggleReveal(index, "key")}
+                >
+                  {revealedKeys[index]?.key
+                    ? keyItem.key
+                    : `${keyItem?.key?.slice(0, 6)}...`}
+                </TableCell>
+                <TableCell className="text-[16px]">
+                  {keyItem.expiresAt === null
+                    ? "N/A"
+                    : keyItem.expiresAt === "Lifetime"
+                    ? "Lifetime"
+                    : new Date(keyItem.expiresAt).toLocaleString()}
+                </TableCell>
+                <TableCell className="text-[16px]">
+                  {keyItem.redeemedUsers}
+                </TableCell>
+                <TableCell className="text-right text-[16px]">
+                  {new Date(keyItem.createdAt).toLocaleString()}
+                </TableCell>
+                <TableCell className="text-right text-[16px]">
+                  <Badge
+                    className={`capitalize px-3 py-1 text-sm font-medium text-black pr-10 ${
+                      keyItem.expiresAt === null ? "bg-gray-400" : "bg-green-400"
+                    }`}
                   >
-                    {revealedKeys[index]?.email
-                      ? keyItem?.email
-                      : `${keyItem?.email?.slice(0, 6)}...`}
-                  </TableCell>
-                  <TableCell
-                    className="text-[16px] cursor-pointer"
-                    onClick={() => toggleReveal(index, "key")}
-                  >
-                    {revealedKeys[index]?.key
-                      ? keyItem.key
-                      : `${keyItem?.key?.slice(0, 6)}...`}
-                  </TableCell>
-                  <TableCell className="text-[16px]">
-                    {keyItem.expiresAt === null
-                      ? "N/A"
-                      : keyItem.expiresAt === "Livetime"
-                      ? "Life time"
-                      : new Date(keyItem.expiresAt).toLocaleString()}
-                  </TableCell>
-                  <TableCell className="text-[16px]">
-                    {keyItem.redeemedUsers}
-                  </TableCell>
-                  <TableCell className="text-right text-[16px]">
-                    {new Date(keyItem.createdAt).toLocaleString()}
-                  </TableCell>
-                  <TableCell className="text-right text-[16px]">
-                    <Badge
-                      className={`capitalize px-3 py-1 text-sm font-medium text-black pr-10 ${
-                        keyItem.expiresAt === null
-                          ? "bg-gray-400"
-                          : "bg-green-400"
-                      }`}
-                    >
-                      {keyItem.expiresAt === null ? "Not Redeemed" : "Active"}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-2xl flex justify-center gap-5 items-center mt-4">
-                    {/* Extend Time Button with Modal */}
+                    {keyItem.expiresAt === null ? "Not Redeemed" : "Active"}
+                  </Badge>
+                </TableCell>
+                <TableCell className="text-2xl flex justify-center gap-5 items-center mt-4">
+                  {/* View Accounts Button */}
+                  {keyItem.redeemedUsers > 0 && (
                     <Dialog
-                      open={isExtendModalOpen}
-                      onOpenChange={setIsExtendModalOpen}
+                      open={isAccountsModalOpen}
+                      onOpenChange={setIsAccountsModalOpen}
                     >
                       <DialogTrigger asChild>
                         <div
                           className="relative group cursor-pointer"
-                          onClick={() => handleExtendClick(keyItem)}
+                          onClick={() => handleShowAccountsClick(keyItem)}
                         >
-                          <GiDuration className="text-yellow-600 transition-transform duration-300 transform group-hover:scale-125" />
+                          <FaUserLock className="text-blue-500 transition-transform duration-300 transform group-hover:scale-125" />
                           <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gray-900 text-white text-xs rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-                            Extend Time
+                            View Accounts
                           </span>
                         </div>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[425px] bg-[#1a233a] text-white">
+                      <DialogContent className="sm:max-w-[425px] bg-[#1a233a] text-white max-h-[80vh] overflow-y-auto">
                         <DialogHeader>
-                          <DialogTitle>Extend License Key</DialogTitle>
+                          <DialogTitle>Redeemed Accounts</DialogTitle>
                           <DialogDescription>
-                            Extend the expiration date for key:{" "}
+                            Accounts that redeemed key:{" "}
                             {selectedKey?.key?.slice(0, 8)}...
                           </DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4 py-4">
-                          <div className="grid grid-cols-4 items-center gap-4">
-                            <Label htmlFor="days" className="text-right">
-                              Days
-                            </Label>
-                            <Input
-                              id="days"
-                              type="number"
-                              value={extendDays}
-                              onChange={(e) =>
-                                setExtendDays(Number(e.target.value))
-                              }
-                              className="col-span-3"
-                              min="1"
-                            />
+                          {selectedKey?.RedeemedBy?.length ? (
+                            selectedKey.RedeemedBy.map((account, idx) => (
+                              <div
+                                key={idx}
+                                className="flex items-center justify-between p-2 border-b border-gray-700"
+                              >
+                                <div>
+                                  <p className="font-medium">
+                                    {account?.accountId}
+                                  </p>
+                                  {account.isBlocked && (
+                                    <Badge className="bg-red-500 text-xs mt-1">
+                                      Blocked
+                                    </Badge>
+                                  )}
+                                </div>
+                                <div>
+                                  {/* Block Button */}
+                                  {!account.isBlocked && (
+                                    <Dialog>
+                                      <DialogTrigger asChild>
+                                        <Button
+                                          variant="outline"
+                                          size="sm"
+                                          className="text-red-500 border-red-500 hover:bg-red-500 hover:text-white"
+                                          onClick={() =>
+                                            setAccountToBlock(account?.accountId)
+                                          }
+                                        >
+                                          Block
+                                        </Button>
+                                      </DialogTrigger>
+                                      <DialogContent className="sm:max-w-[425px] bg-[#1a233a] text-white">
+                                        <DialogHeader>
+                                          <DialogTitle>Block Account</DialogTitle>
+                                          <DialogDescription className="text-white mt-4">
+                                            Are you sure you want to block this
+                                            account? This will prevent them from
+                                            using the key.
+                                          </DialogDescription>
+                                        </DialogHeader>
+                                        <DialogFooter>
+                                          <Button
+                                            type="button"
+                                            variant="outline"
+                                            onClick={() => setAccountToBlock(null)}
+                                            className="border bg-transparent hover:bg-transparent cursor-pointer hover:text-white"
+                                          >
+                                            Cancel
+                                          </Button>
+                                          <Button
+                                            type="button"
+                                            variant="destructive"
+                                            onClick={() =>
+                                              confirmBlockAccount(accountToBlock!)
+                                            }
+                                            disabled={isBlocking || isProcessing}
+                                            className="border bg-transparent hover:bg-transparent cursor-pointer !border-red-400 text-white"
+                                          >
+                                            {isBlocking ? (
+                                              <Loader className="animate-spin mr-2" />
+                                            ) : null}
+                                            {isBlocking
+                                              ? "Blocking..."
+                                              : "Block Account"}
+                                          </Button>
+                                        </DialogFooter>
+                                      </DialogContent>
+                                    </Dialog>
+                                  )}
+                                  {/* Unblock Button */}
+                                  {account.isBlocked && (
+                                    <Dialog>
+                                      <DialogTrigger asChild>
+                                        <Button
+                                          variant="outline"
+                                          size="sm"
+                                          className="text-green-500 border-green-500 hover:bg-green-500 hover:text-white"
+                                          onClick={() =>
+                                            setAccountToUnblock(account?.accountId)
+                                          }
+                                        >
+                                          Unblock
+                                        </Button>
+                                      </DialogTrigger>
+                                      <DialogContent className="sm:max-w-[425px] bg-[#1a233a] text-white">
+                                        <DialogHeader>
+                                          <DialogTitle>Unblock Account</DialogTitle>
+                                          <DialogDescription className="text-white mt-4">
+                                            Are you sure you want to unblock this
+                                            account? This will restore their access
+                                            to the key.
+                                          </DialogDescription>
+                                        </DialogHeader>
+                                        <DialogFooter>
+                                          <Button
+                                            type="button"
+                                            variant="outline"
+                                            onClick={() => setAccountToUnblock(null)}
+                                            className="border bg-transparent hover:bg-transparent cursor-pointer hover:text-white"
+                                          >
+                                            Cancel
+                                          </Button>
+                                          <Button
+                                            type="button"
+                                            variant="default"
+                                            onClick={() =>
+                                              confirmUnblockAccount(accountToUnblock!)
+                                            }
+                                            disabled={isUnblocking || isProcessing}
+                                            className="border bg-transparent hover:bg-transparent cursor-pointer !border-green-400 text-white"
+                                          >
+                                            {isUnblocking ? (
+                                              <Loader className="animate-spin mr-2" />
+                                            ) : null}
+                                            {isUnblocking
+                                              ? "Unblocking..."
+                                              : "Unblock Account"}
+                                          </Button>
+                                        </DialogFooter>
+                                      </DialogContent>
+                                    </Dialog>
+                                  )}
+                                </div>
+                              </div>
+                            ))
+                          ) : (
+                            <p className="text-center text-gray-400">
+                              No accounts found
+                            </p>
+                          )}
+                        </div>
+                      </DialogContent>
+                    </Dialog>
+                  )}
+
+                  {/* Extend Time Button with Modal */}
+                  <Dialog
+                    open={isExtendModalOpen}
+                    onOpenChange={setIsExtendModalOpen}
+                  >
+                    <DialogTrigger asChild>
+                      <div
+                        className="relative group cursor-pointer"
+                        onClick={() => handleExtendClick(keyItem)}
+                      >
+                        <GiDuration className="text-yellow-600 transition-transform duration-300 transform group-hover:scale-125" />
+                        <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gray-900 text-white text-xs rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+                          Extend Time
+                        </span>
+                      </div>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px] bg-[#1a233a] text-white">
+                      <DialogHeader>
+                        <DialogTitle>Extend License Key</DialogTitle>
+                        <DialogDescription>
+                          Extend the expiration date for key:{" "}
+                          {selectedKey?.key?.slice(0, 8)}...
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="grid gap-4 py-4">
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="minutes" className="text-right">
+                            Minutes
+                          </Label>
+                          <Input
+                            id="minutes"
+                            type="number"
+                            min="0"
+                            placeholder="0"
+                            onChange={(e) =>
+                              setExtendMinutes(Number(e.target.value))
+                            }
+                            className="col-span-3"
+                          />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="hours" className="text-right">
+                            Hours
+                          </Label>
+                          <Input
+                            id="hours"
+                            type="number"
+                            min="0"
+                            placeholder="0"
+                            onChange={(e) =>
+                              setExtendHours(Number(e.target.value))
+                            }
+                            className="col-span-3"
+                          />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label htmlFor="days" className="text-right">
+                            Days
+                          </Label>
+                          <Input
+                            id="days"
+                            type="number"
+                            min="0"
+                            placeholder="0"
+                            value={extendDays}
+                            onChange={(e) =>
+                              setExtendDays(Number(e.target.value))
+                            }
+                            className="col-span-3"
+                          />
+                        </div>
+                        <div className="grid grid-cols-4 items-center gap-4">
+                          <Label className="text-right">Total</Label>
+                          <div className="col-span-3 text-sm">
+                            {calculateTotalDays()} days
                           </div>
                         </div>
-                        <DialogFooter>
-                          <Button
-                            type="button"
-                            variant="outline"
-                            className="border bg-transparent hover:bg-transparent cursor-pointer hover:text-white"
-                            onClick={() => setIsExtendModalOpen(false)}
-                          >
-                            Cancel
-                          </Button>
-                          <Button
-                            type="button"
-                            onClick={() =>
-                              confirmExtend(selectedKey?.key || "")
-                            }
-                            disabled={isProcessing}
-                            className="border bg-transparent hover:bg-transparent cursor-pointer !border-blue-400"
-                          >
-                            {isProcessing ? "Extending..." : "Extend Key"}
-                          </Button>
-                        </DialogFooter>
-                      </DialogContent>
-                    </Dialog>
-
-                    {/* Delete Button with Modal */}
-                    <Dialog
-                      open={isDeleteModalOpen}
-                      onOpenChange={setIsDeleteModalOpen}
-                    >
-                      <DialogTrigger asChild>
-                        <div
-                          className="relative group cursor-pointer"
-                          onClick={() => handleDeleteClick(keyItem)}
+                      </div>
+                      <DialogFooter>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          className="border bg-transparent hover:bg-transparent cursor-pointer hover:text-white"
+                          onClick={() => setIsExtendModalOpen(false)}
                         >
-                          <MdDelete className="text-red-600 transition-transform duration-300 transform group-hover:scale-125" />
-                          <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gray-900 text-white text-xs rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-                            Delete
-                          </span>
-                        </div>
-                      </DialogTrigger>
-                      <DialogContent className="sm:max-w-[425px] bg-[#1a233a] text-white">
-                        <DialogHeader>
-                          <DialogTitle>Delete License Key</DialogTitle>
-                          <DialogDescription className="text-white mt-4">
-                            Are you sure you want to delete this key? This
-                            action cannot be undone.
-                          </DialogDescription>
-                        </DialogHeader>
-                        <DialogFooter>
-                          <Button
-                            type="button"
-                            variant="outline"
-                            onClick={() => setIsDeleteModalOpen(false)}
-                            className="border bg-transparent hover:bg-transparent cursor-pointer hover:text-white"
-                          >
-                            Cancel
-                          </Button>
-                          <Button
-                            type="button"
-                            variant="destructive"
-                            onClick={() =>
-                              confirmDelete(selectedKey?.key as string)
-                            }
-                            disabled={isProcessing}
-                            className="border bg-transparent hover:bg-transparent cursor-pointer !border-red-400 text-white"
-                          >
-                            {isProcessing ? "Deleting..." : "Delete Key"}
-                          </Button>
-                        </DialogFooter>
-                      </DialogContent>
-                    </Dialog>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+                          Cancel
+                        </Button>
+                        <Button
+                          type="button"
+                          onClick={() => confirmExtend(selectedKey?.key || "")}
+                          disabled={isProcessing}
+                          className="border bg-transparent hover:bg-transparent cursor-pointer !border-blue-400"
+                        >
+                          {isProcessing ? "Extending..." : "Extend Key"}
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+
+                  {/* Delete Button with Modal */}
+                  <Dialog
+                    open={isDeleteModalOpen}
+                    onOpenChange={setIsDeleteModalOpen}
+                  >
+                    <DialogTrigger asChild>
+                      <div
+                        className="relative group cursor-pointer"
+                        onClick={() => handleDeleteClick(keyItem)}
+                      >
+                        <MdDelete className="text-red-600 transition-transform duration-300 transform group-hover:scale-125" />
+                        <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap bg-gray-900 text-white text-xs rounded-md px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+                          Delete
+                        </span>
+                      </div>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px] bg-[#1a233a] text-white">
+                      <DialogHeader>
+                        <DialogTitle>Delete License Key</DialogTitle>
+                        <DialogDescription className="text-white mt-4">
+                          Are you sure you want to delete this key? This action
+                          cannot be undone.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <DialogFooter>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => setIsDeleteModalOpen(false)}
+                          className="border bg-transparent hover:bg-transparent cursor-pointer hover:text-white"
+                        >
+                          Cancel
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          onClick={() =>
+                            confirmDelete(selectedKey?.key as string)
+                          }
+                          disabled={isProcessing}
+                          className="border bg-transparent hover:bg-transparent cursor-pointer !border-red-400 text-white"
+                        >
+                          {isProcessing ? "Deleting..." : "Delete Key"}
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </div>
