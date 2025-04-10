@@ -1,5 +1,4 @@
 import DashboardContent from "@/components/Admin/AdminSideBar/DashboardContent";
-import KeyManagementTable from "@/components/Admin/KeyManagementTable";
 import KeyGeneratorForm from "@/components/Admin/KeyGeneratorForm";
 import AdminLayout from "@/layout/AdminLayout";
 import App from "@/pages/App";
@@ -20,11 +19,10 @@ import AdminPrivateRoute from "./AdminPrivateRoute";
 import Purchase from "@/pages/Purchase";
 import PaymentSuccess from "@/pages/paymentSucces";
 import Success from "@/pages/Success";
-
-import GeneratedKeyTable from "@/components/Admin/generatedKeyTable";
 import DownloadInstallProcess from "@/components/Home/DownloadInstallProcess";
 import Troubleshoot from "@/components/Home/Troubleshoot";
-
+import KeyManagement from "@/components/Admin/UserkeyTable/userKeys";
+import GeneratedKeys from "@/components/Admin/GeneratedKeyTable/GeneratedKeyTable";
 
 const routes = createBrowserRouter([
   {
@@ -144,7 +142,8 @@ const routes = createBrowserRouter([
         path: "my-generated-keys",
         element: (
           <AdminPrivateRoute>
-            <GeneratedKeyTable />
+            {/* <GeneratedKeyTable /> */}
+            <GeneratedKeys />
           </AdminPrivateRoute>
         ),
       },
@@ -160,7 +159,7 @@ const routes = createBrowserRouter([
         path: "key-table",
         element: (
           <AdminPrivateRoute>
-            <KeyManagementTable />
+            <KeyManagement />
           </AdminPrivateRoute>
         ),
       },

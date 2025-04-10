@@ -65,7 +65,7 @@ export default function CreateKeyForm() {
     const payload = {
       keyName: formData.keyName,
       badge: formData.badge,
-      description:formData.description,
+      description: formData.description,
       duration: Number(formData.duration),
       users: { serviceKey: 5, regularKey: 1 },
       prices: {
