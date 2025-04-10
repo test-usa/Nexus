@@ -20,7 +20,7 @@ const AdminPrivateRoute = ({ children }: { children: ReactNode }) => {
     return children;
   }
 
-  return <Navigate state={location?.pathname} to="/signin" replace />;
+  return <Navigate state={location?.pathname} to="/adminlogin" replace />;
 };
 
 export default AdminPrivateRoute;

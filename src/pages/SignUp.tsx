@@ -122,7 +122,7 @@ const SignUp = () => {
       <p className=" text-center text-xs sm:text-[16px] my-7 text-gray-400">
         Already a member? -{" "}
         <Link
-          to="/signin"
+          to="/adminlogin"
           className=" underline hover:text-gray-400 transform translate-all duration-200 text-transparent bg-clip-text bg-gradient-to-br from-[#CDADFA] via-cyan-500 to-[#B5A2D8]"
         >
           Sign in now!

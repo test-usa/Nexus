@@ -24,7 +24,7 @@ const userStore = create<IUserStore>()(
           );
           if (data?.success) {
             // success toast show
-            navigate("/signin");
+            navigate("/adminlogin");
             toast.success(data?.message);
           }
         } catch (error: any) {

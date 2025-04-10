@@ -30,7 +30,7 @@ const useAxiosSecure = () => {
         );
         if (error.response?.status === 401 || error.response?.status === 403) {
           await logout_user();
-          navigate("/signin");
+          navigate("/adminlogin");
           toast.error(error.response.data.message);
         }
         return Promise.reject(error);
