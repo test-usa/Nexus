@@ -50,13 +50,11 @@ import {
     selectedKeyType,
     setSelectedKeyType,
     keyTypes,
-    filteredKeys,
     setFilteredKeys,
     count,
     setCount,
     isChecked,
     setIsChecked,
-    email,
     handleGenerateKeys,
     isGenerating,
   }: GenerateKeysModalProps) => {

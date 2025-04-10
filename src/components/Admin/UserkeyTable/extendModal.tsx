@@ -31,8 +31,6 @@ import {
     keyItem,
     isExtendModalOpen,
     setIsExtendModalOpen,
-    extendMinutes,
-    extendHours,
     extendDays,
     setExtendMinutes,
     setExtendHours,
