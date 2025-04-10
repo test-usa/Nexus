@@ -51,7 +51,6 @@ const userStore = create<IUserStore>()(
             // success toast show
             set({ user: data?.data?.data });
             sessionStorage.setItem("token", data?.data?.accessToken);
-            console.log(data, "login use from zustand");
             toast.success(data?.message);
             navigate("/");
           }
@@ -76,13 +75,11 @@ const userStore = create<IUserStore>()(
             if (data.success) {
               // success toast show
               // set({ user: data.user });
-              console.log(data, "success auth data");
               toast.success("Signin successfull");
               sessionStorage.setItem("token", token);
             }
           }
         } catch (error) {
-          console.log(error, "auth signin error");
           toast.success("Signin incomplete, try again");
         }
       },

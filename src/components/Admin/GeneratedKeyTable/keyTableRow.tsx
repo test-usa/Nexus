@@ -1,8 +1,9 @@
+// src/components/shared/KeyTableRow.tsx
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import AccountsModal from "./accountsModal";
 import DeleteModal from "./deleteKeyModal";
 import ExtendModal from "./extendModal";
+import AccountsModal from "./accountsModal";
 
 interface LicenseKey {
   key: string;
@@ -33,9 +34,9 @@ interface KeyTableRowProps {
   extendMinutes: number;
   extendHours: number;
   extendDays: number;
-  setExtendMinutes: (minutes: number) => void;
   setExtendHours: (hours: number) => void;
   setExtendDays: (days: number) => void;
+  setExtendMinutes: (days: number) => void;
   calculateTotalDays: () => number;
   confirmExtend: (key: string) => Promise<void>;
   confirmDelete: (key: string) => Promise<void>;

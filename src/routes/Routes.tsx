@@ -178,7 +178,7 @@ const routes = createBrowserRouter([
   //   element: <SignUp />,
   // },
   {
-    path: "/signin",
+    path: "/adminlogin",
     element: <SignIn />,
   },
 ]);

@@ -1,3 +1,4 @@
+// src/components/KeyManagement/KeyManagement.tsx
 import { useEffect, useState } from "react";
 import { Table, TableBody } from "@/components/ui/table";
 import { Loader } from "lucide-react";
@@ -30,10 +31,9 @@ const KeyManagement = () => {
   const [revealedKeys, setRevealedKeys] = useState<
     Record<number, { email: boolean; key: boolean }>
   >({});
-  const [selectedKey, setSelectedKey] = useState<LicenseKey | null>(null);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [isExtendModalOpen, setIsExtendModalOpen] = useState(false);
-  const [isAccountsModalOpen, setIsAccountsModalOpen] = useState(false);
+  const [openDeleteModalKey, setOpenDeleteModalKey] = useState<string | null>(null); // Track which key's delete modal is open
+  const [openExtendModalKey, setOpenExtendModalKey] = useState<string | null>(null); // Track which key's extend modal is open
+  const [openAccountsModalKey, setOpenAccountsModalKey] = useState<string | null>(null); // Track which key's accounts modal is open
   const [extendDays, setExtendDays] = useState(30);
   const [extendMinutes, setExtendMinutes] = useState(0);
   const [extendHours, setExtendHours] = useState(0);
@@ -110,7 +110,7 @@ const KeyManagement = () => {
       toast.error("Failed to extend key");
     } finally {
       setIsProcessing(false);
-      setIsExtendModalOpen(false);
+      setOpenExtendModalKey(null); // Close the modal
       setExtendMinutes(0);
       setExtendHours(0);
       setExtendDays(0);
@@ -131,22 +131,20 @@ const KeyManagement = () => {
       });
     } finally {
       setIsProcessing(false);
-      setIsDeleteModalOpen(false);
+      setOpenDeleteModalKey(null); // Close the modal
     }
   };
 
-  const confirmBlockAccount = async (accountId: string) => {
-    if (!selectedKey) return;
-
+  const confirmBlockAccount = async (accountId: string, key: string) => {
     try {
       setIsProcessing(true);
       blockAccount(
-        { key: selectedKey.key, accountId },
+        { key, accountId },
         {
           onSuccess: () => {
             toast.success(`Account ${accountId} blocked successfully`);
             refetch();
-            setIsAccountsModalOpen(false);
+            setOpenAccountsModalKey(null); // Close the modal
           },
           onError: (error: any) => {
             toast.error(
@@ -161,18 +159,16 @@ const KeyManagement = () => {
     }
   };
 
-  const confirmUnblockAccount = async (accountId: string) => {
-    if (!selectedKey) return;
-
+  const confirmUnblockAccount = async (accountId: string, key: string) => {
     try {
       setIsProcessing(true);
       unblockAccount(
-        { key: selectedKey.key, accountId },
+        { key, accountId },
         {
           onSuccess: () => {
             toast.success(`Account ${accountId} unblocked successfully`);
             refetch();
-            setIsAccountsModalOpen(false);
+            setOpenAccountsModalKey(null); // Close the modal
           },
           onError: (error: any) => {
             toast.error(
@@ -214,26 +210,23 @@ const KeyManagement = () => {
           <TableBody>
             {currentKeys.map((keyItem, index) => (
               <KeyTableRow
-                key={index}
+                key={keyItem.key} // Use keyItem.key as the unique key
                 keyItem={keyItem}
                 index={index}
                 offset={offset}
                 revealedKeys={revealedKeys}
                 toggleReveal={toggleReveal}
-                isAccountsModalOpen={isAccountsModalOpen}
+                isAccountsModalOpen={openAccountsModalKey === keyItem.key}
                 setIsAccountsModalOpen={(open) => {
-                  setIsAccountsModalOpen(open);
-                  if (open) setSelectedKey(keyItem);
+                  setOpenAccountsModalKey(open ? keyItem.key : null);
                 }}
-                isExtendModalOpen={isExtendModalOpen}
+                isExtendModalOpen={openExtendModalKey === keyItem.key}
                 setIsExtendModalOpen={(open) => {
-                  setIsExtendModalOpen(open);
-                  if (open) setSelectedKey(keyItem);
+                  setOpenExtendModalKey(open ? keyItem.key : null);
                 }}
-                isDeleteModalOpen={isDeleteModalOpen}
+                isDeleteModalOpen={openDeleteModalKey === keyItem.key}
                 setIsDeleteModalOpen={(open) => {
-                  setIsDeleteModalOpen(open);
-                  if (open) setSelectedKey(keyItem);
+                  setOpenDeleteModalKey(open ? keyItem.key : null);
                 }}
                 extendMinutes={extendMinutes}
                 extendHours={extendHours}
@@ -251,8 +244,12 @@ const KeyManagement = () => {
                 accountToUnblock={accountToUnblock}
                 setAccountToBlock={setAccountToBlock}
                 setAccountToUnblock={setAccountToUnblock}
-                confirmBlockAccount={confirmBlockAccount}
-                confirmUnblockAccount={confirmUnblockAccount}
+                confirmBlockAccount={(accountId) =>
+                  confirmBlockAccount(accountId, keyItem.key)
+                }
+                confirmUnblockAccount={(accountId) =>
+                  confirmUnblockAccount(accountId, keyItem.key)
+                }
               />
             ))}
           </TableBody>

@@ -1,9 +1,9 @@
+// src/components/shared/KeyTableRow.tsx
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import ExtendModal from "./extendModal";
-import DeleteModal from "./deleteKeyModal";
 import AccountsModal from "./accountsModal";
-
+import DeleteModal from "./deleteKeyModal";
+import ExtendModal from "./extendModal";
 
 interface LicenseKey {
   key: string;
@@ -34,9 +34,9 @@ interface KeyTableRowProps {
   extendMinutes: number;
   extendHours: number;
   extendDays: number;
-  setExtendMinutes: (minutes: number) => void;
   setExtendHours: (hours: number) => void;
   setExtendDays: (days: number) => void;
+  setExtendMinutes: (days: number) => void;
   calculateTotalDays: () => number;
   confirmExtend: (key: string) => Promise<void>;
   confirmDelete: (key: string) => Promise<void>;
@@ -89,18 +89,21 @@ const KeyTableRow = ({
   confirmBlockAccount,
   confirmUnblockAccount,
 }: KeyTableRowProps) => {
-  const status = keyItem.expiresAt === null
-    ? "Not Redeemed"
-    : keyItem.expiresAt === "Lifetime"
-    ? "Active"
-    : isKeyExpired(keyItem.expiresAt)
-    ? "Expired"
-    : "Active";
+  const status =
+    keyItem.expiresAt === null
+      ? "Not Redeemed"
+      : keyItem.expiresAt === "Lifetime"
+      ? "Active"
+      : isKeyExpired(keyItem.expiresAt)
+      ? "Expired"
+      : "Active";
 
   return (
     <TableRow
       className={`hover:bg-[var(--color-bghovercolor)] hover:text-[var(--color-hovertext)] ${
-        index % 2 === 0 ? "bg-[var(--color-oddcolor)]" : "bg-[var(--color-evencolor)]"
+        index % 2 === 0
+          ? "bg-[var(--color-oddcolor)]"
+          : "bg-[var(--color-evencolor)]"
       }`}
     >
       <TableCell className="font-medium px-6 sm:px-6 py-6 text-[16px]">

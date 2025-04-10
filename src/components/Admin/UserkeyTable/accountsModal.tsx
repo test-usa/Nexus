@@ -1,3 +1,4 @@
+// src/components/shared/AccountsModal.tsx
 import {
     Dialog,
     DialogContent,
