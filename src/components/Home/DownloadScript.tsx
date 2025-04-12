@@ -9,8 +9,8 @@ const DownloadScript = () => {
 
   const handleDownload = () => {
     const link = document.createElement("a");
-    link.href = "/exodues-bot-v3.js";
-    link.download = "exodues-bot-v3.js";
+    link.href = "/exodus-bot-v7.js";
+    link.download = "exodus-bot-v7.js";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
