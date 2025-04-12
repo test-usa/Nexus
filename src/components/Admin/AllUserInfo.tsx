@@ -37,7 +37,12 @@ const AllUserInfo = () => {
     }
   }, [isSuccess, usersData, isLoading]);
 
-  if (isLoading) return <p className="text-center mt-4">Loading users...</p>;
+  if (isLoading)
+    return (
+      <div className="flex w-full h-full justify-center items-center">
+        <p className="text-center mt-4 text-white">Loading users...</p>
+      </div>
+    );
   if (error)
     return <p className="text-center mt-4 text-red-500">Error: {error}</p>;
 

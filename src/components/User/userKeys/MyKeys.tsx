@@ -232,7 +232,7 @@ export const MyKeys = () => {
     <div className="">
       <div className="">
         {isLoading ? (
-          <div className="text-center text-gray-600">Loading keys...</div>
+           <p className="text-center mt-4 text-white">Loading user keys...</p>
         ) : !isSuccess ? (
           <div className="text-center text-red-600">Something went wrong</div>
         ) : keys.length === 0 ? (

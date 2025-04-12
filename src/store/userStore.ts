@@ -84,7 +84,7 @@ const userStore = create<IUserStore>()(
         set({ user: null, token: null });
         sessionStorage.removeItem("token");
         if (!sessionStorage.getItem("token")) {
-          toast.success("signout successfull");
+          toast.success("signout successful");
         }
       },
     }),

@@ -77,7 +77,11 @@ const DashboardContent = () => {
 
   // Handle loading state
   if (isUsersLoading || isPaymentsLoading || isActivesLoading) {
-    return <p className="text-center mt-4">Loading...</p>;
+    return (
+      <div className="flex w-full h-full justify-center items-center">
+        <p className="text-center mt-4 text-white">Loading...</p>
+      </div>
+    );
   }
 
   if (error) {
