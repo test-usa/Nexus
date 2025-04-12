@@ -229,7 +229,7 @@ const KeyManagement = () => {
     return (
       <div className="flex justify-center items-center h-screen">
         <Loader className="animate-spin w-6 h-6" />
-        <span className="ml-2">Loading keys data</span>
+        <p className="text-center mt-4 text-white">Loading user keys...</p>
       </div>
     );
   }

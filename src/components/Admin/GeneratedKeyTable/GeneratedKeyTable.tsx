@@ -261,7 +261,7 @@ const GeneratedKeyTable = () => {
         extendedDuration: calculateTotalDays(),
         key,
       };
-  
+
       await extendDuration(payload, {
         onSuccess: (response: any) => {
           const message = response.data.isRedeemed
@@ -292,7 +292,7 @@ const GeneratedKeyTable = () => {
     return (
       <div className="flex justify-center items-center h-screen">
         <Loader className="animate-spin w-6 h-6" />
-        <span className="ml-2">Loading user data...</span>
+        <p className="text-center mt-4 text-white">Loading generated keys...</p>
       </div>
     );
   }
