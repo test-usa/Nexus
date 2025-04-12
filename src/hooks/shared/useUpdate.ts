@@ -25,7 +25,6 @@ const useUpdate = <T, V>(route: string, queryKey?: string) => {
       if (queryKey) {
         queryClient.invalidateQueries({ queryKey: [queryKey] });
       }
-      toast.success(data.message || "Update successful!");
       console.log("Update success:", data);
     },
     onError: (error: any) => {

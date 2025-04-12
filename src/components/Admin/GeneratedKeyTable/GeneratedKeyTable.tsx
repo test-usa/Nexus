@@ -7,10 +7,11 @@ import usePost from "@/hooks/shared/usePost";
 import useUpdate from "@/hooks/shared/useUpdate";
 import useDelete from "@/hooks/shared/useDelete";
 import { toast } from "sonner";
-import GenerateKeysModal from "./GenerateKeysModal";
+import ExtendAllKeysModal from "./extendAllKeysModal";
 import KeyTableHeader from "./KeyTableHeader";
 import KeyTableRow from "./keyTableRow";
 import Pagination from "./pagination";
+import GenerateKeysModal from "./GenerateKeysModal";
 
 interface LicenseKey {
   key: string;
@@ -47,13 +48,14 @@ const GeneratedKeyTable = () => {
   >({});
   const [openDeleteModalKey, setOpenDeleteModalKey] = useState<string | null>(
     null
-  ); // Track which key's delete modal is open
+  );
   const [openExtendModalKey, setOpenExtendModalKey] = useState<string | null>(
     null
-  ); // Track which key's extend modal is open
+  );
   const [openAccountsModalKey, setOpenAccountsModalKey] = useState<
     string | null
-  >(null); // Track which key's accounts modal is open
+  >(null);
+  const [isExtendAllModalOpen, setIsExtendAllModalOpen] = useState(false); // State for the new modal
   const [extendDays, setExtendDays] = useState(30);
   const [extendMinutes, setExtendMinutes] = useState(0);
   const [extendHours, setExtendHours] = useState(0);
@@ -62,7 +64,6 @@ const GeneratedKeyTable = () => {
   const [accountToBlock, setAccountToBlock] = useState<string | null>(null);
   const [accountToUnblock, setAccountToUnblock] = useState<string | null>(null);
 
-  // New state for generate keys form
   const [count, setCount] = useState<number>(1);
   const [email, setEmail] = useState<string>();
   const [filteredKeys, setFilteredKeys] = useState<TSinglePriceData[]>([]);
@@ -76,6 +77,9 @@ const GeneratedKeyTable = () => {
   const { mutate: extendDuration } = useUpdate<any, any>(
     "/user-key/extend-duration"
   );
+  const { mutate: extendAllKeys } = useUpdate<any, any>(
+    "/user-key/extend-all-keys"
+  );
   const { mutate: blockAccount, isPending: isBlocking } = useUpdate<any, any>(
     "/user-key/block-account"
   );
@@ -88,10 +92,7 @@ const GeneratedKeyTable = () => {
   );
   const { mutate: deleteKey } = useDelete("/user-key/delete-key/");
 
-  // Fetch key types for generation form
   const { data: keyTypes = [] } = useFetch(`/key/all-key`);
-
-  // Fetch user data
   const { data: userData, isLoading: isUserLoading } =
     useFetch("user/get-self");
 
@@ -131,7 +132,7 @@ const GeneratedKeyTable = () => {
       });
     } finally {
       setIsProcessing(false);
-      setOpenDeleteModalKey(null); // Close the modal
+      setOpenDeleteModalKey(null);
     }
   };
 
@@ -144,7 +145,7 @@ const GeneratedKeyTable = () => {
           onSuccess: () => {
             toast.success(`Account ${accountId} blocked successfully`);
             refetch();
-            setOpenAccountsModalKey(null); // Close the modal
+            setOpenAccountsModalKey(null);
           },
           onError: (error: any) => {
             toast.error(
@@ -168,7 +169,7 @@ const GeneratedKeyTable = () => {
           onSuccess: () => {
             toast.success(`Account ${accountId} unblocked successfully`);
             refetch();
-            setOpenAccountsModalKey(null); // Close the modal
+            setOpenAccountsModalKey(null);
           },
           onError: (error: any) => {
             toast.error(
@@ -208,6 +209,33 @@ const GeneratedKeyTable = () => {
     });
   };
 
+  const handleExtendAllKeys = async () => {
+    setIsProcessing(true);
+    try {
+      const payload = {
+        extendedDuration: calculateTotalDays(),
+      };
+
+      await extendAllKeys(payload, {
+        onSuccess: () => {
+          toast.success(`All keys extended successfully`);
+          refetch();
+        },
+        onError: (error: any) => {
+          toast.error(error.message || "Failed to extend all keys");
+        },
+      });
+    } catch (error) {
+      toast.error("Failed to extend all keys");
+    } finally {
+      setIsProcessing(false);
+      setIsExtendAllModalOpen(false);
+      setExtendMinutes(0);
+      setExtendHours(0);
+      setExtendDays(0);
+    }
+  };
+
   const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected);
   };
@@ -233,10 +261,13 @@ const GeneratedKeyTable = () => {
         extendedDuration: calculateTotalDays(),
         key,
       };
-
+  
       await extendDuration(payload, {
-        onSuccess: () => {
-          toast.success(`Key extended successfully`);
+        onSuccess: (response: any) => {
+          const message = response.data.isRedeemed
+            ? "Key duration and expiration extended successfully"
+            : "Key duration extended successfully (expiration not updated as key is not redeemed)";
+          toast.success(message);
           refetch();
         },
         onError: (error: any) => {
@@ -247,7 +278,7 @@ const GeneratedKeyTable = () => {
       toast.error("Failed to extend key");
     } finally {
       setIsProcessing(false);
-      setOpenExtendModalKey(null); // Close the modal
+      setOpenExtendModalKey(null);
       setExtendMinutes(0);
       setExtendHours(0);
       setExtendDays(0);
@@ -276,22 +307,37 @@ const GeneratedKeyTable = () => {
         <h1 className="text-2xl font-medium tracking-wide mt-4 text-[var(--color-textcolor)]">
           All Generated Keys
         </h1>
-        <GenerateKeysModal
-          isGenerateModalOpen={isGenerateModalOpen}
-          setIsGenerateModalOpen={setIsGenerateModalOpen}
-          selectedKeyType={selectedKeyType}
-          setSelectedKeyType={setSelectedKeyType}
-          keyTypes={keyTypes?.data || []}
-          filteredKeys={filteredKeys}
-          setFilteredKeys={setFilteredKeys}
-          count={count}
-          setCount={setCount}
-          isChecked={isChecked}
-          setIsChecked={setIsChecked}
-          email={email}
-          handleGenerateKeys={handleGenerateKeys}
-          isGenerating={isGenerating}
-        />
+        <div className="flex gap-3">
+          <GenerateKeysModal
+            isGenerateModalOpen={isGenerateModalOpen}
+            setIsGenerateModalOpen={setIsGenerateModalOpen}
+            selectedKeyType={selectedKeyType}
+            setSelectedKeyType={setSelectedKeyType}
+            keyTypes={keyTypes?.data || []}
+            filteredKeys={filteredKeys}
+            setFilteredKeys={setFilteredKeys}
+            count={count}
+            setCount={setCount}
+            isChecked={isChecked}
+            setIsChecked={setIsChecked}
+            email={email}
+            handleGenerateKeys={handleGenerateKeys}
+            isGenerating={isGenerating}
+          />
+          <ExtendAllKeysModal
+            isExtendAllModalOpen={isExtendAllModalOpen}
+            setIsExtendAllModalOpen={setIsExtendAllModalOpen}
+            extendMinutes={extendMinutes}
+            extendHours={extendHours}
+            extendDays={extendDays}
+            setExtendMinutes={setExtendMinutes}
+            setExtendHours={setExtendHours}
+            setExtendDays={setExtendDays}
+            calculateTotalDays={calculateTotalDays}
+            handleExtendAllKeys={handleExtendAllKeys}
+            isProcessing={isProcessing}
+          />
+        </div>
       </div>
 
       <div className="overflow-x-auto text-[var(--color-textsecondarycolor)]">
@@ -300,7 +346,7 @@ const GeneratedKeyTable = () => {
           <TableBody>
             {currentKeys.map((keyItem, index) => (
               <KeyTableRow
-                key={keyItem.key} // Use keyItem.key as the unique key
+                key={keyItem.key}
                 keyItem={keyItem}
                 index={index}
                 offset={offset}

@@ -1,4 +1,3 @@
-// src/components/KeyManagement/KeyManagement.tsx
 import { useEffect, useState } from "react";
 import { Table, TableBody } from "@/components/ui/table";
 import { Loader } from "lucide-react";
@@ -9,7 +8,7 @@ import { toast } from "sonner";
 import KeyTableHeader from "./KeyTableHeader";
 import KeyTableRow from "./keyTableRow";
 import Pagination from "./pagination";
-
+import ExtendAllKeysModal from "./extendAllKeysModal";
 
 interface LicenseKey {
   key: string;
@@ -31,9 +30,16 @@ const KeyManagement = () => {
   const [revealedKeys, setRevealedKeys] = useState<
     Record<number, { email: boolean; key: boolean }>
   >({});
-  const [openDeleteModalKey, setOpenDeleteModalKey] = useState<string | null>(null); // Track which key's delete modal is open
-  const [openExtendModalKey, setOpenExtendModalKey] = useState<string | null>(null); // Track which key's extend modal is open
-  const [openAccountsModalKey, setOpenAccountsModalKey] = useState<string | null>(null); // Track which key's accounts modal is open
+  const [openDeleteModalKey, setOpenDeleteModalKey] = useState<string | null>(
+    null
+  );
+  const [openExtendModalKey, setOpenExtendModalKey] = useState<string | null>(
+    null
+  );
+  const [openAccountsModalKey, setOpenAccountsModalKey] = useState<
+    string | null
+  >(null);
+  const [isExtendAllModalOpen, setIsExtendAllModalOpen] = useState(false); // State for the new modal
   const [extendDays, setExtendDays] = useState(30);
   const [extendMinutes, setExtendMinutes] = useState(0);
   const [extendHours, setExtendHours] = useState(0);
@@ -46,6 +52,9 @@ const KeyManagement = () => {
   const { mutate: extendDuration } = useUpdate<any, any>(
     "/user-key/extend-duration"
   );
+  const { mutate: extendAllKeys } = useUpdate<any, any>(
+    "/user-key/extend-all-keys"
+  ); // New hook for extending all keys
   const { mutate: deleteKey } = useDelete("/user-key/delete-key/");
   const { mutate: blockAccount, isPending: isBlocking } = useUpdate<any, any>(
     "/user-key/block-account"
@@ -98,8 +107,11 @@ const KeyManagement = () => {
       };
 
       await extendDuration(payload, {
-        onSuccess: () => {
-          toast.success(`Key extended successfully`);
+        onSuccess: (response: any) => {
+          const message = response.data.isRedeemed
+            ? "Key duration and expiration extended successfully"
+            : "Key duration extended successfully (expiration not updated as key is not redeemed)";
+          toast.success(message);
           refetch();
         },
         onError: (error: any) => {
@@ -110,7 +122,34 @@ const KeyManagement = () => {
       toast.error("Failed to extend key");
     } finally {
       setIsProcessing(false);
-      setOpenExtendModalKey(null); // Close the modal
+      setOpenExtendModalKey(null);
+      setExtendMinutes(0);
+      setExtendHours(0);
+      setExtendDays(0);
+    }
+  };
+
+  const handleExtendAllKeys = async () => {
+    setIsProcessing(true);
+    try {
+      const payload = {
+        extendedDuration: calculateTotalDays(),
+      };
+
+      await extendAllKeys(payload, {
+        onSuccess: () => {
+          toast.success(`All redeemed keys extended successfully`);
+          refetch();
+        },
+        onError: (error: any) => {
+          toast.error(error.message || "Failed to extend all redeemed keys");
+        },
+      });
+    } catch (error) {
+      toast.error("Failed to extend all redeemed keys");
+    } finally {
+      setIsProcessing(false);
+      setIsExtendAllModalOpen(false);
       setExtendMinutes(0);
       setExtendHours(0);
       setExtendDays(0);
@@ -131,7 +170,7 @@ const KeyManagement = () => {
       });
     } finally {
       setIsProcessing(false);
-      setOpenDeleteModalKey(null); // Close the modal
+      setOpenDeleteModalKey(null);
     }
   };
 
@@ -144,7 +183,7 @@ const KeyManagement = () => {
           onSuccess: () => {
             toast.success(`Account ${accountId} blocked successfully`);
             refetch();
-            setOpenAccountsModalKey(null); // Close the modal
+            setOpenAccountsModalKey(null);
           },
           onError: (error: any) => {
             toast.error(
@@ -168,7 +207,7 @@ const KeyManagement = () => {
           onSuccess: () => {
             toast.success(`Account ${accountId} unblocked successfully`);
             refetch();
-            setOpenAccountsModalKey(null); // Close the modal
+            setOpenAccountsModalKey(null);
           },
           onError: (error: any) => {
             toast.error(
@@ -201,16 +240,33 @@ const KeyManagement = () => {
 
   return (
     <div className="pl-12 pr-12 pt-12 -sm:pr-5">
-      <h1 className="text-2xl font-medium tracking-wide mb-5 mt-4 text-[var(--color-textcolor)]">
-        All User Keys
-      </h1>
+      <div className="flex justify-between items-center mb-5">
+        <h1 className="text-2xl font-medium tracking-wide mt-4 text-[var(--color-textcolor)]">
+          All User Keys
+        </h1>
+        <div className="flex gap-3">
+          <ExtendAllKeysModal
+            isExtendAllModalOpen={isExtendAllModalOpen}
+            setIsExtendAllModalOpen={setIsExtendAllModalOpen}
+            extendMinutes={extendMinutes}
+            extendHours={extendHours}
+            extendDays={extendDays}
+            setExtendMinutes={setExtendMinutes}
+            setExtendHours={setExtendHours}
+            setExtendDays={setExtendDays}
+            calculateTotalDays={calculateTotalDays}
+            handleExtendAllKeys={handleExtendAllKeys}
+            isProcessing={isProcessing}
+          />
+        </div>
+      </div>
       <div className="overflow-x-auto text-[var(--color-textsecondarycolor)]">
         <Table className="rounded-sm shadow-lg overflow-hidden">
           <KeyTableHeader />
           <TableBody>
             {currentKeys.map((keyItem, index) => (
               <KeyTableRow
-                key={keyItem.key} // Use keyItem.key as the unique key
+                key={keyItem.key}
                 keyItem={keyItem}
                 index={index}
                 offset={offset}

@@ -64,7 +64,6 @@ const userStore = create<IUserStore>()(
       auth: async (userData: IAuth) => {
         const { name, email, token } = userData;
 
-        console.log(userData, "46 no linneeeeee");
         const axiosPublic = useAxiosPublic();
         try {
           if (userData) {
@@ -73,8 +72,6 @@ const userStore = create<IUserStore>()(
               email,
             });
             if (data.success) {
-              // success toast show
-              // set({ user: data.user });
               toast.success("Signin successfull");
               sessionStorage.setItem("token", token);
             }
