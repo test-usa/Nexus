@@ -21,9 +21,12 @@ type PricingData = {
 };
 
 const Pricing = () => {
-  const { data } = useFetch("/key/all-key");
+  const { data } = useFetch("/key/all-listed-key");
   return (
-    <Element name="Pricing" className="font-montserrat  relative z-30 bg-[#182029]">
+    <Element
+      name="Pricing"
+      className="font-montserrat  relative z-30 bg-[#182029]"
+    >
       <CommonWrapper>
         <Title
           title="All hacks and features for Edgenuity, for every price."
@@ -48,7 +51,7 @@ const Pricing = () => {
                   {price?.keyName}
                 </h1>
                 <p className="text-sm sm:text-[16px] text-[var(--color-textsecondarycolor)]">
-                  {price?.description} 
+                  {price?.description}
                 </p>
                 <p className="text-xl sm:text-3xl font-semibold bg-gradient-to-r from-gray-400 to-slate-600 via-green-500 text-transparent bg-clip-text">
                   ${price.prices.regularKey} {price.currency} USD

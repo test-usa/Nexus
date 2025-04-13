@@ -8,6 +8,7 @@ interface FormData {
   regularKey: string;
   serviceKey: string;
   description: string;
+  isListed: boolean;
 }
 
 export default function CreateKeyForm() {
@@ -18,6 +19,7 @@ export default function CreateKeyForm() {
     duration: "",
     regularKey: "",
     serviceKey: "",
+    isListed: true, // Default to true (listed)
   });
   const [authToken, setAuthToken] = useState<string | null>(null);
 
@@ -31,8 +33,11 @@ export default function CreateKeyForm() {
   }, []);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -49,7 +54,9 @@ export default function CreateKeyForm() {
       !formData.regularKey ||
       !formData.serviceKey
     ) {
-      toast.error("All fields are required.");
+      toast.error(
+        "Key name, duration, regular key price, and service key price are required."
+      );
       return;
     }
 
@@ -72,6 +79,7 @@ export default function CreateKeyForm() {
         regularKey: Number(formData.regularKey),
         serviceKey: Number(formData.serviceKey),
       },
+      isListed: formData.isListed, // Include listed field
     };
 
     try {
@@ -86,14 +94,13 @@ export default function CreateKeyForm() {
           body: JSON.stringify(payload),
         }
       );
-      console.log(response);
       const result = await response.json();
 
       if (!response.ok) {
         throw new Error(result.message || "Failed to create key");
       }
 
-      toast.success("Key created successfully!"); // Show success toast
+      toast.success("Key created successfully!");
       setFormData({
         keyName: "",
         badge: "",
@@ -101,6 +108,7 @@ export default function CreateKeyForm() {
         duration: "",
         regularKey: "",
         serviceKey: "",
+        isListed: true, // Reset to true
       });
     } catch (error: any) {
       toast.error(error.message || "An unexpected error occurred.");
@@ -108,20 +116,40 @@ export default function CreateKeyForm() {
   };
 
   return (
-    <div className="max-w-lg  text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)] mx-auto mt-32 p-6 rounded-xl shadow-lg">
+    <div className="max-w-lg text-[var(--color-textcolor)] bg-[var(--color-dashboardsecondary)] mx-auto mt-24  p-6 rounded-xl shadow-lg">
       <h2 className="text-2xl font-semibold mb-5">Create Subscription Key</h2>
       <form
         onSubmit={handleSubmit}
         className="space-y-4 text-[var(--color-textcolor)] text-lg"
       >
         {[
-          { label: "Key Name", name: "keyName", type: "text" },
-          { label: "Badge Name", name: "badge", type: "text" },
-          { label: "Key Description", name: "description", type: "text" },
-          { label: "Duration (Days)", name: "duration", type: "number" },
-          { label: "Regular Key Price", name: "regularKey", type: "number" },
-          { label: "Service Key Price", name: "serviceKey", type: "number" },
-        ].map(({ label, name, type }) => (
+          { label: "Key Name", name: "keyName", type: "text", required: true },
+          { label: "Badge Name", name: "badge", type: "text", required: false },
+          {
+            label: "Key Description",
+            name: "description",
+            type: "text",
+            required: false,
+          },
+          {
+            label: "Duration (Days)",
+            name: "duration",
+            type: "number",
+            required: true,
+          },
+          {
+            label: "Regular Key Price",
+            name: "regularKey",
+            type: "number",
+            required: true,
+          },
+          {
+            label: "Service Key Price",
+            name: "serviceKey",
+            type: "number",
+            required: true,
+          },
+        ].map(({ label, name, type, required }) => (
           <div key={name}>
             <label className="block font-medium mb-2">{label}</label>
             <input
@@ -130,10 +158,27 @@ export default function CreateKeyForm() {
               value={formData[name as keyof FormData]}
               onChange={handleChange}
               className="w-full p-3 border border-gray-500 rounded bg-gray-300 text-black focus:ring-2 focus:ring-gray-300 focus:outline-none transition-all"
-              required
+              required={required}
             />
           </div>
         ))}
+        <div>
+          <label className="block font-medium mb-2">
+            List for Public Purchase
+          </label>
+          <input
+            type="checkbox"
+            name="listed"
+            defaultChecked={formData.isListed}
+            onChange={handleChange}
+            className="h-5 w-5 text-[var(--color-hovertext)] focus:ring-[var(--color-hovertext)] border-gray-500 rounded"
+          />
+          <span className="ml-2 text-sm">
+            {formData.isListed
+              ? "Listed (Visible on Homepage)"
+              : "Unlisted (Hidden from Homepage)"}
+          </span>
+        </div>
 
         <button
           type="submit"
