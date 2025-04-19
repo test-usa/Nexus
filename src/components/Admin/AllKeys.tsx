@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/table";
 import { toast } from "sonner";
 
-const API_BASE_URL = "http://localhost:4000/api/v1/key";
+const API_BASE_URL = "http://localhost:4000/api/v1/key"
 
 interface LicenseKey {
   _id: string;
